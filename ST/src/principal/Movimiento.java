@@ -1,5 +1,7 @@
 package principal;
 
+import java.awt.Color;
+
 public class Movimiento {
 	
 	private String nombre;
@@ -8,6 +10,7 @@ public class Movimiento {
 	private int precisión;	//Probabilidad de que el movimiento acierte.
 	private int pp;			//Puntos de Poder. Número máximo de veces que se puede usar un movimiento.
 	private int ppRestantes;//Número de veces restante que se puede usar el movimiento.
+	private Color color; //Color del movimiento en la ventana de ataque
 	
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp) {
 		this.nombre = nombre;
@@ -17,6 +20,63 @@ public class Movimiento {
 		this.pp = pp;
 		this.ppRestantes = pp;
 	}
+	
+//	COLORES
+//		if (tipo.ACERO) {
+//			setColor(Color.GRAY);
+//		}
+//		if (tipo.AGUA) {
+//			setColor(Color.BLUE);
+//		}
+//		if (tipo.BICHO) {
+//			setColor(new Color (132,214,68));
+//		}
+//		if (tipo.DRAGON) {
+//			setColor(new Color (70,33,129));
+//		}
+//		if (tipo.ELECTRICO) {
+//			setColor(Color.YELLOW);
+//		}
+//		if (tipo.FANTASMA) {
+//			setColor( new Color (93,38,118));
+//		}
+//		if (tipo.FUEGO) {
+//			setColor( Color.RED);
+//		}
+//		if (tipo.HADA) {
+//			setColor (Color.PINK);
+//		}
+//		if (tipo.HIELO) {
+//			setColor (new Color (23,220,249));
+//		}
+//		if (tipo.LUCHA) {
+//			setColor (new Color (240,131,40));
+//		}
+//		if (tipo.NORMAL) {
+//			setColor (new Color (201,200,200));
+//		}
+//		if (tipo.PLANTA) {
+//			setColor(Color.GREEN);
+//		}
+//		if (tipo.PSIQUICO) {
+//			setColor (new Color (204,10,156));
+//		}
+//		if (tipo.ROCA) {
+//			setColor (new Color(144,86,29));
+//		}
+//		if (tipo.SINIESTRO) {
+//			setColor (new Color(66,64,62));
+//		}
+//		if (tipo.TIERRA) {
+//			setColor (new Color (184,119,65));
+//		}
+//		if (tipo.VENENO) {
+//			setColor (new Color (147,21,180));
+//		}
+//		if (tipo.VOLADOR) {
+//			setColor (new Color (170,220,227));
+//		}
+//	}
 
 	public String getNombre() {
 		return nombre;
@@ -65,6 +125,15 @@ public class Movimiento {
 	public void setPpRestantes(int ppRestantes) {
 		this.ppRestantes = ppRestantes;
 	}
+
+	public Color getColor() {
+		return color;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
 	
 	
 

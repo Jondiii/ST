@@ -1,5 +1,7 @@
 package principal;
 
+import java.awt.Color;
+
 public enum Tipo {
 	
 	BICHO(1), DRAGON(2), ELECTRICO(3), HADA(4), LUCHA(5), FUEGO(6), VOLADOR(7), FANTASMA(8),
@@ -7,6 +9,7 @@ public enum Tipo {
 	AGUA(17), SINIESTRO(18);
 	
 	private int id;
+	private Color color;
 
 	Tipo(int id){
 		this.id = id;
@@ -15,5 +18,9 @@ public enum Tipo {
 	public int getId() {
 		return id;
 	}
+	
+	
+	
+	
 
 };

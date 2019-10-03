@@ -61,9 +61,14 @@ public class VentanaJuego extends JFrame{
 		
 		
 		Movimiento movi = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
+		Movimiento movi2 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
+		Movimiento movi3 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
+		Movimiento movi4 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
+		
 		
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi);
+		m.add(movi2);
 		Pokemon p = new Pokemon("Torterra", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO);
 		
 		VentanaJuego vj = new VentanaJuego(p, p);
