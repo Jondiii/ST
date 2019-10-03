@@ -5,21 +5,22 @@ import java.util.Collections;
 
 public class Pokemon {
 	
-	public String nombre;
-	public ArrayList<Tipo> tipos;
-	public int peso;
-	public int altura;
-	public String habilidad;
-	public int ataque;
-	public int ataque_epecial;
-	public int defensa;
-	public int defensa_especial;
-	public int velocidad;
-	public int nivel;
-	public ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
+	private String nombre;
+	private ArrayList<Tipo> tipos;
+	private int peso;
+	private int altura;
+	private String habilidad;
+	private int ps;
+	private int ataque;
+	private int ataque_especial;
+	private int defensa;
+	private int defensa_especial;
+	private int velocidad;
+	private int nivel;
+	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
 	
 	
-	public Pokemon(String nombre, int peso, int altura, String habilidad, int ataque,
+	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
 			int ataque_epecial, int defensa, int defensa_especial, int velocidad, int nivel,
 			ArrayList<Movimiento> movimientos_poke, Tipo ... tipo) {
 		super();
@@ -27,8 +28,9 @@ public class Pokemon {
 		this.peso = peso;
 		this.altura = altura;
 		this.habilidad = habilidad;
+		this.ps = ps;
 		this.ataque = ataque;
-		this.ataque_epecial = ataque_epecial;
+		this.ataque_especial = ataque_epecial;
 		this.defensa = defensa;
 		this.defensa_especial = defensa_especial;
 		this.velocidad = velocidad;
@@ -74,11 +76,11 @@ public class Pokemon {
 	public void setAtaque(int ataque) {
 		this.ataque = ataque;
 	}
-	public int getAtaque_epecial() {
-		return ataque_epecial;
+	public int getAtaque_especial() {
+		return ataque_especial;
 	}
-	public void setAtaque_epecial(int ataque_epecial) {
-		this.ataque_epecial = ataque_epecial;
+	public void setAtaque_especial(int ataque_especial) {
+		this.ataque_especial = ataque_especial;
 	}
 	public int getDefensa() {
 		return defensa;
@@ -104,15 +106,17 @@ public class Pokemon {
 	public void setNivel(int nivel) {
 		this.nivel = nivel;
 	}
+	public int getPs() {
+		return ps;
+	}
+	public void setPs(int ps) {
+		this.ps = ps;
+	}
 	public ArrayList<Movimiento> getMovimientos_poke() {
 		return movimientos_poke;
 	}
 	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
 		this.movimientos_poke = movimientos_poke;
 	}
-	public static void main(String[] args){
-		ArrayList<Movimiento> m = new ArrayList<>();
-		Pokemon p = new Pokemon("Torterra", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, m, Tipo.ACERO);
-		System.out.print(p);
-	}
+	
 }

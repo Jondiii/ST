@@ -3,24 +3,69 @@ package principal;
 public class Movimiento {
 	
 	private String nombre;
-	private int potencia;  //Multiplicador de potencia del ataque
-	private int precision; //Probabilidad de que el movimiento alcance el blanco.
-	private Tipo tipo;     //Tipo de movimiento.
-	private int pp;        //Puntos de Poder. Número de veces máximo que se puede usar el movimiento.
-	private int ppRestantes = pp; //Número de veces restante que se puede usar el movimiento.
-	private String descrip;//Descripción del movimiento y sus efectos.
+	private Tipo tipo;		//Cada movimiento pertenece a un único tipo.
+	private int potencia;	//Potencia del ataque.
+	private int precisión;	//Probabilidad de que el movimiento acierte.
+	private int pp;			//Puntos de Poder. Número máximo de veces que se puede usar un movimiento.
+	private int ppRestantes;//Número de veces restante que se puede usar el movimiento.
 	
-	
-	public Movimiento(String nombre, int potencia, int precision, Tipo tipo, int pp, String descrip) {
+	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp) {
 		this.nombre = nombre;
-		this.potencia = potencia;
-		this.precision = precision;
 		this.tipo = tipo;
+		this.potencia = potencia;
+		this.precisión = precisión;
 		this.pp = pp;
 		this.ppRestantes = pp;
-		this.descrip = descrip;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public int getPotencia() {
+		return potencia;
+	}
+
+	public void setPotencia(int potencia) {
+		this.potencia = potencia;
+	}
+
+	public int getPrecisión() {
+		return precisión;
+	}
+
+	public void setPrecisión(int precisión) {
+		this.precisión = precisión;
+	}
+
+	public int getPp() {
+		return pp;
+	}
+
+	public void setPp(int pp) {
+		this.pp = pp;
+	}
+
+	public int getPpRestantes() {
+		return ppRestantes;
+	}
+
+	public void setPpRestantes(int ppRestantes) {
+		this.ppRestantes = ppRestantes;
 	}
 	
 	
-	
+
 }
