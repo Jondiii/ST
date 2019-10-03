@@ -115,4 +115,8 @@ public class Pokemon {
 		Pokemon p = new Pokemon("Torterra", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, m, Tipo.ACERO);
 		System.out.print(p);
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> branch 'master' of https://github.com/Jondiii/ST
