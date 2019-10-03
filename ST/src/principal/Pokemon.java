@@ -5,19 +5,19 @@ import java.util.Collections;
 
 public class Pokemon {
 	
-	public String nombre;
-	public ArrayList<Tipo> tipos;
-	public int peso;
-	public int altura;
-	public String habilidad;
-	public int ps;
-	public int ataque;
-	public int ataque_especial;
-	public int defensa;
-	public int defensa_especial;
-	public int velocidad;
-	public int nivel;
-	public ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
+	private String nombre;
+	private ArrayList<Tipo> tipos;
+	private int peso;
+	private int altura;
+	private String habilidad;
+	private int ps;
+	private int ataque;
+	private int ataque_especial;
+	private int defensa;
+	private int defensa_especial;
+	private int velocidad;
+	private int nivel;
+	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
 	
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
