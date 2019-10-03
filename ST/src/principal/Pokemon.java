@@ -76,11 +76,11 @@ public class Pokemon {
 	public void setAtaque(int ataque) {
 		this.ataque = ataque;
 	}
-	public int getAtaque_epecial() {
+	public int getAtaque_especial() {
 		return ataque_especial;
 	}
-	public void setAtaque_epecial(int ataque_epecial) {
-		this.ataque_especial = ataque_epecial;
+	public void setAtaque_especial(int ataque_especial) {
+		this.ataque_especial = ataque_especial;
 	}
 	public int getDefensa() {
 		return defensa;
@@ -118,9 +118,5 @@ public class Pokemon {
 	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
 		this.movimientos_poke = movimientos_poke;
 	}
-	public static void main(String[] args){
-		ArrayList<Movimiento> m = new ArrayList<>();
-		Pokemon p = new Pokemon("Torterra", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO);
-		System.out.print(p);
-	}
+	
 }
