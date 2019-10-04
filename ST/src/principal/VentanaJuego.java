@@ -62,8 +62,6 @@ public class VentanaJuego extends JFrame{
 		
 		Movimiento movi = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
 		Movimiento movi2 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
-		Movimiento movi3 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
-		Movimiento movi4 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
 		
 		
 		ArrayList<Movimiento> m = new ArrayList<>();
