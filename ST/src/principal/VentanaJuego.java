@@ -42,6 +42,7 @@ public class VentanaJuego extends JFrame{
 		JButton l;
 		for (Movimiento m : miPokemon.getMovimientos_poke()) {
 			l = new JButton(m.getNombre());
+			l.setBackground(m.getTipo().getColor());
 			panel_movimientos_1.add(l);
 		}
 		JPanel panel_movimientos_2 = new JPanel();
@@ -50,6 +51,7 @@ public class VentanaJuego extends JFrame{
 		JButton l_1;
 		for (Movimiento m : oponente.getMovimientos_poke()) {
 			l_1 = new JButton(m.getNombre());
+			l_1.setBackground(m.getTipo().getColor());
 			panel_movimientos_2.add(l_1);
 		}
 		
@@ -60,8 +62,8 @@ public class VentanaJuego extends JFrame{
 	public static void main(String[] args){
 		
 		
-		Movimiento movi = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
-		Movimiento movi2 = new Movimiento("FUEGO", Tipo.ACERO, 100, 100, 100);
+		Movimiento movi = new Movimiento("BICHO", Tipo.BICHO, 100, 100, 100);
+		Movimiento movi2 = new Movimiento("HIELO", Tipo.HIELO, 100, 100, 100);
 		
 		
 		ArrayList<Movimiento> m = new ArrayList<>();
