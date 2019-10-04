@@ -95,4 +95,25 @@ public class VentanaJuego extends JFrame{
 	public static void main(String[] args){
 		VentanaJuego.creaEquipoPrueba();
 	}
+	
+	public static ArrayList<Pokemon> getMiEquipo() {
+		return miEquipo;
+	}
+	public static void setMiEquipo(ArrayList<Pokemon> miEquipo) {
+		VentanaJuego.miEquipo = miEquipo;
+	}
+	public static ArrayList<Pokemon> getOponente() {
+		return oponente;
+	}
+	public static void setOponente(ArrayList<Pokemon> oponente) {
+		VentanaJuego.oponente = oponente;
+	}
+	public static VentanaJuego getVj() {
+		return vj;
+	}
+	public static void setVj(VentanaJuego vj) {
+		VentanaJuego.vj = vj;
+	}
+	
+	
 }
