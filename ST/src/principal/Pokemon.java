@@ -6,7 +6,7 @@ import java.util.Collections;
 public class Pokemon {
 	
 	private String nombre;
-	private ArrayList<Tipo> tipos;
+	private ArrayList<Tipo> tipos; //Crear array
 	private int peso;
 	private int altura;
 	private String habilidad;

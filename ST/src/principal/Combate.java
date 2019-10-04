@@ -13,7 +13,7 @@ public class Combate {
 	private Pokemon pActivo;						//Pokémon en primera posición del equipo del J1
 	private Pokemon pEnemigo;						//Pokémon en primera posición del equipo del J2
 
-	public Combate(VentanaJuego v) {
+	public Combate(VentanaJuego v) { //Que se cree el combate y de ahí se creen las ventanas y no al revés (que es lo que está pasando ahora)
 		this.ventana = v;
 		aliados = v.getMiEquipo();
 		oponentes = v.getOponente();
