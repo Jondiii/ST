@@ -11,6 +11,7 @@ public class Pokemon {
 	private int altura;
 	private String habilidad;
 	private int ps; 
+	private int ps_max;
 	private int ataque;
 	private int ataque_especial;
 	private int defensa;
@@ -29,6 +30,7 @@ public class Pokemon {
 		this.altura = altura;
 		this.habilidad = habilidad;
 		this.ps = ps;
+		this.ps_max = ps;
 		this.ataque = ataque;
 		this.ataque_especial = ataque_epecial;
 		this.defensa = defensa;
@@ -117,6 +119,11 @@ public class Pokemon {
 	}
 	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
 		this.movimientos_poke = movimientos_poke;
+	}
+	/* Calcula el portentaje de vida actual que tiene el pokemon
+	 */
+	public int calcuPsPorcentaje() {
+		return (ps/ps_max)*100;
 	}
 	
 }

@@ -7,10 +7,13 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.border.Border;
 
 public class VentanaJuego extends JFrame{
 	
@@ -33,7 +36,10 @@ public class VentanaJuego extends JFrame{
 		crearPanelInferior();
 		
 	}
-	
+	/* Se crea un panel donde van a estar contenidos otros 4 paneles y 
+	 * en los inferiores apareceran los pokemon, su vida(JProgressbar),
+	 * su estado(si es que tienen).
+	 */
 	private void crearPanelFrontal() {
 		JPanel panel_central = new JPanel();
 		panel_central.setLayout(new GridLayout(2, 2));
@@ -44,16 +50,17 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central_2 = new JPanel();
 		
 		JProgressBar vida_1 = new JProgressBar();
-		vida_1.setValue(miEquipo.get(0).getPs());//debera hacerse un metodo ps_actuales/ps_max
+		vida_1.setValue(miEquipo.get(0).calcuPsPorcentaje());
 		vida_1.setForeground(Color.GREEN);
 		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_1.add(vida_1, BorderLayout.NORTH);
 		
 		JProgressBar vida_2 = new JProgressBar();
-		vida_2.setValue(oponente.get(0).getPs());
+		vida_2.setValue(oponente.get(0).calcuPsPorcentaje());
 		vida_2.setForeground(Color.GREEN);
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_2.add(vida_2, BorderLayout.NORTH);
+		
 		
 		panel_central.add(panel_vacio_1);
 		panel_central.add(panel_vacio_2);
