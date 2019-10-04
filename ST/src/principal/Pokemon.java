@@ -10,7 +10,7 @@ public class Pokemon {
 	private int peso;
 	private int altura;
 	private String habilidad;
-	private int ps;
+	private int ps; 
 	private int ataque;
 	private int ataque_especial;
 	private int defensa;

@@ -6,9 +6,11 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 public class VentanaJuego extends JFrame{
 	
@@ -25,15 +27,51 @@ public class VentanaJuego extends JFrame{
 		
 		this.miEquipo = miPokemon;
 		this.oponente = oponente;
+		
+		crearPanelFrontal();
+		crearPanelLateral();
 		crearPanelInferior();
 		
 	}
 	
+	private void crearPanelFrontal() {
+		JPanel panel_central = new JPanel();
+		panel_central.setLayout(new GridLayout(2, 2));
+		
+		JPanel panel_vacio_1 = new JPanel();
+		JPanel panel_vacio_2 = new JPanel();
+		JPanel panel_central_1 = new JPanel();
+		JPanel panel_central_2 = new JPanel();
+		
+		JProgressBar vida_1 = new JProgressBar();
+		vida_1.setValue(miEquipo.get(0).getPs());//debera hacerse un metodo ps_actuales/ps_max
+		vida_1.setForeground(Color.GREEN);
+		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel_central_1.add(vida_1, BorderLayout.NORTH);
+		
+		JProgressBar vida_2 = new JProgressBar();
+		vida_2.setValue(oponente.get(0).getPs());
+		vida_2.setForeground(Color.GREEN);
+		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel_central_2.add(vida_2, BorderLayout.NORTH);
+		
+		panel_central.add(panel_vacio_1);
+		panel_central.add(panel_vacio_2);
+		panel_central.add(panel_central_1);
+		panel_central.add(panel_central_2);
+		add(panel_central, BorderLayout.CENTER);
+		
+	}
+
+	private void crearPanelLateral() {
+		
+		
+	}
+
 	/* Crear un JPanel donde van a estar conenido otros dos JPanel con los 
 	 * movimientos de cada correspondiente pokemon.
-	 * 
 	 */
-	public void crearPanelInferior() {
+	private void crearPanelInferior() {
 		JPanel panel_inf = new JPanel();
 		panel_inf.setLayout(new GridLayout(0, 2, 8, 0));
 		
@@ -79,11 +117,11 @@ public class VentanaJuego extends JFrame{
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
-		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
 		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
 		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
-		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
+		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
 		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
 		
