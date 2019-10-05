@@ -42,6 +42,12 @@ public class Pokemon {
 		Collections.addAll(tipos, tipo);
 	}
 	
+	/* Calcula el portentaje de vida actual que tiene el pokemon
+	 */
+	public int calcuPsPorcentaje() {
+		return (ps/ps_max)*100;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -120,10 +126,6 @@ public class Pokemon {
 	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
 		this.movimientos_poke = movimientos_poke;
 	}
-	/* Calcula el portentaje de vida actual que tiene el pokemon
-	 */
-	public int calcuPsPorcentaje() {
-		return (ps/ps_max)*100;
-	}
+	
 	
 }
