@@ -1,6 +1,7 @@
 package principal;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Clase que gestiona toda la lógica de combate. *
@@ -22,12 +23,30 @@ public class Combate {
 		pEnemigo = oponentes.get(0);
 	}
 	
-	public void calculaDaño(Pokemon atacante, Pokemon defensor, Movimiento mov) {
-		float STAB = 1;
-		if (atacante.getTipos().get(0) == mov.getTipo() ) { STAB = (float)1.5; }
+	public float calculaDaño(Pokemon atacante, Pokemon defensor, Movimiento mov) {
 		
-		float efectividad = 1; //FALTA HACER ALGO PARA LA TABLA DE TIPOS
-		float daño = (float)0.01 * STAB * efectividad;
+		if (mov.getCat() == CategoriaMov.ESTADO) {return 0;};
+		
+		float STAB = 1; //STAB = Same Type Attack Bonus. Si el tipo del movimiento y el del pokémon que lo realiza coincide, el daño se incrementa en un 50%
+		if (atacante.getTipos().contains(mov.getTipo())) { STAB = (float)1.5; }
+		
+		float efectividad = TablaTipos.calculaEficacia(defensor, mov);
+		
+		if (mov.getCat() == CategoriaMov.FISICA) {
+
+			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
+					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque() * mov.getPotencia()) / (25 * defensor.getDefensa()) + 2);
+			
+			return daño;
+			
+		} else {
+
+			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
+					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque_especial() * mov.getPotencia()) / (25 * defensor.getDefensa_especial()) + 2);
+			
+			return daño;
+		}
+		
 		
 		
 	}

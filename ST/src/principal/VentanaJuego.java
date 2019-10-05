@@ -36,6 +36,7 @@ public class VentanaJuego extends JFrame{
 		crearPanelInferior();
 		
 	}
+	
 	/* Se crea un panel donde van a estar contenidos otros 4 paneles y 
 	 * en los inferiores apareceran los pokemon, su vida(JProgressbar),
 	 * su estado(si es que tienen).
@@ -116,10 +117,10 @@ public class VentanaJuego extends JFrame{
 	 */
 	public static void creaEquipoPrueba() {
 		
-		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100);
-		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100);
-		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100);
-		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100);		
+		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
+		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
 		
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
