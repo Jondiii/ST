@@ -2,6 +2,7 @@ package principal;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -74,8 +75,44 @@ public class VentanaJuego extends JFrame{
 	}
 
 	private void crearPanelLateral() {
+		JPanel panel_entrenadores = new JPanel();
+		JPanel panel_entrenadores_1 = new JPanel();
+		
+		//Imagen de pokeballs
+		ImageIcon icono = new ImageIcon(getClass().getResource("/img/pokeball.png"));
+		ImageIcon icono_1 = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+		
+		panel_entrenadores.setLayout(new BorderLayout());
+		panel_entrenadores_1.setLayout(new BorderLayout());
+		
+		JPanel panel_pokeballs = new JPanel();
+		panel_pokeballs.setLayout(new GridLayout(6, 0));
+		
+		JPanel panel_pokeballs_1 = new JPanel();
+		panel_pokeballs_1.setLayout(new GridLayout(6, 0));
 		
 		
+		for (Pokemon p : miEquipo) {
+			JLabel pokeball = new JLabel(icono_1);
+			panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
+		}
+		panel_entrenadores.add(panel_pokeballs, BorderLayout.SOUTH);
+		
+		
+		for (Pokemon p : oponente) {
+			JLabel pokeball = new JLabel(icono_1);
+			panel_pokeballs_1.add(pokeball, BorderLayout.SOUTH);
+		}
+		
+		panel_entrenadores_1.add(panel_pokeballs_1, BorderLayout.SOUTH);
+		
+		panel_entrenadores.setPreferredSize(new Dimension(100, 400));
+		panel_entrenadores_1.setPreferredSize(new Dimension(100, 400));
+		
+		
+		
+		add(panel_entrenadores, BorderLayout.WEST);
+		add(panel_entrenadores_1, BorderLayout.EAST);
 	}
 
 	/* Crear un JPanel donde van a estar conenido otros dos JPanel con los 
