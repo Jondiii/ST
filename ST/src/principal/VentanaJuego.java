@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -92,6 +94,13 @@ public class VentanaJuego extends JFrame{
 			l = new JButton(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l.setForeground(Color.white);} //Cambia la letra a blanco
 			l.setBackground(m.getTipo().getColor());
+			
+			l.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//se pulsa el boton
+				}
+			});
 			panel_movimientos_1.add(l);
 		}
 		
@@ -104,6 +113,12 @@ public class VentanaJuego extends JFrame{
 			l_1 = new JButton(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l_1.setForeground(Color.white);} //Cambia la letra a blanco
 			l_1.setBackground(m.getTipo().getColor());
+			l_1.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				//se pulsa el boton
+				}
+			});
 			panel_movimientos_2.add(l_1);
 		}
 		
