@@ -4,9 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -17,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.Border;
-
 
 public class VentanaJuego extends JFrame{
 	
@@ -96,12 +92,6 @@ public class VentanaJuego extends JFrame{
 			l = new JButton(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l.setForeground(Color.white);} //Cambia la letra a blanco
 			l.setBackground(m.getTipo().getColor());
-			l.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("Me has pulsado");
-				}				
-			});
 			panel_movimientos_1.add(l);
 		}
 		
@@ -114,12 +104,6 @@ public class VentanaJuego extends JFrame{
 			l_1 = new JButton(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l_1.setForeground(Color.white);} //Cambia la letra a blanco
 			l_1.setBackground(m.getTipo().getColor());
-			l_1.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("Me has pulsado");
-				}				
-			});
 			panel_movimientos_2.add(l_1);
 		}
 		
@@ -133,26 +117,21 @@ public class VentanaJuego extends JFrame{
 	 */
 	public static void creaEquipoPrueba() {
 		
-		Movimiento movi0 = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
-		Movimiento movi1 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi2 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi3 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
+		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
+		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
 		
-	
-		Movimiento[] movimientos = new Movimiento[4];
-		movimientos[0] = movi0;
-		movimientos[1] = movi0;
-		movimientos[2] = movi0;
-		movimientos[3] = movi0;
+		ArrayList<Movimiento> m = new ArrayList<>();
+		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
+		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
+		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
-		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, movimientos, Tipo.TIERRA));
-		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, movimientos, Tipo.ELECTRICO));
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, movimientos, Tipo.HIELO));
-		
-		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, movimientos, Tipo.AGUA));
-		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, movimientos, Tipo.DRAGON));
-		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, movimientos, Tipo.ACERO));
+		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
+		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
+		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
 		
 		vj = new VentanaJuego(miEquipo, oponente);
 
