@@ -6,46 +6,37 @@ import java.util.Collections;
 public class Pokemon {
 	
 	private String nombre;
-	private ArrayList<Tipo> tipos; //Crear array
+	private Tipo[] tipos = new Tipo[2]; 
 	private int peso;
 	private int altura;
 	private String habilidad;
-	private int ps; 
-	private int ps_max;
-	private int ataque;
-	private int ataque_especial;
-	private int defensa;
-	private int defensa_especial;
-	private int velocidad;
-	private int nivel;
-	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
-	
+	private int[] ps = new int [10]; 
+	private int[] ataque = new int[10];
+	private int[] ataque_especial = new int [10];
+	private int[] defensa = new int [10];
+	private int[] defensa_especial = new int [10];
+	private int[] velocidad = new int [10];
+	private Movimiento [] movimientos;
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
-			int ataque_epecial, int defensa, int defensa_especial, int velocidad, int nivel,
-			ArrayList<Movimiento> movimientos_poke, Tipo ... tipo) {
-		super();
+			int ataque_epecial, int defensa, int defensa_especial, int velocidad,
+			Movimiento[] movimientos, Tipo ... tipo) {
 		this.nombre = nombre;
 		this.peso = peso;
 		this.altura = altura;
 		this.habilidad = habilidad;
-		this.ps = ps;
-		this.ps_max = ps;
-		this.ataque = ataque;
-		this.ataque_especial = ataque_epecial;
-		this.defensa = defensa;
-		this.defensa_especial = defensa_especial;
-		this.velocidad = velocidad;
-		this.nivel = nivel;
-		this.movimientos_poke = movimientos_poke;
-		tipos = new ArrayList<>();
-		Collections.addAll(tipos, tipo);
-	}
-	
-	/* Calcula el portentaje de vida actual que tiene el pokemon
-	 */
-	public int calcuPsPorcentaje() {
-		return (ps/ps_max)*100;
+		this.ps[0] = ps;
+		this.ataque[0] = ataque;
+		this.ataque_especial[0] = ataque_epecial;
+		this.defensa[0] = defensa;
+		this.defensa_especial[0] = defensa_especial;
+		this.velocidad[0] = velocidad;
+		this.movimientos = movimientos;
+		int i = 0;
+		for (Tipo t : tipo) {
+			tipos[i] = t;
+			i++;
+		}
 	}
 	
 	public String getNombre() {
@@ -54,10 +45,10 @@ public class Pokemon {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public ArrayList<Tipo> getTipos() {
+	public Tipo[] getTipos() {
 		return tipos;
 	}
-	public void setTipos(ArrayList<Tipo> tipos) {
+	public void setTipos(Tipo[] tipos) {
 		this.tipos = tipos;
 	}
 	public int getPeso() {
@@ -78,54 +69,47 @@ public class Pokemon {
 	public void setHabilidad(String habilidad) {
 		this.habilidad = habilidad;
 	}
-	public int getAtaque() {
-		return ataque;
-	}
-	public void setAtaque(int ataque) {
-		this.ataque = ataque;
-	}
-	public int getAtaque_especial() {
-		return ataque_especial;
-	}
-	public void setAtaque_especial(int ataque_especial) {
-		this.ataque_especial = ataque_especial;
-	}
-	public int getDefensa() {
-		return defensa;
-	}
-	public void setDefensa(int defensa) {
-		this.defensa = defensa;
-	}
-	public int getDefensa_especial() {
-		return defensa_especial;
-	}
-	public void setDefensa_especial(int defensa_especial) {
-		this.defensa_especial = defensa_especial;
-	}
-	public int getVelocidad() {
-		return velocidad;
-	}
-	public void setVelocidad(int velocidad) {
-		this.velocidad = velocidad;
-	}
-	public int getNivel() {
-		return nivel;
-	}
-	public void setNivel(int nivel) {
-		this.nivel = nivel;
-	}
-	public int getPs() {
+	public int[] getPs() {
 		return ps;
 	}
-	public void setPs(int ps) {
+	public void setPs(int[] ps) {
 		this.ps = ps;
 	}
-	public ArrayList<Movimiento> getMovimientos_poke() {
-		return movimientos_poke;
+	public int[] getAtaque() {
+		return ataque;
 	}
-	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
-		this.movimientos_poke = movimientos_poke;
+	public void setAtaque(int[] ataque) {
+		this.ataque = ataque;
 	}
-	
+	public int[] getAtaque_especial() {
+		return ataque_especial;
+	}
+	public void setAtaque_especial(int[] ataque_especial) {
+		this.ataque_especial = ataque_especial;
+	}
+	public int[] getDefensa() {
+		return defensa;
+	}
+	public void setDefensa(int[] defensa) {
+		this.defensa = defensa;
+	}
+	public int[] getDefensa_especial() {
+		return defensa_especial;
+	}
+	public void setDefensa_especial(int[] defensa_especial) {
+		this.defensa_especial = defensa_especial;
+	}
+	public int[] getVelocidad() {
+		return velocidad;
+	}
+	public void setVelocidad(int[] velocidad) {
+		this.velocidad = velocidad;
+	}
+	public Movimiento[] getMovimientos() {
+		return movimientos;
+	}
+	public void setMovimientos(Movimiento[] movimientos) {
+		this.movimientos = movimientos;
+	}
 	
 }

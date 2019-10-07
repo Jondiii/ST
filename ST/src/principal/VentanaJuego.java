@@ -133,21 +133,26 @@ public class VentanaJuego extends JFrame{
 	 */
 	public static void creaEquipoPrueba() {
 		
-		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
-		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
+		Movimiento movi0 = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
+		Movimiento movi1 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi2 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
+		Movimiento movi3 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
 		
-		ArrayList<Movimiento> m = new ArrayList<>();
-		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
+	
+		Movimiento[] movimientos = new Movimiento[4];
+		movimientos[0] = movi0;
+		movimientos[1] = movi0;
+		movimientos[2] = movi0;
+		movimientos[3] = movi0;
 		
-		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
-		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
-		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
-		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
-		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
+		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, movimientos, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, movimientos, Tipo.ELECTRICO));
+		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, movimientos, Tipo.HIELO));
+		
+		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, movimientos, Tipo.AGUA));
+		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, movimientos, Tipo.DRAGON));
+		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, movimientos, Tipo.ACERO));
 		
 		vj = new VentanaJuego(miEquipo, oponente);
 
