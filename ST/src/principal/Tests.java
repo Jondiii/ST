@@ -21,7 +21,6 @@ public class Tests {
 		
 		Pokemon atacante = new Pokemon("Torterra", 1, 1, "Probando", 600, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA);
 		
-		
 		Pokemon defensor = new Pokemon("Lumineon", 1, 1, "Probando", 350, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA);
 		
 		assertEquals(79.0, Combate.calculaDaño(atacante, defensor, atacante.getMovimientos_poke().get(3)), 6.5);
