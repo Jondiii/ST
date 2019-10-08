@@ -18,11 +18,19 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 
+import main.EstadosJuego;
+
 public class VentanaJuego extends JFrame{
+	
+	public static int esperar = 0;
+	public static EstadosJuego estado;
 	
 	private static ArrayList<Pokemon> miEquipo = new ArrayList<>();
 	private static ArrayList<Pokemon> oponente = new ArrayList<>();
 	private static VentanaJuego vj;
+
+	private JProgressBar vida_1;
+	private JProgressBar vida_2;
 	
 	public VentanaJuego(ArrayList<Pokemon> miPokemon, ArrayList<Pokemon> oponente) {
 		
@@ -53,19 +61,18 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central_1 = new JPanel();
 		JPanel panel_central_2 = new JPanel();
 		
-		JProgressBar vida_1 = new JProgressBar();
-		vida_1.setValue(miEquipo.get(0).calcuPsPorcentaje());
+		vida_1 = new JProgressBar();
+		vida_1.setValue(miEquipo.get(2).calcuPsPorcentaje());
 		vida_1.setForeground(Color.GREEN);
 		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_1.add(vida_1, BorderLayout.NORTH);
 		
-		JProgressBar vida_2 = new JProgressBar();
-		vida_2.setValue(oponente.get(0).calcuPsPorcentaje());
+		vida_2 = new JProgressBar();
+		vida_2.setValue(oponente.get(2).calcuPsPorcentaje());
 		vida_2.setForeground(Color.GREEN);
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_2.add(vida_2, BorderLayout.NORTH);
-		
-		
+			
 		panel_central.add(panel_vacio_1);
 		panel_central.add(panel_vacio_2);
 		panel_central.add(panel_central_1);
@@ -73,7 +80,10 @@ public class VentanaJuego extends JFrame{
 		add(panel_central, BorderLayout.CENTER);
 		
 	}
-
+	/* Se crea un panel en cada lateral con el numero de pokemons que posee cada 
+	 * entranador, ademas de un JList con el nombre de los pokemon y que permite 
+	 * selecionar al pokemon que se desea cambiar (PENDIENTE)
+	 */
 	private void crearPanelLateral() {
 		JPanel panel_entrenadores = new JPanel();
 		JPanel panel_entrenadores_1 = new JPanel();
@@ -109,8 +119,6 @@ public class VentanaJuego extends JFrame{
 		panel_entrenadores.setPreferredSize(new Dimension(100, 400));
 		panel_entrenadores_1.setPreferredSize(new Dimension(100, 400));
 		
-		
-		
 		add(panel_entrenadores, BorderLayout.WEST);
 		add(panel_entrenadores_1, BorderLayout.EAST);
 	}
@@ -135,8 +143,11 @@ public class VentanaJuego extends JFrame{
 			l.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//se pulsa el boton
+					esperar++;
+					cambiarEstados();
+					//impedir que se pulse otro botton del mismo panel.
 				}
+
 			});
 			panel_movimientos_1.add(l);
 		}
@@ -153,47 +164,19 @@ public class VentanaJuego extends JFrame{
 			l_1.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-				//se pulsa el boton
+					esperar++;
+					cambiarEstados();
+					//impedir que se pulse otro botton del mismo panel.
 				}
 			});
 			panel_movimientos_2.add(l_1);
 		}
-		
 		panel_inf.add(panel_movimientos_1);
 		panel_inf.add(panel_movimientos_2);
 		add(panel_inf, BorderLayout.SOUTH);
 	}
 	
-	/**
-	 * Crea un equipo por defecto, para hacer pruebas antes de implementar el creador de equipos y la base de datos.
-	 */
-	public static void creaEquipoPrueba() {
-		
-		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
-		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
-		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
-		
-		ArrayList<Movimiento> m = new ArrayList<>();
-		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
-		
-		miEquipo.add(new Pokemon("Torterra", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
-		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
-		
-		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 50, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
-		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 1, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
-		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
-		
-		vj = new VentanaJuego(miEquipo, oponente);
 
-		vj.setVisible(true);
-	}
-	
-	public static void main(String[] args){
-		VentanaJuego.creaEquipoPrueba();
-	}
-	
 	public static ArrayList<Pokemon> getMiEquipo() {
 		return miEquipo;
 	}
@@ -212,6 +195,20 @@ public class VentanaJuego extends JFrame{
 	public static void setVj(VentanaJuego vj) {
 		VentanaJuego.vj = vj;
 	}
-	
+	private void cambiarEstados() {
+		if (esperar == 2) {
+			estado = EstadosJuego.CALCULANDO;
+		}
+		else {
+			estado = EstadosJuego.ESPERANDO;
+		}
+		
+	}
+	public JProgressBar getVida_1() {
+		return vida_1;
+	}
+	public JProgressBar getVida_2() {
+		return vida_2;
+	}
 	
 }

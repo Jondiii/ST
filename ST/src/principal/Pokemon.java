@@ -30,7 +30,7 @@ public class Pokemon {
 		this.altura = altura;
 		this.habilidad = habilidad;
 		this.ps = ps;
-		this.ps_max = ps;
+		setPs_max(ps);
 		this.ataque = ataque;
 		this.ataque_especial = ataque_epecial;
 		this.defensa = defensa;
@@ -41,13 +41,12 @@ public class Pokemon {
 		tipos = new ArrayList<>();
 		Collections.addAll(tipos, tipo);
 	}
-	
+
 	/* Calcula el portentaje de vida actual que tiene el pokemon
 	 */
 	public int calcuPsPorcentaje() {
-		return (ps/ps_max)*100;
+		return (ps*100/ps_max);
 	}
-	
 	public String getNombre() {
 		return nombre;
 	}
@@ -126,6 +125,12 @@ public class Pokemon {
 	public void setMovimientos_poke(ArrayList<Movimiento> movimientos_poke) {
 		this.movimientos_poke = movimientos_poke;
 	}
-	
+	public int getPs_max() {
+		return ps_max;
+	}
+	private void setPs_max(int ps) {
+		this.ps_max = ps;
+	}
+
 	
 }

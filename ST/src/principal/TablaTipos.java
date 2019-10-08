@@ -39,7 +39,7 @@ public class TablaTipos {
 	
 	public static float calculaEficacia(Pokemon defensor, Movimiento mov) {
 		float eficacia = (float)efectividadesPokemon[mov.getTipo().getId()][defensor.getTipos().get(0).getId()];
-		if(defensor.getTipos().get(1).equals(null)) { mensajeEficacia(eficacia); return eficacia; }
+		if(defensor.getTipos().size() == 1) { mensajeEficacia(eficacia); return eficacia; }
 		eficacia *= (float)efectividadesPokemon[mov.getTipo().getId()][defensor.getTipos().get(1).getId()];
 		mensajeEficacia(eficacia);
 		return eficacia;
