@@ -23,7 +23,7 @@ public class Combate {
 		pEnemigo = oponentes.get(0);
 	}
 	
-	public float calculaDaño(Pokemon atacante, Pokemon defensor, Movimiento mov) {
+	public static float calculaDaño(Pokemon atacante, Pokemon defensor, Movimiento mov) {
 		
 		if (mov.getCat() == CategoriaMov.ESTADO) {return 0;};
 		
