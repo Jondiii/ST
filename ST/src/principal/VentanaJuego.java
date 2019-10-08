@@ -48,6 +48,25 @@ public class VentanaJuego extends JFrame{
 		
 	}
 	
+	/**
+	 * Usando este constructor, podemos crear distintas ventanas donde visualizar un mismo combate.
+	 * Con el anterior se creaba un combate distinto por venana.
+	 * @param c
+	 */
+	public VentanaJuego(Combate c) {
+		this.miEquipo = c.getAliados();
+		this.oponente = c.getOponentes();
+		
+		setTitle("POKEMON");
+		setLocation(200, 100);
+		setSize(800, 500);
+		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+		
+		crearPanelFrontal();
+		crearPanelLateral();
+		crearPanelInferior();	
+	}
+	
 	/* Se crea un panel donde van a estar contenidos otros 4 paneles y 
 	 * en los inferiores apareceran los pokemon, su vida(JProgressbar),
 	 * su estado(si es que tienen).

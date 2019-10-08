@@ -30,8 +30,10 @@ public class Main {
 		oponente.add(new Pokemon("Lumineon", 1, 1, "Probando", 350, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
 		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
+
+		Combate c = new Combate(miEquipo, oponente);
 		
-		VentanaJuego vj = new VentanaJuego(miEquipo, oponente);
+		VentanaJuego vj = c.getVentana();
 		vj.setVisible(true);
 		vj.addWindowListener(new WindowAdapter() {
 			@Override
@@ -39,7 +41,8 @@ public class Main {
 				cerrada = true;
 			}
 		});
-		Combate c = new Combate();// no hace falta que se cree aqui si no cuando se pulsan los botones.
+		
+	//	Combate c = new Combate(); //no hace falta que se cree aqui si no cuando se pulsan los botones.
 		MiHilo mh = new MiHilo(c, vj);
 		mh.start();
 	}

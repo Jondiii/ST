@@ -14,13 +14,31 @@ public class Combate {
 	private Pokemon pActivo;						//Pokémon en primera posición del equipo del J1
 	private Pokemon pEnemigo;						//Pokémon en primera posición del equipo del J2
 
-	public Combate() { //Que se cree el combate y de ahí se creen las ventanas y no al revés (que es lo que está pasando ahora)
+	/**
+	 * Se crea un combate en función de la ventana.
+	 */
+	public Combate() {
 	
 		aliados = VentanaJuego.getMiEquipo();
 		oponentes = VentanaJuego.getOponente();
 		
 		pActivo = aliados.get(0);
 		pEnemigo = oponentes.get(0);
+	}
+	
+	/**
+	 * Se crea un combate en base a los pokémon seleccionados.
+	 * @param miPokemons
+	 * @param oponente
+	 */
+	public Combate(ArrayList<Pokemon> miPokemons, ArrayList<Pokemon> oponente) {
+		aliados = miPokemons;
+		oponentes = oponente;
+		
+		pActivo = aliados.get(0);
+		pEnemigo = oponentes.get(0);
+		
+		ventana = new VentanaJuego(this);
 	}
 	
 	public static float calculaDaño(Pokemon atacante, Pokemon defensor, Movimiento mov) {
@@ -65,5 +83,29 @@ public class Combate {
 
 	public void setpEnemigo(Pokemon pEnemigo) {
 		this.pEnemigo = pEnemigo;
+	}
+
+	public VentanaJuego getVentana() {
+		return ventana;
+	}
+
+	public void setVentana(VentanaJuego ventana) {
+		this.ventana = ventana;
+	}
+
+	public static ArrayList<Pokemon> getAliados() {
+		return aliados;
+	}
+
+	public static void setAliados(ArrayList<Pokemon> aliados) {
+		Combate.aliados = aliados;
+	}
+
+	public static ArrayList<Pokemon> getOponentes() {
+		return oponentes;
+	}
+
+	public static void setOponentes(ArrayList<Pokemon> oponentes) {
+		Combate.oponentes = oponentes;
 	}
 }
