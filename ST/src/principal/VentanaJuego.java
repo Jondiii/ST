@@ -121,7 +121,7 @@ public class VentanaJuego extends JFrame{
 		panel_pokeballs_1.setLayout(new GridLayout(6, 0));
 		
 		
-		for (Pokemon p : miEquipo) {
+		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			JLabel pokeball = new JLabel(icono_1);
 			panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
 		}
@@ -195,6 +195,16 @@ public class VentanaJuego extends JFrame{
 		add(panel_inf, BorderLayout.SOUTH);
 	}
 	
+	private void cambiarEstados() {
+		if (esperar == 2) {
+			estado = EstadosJuego.CALCULANDO;
+		}
+		else {
+			estado = EstadosJuego.ESPERANDO;
+		}
+		
+	}
+	
 
 	public static ArrayList<Pokemon> getMiEquipo() {
 		return miEquipo;
@@ -214,15 +224,7 @@ public class VentanaJuego extends JFrame{
 	public static void setVj(VentanaJuego vj) {
 		VentanaJuego.vj = vj;
 	}
-	private void cambiarEstados() {
-		if (esperar == 2) {
-			estado = EstadosJuego.CALCULANDO;
-		}
-		else {
-			estado = EstadosJuego.ESPERANDO;
-		}
-		
-	}
+	
 	public JProgressBar getVida_1() {
 		return vida_1;
 	}
