@@ -1,5 +1,9 @@
 package principal;
 
+import java.awt.Component;
+
+import javax.swing.JButton;
+
 import main.EstadosJuego;
 import main.Main;
 
@@ -45,7 +49,13 @@ public class MiHilo implements Runnable {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		v.revalidate();
 		
-		
+		//Los siguientes dos bucles sirven para reactivar los botones una vez ambos jugadores han seleccionado su movimiento.
+		for (Component boton : VentanaJuego.panel_movimientos_1.getComponents()) {
+			((JButton)boton).setEnabled(true);
+		}
+		for (Component boton : VentanaJuego.panel_movimientos_2.getComponents()) {
+			((JButton)boton).setEnabled(true);
+		}
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}

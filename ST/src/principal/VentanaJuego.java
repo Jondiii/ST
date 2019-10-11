@@ -2,6 +2,7 @@ package principal;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -28,6 +29,9 @@ public class VentanaJuego extends JFrame{
 	private static ArrayList<Pokemon> miEquipo = new ArrayList<>();
 	private static ArrayList<Pokemon> oponente = new ArrayList<>();
 	private static VentanaJuego vj;
+	public static JPanel panel_movimientos_1;
+	public static JPanel panel_movimientos_2;
+
 
 	private JProgressBar vida_1;
 	private JProgressBar vida_2;
@@ -149,7 +153,7 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_inf = new JPanel();
 		panel_inf.setLayout(new GridLayout(0, 2, 8, 0));
 		
-		JPanel panel_movimientos_1 = new JPanel();
+		panel_movimientos_1 = new JPanel();
 		panel_movimientos_1.setBackground(Color.GRAY);
 		panel_movimientos_1.setLayout(new FlowLayout());
 		JButton l;
@@ -162,16 +166,19 @@ public class VentanaJuego extends JFrame{
 			l.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
+					for (Component boton : panel_movimientos_1.getComponents()) {
+						((JButton)boton).setEnabled(false);
+					}
 					esperar++;
 					cambiarEstados();
-					//impedir que se pulse otro botton del mismo panel.
 				}
 
 			});
 			panel_movimientos_1.add(l);
 		}
 		
-		JPanel panel_movimientos_2 = new JPanel();
+		panel_movimientos_2 = new JPanel();
 		panel_movimientos_2.setBackground(Color.GRAY);
 		panel_movimientos_2.setLayout(new FlowLayout());
 		JButton l_1;
@@ -183,9 +190,11 @@ public class VentanaJuego extends JFrame{
 			l_1.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					for (Component boton : panel_movimientos_2.getComponents()) {
+						((JButton)boton).setEnabled(false);
+					}
 					esperar++;
-					cambiarEstados();
-					//impedir que se pulse otro botton del mismo panel.
+					cambiarEstados();	
 				}
 			});
 			panel_movimientos_2.add(l_1);
