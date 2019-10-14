@@ -32,9 +32,11 @@ public class VentanaJuego extends JFrame{
 	public static JPanel panel_movimientos_1;
 	public static JPanel panel_movimientos_2;
 
-
+	
 	private JProgressBar vida_1;
 	private JProgressBar vida_2;
+	
+	private Combate c;
 	
 	public VentanaJuego(ArrayList<Pokemon> miPokemon, ArrayList<Pokemon> oponente) {
 		
@@ -60,6 +62,8 @@ public class VentanaJuego extends JFrame{
 	public VentanaJuego(Combate c) {
 		this.miEquipo = c.getAliados();
 		this.oponente = c.getOponentes();
+		
+		this.c = c;
 		
 		setTitle("POKEMON");
 		setLocation(200, 100);
@@ -104,8 +108,9 @@ public class VentanaJuego extends JFrame{
 		
 	}
 	/* Se crea un panel en cada lateral con el numero de pokemons que posee cada 
-	 * entranador, ademas de un JList con el nombre de los pokemon y que permite 
-	 * selecionar al pokemon que se desea cambiar (PENDIENTE)
+	 * entranador, ademas apereceran unos sprites por los pokemon. Cuando se 
+	 * pasa el raton por encima se puede ver las caracteristicas del pokemon. Si se
+	 * pulsa se puede cambiarde  pokemon.
 	 */
 	private void crearPanelLateral() {
 		JPanel panel_entrenadores = new JPanel();
@@ -126,15 +131,33 @@ public class VentanaJuego extends JFrame{
 		
 		
 		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
-			JLabel pokeball = new JLabel(icono_1);
-			panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
+			
+			if (c.getpActivo() == p) {
+				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
+				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+				JLabel pokemon = new JLabel(icono_p_1);
+				panel_pokeballs.add(pokemon, BorderLayout.SOUTH);
+			
+			}
+			else {
+				JLabel pokeball = new JLabel(icono_1);
+				panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
+			}
 		}
 		panel_entrenadores.add(panel_pokeballs, BorderLayout.SOUTH);
 		
 		
 		for (Pokemon p : oponente) {
-			JLabel pokeball = new JLabel(icono_1);
-			panel_pokeballs_1.add(pokeball, BorderLayout.SOUTH);
+			if (c.getpEnemigo() == p) {
+				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
+				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+				JLabel pokemon = new JLabel(icono_p_1);
+				panel_pokeballs_1.add(pokemon, BorderLayout.SOUTH);
+			}
+			else {
+				JLabel pokeball = new JLabel(icono_1);
+				panel_pokeballs_1.add(pokeball, BorderLayout.SOUTH);
+			}
 		}
 		
 		panel_entrenadores_1.add(panel_pokeballs_1, BorderLayout.SOUTH);
