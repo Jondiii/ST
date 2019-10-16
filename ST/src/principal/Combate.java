@@ -13,6 +13,8 @@ public class Combate {
 	private static ArrayList<Pokemon> oponentes;	//Equipo del J2
 	private Pokemon pActivo;						//Pokémon en primera posición del equipo del J1
 	private Pokemon pEnemigo;						//Pokémon en primera posición del equipo del J2
+	private Movimiento movActivo;					//movimiento del activo
+	private Movimiento movEnemigo;
 
 	/**
 	 * Se crea un combate en función de la ventana.
@@ -107,5 +109,21 @@ public class Combate {
 
 	public static void setOponentes(ArrayList<Pokemon> oponentes) {
 		Combate.oponentes = oponentes;
+	}
+
+	public Movimiento getMovActivo() {
+		return movActivo;
+	}
+
+	public void setMovActivo(Movimiento movActivo) {
+		this.movActivo = movActivo;
+	}
+
+	public Movimiento getMovEnemigo() {
+		return movEnemigo;
+	}
+
+	public void setMovEnemigo(Movimiento movEnemigo) {
+		this.movEnemigo = movEnemigo;
 	}
 }

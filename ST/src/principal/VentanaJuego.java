@@ -6,8 +6,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -123,6 +127,9 @@ public class VentanaJuego extends JFrame{
 		panel_entrenadores.setLayout(new BorderLayout());
 		panel_entrenadores_1.setLayout(new BorderLayout());
 		
+		/**
+		 * Añadair un listener al label para que se cambie de pokemon.
+		 */
 		JPanel panel_pokeballs = new JPanel();
 		panel_pokeballs.setLayout(new GridLayout(6, 0));
 		
@@ -137,10 +144,22 @@ public class VentanaJuego extends JFrame{
 				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 				JLabel pokemon = new JLabel(icono_p_1);
 				panel_pokeballs.add(pokemon, BorderLayout.SOUTH);
-			
 			}
 			else {
 				JLabel pokeball = new JLabel(icono_1);
+				pokeball.addMouseListener( new MouseAdapter(){
+					 
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						Point pPulsado = new Point(e.getPoint());
+						esperar ++;
+						cambiarEstados();
+						System.out.println("hola");
+						if (pokeball.getBounds().contains(pPulsado)) {
+							System.out.println("FUNCIONO");
+						} //Arreglar esto.
+					}
+				});
 				panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
 			}
 		}
@@ -181,8 +200,9 @@ public class VentanaJuego extends JFrame{
 		panel_movimientos_1.setLayout(new FlowLayout());
 		JButton l;
 		
-		for (Movimiento m : miEquipo.get(0).getMovimientos_poke()) {
+		for (Movimiento m :c.getpActivo().getMovimientos_poke()) {
 			l = new JButton(m.getNombre());
+			l.setName(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l.setForeground(Color.white);} //Cambia la letra a blanco
 			l.setBackground(m.getTipo().getColor());
 			
@@ -192,6 +212,9 @@ public class VentanaJuego extends JFrame{
 					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 					for (Component boton : panel_movimientos_1.getComponents()) {
 						((JButton)boton).setEnabled(false);
+						if (((JButton)boton).getName() == m.getNombre()) {
+							c.setMovActivo(m);
+						}
 					}
 					esperar++;
 					cambiarEstados();
@@ -206,8 +229,9 @@ public class VentanaJuego extends JFrame{
 		panel_movimientos_2.setLayout(new FlowLayout());
 		JButton l_1;
 		
-		for (Movimiento m : oponente.get(0).getMovimientos_poke()) {
+		for (Movimiento m : c.getpEnemigo().getMovimientos_poke()) {
 			l_1 = new JButton(m.getNombre());
+			l_1.setName(m.getNombre());
 			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l_1.setForeground(Color.white);} //Cambia la letra a blanco
 			l_1.setBackground(m.getTipo().getColor());
 			l_1.addActionListener(new ActionListener() {
@@ -215,7 +239,18 @@ public class VentanaJuego extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					for (Component boton : panel_movimientos_2.getComponents()) {
 						((JButton)boton).setEnabled(false);
+						if (((JButton)boton).getName() == m.getNombre()) {
+							c.setMovEnemigo(m);
+						}
 					}
+//					
+//					for (Movimiento mov : c.getpEnemigo().getMovimientos_poke()) {
+//						if(mov.getNombre() == l_1.getName()) {
+//							System.out.println(l_1.getName());
+//						}
+				
+					//}
+					
 					esperar++;
 					cambiarEstados();	
 				}

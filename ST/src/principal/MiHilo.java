@@ -36,7 +36,7 @@ public class MiHilo implements Runnable {
 	private void actualizar() {
 		
 		
-		//tenemos que pasarle el ppokemon quue este actualmente en el campo 
+		//tenemos que pasarle el pokemon quue este actualmente en el campo 
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
 		

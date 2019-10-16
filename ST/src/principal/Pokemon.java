@@ -19,6 +19,8 @@ public class Pokemon {
 	private int velocidad;
 	private int nivel;
 	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
+	private Double[] cambiosEstadisticas = new Double[5];
+	
 	
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
@@ -40,6 +42,12 @@ public class Pokemon {
 		this.movimientos_poke = movimientos_poke;
 		tipos = new ArrayList<>();
 		Collections.addAll(tipos, tipo);
+		
+		for (int i = 0; i < cambiosEstadisticas.length; i++) {
+			cambiosEstadisticas[i] = 1.0;
+		}
+		
+		
 	}
 
 	/* Calcula el portentaje de vida actual que tiene el pokemon
