@@ -42,11 +42,11 @@ public class Main {
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
 		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 600, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
-		miEquipo.add(new Pokemon("Pikachu", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
+		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
 		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
 		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 350, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
-		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
+		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
 	}
 	

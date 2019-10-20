@@ -122,7 +122,7 @@ public class VentanaJuego extends JFrame{
 		
 		//Imagen de pokeballs
 		ImageIcon icono = new ImageIcon(getClass().getResource("/img/pokeball.png"));
-		ImageIcon icono_1 = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon iconoPokeball = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 		
 		panel_entrenadores.setLayout(new BorderLayout());
 		panel_entrenadores_1.setLayout(new BorderLayout());
@@ -135,64 +135,59 @@ public class VentanaJuego extends JFrame{
 		
 		JPanel panel_pokeballs_J2 = new JPanel();
 		panel_pokeballs_J2.setLayout(new GridLayout(6, 0));
-		
-		
+
 		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			
 			if (c.getpActivo() == p) {
-				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
-				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-				JLabel pokemon = new JLabel(icono_p_1);
-				panel_pokeballs_J1.add(pokemon, BorderLayout.SOUTH);
+				Pokeball ball = new Pokeball(iconoPokeball, p);
+				ball.mostrarPoke();
+				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
 			}
 			else {
-				JLabel pokeball = new JLabel(icono_1);
-				pokeball.addMouseListener( new MouseAdapter(){
+				Pokeball ball = new Pokeball(iconoPokeball, p);
+				ball.addMouseListener( new MouseAdapter(){
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						Point pPulsado = new Point(e.getPoint());
-						esperar ++;
+						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
-						if (pokeball.getBounds().getCenterX() >= (pPulsado.getX())) {
-							//Para poder hacer el cambio hace falta que el jlabel sepa qué pokémon es o en su defecto que sepa su posición respecto a 
-							//el resto de jlabels.
+						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+							ball.mostrarPoke();
+							c.getVentana().revalidate();
 						}
 					}
 				});
-				panel_pokeballs_J1.add(pokeball, BorderLayout.SOUTH);
+				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
 			}
 		}
 		panel_entrenadores.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
-		
-		for (Pokemon p : oponente) {
-			if (c.getpEnemigo() == p) {
-				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
-				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
-				JLabel pokemon = new JLabel(icono_p_1);
-				panel_pokeballs_J2.add(pokemon, BorderLayout.SOUTH);
+		for (Pokemon p : oponente) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
+			
+			if (c.getpActivo() == p) {
+				Pokeball ball = new Pokeball(iconoPokeball, p);
+				ball.mostrarPoke();
+				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
 			}
 			else {
-				JLabel pokeball = new JLabel(icono_1);
-				panel_pokeballs_J2.add(pokeball, BorderLayout.SOUTH);
-				
-				pokeball.addMouseListener( new MouseAdapter(){
+				Pokeball ball = new Pokeball(iconoPokeball, p);
+				ball.addMouseListener( new MouseAdapter(){
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						Point pPulsado = new Point(e.getPoint());
-						esperar ++;
+						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
-						if (pokeball.getBounds().getCenterX() >= (pPulsado.getX())) {
-							//Para poder hacer el cambio hace falta que el jlabel sepa qué pokémon es o en su defecto que sepa su posición respecto a 
-							//el resto de jlabels.
+						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+							ball.mostrarPoke();
+							c.getVentana().revalidate();
 						}
 					}
 				});
+				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
 			}
 		}
-		
 		panel_entrenadores_1.add(panel_pokeballs_J2, BorderLayout.SOUTH);
 		
 		panel_entrenadores.setPreferredSize(new Dimension(100, 400));
