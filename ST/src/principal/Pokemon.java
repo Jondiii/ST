@@ -19,8 +19,14 @@ public class Pokemon {
 	private int velocidad;
 	private int nivel;
 	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
-	private Double[] cambiosEstadisticas = new Double[5];
 	
+	/**
+	 * Las estadísticas de PS, Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
+	 * Algunos movimientos producen estos cambios (positivos o negativos), y hacen que las estadísticas se "multipliquen".
+	 * Pueden ir desde -6 (x0,25) hasta +6 (x4)
+	 * 1 - PS, 2 - Ataque, 3 - Defensa, 4 - Ata. especial, 5 - Def. especial y 6 - Velocidad.
+	 */
+	private Integer[] cambiosEstadisticas = new Integer[5];
 	
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
@@ -44,16 +50,38 @@ public class Pokemon {
 		Collections.addAll(tipos, tipo);
 		
 		for (int i = 0; i < cambiosEstadisticas.length; i++) {
-			cambiosEstadisticas[i] = 1.0;
+			cambiosEstadisticas[i] = 0;
 		}
-		
-		
 	}
 
-	/* Calcula el portentaje de vida actual que tiene el pokemon
+	/** Calcula el portentaje de vida actual que tiene el pokemon
 	 */
 	public int calcuPsPorcentaje() {
 		return (ps*100/ps_max);
+	}
+	
+	/**
+	 * Devuelve el multiplicador de la estadística correspondiente.
+	 * @param posicion Posición de al estadística en el array.
+	 * 1 - PS, 2 - Ataque, 3 - Defensa, 4 - Ata. especial, 5 - Def. especial y 6 - Velocidad.
+	 */
+	public double getStats(int posicion) {
+		int stat = cambiosEstadisticas[posicion];
+		
+		if (stat == 0) return 1.0;
+		if (stat == 1) return 1.5;
+		if (stat == 2) return 2.0;
+		if (stat == 3) return 2.5;
+		if (stat == 4) return 3.0;
+		if (stat == 5) return 3.5;
+		if (stat == 6) return 4.0;
+		if (stat == -1) return 0.67;
+		if (stat == -2) return 0.5;
+		if (stat == -3) return 0.4;
+		if (stat == -4) return 0.33;
+		if (stat == -5) return 0.29;
+		if (stat == -6) return 0.25;
+		return 1.0;
 	}
 	public String getNombre() {
 		return nombre;

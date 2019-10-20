@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Clase que gestiona toda la lógica de combate. *
+ * Clase que gestiona toda la lógica de combate.
  */
 public class Combate {
 	
