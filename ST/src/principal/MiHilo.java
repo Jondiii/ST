@@ -1,5 +1,6 @@
 package principal;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JButton;
@@ -13,10 +14,15 @@ public class MiHilo implements Runnable {
 	private Thread game;
 	private Combate c;
 	private VentanaJuego v;
+	private Pokemon primero;
+	private Pokemon segundo;
+	private Movimiento prim_mov;
+	private Movimiento seg_mov;
 	
 	public MiHilo(Combate c, VentanaJuego v) {
 		this.c = c;
 		this.v = v;
+		
 	}
 	@Override
 	public void run() {
@@ -40,13 +46,26 @@ public class MiHilo implements Runnable {
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
 		
-		// solo es de prueba
-		c.getpEnemigo().setPs((int)(c.getpEnemigo().getPs() - c.calculaDaño(c.getpActivo(), c.getpEnemigo(), c.getpActivo().getMovimientos_poke().get(1))));
-		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
-		v.revalidate();
+		if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
+			primero = c.getpActivo();
+			segundo = c.getpEnemigo();
+			prim_mov = c.getMovActivo();
+			seg_mov = c.getMovEnemigo();
+			actualizar_daño();
+		}
+		if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
+			primero = c.getpEnemigo();
+			segundo = c.getpActivo();
+			prim_mov = c.getMovEnemigo();
+			seg_mov = c.getMovActivo();
+			actualizar_daño();
+		}
+		if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
+			//que se escoja aleatoriamente elpokemon que atacara primero
+			actualizar_daño();
+		}
 			
-		c.getpActivo().setPs((int)(c.getpActivo().getPs() - c.calculaDaño( c.getpEnemigo(),c.getpActivo(), c.getpEnemigo().getMovimientos_poke().get(1))));
-		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
+		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
 		
 		//Los siguientes dos bucles sirven para reactivar los botones una vez ambos jugadores han seleccionado su movimiento.
@@ -58,6 +77,19 @@ public class MiHilo implements Runnable {
 		}
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
+	}
+	public void actualizar_daño() {
+		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
+		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
+		if (v.getVida_2().getValue() < 50) {
+			v.getVida_2().setForeground(Color.RED);
+		}
+		//si el pokemon esta debilitado despues del ataque
+		primero.setPs((int)(primero.getPs() - c.calculaDaño(segundo, primero, seg_mov)));
+		v.getVida_1().setValue(primero.calcuPsPorcentaje());
+		if ((v.getVida_1().getValue()) < 50) {
+			v.getVida_1().setForeground(Color.RED);
+		}
 	}
 	public void start() {
 		if (running) return;

@@ -4,6 +4,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.UIManager;
+
 import principal.*;
 
 public class Main {
@@ -17,7 +19,11 @@ public class Main {
 		
 		creaEquiposPorDefecto();
 		Combate c = new Combate(miEquipo, oponente);
-		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		VentanaJuego vj = c.getVentana();
 		vj.setVisible(true);
 		vj.addWindowListener(new WindowAdapter() {
@@ -41,7 +47,7 @@ public class Main {
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
-		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 600, 1, 1, 1, 1, 1, 1, m, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 600, 2, 2, 2, 2, 2, 2, m, Tipo.TIERRA));
 		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
 		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		

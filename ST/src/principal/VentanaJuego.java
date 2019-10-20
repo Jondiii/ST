@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import main.EstadosJuego;
@@ -64,6 +65,7 @@ public class VentanaJuego extends JFrame{
 	 * @param c
 	 */
 	public VentanaJuego(Combate c) {
+		
 		this.miEquipo = c.getAliados();
 		this.oponente = c.getOponentes();
 		
@@ -157,6 +159,7 @@ public class VentanaJuego extends JFrame{
 							c.getVentana().revalidate();
 						}
 					}
+
 				});
 				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
 			}
@@ -259,7 +262,6 @@ public class VentanaJuego extends JFrame{
 //						}
 				
 					//}
-					
 					esperar++;
 					cambiarEstados();	
 				}
