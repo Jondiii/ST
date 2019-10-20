@@ -130,11 +130,11 @@ public class VentanaJuego extends JFrame{
 		/**
 		 * Añadair un listener al label para que se cambie de pokemon.
 		 */
-		JPanel panel_pokeballs = new JPanel();
-		panel_pokeballs.setLayout(new GridLayout(6, 0));
+		JPanel panel_pokeballs_J1 = new JPanel();
+		panel_pokeballs_J1.setLayout(new GridLayout(6, 0));
 		
-		JPanel panel_pokeballs_1 = new JPanel();
-		panel_pokeballs_1.setLayout(new GridLayout(6, 0));
+		JPanel panel_pokeballs_J2 = new JPanel();
+		panel_pokeballs_J2.setLayout(new GridLayout(6, 0));
 		
 		
 		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
@@ -143,7 +143,7 @@ public class VentanaJuego extends JFrame{
 				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
 				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 				JLabel pokemon = new JLabel(icono_p_1);
-				panel_pokeballs.add(pokemon, BorderLayout.SOUTH);
+				panel_pokeballs_J1.add(pokemon, BorderLayout.SOUTH);
 			}
 			else {
 				JLabel pokeball = new JLabel(icono_1);
@@ -154,16 +154,16 @@ public class VentanaJuego extends JFrame{
 						Point pPulsado = new Point(e.getPoint());
 						esperar ++;
 						cambiarEstados();
-						System.out.println("hola");
-						if (pokeball.getBounds().contains(pPulsado)) {
-							System.out.println("FUNCIONO");
-						} //Arreglar esto.
+						if (pokeball.getBounds().getCenterX() >= (pPulsado.getX())) {
+							//Para poder hacer el cambio hace falta que el jlabel sepa qué pokémon es o en su defecto que sepa su posición respecto a 
+							//el resto de jlabels.
+						}
 					}
 				});
-				panel_pokeballs.add(pokeball, BorderLayout.SOUTH);
+				panel_pokeballs_J1.add(pokeball, BorderLayout.SOUTH);
 			}
 		}
-		panel_entrenadores.add(panel_pokeballs, BorderLayout.SOUTH);
+		panel_entrenadores.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
 		
 		for (Pokemon p : oponente) {
@@ -171,15 +171,29 @@ public class VentanaJuego extends JFrame{
 				ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + p.getNombre() + "_sprite.PNG" ));
 				ImageIcon icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 				JLabel pokemon = new JLabel(icono_p_1);
-				panel_pokeballs_1.add(pokemon, BorderLayout.SOUTH);
+				panel_pokeballs_J2.add(pokemon, BorderLayout.SOUTH);
 			}
 			else {
 				JLabel pokeball = new JLabel(icono_1);
-				panel_pokeballs_1.add(pokeball, BorderLayout.SOUTH);
+				panel_pokeballs_J2.add(pokeball, BorderLayout.SOUTH);
+				
+				pokeball.addMouseListener( new MouseAdapter(){
+					 
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						Point pPulsado = new Point(e.getPoint());
+						esperar ++;
+						cambiarEstados();
+						if (pokeball.getBounds().getCenterX() >= (pPulsado.getX())) {
+							//Para poder hacer el cambio hace falta que el jlabel sepa qué pokémon es o en su defecto que sepa su posición respecto a 
+							//el resto de jlabels.
+						}
+					}
+				});
 			}
 		}
 		
-		panel_entrenadores_1.add(panel_pokeballs_1, BorderLayout.SOUTH);
+		panel_entrenadores_1.add(panel_pokeballs_J2, BorderLayout.SOUTH);
 		
 		panel_entrenadores.setPreferredSize(new Dimension(100, 400));
 		panel_entrenadores_1.setPreferredSize(new Dimension(100, 400));
