@@ -2,6 +2,7 @@ package principal;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Random;
 
 import javax.swing.JButton;
 
@@ -61,7 +62,19 @@ public class MiHilo implements Runnable {
 			actualizar_daño();
 		}
 		if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
-			//que se escoja aleatoriamente elpokemon que atacara primero
+			Random aleatorio = new Random();
+			int intAletorio = aleatorio.nextInt(2);
+			if (intAletorio == 0) {
+				primero = c.getpActivo();
+				segundo = c.getpEnemigo();
+				prim_mov = c.getMovActivo();
+				seg_mov = c.getMovEnemigo();
+			}else {
+				primero = c.getpEnemigo();
+				segundo = c.getpActivo();
+				prim_mov = c.getMovEnemigo();
+				seg_mov = c.getMovActivo();
+			}
 			actualizar_daño();
 		}
 			
