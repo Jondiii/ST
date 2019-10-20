@@ -15,7 +15,7 @@ public class MiHilo implements Runnable {
 	private Thread game;
 	private Combate c;
 	private VentanaJuego v;
-	private Pokemon primero;
+	private Pokemon primero;//guarda las priodidades del pokemon 
 	private Pokemon segundo;
 	private Movimiento prim_mov;
 	private Movimiento seg_mov;
