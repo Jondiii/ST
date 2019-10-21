@@ -94,14 +94,21 @@ public class MiHilo implements Runnable {
 	public void actualizar_daño() {
 		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
 		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-		if (v.getVida_2().getValue() < 50) {
-			v.getVida_2().setForeground(Color.RED);
+		if (segundo.getPs() < segundo.getPs_max() / 2) {
+			v.getVida_2().setForeground(Color.YELLOW);
+			if (segundo.getPs() < segundo.getPs_max() / 4) {
+				v.getVida_2().setForeground(Color.RED);
+			}
 		}
+		
 		//si el pokemon esta debilitado despues del ataque
 		primero.setPs((int)(primero.getPs() - c.calculaDaño(segundo, primero, seg_mov)));
 		v.getVida_1().setValue(primero.calcuPsPorcentaje());
-		if ((v.getVida_1().getValue()) < 50) {
-			v.getVida_1().setForeground(Color.RED);
+		if (primero.getPs() < primero.getPs_max() / 2) {
+			v.getVida_1().setForeground(Color.YELLOW);
+			if (primero.getPs() < primero.getPs_max() / 4) {
+				v.getVida_1().setForeground(Color.RED);
+			}
 		}
 	}
 	public void start() {
