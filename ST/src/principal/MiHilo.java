@@ -74,8 +74,14 @@ public class MiHilo implements Runnable {
 				seg_mov = c.getMovActivo();
 			}
 		}
-		//comprobar si es de estado o ficsico/especial
-		actualizar_daño();
+		if (prim_mov.getCat() == CategoriaMov.ESTADO) {
+			actualizarEstado();
+		}
+		if (seg_mov.getCat() == CategoriaMov.ESTADO) {
+			actualizarEstado();
+		}
+		actualizar_daño();//devuleve 0 si es de estado, en el calculo de daño.
+		
 		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
 		
@@ -90,7 +96,11 @@ public class MiHilo implements Runnable {
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
-	public void actualizar_daño() {
+	private void actualizarEstado() {
+		
+		
+	}
+	private void actualizar_daño() {
 		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
 		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
 		if (segundo.getPs() < segundo.getPs_max() / 2) {
