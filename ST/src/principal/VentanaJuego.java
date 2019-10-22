@@ -95,17 +95,23 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central_2 = new JPanel();
 		
 		vida_1 = new JProgressBar();
-		vida_1.setValue(miEquipo.get(2).calcuPsPorcentaje());
+		vida_1.setValue(c.getpActivo().calcuPsPorcentaje());
 		vida_1.setForeground(Color.GREEN);
 		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_1.add(vida_1, BorderLayout.NORTH);
 		
 		vida_2 = new JProgressBar();
-		vida_2.setValue(oponente.get(2).calcuPsPorcentaje());
+		vida_2.setValue(c.getpEnemigo().calcuPsPorcentaje());
 		vida_2.setForeground(Color.GREEN);
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_central_2.add(vida_2, BorderLayout.NORTH);
-			
+		
+		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+		JLabel poke_1 = new JLabel();
+		poke_1.setIcon(icono_2);
+		
+		panel_central_1.add(poke_1);
 		panel_central.add(panel_vacio_1);
 		panel_central.add(panel_vacio_2);
 		panel_central.add(panel_central_1);
