@@ -52,14 +52,12 @@ public class MiHilo implements Runnable {
 			segundo = c.getpEnemigo();
 			prim_mov = c.getMovActivo();
 			seg_mov = c.getMovEnemigo();
-			actualizar_daño();
 		}
 		if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
 			primero = c.getpEnemigo();
 			segundo = c.getpActivo();
 			prim_mov = c.getMovEnemigo();
 			seg_mov = c.getMovActivo();
-			actualizar_daño();
 		}
 		if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
 			Random aleatorio = new Random();
@@ -75,11 +73,12 @@ public class MiHilo implements Runnable {
 				prim_mov = c.getMovEnemigo();
 				seg_mov = c.getMovActivo();
 			}
-			actualizar_daño();
 		}
-			
+		//comprobar si es de estado o ficsico/especial
+		actualizar_daño();
 		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
+		
 		
 		//Los siguientes dos bucles sirven para reactivar los botones una vez ambos jugadores han seleccionado su movimiento.
 		for (Component boton : VentanaJuego.panel_movimientos_1.getComponents()) {
