@@ -168,7 +168,7 @@ public class VentanaJuego extends JFrame{
 		
 		for (Pokemon p : oponente) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			
-			if (c.getpActivo() == p) {
+			if (c.getpEnemigo() == p) {
 				Pokeball ball = new Pokeball(iconoPokeball, p);
 				ball.mostrarPoke();
 				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
