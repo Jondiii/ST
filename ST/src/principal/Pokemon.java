@@ -21,12 +21,12 @@ public class Pokemon {
 	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
 	
 	/**
-	 * Las estadísticas de PS, Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
+	 * Las estadísticas de Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
 	 * Algunos movimientos producen estos cambios (positivos o negativos), y hacen que las estadísticas se "multipliquen".
 	 * Pueden ir desde -6 (x0,25) hasta +6 (x4)
-	 * 1 - PS, 2 - Ataque, 3 - Defensa, 4 - Ata. especial, 5 - Def. especial y 6 - Velocidad.
+	 * 0 - Ataque, 1 - Defensa, 2 - Ata. especial, 3 - Def. especial y 4 - Velocidad.
 	 */
-	private Integer[] cambiosEstadisticas = new Integer[5];
+	private Integer[] cambiosEstadisticas = new Integer[4];
 	
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,

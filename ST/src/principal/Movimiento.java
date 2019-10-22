@@ -13,6 +13,14 @@ public class Movimiento {
 	private CategoriaMov cat;//Categoría a la que pertenece el movimiento.
 	private int prioridad; //Varía desde -6 a +6. Los movimientos con prioridad ignoran la velocidad al ejecutarse.
 	
+	/**
+	 * Las estadísticas de Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
+	 * Algunos movimientos producen estos cambios (positivos o negativos), y hacen que las estadísticas se "multipliquen".
+	 * Pueden ir desde -6 (x0,25) hasta +6 (x4)
+	 * 0 - Ataque, 1 - Defensa, 2 - Ata. especial, 3 - Def. especial y 4 - Velocidad.
+	 */
+	private Integer[] cambiosEstadisticas = new Integer[4];
+	
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat, int prio) {
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -24,6 +32,15 @@ public class Movimiento {
 		this.prioridad = prio;
 	}
 	
+	
+
+	public Integer[] getCambiosEstadisticas() {
+		return cambiosEstadisticas;
+	}
+
+	public void setCambiosEstadisticas(Integer[] cambiosEstadisticas) {
+		this.cambiosEstadisticas = cambiosEstadisticas;
+	}
 
 	public String getNombre() {
 		return nombre;
