@@ -5,6 +5,8 @@ import java.util.Collections;
 
 public class Pokemon {
 	
+	//https://pokemondb.net/sprites
+	
 	private String nombre;
 	private ArrayList<Tipo> tipos; //Crear array
 	private int peso;
