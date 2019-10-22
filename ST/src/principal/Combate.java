@@ -66,9 +66,32 @@ public class Combate {
 			
 			return daño;
 		}
+	
+	}
+	
+	/**
+	 * Calcula los cambios en los stats en base a los que ya tiene el pokémon.
+	 * 
+	 * PROBLEMAS: Si un stat tiene un +5, y el movimiento hace le da +2, el cambio no será efectivo.
+	 * Es decir, en vez de quedarse con un +6, se quedará con el +5, porque si se le añade 2 se "pasa".
+	 * 
+	 * MEJORAS: Si añadimos un cuadro de texto que explique lo que ocurre a tiempo real se podrá
+	 * hacer que saliese un mensaje del estilo "¡el ataque no puede subir más!" o algo así por cada stat.
+	 * 
+	 * @param estadoActual  Cambios en los stats actuales del pokémon
+	 * @param move			Movimiento efectuado
+	 * @return				Array de los cambios en los stats tras aplicar las alteraciones del movimiento.
+	 */
+	public static Integer[] calculaCambiosStats(Integer[] estadoActual, Movimiento move) {
+		for (int i = 0; i < estadoActual.length; i++) {
+			int cambio = estadoActual[i] + move.getCambiosEstadisticas()[i];
+			
+			if (cambio > -6 && cambio < 6) {
+				estadoActual[i] = cambio;
+			}
+		}
 		
-		
-		
+		return estadoActual;
 	}
 
 	public Pokemon getpActivo() {

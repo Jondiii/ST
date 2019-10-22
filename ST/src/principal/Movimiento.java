@@ -30,6 +30,11 @@ public class Movimiento {
 		this.ppRestantes = pp;
 		this.cat = cat;
 		this.prioridad = prio;
+		
+		//Por defecto los movimientos no producen cambios de estadísticas.
+		for (int i = 0; i < cambiosEstadisticas.length; i++) {
+			cambiosEstadisticas[i] = 0;
+		}
 	}
 	
 	
