@@ -47,11 +47,11 @@ public class Main {
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
-		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 600, 2, 2, 2, 2, 2, 2, m, Tipo.TIERRA));
-		miEquipo.add(new Pokemon("Charmander", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
+		miEquipo.add(new Pokemon("Froslass", 1, 1, "Probando", 600, 2, 2, 2, 2, 2, 2, m, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
+		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
-		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 350, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
+		oponente.add(new Pokemon("Serperior", 1, 1, "Probando", 350, 1, 1, 1, 1, 1, 1, m, Tipo.AGUA));
 		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON));
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO));
 	}

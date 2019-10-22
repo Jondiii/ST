@@ -6,6 +6,7 @@ import java.util.Collections;
 public class Pokemon {
 	
 	//https://pokemondb.net/sprites
+	//https://play.pokemonshowdown.com/sprites/
 	
 	private String nombre;
 	private ArrayList<Tipo> tipos; //Crear array
