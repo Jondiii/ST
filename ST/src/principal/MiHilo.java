@@ -47,16 +47,16 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
-			v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
+			
 		}
 		
 		if (c.isJ2_cambia()) {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_espaldas.png"));
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
-			v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
+			
 		}
-		
+		actualizar_progress_bar();
 		//tenemos que pasarle el pokemon que este actualmente en el campo 
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
@@ -153,14 +153,19 @@ public class MiHilo implements Runnable {
 				v.getVida_1().setForeground(Color.RED);
 			}
 		}
+		else {
+			v.getVida_1().setForeground(Color.GREEN);
+		}
 		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
 		if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 2) {
 			v.getVida_2().setForeground(Color.YELLOW);
 			if (c.getpEnemigo().getPs() < segundo.getPs_max() / 4) {
 				v.getVida_2().setForeground(Color.RED);
 			}
+		}else {
+			v.getVida_2().setForeground(Color.GREEN);
 		}
-		
+		v.revalidate();
 	}
 	private void actualizarEstado() {
 				
