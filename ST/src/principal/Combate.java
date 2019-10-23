@@ -15,6 +15,9 @@ public class Combate {
 	private Pokemon pEnemigo;						//Pokémon en primera posición del equipo del J2
 	private Movimiento movActivo;					//movimiento del activo
 	private Movimiento movEnemigo;
+	private boolean J1_cambia = false;
+	private boolean J2_cambia = false;
+
 
 	/**
 	 * Se crea un combate en función de la ventana.
@@ -112,6 +115,22 @@ public class Combate {
 
 	public VentanaJuego getVentana() {
 		return ventana;
+	}
+
+	public boolean isJ1_cambia() {
+		return J1_cambia;
+	}
+
+	public void setJ1_cambia(boolean j1_cambia) {
+		J1_cambia = j1_cambia;
+	}
+
+	public boolean isJ2_cambia() {
+		return J2_cambia;
+	}
+
+	public void setJ2_cambia(boolean j2_cambia) {
+		J2_cambia = j2_cambia;
 	}
 
 	public void setVentana(VentanaJuego ventana) {

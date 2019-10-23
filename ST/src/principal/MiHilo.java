@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import main.EstadosJuego;
@@ -42,7 +43,11 @@ public class MiHilo implements Runnable {
 	}
 	private void actualizar() {
 		
-		
+		if (c.isJ1_cambia()) {
+			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+			v.getPoke_1().setIcon(icono_2);
+		}
 		//tenemos que pasarle el pokemon quue este actualmente en el campo 
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
@@ -93,13 +98,17 @@ public class MiHilo implements Runnable {
 		for (Component boton : VentanaJuego.panel_movimientos_2.getComponents()) {
 			((JButton)boton).setEnabled(true);
 		}
+		
+		v.getPanel_j1().setEnabled(true); //No sabemos si esto funciona.
+		v.getPanel_j2().setEnabled(true);
+
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
 	private void actualizarEstado() {
-		
-		
+				
 	}
+	
 	private void actualizar_daño() {
 		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
 		v.getVida_2().setValue(segundo.calcuPsPorcentaje());

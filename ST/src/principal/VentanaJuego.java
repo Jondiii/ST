@@ -36,6 +36,14 @@ public class VentanaJuego extends JFrame{
 	private static VentanaJuego vj;
 	public static JPanel panel_movimientos_1;
 	public static JPanel panel_movimientos_2;
+	public JPanel panel_j1;
+	public JPanel panel_j2;
+	public JPanel panel_poke_J1;
+	public JPanel panel_poke_J2;
+	public JPanel panel_vacio_1;
+	public JPanel panel_vacio_2;
+	public JLabel poke_1;
+	public JLabel poke_2;
 
 	
 	private JProgressBar vida_1;
@@ -76,6 +84,10 @@ public class VentanaJuego extends JFrame{
 		setSize(800, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		
+//		
+//		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+//		this.setIconImage(fondo);
+//		
 		crearPanelFrontal();
 		crearPanelLateral();
 		crearPanelInferior();	
@@ -89,33 +101,45 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central = new JPanel();
 		panel_central.setLayout(new GridLayout(2, 2));
 		
+////		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+//		
+//		JLabel img_fondo = new JLabel( new ImageIcon(getClass().getResource("/img/campo_batalla_1.png")));
+//		panel_central.add(img_fondo); //No sabemos poner un fondo decente.
+//		
 		JPanel panel_vacio_1 = new JPanel();
 		JPanel panel_vacio_2 = new JPanel();
-		JPanel panel_central_1 = new JPanel();
-		JPanel panel_central_2 = new JPanel();
+		panel_poke_J1 = new JPanel();
+		panel_poke_J2 = new JPanel();
 		
 		vida_1 = new JProgressBar();
 		vida_1.setValue(c.getpActivo().calcuPsPorcentaje());
 		vida_1.setForeground(Color.GREEN);
 		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panel_central_1.add(vida_1, BorderLayout.NORTH);
+		panel_poke_J1.add(vida_1, BorderLayout.NORTH);
 		
 		vida_2 = new JProgressBar();
 		vida_2.setValue(c.getpEnemigo().calcuPsPorcentaje());
 		vida_2.setForeground(Color.GREEN);
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		panel_central_2.add(vida_2, BorderLayout.NORTH);
+		panel_poke_J2.add(vida_2, BorderLayout.NORTH);
 		
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
-		JLabel poke_1 = new JLabel();
+		poke_1 = new JLabel();
 		poke_1.setIcon(icono_2);
 		
-		panel_central_1.add(poke_1);
+		ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_espaldas.png"));
+		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+		poke_2 = new JLabel();
+		poke_2.setIcon(iconoo_2);
+		
+		panel_poke_J2.add(poke_2, BorderLayout.CENTER);
+		panel_poke_J1.add(poke_1, BorderLayout.CENTER);
 		panel_central.add(panel_vacio_1);
+		panel_central.add(panel_poke_J2);
+		panel_central.add(panel_poke_J1);
 		panel_central.add(panel_vacio_2);
-		panel_central.add(panel_central_1);
-		panel_central.add(panel_central_2);
+		
 		add(panel_central, BorderLayout.CENTER);
 		
 	}
@@ -125,15 +149,15 @@ public class VentanaJuego extends JFrame{
 	 * pulsa se puede cambiarde  pokemon.
 	 */
 	private void crearPanelLateral() {
-		JPanel panel_entrenadores = new JPanel();
-		JPanel panel_entrenadores_1 = new JPanel();
+		panel_j1 = new JPanel();
+		panel_j2 = new JPanel();
 		
 		//Imagen de pokeballs
 		ImageIcon icono = new ImageIcon(getClass().getResource("/img/pokeball.png"));
 		ImageIcon iconoPokeball = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 		
-		panel_entrenadores.setLayout(new BorderLayout());
-		panel_entrenadores_1.setLayout(new BorderLayout());
+		panel_j1.setLayout(new BorderLayout());
+		panel_j2.setLayout(new BorderLayout());
 		
 		/**
 		 * Añadair un listener al label para que se cambie de pokemon.
@@ -158,19 +182,20 @@ public class VentanaJuego extends JFrame{
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						Point pPulsado = new Point(e.getPoint());
+						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+							c.setpActivo(ball.getPoke());
+							ball.mostrarPoke();
+							c.setJ1_cambia(true);
+						}
 						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
-						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
-							ball.mostrarPoke();
-							c.getVentana().revalidate();
-						}
 					}
 
 				});
 				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
 			}
 		}
-		panel_entrenadores.add(panel_pokeballs_J1, BorderLayout.SOUTH);
+		panel_j1.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
 		for (Pokemon p : oponente) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			
@@ -186,24 +211,26 @@ public class VentanaJuego extends JFrame{
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						Point pPulsado = new Point(e.getPoint());
-						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
-						cambiarEstados();
 						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 							ball.mostrarPoke();
-							c.getVentana().revalidate();
-						}
+							c.setpEnemigo(ball.getPoke());
+							c.setJ2_cambia(true);
+							}
+						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
+						cambiarEstados();
+						
 					}
 				});
 				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
 			}
 		}
-		panel_entrenadores_1.add(panel_pokeballs_J2, BorderLayout.SOUTH);
+		panel_j2.add(panel_pokeballs_J2, BorderLayout.SOUTH);
 		
-		panel_entrenadores.setPreferredSize(new Dimension(100, 400));
-		panel_entrenadores_1.setPreferredSize(new Dimension(100, 400));
+		panel_j1.setPreferredSize(new Dimension(100, 400));
+		panel_j2.setPreferredSize(new Dimension(100, 400));
 		
-		add(panel_entrenadores, BorderLayout.WEST);
-		add(panel_entrenadores_1, BorderLayout.EAST);
+		add(panel_j1, BorderLayout.WEST);
+		add(panel_j2, BorderLayout.EAST);
 	}
 
 	/* Crear un JPanel donde van a estar conenido otros dos JPanel con los 
@@ -228,8 +255,9 @@ public class VentanaJuego extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
+					panel_j1.setEnabled(false);
 					for (Component boton : panel_movimientos_1.getComponents()) {
-						((JButton)boton).setEnabled(false);
+						((JButton)boton).setEnabled(false); 
 						if (((JButton)boton).getName() == m.getNombre()) {
 							c.setMovActivo(m);
 						}
@@ -255,6 +283,7 @@ public class VentanaJuego extends JFrame{
 			l_1.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					panel_j2.setEnabled(false);
 					for (Component boton : panel_movimientos_2.getComponents()) {
 						((JButton)boton).setEnabled(false);
 						if (((JButton)boton).getName() == m.getNombre()) {
@@ -309,6 +338,118 @@ public class VentanaJuego extends JFrame{
 		VentanaJuego.vj = vj;
 	}
 	
+	public static int getEsperar() {
+		return esperar;
+	}
+
+	public static void setEsperar(int esperar) {
+		VentanaJuego.esperar = esperar;
+	}
+
+	public static EstadosJuego getEstado() {
+		return estado;
+	}
+
+	public static void setEstado(EstadosJuego estado) {
+		VentanaJuego.estado = estado;
+	}
+
+	public static JPanel getPanel_movimientos_1() {
+		return panel_movimientos_1;
+	}
+
+	public static void setPanel_movimientos_1(JPanel panel_movimientos_1) {
+		VentanaJuego.panel_movimientos_1 = panel_movimientos_1;
+	}
+
+	public static JPanel getPanel_movimientos_2() {
+		return panel_movimientos_2;
+	}
+
+	public static void setPanel_movimientos_2(JPanel panel_movimientos_2) {
+		VentanaJuego.panel_movimientos_2 = panel_movimientos_2;
+	}
+
+	public JPanel getPanel_j1() {
+		return panel_j1;
+	}
+
+	public void setPanel_j1(JPanel panel_j1) {
+		this.panel_j1 = panel_j1;
+	}
+
+	public JPanel getPanel_j2() {
+		return panel_j2;
+	}
+
+	public void setPanel_j2(JPanel panel_j2) {
+		this.panel_j2 = panel_j2;
+	}
+
+	public JPanel getPanel_poke_J1() {
+		return panel_poke_J1;
+	}
+
+	public void setPanel_poke_J1(JPanel panel_poke_J1) {
+		this.panel_poke_J1 = panel_poke_J1;
+	}
+
+	public JPanel getPanel_poke_J2() {
+		return panel_poke_J2;
+	}
+
+	public void setPanel_poke_J2(JPanel panel_poke_J2) {
+		this.panel_poke_J2 = panel_poke_J2;
+	}
+
+	public JPanel getPanel_vacio_1() {
+		return panel_vacio_1;
+	}
+
+	public void setPanel_vacio_1(JPanel panel_vacio_1) {
+		this.panel_vacio_1 = panel_vacio_1;
+	}
+
+	public JLabel getPoke_1() {
+		return poke_1;
+	}
+
+	public void setPoke_1(JLabel poke_1) {
+		this.poke_1 = poke_1;
+	}
+
+	public JLabel getPoke_2() {
+		return poke_2;
+	}
+
+	public void setPoke_2(JLabel poke_2) {
+		this.poke_2 = poke_2;
+	}
+
+	public JPanel getPanel_vacio_2() {
+		return panel_vacio_2;
+	}
+
+	public void setPanel_vacio_2(JPanel panel_vacio_2) {
+		this.panel_vacio_2 = panel_vacio_2;
+	}
+
+	public Combate getC() {
+		return c;
+	}
+
+	public void setC(Combate c) {
+		this.c = c;
+	}
+
+	public void setVida_1(JProgressBar vida_1) {
+		this.vida_1 = vida_1;
+	}
+
+	public void setVida_2(JProgressBar vida_2) {
+		this.vida_2 = vida_2;
+	}
+
 	public JProgressBar getVida_1() {
 		return vida_1;
 	}
