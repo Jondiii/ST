@@ -92,7 +92,7 @@ public class VentanaJuego extends JFrame{
 		crearPanelInferior();	
 	}
 	
-	/* Se crea un panel donde van a estar contenidos otros 4 paneles y 
+	/** Se crea un panel donde van a estar contenidos otros 4 paneles y 
 	 * en los inferiores apareceran los pokemon, su vida(JProgressbar),
 	 * su estado(si es que tienen).
 	 */
@@ -146,7 +146,7 @@ public class VentanaJuego extends JFrame{
 		
 		
 	}
-	/* Se crea un panel en cada lateral con el numero de pokemons que posee cada 
+	/** Se crea un panel en cada lateral con el numero de pokemons que posee cada 
 	 * entranador, ademas apereceran unos sprites por los pokemon. Cuando se 
 	 * pasa el raton por encima se puede ver las caracteristicas del pokemon. Si se
 	 * pulsa se puede cambiarde  pokemon.

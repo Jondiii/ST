@@ -47,7 +47,7 @@ public class Main {
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "Probando", 350, 2, 2, 2, 2, 2, 2, m, Tipo.TIERRA));
+		miEquipo.add(new Pokemon("Froslass", 1, 1, "Probando", 350, 2, 2, 2, 2, 2, 2, m, Tipo.VOLADOR));
 		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
 		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		

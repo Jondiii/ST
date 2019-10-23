@@ -56,6 +56,7 @@ public class MiHilo implements Runnable {
 			v.getPoke_2().setIcon(iconoo_2);
 			
 		}
+		
 		actualizar_progress_bar();
 		//tenemos que pasarle el pokemon que este actualmente en el campo 
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
@@ -119,10 +120,7 @@ public class MiHilo implements Runnable {
 			//actualizar_progress_bar();
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
-		
-		
-		
-		
+	
 		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
 		
@@ -149,7 +147,7 @@ public class MiHilo implements Runnable {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
 			v.getVida_1().setForeground(Color.YELLOW);
-			if (c.getpActivo().getPs() < segundo.getPs_max() / 4) {
+			if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 4) { //Antes en vez de c.getpActivo().getPs_max() ponía segundo.getPs_Max()
 				v.getVida_1().setForeground(Color.RED);
 			}
 		}
@@ -159,7 +157,7 @@ public class MiHilo implements Runnable {
 		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
 		if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 2) {
 			v.getVida_2().setForeground(Color.YELLOW);
-			if (c.getpEnemigo().getPs() < segundo.getPs_max() / 4) {
+			if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 4) { //Antes en vez de c.getpEnemigo().getPs_max() ponía segundo.getPs_Max()
 				v.getVida_2().setForeground(Color.RED);
 			}
 		}else {
