@@ -169,26 +169,50 @@ public class MiHilo implements Runnable {
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
 	// es decir a cual sumarle el daño, asi que se actualiza al final ambos (DE MOMENTO)
 	private void actualizar_daño() {
-		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
-//		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-//		if (segundo.getPs() < segundo.getPs_max() / 2) {
-//			v.getVida_2().setForeground(Color.YELLOW);
-//			if (segundo.getPs() < segundo.getPs_max() / 4) {
-//				v.getVida_2().setForeground(Color.RED);
-//			}
-//		}
-		
-		if (seg_mov == null) return;
-		if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
-		//si el pokemon esta debilitado despues del ataque
-		primero.setPs((int)(primero.getPs() - c.calculaDaño(segundo, primero, seg_mov)));
-//		v.getVida_1().setValue(primero.calcuPsPorcentaje());
-//		if (primero.getPs() < primero.getPs_max() / 2) {
-//			v.getVida_1().setForeground(Color.YELLOW);
-//			if (primero.getPs() < primero.getPs_max() / 4) {
-//				v.getVida_1().setForeground(Color.RED);
-//			}
-//		}
+			
+			int psPoke = segundo.getPs();
+			int psPokeDam = ( (int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
+			
+			for (int i = psPoke; i > psPokeDam; i--) {
+				segundo.setPs(segundo.getPs() - 1);
+				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
+				System.out.println(segundo.getPs());
+				if (segundo.getPs() < segundo.getPs_max() / 2) {
+					v.getVida_2().setForeground(Color.YELLOW);
+					if (segundo.getPs() < segundo.getPs_max() / 4) {
+						v.getVida_2().setForeground(Color.RED);
+					}
+				}	
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}	
+			
+			if (seg_mov == null) return;
+			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
+			//si el pokemon esta debilitado despues del ataque
+			
+			int psPoke2 = primero.getPs();
+			int psPoke2Dam = ( (int)(primero.getPs() - c.calculaDaño( segundo, primero, seg_mov)));
+			
+			for (int i = psPoke2; i > psPoke2Dam; i--) {
+				primero.setPs(primero.getPs() - 1);
+				v.getVida_1().setValue(primero.calcuPsPorcentaje());
+				if (primero.getPs() < primero.getPs_max() / 2) {
+					v.getVida_1().setForeground(Color.YELLOW);
+					if (primero.getPs() < primero.getPs_max() / 4) {
+						v.getVida_1().setForeground(Color.RED);
+					}
+				}
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 	
 	public void start() {
