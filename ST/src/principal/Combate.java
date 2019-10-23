@@ -17,6 +17,8 @@ public class Combate {
 	private Movimiento movEnemigo;
 	private boolean J1_cambia = false;
 	private boolean J2_cambia = false;
+	private boolean J1_accion_hecha = false;
+	private boolean J2_accion_hecha = false;
 
 
 	/**
@@ -115,6 +117,22 @@ public class Combate {
 
 	public VentanaJuego getVentana() {
 		return ventana;
+	}
+
+	public boolean isJ1_accion_hecha() {
+		return J1_accion_hecha;
+	}
+
+	public void setJ1_accion_hecha(boolean j1_accion_hecha) {
+		J1_accion_hecha = j1_accion_hecha;
+	}
+
+	public boolean isJ2_accion_hecha() {
+		return J2_accion_hecha;
+	}
+
+	public void setJ2_accion_hecha(boolean j2_accion_hecha) {
+		J2_accion_hecha = j2_accion_hecha;
 	}
 
 	public boolean isJ1_cambia() {

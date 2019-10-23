@@ -48,48 +48,77 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
 		}
-		//tenemos que pasarle el pokemon quue este actualmente en el campo 
+		
+		if (c.isJ2_cambia()) {
+			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_espaldas.png"));
+			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+			v.getPoke_2().setIcon(iconoo_2);
+		}
+		
+		//tenemos que pasarle el pokemon que este actualmente en el campo 
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
 		
-		if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
+		if (c.isJ1_cambia()) { //Lo que ocurre si el J1 cambia y el J2 no.
+			if(!c.isJ2_cambia()) {
+				primero = c.getpEnemigo();
+				prim_mov = c.getMovEnemigo();
+				segundo = c.getpActivo();
+				seg_mov = null;
+			} else { //Lo que ocurre si ambos cambian
+				prim_mov = null;
+				seg_mov = null;
+			}
+		} else if (c.isJ2_cambia()) { //Lo que ocurre si el J2 cambia y el J1 no.
 			primero = c.getpActivo();
-			segundo = c.getpEnemigo();
 			prim_mov = c.getMovActivo();
-			seg_mov = c.getMovEnemigo();
-		}
-		if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
-			primero = c.getpEnemigo();
-			segundo = c.getpActivo();
-			prim_mov = c.getMovEnemigo();
-			seg_mov = c.getMovActivo();
-		}
-		if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
-			Random aleatorio = new Random();
-			int intAletorio = aleatorio.nextInt(2);
-			if (intAletorio == 0) {
+			segundo = c.getpEnemigo();
+			seg_mov = null;
+			
+		} else { //Lo que ocurre si nadie cambia.
+			if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
 				primero = c.getpActivo();
 				segundo = c.getpEnemigo();
 				prim_mov = c.getMovActivo();
 				seg_mov = c.getMovEnemigo();
-			}else {
+			}
+			if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
 				primero = c.getpEnemigo();
 				segundo = c.getpActivo();
 				prim_mov = c.getMovEnemigo();
 				seg_mov = c.getMovActivo();
 			}
+			if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
+				Random aleatorio = new Random();
+				int intAletorio = aleatorio.nextInt(2);
+				if (intAletorio == 0) {
+					primero = c.getpActivo();
+					segundo = c.getpEnemigo();
+					prim_mov = c.getMovActivo();
+					seg_mov = c.getMovEnemigo();
+				}else {
+					primero = c.getpEnemigo();
+					segundo = c.getpActivo();
+					prim_mov = c.getMovEnemigo();
+					seg_mov = c.getMovActivo();
+				}
+			}
 		}
-		if (prim_mov.getCat() == CategoriaMov.ESTADO) {
+		
+		if (prim_mov != null && prim_mov.getCat() == CategoriaMov.ESTADO) {
 			actualizarEstado();
 		}
-		if (seg_mov.getCat() == CategoriaMov.ESTADO) {
+		if (seg_mov != null &&  seg_mov.getCat() == CategoriaMov.ESTADO) {
 			actualizarEstado();
 		}
-		actualizar_daño();//devuleve 0 si es de estado, en el calculo de daño.
+		
+		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habrá cambios en la vida de los poke.
+			actualizar_daño();
+		}
+		//devuleve 0 si es de estado, en el calculo de daño.
 		
 		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
-		
 		
 		//Los siguientes dos bucles sirven para reactivar los botones una vez ambos jugadores han seleccionado su movimiento.
 		for (Component boton : VentanaJuego.panel_movimientos_1.getComponents()) {
@@ -101,7 +130,12 @@ public class MiHilo implements Runnable {
 		
 		v.getPanel_j1().setEnabled(true); //No sabemos si esto funciona.
 		v.getPanel_j2().setEnabled(true);
-
+		
+		c.setJ1_accion_hecha(false);
+		c.setJ2_accion_hecha(false);
+		c.setJ1_cambia(false);
+		c.setJ2_cambia(false);
+		
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
@@ -119,6 +153,7 @@ public class MiHilo implements Runnable {
 			}
 		}
 		
+		if (seg_mov == null) return;
 		//si el pokemon esta debilitado despues del ataque
 		primero.setPs((int)(primero.getPs() - c.calculaDaño(segundo, primero, seg_mov)));
 		v.getVida_1().setValue(primero.calcuPsPorcentaje());
@@ -129,6 +164,7 @@ public class MiHilo implements Runnable {
 			}
 		}
 	}
+	
 	public void start() {
 		if (running) return;
 		running = true;

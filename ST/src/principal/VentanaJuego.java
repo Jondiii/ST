@@ -84,7 +84,6 @@ public class VentanaJuego extends JFrame{
 		setSize(800, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		
-//		
 //		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 //		this.setIconImage(fondo);
 //		
@@ -101,7 +100,7 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central = new JPanel();
 		panel_central.setLayout(new GridLayout(2, 2));
 		
-////		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+////	ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 //		
 //		JLabel img_fondo = new JLabel( new ImageIcon(getClass().getResource("/img/campo_batalla_1.png")));
 //		panel_central.add(img_fondo); //No sabemos poner un fondo decente.
@@ -181,11 +180,13 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						if(c.isJ1_accion_hecha()) return;
 						Point pPulsado = new Point(e.getPoint());
 						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 							c.setpActivo(ball.getPoke());
 							ball.mostrarPoke();
 							c.setJ1_cambia(true);
+							c.setJ1_accion_hecha(true);
 						}
 						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
@@ -210,11 +211,13 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						if(c.isJ2_accion_hecha()) return;
 						Point pPulsado = new Point(e.getPoint());
 						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 							ball.mostrarPoke();
 							c.setpEnemigo(ball.getPoke());
 							c.setJ2_cambia(true);
+							c.setJ2_accion_hecha(true);
 							}
 						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
@@ -254,6 +257,7 @@ public class VentanaJuego extends JFrame{
 			l.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(c.isJ1_accion_hecha()) return;
 					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 					panel_j1.setEnabled(false);
 					for (Component boton : panel_movimientos_1.getComponents()) {
@@ -262,6 +266,7 @@ public class VentanaJuego extends JFrame{
 							c.setMovActivo(m);
 						}
 					}
+					c.setJ1_accion_hecha(true);
 					esperar++;
 					cambiarEstados();
 				}
@@ -283,6 +288,7 @@ public class VentanaJuego extends JFrame{
 			l_1.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					if(c.isJ2_accion_hecha()) return;
 					panel_j2.setEnabled(false);
 					for (Component boton : panel_movimientos_2.getComponents()) {
 						((JButton)boton).setEnabled(false);
@@ -290,13 +296,9 @@ public class VentanaJuego extends JFrame{
 							c.setMovEnemigo(m);
 						}
 					}
-//					
-//					for (Movimiento mov : c.getpEnemigo().getMovimientos_poke()) {
-//						if(mov.getNombre() == l_1.getName()) {
-//							System.out.println(l_1.getName());
-//						}
-				
-					//}
+					
+					c.setJ2_accion_hecha(true);
+
 					esperar++;
 					cambiarEstados();	
 				}
@@ -309,16 +311,21 @@ public class VentanaJuego extends JFrame{
 	}
 	
 	private void cambiarEstados() {
-		if (esperar == 2) {
+//		if (esperar == 2) {
+//			estado = EstadosJuego.CALCULANDO;
+//		}
+//		else {
+//			estado = EstadosJuego.ESPERANDO;
+//		}
+
+		if (c.isJ1_accion_hecha() == true && c.isJ2_accion_hecha() == true) {
 			estado = EstadosJuego.CALCULANDO;
 		}
 		else {
 			estado = EstadosJuego.ESPERANDO;
 		}
-		
 	}
 	
-
 	public static ArrayList<Pokemon> getMiEquipo() {
 		return miEquipo;
 	}
