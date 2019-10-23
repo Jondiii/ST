@@ -116,7 +116,7 @@ public class MiHilo implements Runnable {
 		
 		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habrá cambios en la vida de los poke.
 			actualizar_daño();
-			actualizar_progress_bar();
+			//actualizar_progress_bar();
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
 		
@@ -179,6 +179,17 @@ public class MiHilo implements Runnable {
 			int psPokeDam = ( (int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
 			
 			for (int i = psPoke; i > psPokeDam; i--) {
+				if (segundo == c.getpActivo()) {
+					segundo.setPs(segundo.getPs() - 1);
+					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
+					System.out.println(segundo.getPs());
+					if (segundo.getPs() < segundo.getPs_max() / 2) {
+						v.getVida_1().setForeground(Color.YELLOW);
+						if (segundo.getPs() < segundo.getPs_max() / 4) {
+							v.getVida_1().setForeground(Color.RED);
+						}
+					}	
+				}else {
 				segundo.setPs(segundo.getPs() - 1);
 				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
 				System.out.println(segundo.getPs());
@@ -188,6 +199,7 @@ public class MiHilo implements Runnable {
 						v.getVida_2().setForeground(Color.RED);
 					}
 				}	
+				}
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
@@ -204,14 +216,25 @@ public class MiHilo implements Runnable {
 			int psPoke2Dam = ( (int)(primero.getPs() - c.calculaDaño( segundo, primero, seg_mov)));
 			
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
-				primero.setPs(primero.getPs() - 1);
-				v.getVida_1().setValue(primero.calcuPsPorcentaje());
-				if (primero.getPs() < primero.getPs_max() / 2) {
-					v.getVida_1().setForeground(Color.YELLOW);
-					if (primero.getPs() < primero.getPs_max() / 4) {
-						v.getVida_1().setForeground(Color.RED);
+				if (primero == c.getpActivo()) {
+					primero.setPs(primero.getPs() - 1);
+					v.getVida_1().setValue(primero.calcuPsPorcentaje());
+					if (primero.getPs() < primero.getPs_max() / 2) {
+						v.getVida_1().setForeground(Color.YELLOW);
+						if (primero.getPs() < primero.getPs_max() / 4) {
+							v.getVida_1().setForeground(Color.RED);
+						}
 					}
-				}
+				}else {
+					primero.setPs(primero.getPs() - 1);
+					v.getVida_2().setValue(primero.calcuPsPorcentaje());
+					if (primero.getPs() < primero.getPs_max() / 2) {
+						v.getVida_2().setForeground(Color.YELLOW);
+						if (primero.getPs() < primero.getPs_max() / 4) {
+							v.getVida_2().setForeground(Color.RED);
+						}
+					}
+				}	
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
