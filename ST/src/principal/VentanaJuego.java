@@ -100,15 +100,17 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_central = new JPanel();
 		panel_central.setLayout(new GridLayout(2, 2));
 		
-////	ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
-//		
+		
+		//ImageIcon img_fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+		
 //		JLabel img_fondo = new JLabel( new ImageIcon(getClass().getResource("/img/campo_batalla_1.png")));
 //		panel_central.add(img_fondo); //No sabemos poner un fondo decente.
-//		
+		
 		JPanel panel_vacio_1 = new JPanel();
 		JPanel panel_vacio_2 = new JPanel();
 		panel_poke_J1 = new JPanel();
 		panel_poke_J2 = new JPanel();
+		
 		
 		vida_1 = new JProgressBar();
 		vida_1.setValue(c.getpActivo().calcuPsPorcentaje());
@@ -139,7 +141,9 @@ public class VentanaJuego extends JFrame{
 		panel_central.add(panel_poke_J1);
 		panel_central.add(panel_vacio_2);
 		
+		
 		add(panel_central, BorderLayout.CENTER);
+		
 		
 	}
 	/* Se crea un panel en cada lateral con el numero de pokemons que posee cada 
@@ -169,63 +173,74 @@ public class VentanaJuego extends JFrame{
 
 		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			
-			if (c.getpActivo() == p) {
+//			if (c.getpActivo() == p) {
+//				Pokeball ball = new Pokeball(iconoPokeball, p);
+//				ball.mostrarPoke();
+//				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
+//			}
+//			else {
+			//el primer pokemon sino no tenia el listener. he cambiado la forma del point
+			//es que a veces como que daaba error sino lo volvemos a poner
 				Pokeball ball = new Pokeball(iconoPokeball, p);
-				ball.mostrarPoke();
-				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
-			}
-			else {
-				Pokeball ball = new Pokeball(iconoPokeball, p);
+				if (p == c.getpActivo()) {
+					ball.mostrarPoke();
+				}
 				ball.addMouseListener( new MouseAdapter(){
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if(c.isJ1_accion_hecha()) return;
-						Point pPulsado = new Point(e.getPoint());
-						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+//						Point pPulsado = new Point(e.getPoint());
+//						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+						Component comp = e.getComponent();
+						if (comp instanceof JLabel) {
 							c.setpActivo(ball.getPoke());
 							ball.mostrarPoke();
 							c.setJ1_cambia(true);
 							c.setJ1_accion_hecha(true);
 						}
-						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
 					}
 
 				});
 				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
-			}
+//			}
 		}
 		panel_j1.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
 		for (Pokemon p : oponente) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
 			
-			if (c.getpEnemigo() == p) {
+//			if (c.getpEnemigo() == p) {
+//				Pokeball ball = new Pokeball(iconoPokeball, p);
+//				ball.mostrarPoke();
+//				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
+//			}
+//			else {
+			
 				Pokeball ball = new Pokeball(iconoPokeball, p);
-				ball.mostrarPoke();
-				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
-			}
-			else {
-				Pokeball ball = new Pokeball(iconoPokeball, p);
+				if (c.getpEnemigo() == p) {
+					ball.mostrarPoke();
+				}
 				ball.addMouseListener( new MouseAdapter(){
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						if(c.isJ2_accion_hecha()) return;
-						Point pPulsado = new Point(e.getPoint());
-						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+//						Point pPulsado = new Point(e.getPoint());
+//						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
+						Component comp = e.getComponent();
+						if (comp instanceof JLabel) {
 							ball.mostrarPoke();
 							c.setpEnemigo(ball.getPoke());
 							c.setJ2_cambia(true);
 							c.setJ2_accion_hecha(true);
 							}
-						esperar ++; //Habría que añadir un boolean para saber si el J1 está jugando o no.
 						cambiarEstados();
 						
 					}
 				});
 				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
-			}
+//			}
 		}
 		panel_j2.add(panel_pokeballs_J2, BorderLayout.SOUTH);
 		
@@ -259,15 +274,14 @@ public class VentanaJuego extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					if(c.isJ1_accion_hecha()) return;
 					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
-					panel_j1.setEnabled(false);
+//					panel_j1.setEnabled(false);
 					for (Component boton : panel_movimientos_1.getComponents()) {
-						((JButton)boton).setEnabled(false); 
+//						((JButton)boton).setEnabled(false); 
 						if (((JButton)boton).getName() == m.getNombre()) {
 							c.setMovActivo(m);
 						}
 					}
 					c.setJ1_accion_hecha(true);
-					esperar++;
 					cambiarEstados();
 				}
 

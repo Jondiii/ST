@@ -47,12 +47,14 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
+			v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		}
 		
 		if (c.isJ2_cambia()) {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_espaldas.png"));
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
+			v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
 		}
 		
 		//tenemos que pasarle el pokemon que este actualmente en el campo 
@@ -114,8 +116,12 @@ public class MiHilo implements Runnable {
 		
 		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habrá cambios en la vida de los poke.
 			actualizar_daño();
+			actualizar_progress_bar();
 		}
-		//devuleve 0 si es de estado, en el calculo de daño.
+		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
+		
+		
+		
 		
 		//que compruebe si el pokemon esta debilitado
 		v.revalidate();
@@ -128,8 +134,8 @@ public class MiHilo implements Runnable {
 			((JButton)boton).setEnabled(true);
 		}
 		
-		v.getPanel_j1().setEnabled(true); //No sabemos si esto funciona.
-		v.getPanel_j2().setEnabled(true);
+//		v.getPanel_j1().setEnabled(true); 
+//		v.getPanel_j2().setEnabled(true);
 		
 		c.setJ1_accion_hecha(false);
 		c.setJ2_accion_hecha(false);
@@ -139,30 +145,50 @@ public class MiHilo implements Runnable {
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
-	private void actualizarEstado() {
-				
-	}
-	
-	private void actualizar_daño() {
-		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
-		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-		if (segundo.getPs() < segundo.getPs_max() / 2) {
+	private void actualizar_progress_bar() {
+		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
+		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
+			v.getVida_1().setForeground(Color.YELLOW);
+			if (c.getpActivo().getPs() < segundo.getPs_max() / 4) {
+				v.getVida_1().setForeground(Color.RED);
+			}
+		}
+		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
+		if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 2) {
 			v.getVida_2().setForeground(Color.YELLOW);
-			if (segundo.getPs() < segundo.getPs_max() / 4) {
+			if (c.getpEnemigo().getPs() < segundo.getPs_max() / 4) {
 				v.getVida_2().setForeground(Color.RED);
 			}
 		}
 		
+	}
+	private void actualizarEstado() {
+				
+	}
+	
+	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
+	// es decir a cual sumarle el daño, asi que se actualiza al final ambos (DE MOMENTO)
+	private void actualizar_daño() {
+		segundo.setPs((int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
+//		v.getVida_2().setValue(segundo.calcuPsPorcentaje());
+//		if (segundo.getPs() < segundo.getPs_max() / 2) {
+//			v.getVida_2().setForeground(Color.YELLOW);
+//			if (segundo.getPs() < segundo.getPs_max() / 4) {
+//				v.getVida_2().setForeground(Color.RED);
+//			}
+//		}
+		
 		if (seg_mov == null) return;
+		if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
 		//si el pokemon esta debilitado despues del ataque
 		primero.setPs((int)(primero.getPs() - c.calculaDaño(segundo, primero, seg_mov)));
-		v.getVida_1().setValue(primero.calcuPsPorcentaje());
-		if (primero.getPs() < primero.getPs_max() / 2) {
-			v.getVida_1().setForeground(Color.YELLOW);
-			if (primero.getPs() < primero.getPs_max() / 4) {
-				v.getVida_1().setForeground(Color.RED);
-			}
-		}
+//		v.getVida_1().setValue(primero.calcuPsPorcentaje());
+//		if (primero.getPs() < primero.getPs_max() / 2) {
+//			v.getVida_1().setForeground(Color.YELLOW);
+//			if (primero.getPs() < primero.getPs_max() / 4) {
+//				v.getVida_1().setForeground(Color.RED);
+//			}
+//		}
 	}
 	
 	public void start() {
