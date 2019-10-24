@@ -20,11 +20,13 @@ public class MuestraInfoPoke extends JDialog {
 		JPanel pNombre = new JPanel();						//Parte superior del panel de arriba
 		JPanel pTipos = new JPanel();						//Parte inferior del panel de arriba
 		
+		//Se añaden el nombre y el tipo del pokémon
 		pNombre.add(new JLabel(poke.getNombre(), JLabel.CENTER));
 		pTipos.add(new JLabel(poke.getTipos().toString(), JLabel.CENTER));
 		pSuperior.add(pNombre, BorderLayout.NORTH);
 		pSuperior.add(pTipos, BorderLayout.SOUTH);
 		
+		//Se añaden los stats del pokémon
 		JPanel pStats = new JPanel(new GridLayout(4, 2));
 		
 		pStats.add(new JLabel("PS: " + poke.getPs() + "/" + poke.getPs_max(), JLabel.CENTER));
