@@ -45,7 +45,7 @@ public class VentanaJuego extends JFrame{
 	public JPanel panel_vacio_2;
 	public JLabel poke_1;
 	public JLabel poke_2;
-	private JDialog info_poke;
+	private MuestraInfoPoke info_poke;
 
 	
 	private JProgressBar vida_1;
@@ -138,12 +138,12 @@ public class VentanaJuego extends JFrame{
 		panel_poke_J2.add(vida_2, BorderLayout.NORTH);
 		
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
-		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 		poke_1 = new JLabel();
 		poke_1.setIcon(icono_2);
 		
 		ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
-		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(220, 220, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
 		poke_2 = new JLabel();
 		poke_2.setIcon(iconoo_2);
 		
@@ -220,15 +220,10 @@ public class VentanaJuego extends JFrame{
 					public void mouseEntered(MouseEvent e) {
 						Component comp = e.getComponent();
 						if (comp instanceof JLabel) {
-							Pokemon poke = ball.getPoke();
-							info_poke = new JDialog();
-							info_poke.add(new JLabel(poke.getNombre() + " " + (poke.getTipos()).toString()), BorderLayout.NORTH); //Pequeña prueba. Podemos	
-																																  //hacer nuestro propio dialog
-																																  //de ser necesario.
+							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
 							info_poke.setLocation(0, 300);
 							info_poke.setVisible(true);
-							
 						}
 					}
 					@Override
@@ -277,7 +272,7 @@ public class VentanaJuego extends JFrame{
 					public void mouseEntered(MouseEvent e) {
 						Component comp = e.getComponent();
 						if (comp instanceof JLabel) {
-							info_poke = new JDialog();
+							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
 							info_poke.setLocation(1000, 300);
 							info_poke.setVisible(true);

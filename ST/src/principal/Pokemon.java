@@ -21,6 +21,7 @@ public class Pokemon {
 	private int defensa_especial;
 	private int velocidad;
 	private int nivel;
+	private EstadosAlterados estado;
 	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
 	
 	/**
@@ -48,6 +49,7 @@ public class Pokemon {
 		this.defensa_especial = defensa_especial;
 		this.velocidad = velocidad;
 		this.nivel = nivel;
+		this.estado = null;
 		this.movimientos_poke = movimientos_poke;
 		tipos = new ArrayList<>();
 		Collections.addAll(tipos, tipo);
@@ -133,6 +135,18 @@ public class Pokemon {
 	}
 	public void setDefensa(int defensa) {
 		this.defensa = defensa;
+	}
+	public EstadosAlterados getEstado() {
+		return estado;
+	}
+	public void setEstado(EstadosAlterados estado) {
+		this.estado = estado;
+	}
+	public Integer[] getCambiosEstadisticas() {
+		return cambiosEstadisticas;
+	}
+	public void setCambiosEstadisticas(Integer[] cambiosEstadisticas) {
+		this.cambiosEstadisticas = cambiosEstadisticas;
 	}
 	public int getDefensa_especial() {
 		return defensa_especial;
