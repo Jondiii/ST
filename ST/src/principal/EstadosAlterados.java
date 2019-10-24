@@ -33,7 +33,7 @@ package principal;
  *   Dura entre 1 y 4 turnos.
  */
 public enum EstadosAlterados {
-	ENVENENADO(1/16), ENV_GRAVE(1/16), QUEMADO(1/16), PARALIZADO(1/4), DORMIDO(1/3), CONGELADO(1/4), CONFUSO(1/3);
+	ENVENENADO(1/16), ENV_GRAVE(1/16), QUEMADO(1/16), PARALIZADO(1/4), DORMIDO(1/3), CONGELADO(1/4), CONFUSO(1/3), DEBILITADO(0);
 	
 	private float valor;
 	
