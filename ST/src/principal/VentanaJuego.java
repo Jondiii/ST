@@ -215,11 +215,16 @@ public class VentanaJuego extends JFrame{
 						}
 						cambiarEstados();
 					}
+					
 					@Override
 					public void mouseEntered(MouseEvent e) {
 						Component comp = e.getComponent();
 						if (comp instanceof JLabel) {
+							Pokemon poke = ball.getPoke();
 							info_poke = new JDialog();
+							info_poke.add(new JLabel(poke.getNombre() + " " + (poke.getTipos()).toString()), BorderLayout.NORTH); //Pequeña prueba. Podemos	
+																																  //hacer nuestro propio dialog
+																																  //de ser necesario.
 							info_poke.setSize(200, 200);
 							info_poke.setLocation(0, 300);
 							info_poke.setVisible(true);
