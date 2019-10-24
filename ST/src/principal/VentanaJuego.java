@@ -103,7 +103,8 @@ public class VentanaJuego extends JFrame{
 	 * su estado(si es que tienen).
 	 */
 	private void crearPanelFrontal() {
-		JPanel panel_central = new JPanel();
+		PanelConFondo panel_central = new PanelConFondo();
+		panel_central.setImage("/img/campo_batalla_2.png");
 		panel_central.setLayout(new GridLayout(2,2));
 		
 		
@@ -115,9 +116,13 @@ public class VentanaJuego extends JFrame{
 //		panel_central.add(img); 
 		
 		panel_vacio_1 = new JPanel();
+		panel_vacio_1.setOpaque(false);
 		panel_vacio_2 = new JPanel();
+		panel_vacio_2.setOpaque(false);
 		panel_poke_J1 = new JPanel();
+		panel_poke_J1.setOpaque(false);
 		panel_poke_J2 = new JPanel();
+		panel_poke_J2.setOpaque(false);
 		
 		
 		vida_1 = new JProgressBar();
