@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ public class VentanaJuego extends JFrame{
 	public JPanel panel_vacio_2;
 	public JLabel poke_1;
 	public JLabel poke_2;
+	private JDialog info_poke;
 
 	
 	private JProgressBar vida_1;
@@ -82,6 +84,7 @@ public class VentanaJuego extends JFrame{
 		this.c = c;
 		
 		setResizable(false);
+		
 		setTitle("POKEMON");
 		setLocation(200, 100);
 		setSize(800, 500);
@@ -207,6 +210,22 @@ public class VentanaJuego extends JFrame{
 						}
 						cambiarEstados();
 					}
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						Component comp = e.getComponent();
+						if (comp instanceof JLabel) {
+							info_poke = new JDialog();
+							info_poke.setSize(200, 200);
+							info_poke.setLocation(0, 300);
+							info_poke.setVisible(true);
+							
+						}
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						info_poke.dispose();
+						
+					}
 
 				});
 				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
@@ -242,6 +261,21 @@ public class VentanaJuego extends JFrame{
 							c.setJ2_accion_hecha(true);
 							}
 						cambiarEstados();
+						
+					}
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						Component comp = e.getComponent();
+						if (comp instanceof JLabel) {
+							info_poke = new JDialog();
+							info_poke.setSize(200, 200);
+							info_poke.setLocation(1000, 300);
+							info_poke.setVisible(true);
+						}
+					}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						info_poke.dispose();
 						
 					}
 				});
