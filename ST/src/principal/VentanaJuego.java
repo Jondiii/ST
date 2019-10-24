@@ -58,6 +58,8 @@ public class VentanaJuego extends JFrame{
 		setSize(800, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		
+		
+		
 		this.miEquipo = miPokemon;
 		this.oponente = oponente;
 		
@@ -79,6 +81,7 @@ public class VentanaJuego extends JFrame{
 		
 		this.c = c;
 		
+		setResizable(false);
 		setTitle("POKEMON");
 		setLocation(200, 100);
 		setSize(800, 500);
@@ -98,16 +101,18 @@ public class VentanaJuego extends JFrame{
 	 */
 	private void crearPanelFrontal() {
 		JPanel panel_central = new JPanel();
-		panel_central.setLayout(new GridLayout(2, 2));
+		panel_central.setLayout(new GridLayout(2,2));
 		
 		
-		//ImageIcon img_fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
+//		ImageIcon img_fondo = new ImageIcon(getClass().getResource("/img/campo_batalla_1.png"));
+//		ImageIcon img_fondo_1 = new ImageIcon(img_fondo.getImage().getScaledInstance(400, 600, java.awt.Image.SCALE_DEFAULT));
+//		JLabel img = new JLabel( img_fondo_1);
+//		img.setSize(500, 500);
+//		img.setLocation(0, 0);
+//		panel_central.add(img); 
 		
-//		JLabel img_fondo = new JLabel( new ImageIcon(getClass().getResource("/img/campo_batalla_1.png")));
-//		panel_central.add(img_fondo); //No sabemos poner un fondo decente.
-		
-		JPanel panel_vacio_1 = new JPanel();
-		JPanel panel_vacio_2 = new JPanel();
+		panel_vacio_1 = new JPanel();
+		panel_vacio_2 = new JPanel();
 		panel_poke_J1 = new JPanel();
 		panel_poke_J2 = new JPanel();
 		
@@ -136,6 +141,7 @@ public class VentanaJuego extends JFrame{
 		
 		panel_poke_J2.add(poke_2, BorderLayout.CENTER);
 		panel_poke_J1.add(poke_1, BorderLayout.CENTER);
+		
 		panel_central.add(panel_vacio_1);
 		panel_central.add(panel_poke_J2);
 		panel_central.add(panel_poke_J1);

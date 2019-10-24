@@ -39,7 +39,7 @@ public class Main {
 	}
 	
 	public static void creaEquiposPorDefecto() {
-		Movimiento movi = new Movimiento("TIERRA", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
+		Movimiento movi = new Movimiento("FUEGO", Tipo.TIERRA, 100, 100, 100, CategoriaMov.ESPECIAL, 0);
 		Movimiento movi2 = new Movimiento("FANTASMA", Tipo.FANTASMA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
 		Movimiento movi3 = new Movimiento("SINIESTRO", Tipo.SINIESTRO, 100, 100, 100,CategoriaMov.ESPECIAL, 0);
 		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0);		
@@ -47,7 +47,7 @@ public class Main {
 		ArrayList<Movimiento> m = new ArrayList<>();
 		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
 		
-		miEquipo.add(new Pokemon("Froslass", 1, 1, "Probando", 350, 2, 2, 2, 2, 2, 2, m, Tipo.VOLADOR));
+		miEquipo.add(new Pokemon("Gallade", 1, 1, "Probando", 150, 2, 2, 2, 2, 2, 2, m, Tipo.VOLADOR));
 		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO));
 		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 1000, 1, 1, 1, 1, 1, 1, m, Tipo.HIELO));
 		
