@@ -6,6 +6,8 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JProgressBar;
+import javax.swing.plaf.ProgressBarUI;
 
 import main.EstadosJuego;
 import main.Main;
@@ -125,12 +127,12 @@ public class MiHilo implements Runnable {
 		v.revalidate();
 		
 		//Los siguientes dos bucles sirven para reactivar los botones una vez ambos jugadores han seleccionado su movimiento.
-		for (Component boton : VentanaJuego.panel_movimientos_1.getComponents()) {
-			((JButton)boton).setEnabled(true);
-		}
-		for (Component boton : VentanaJuego.panel_movimientos_2.getComponents()) {
-			((JButton)boton).setEnabled(true);
-		}
+//		for (Component boton : VentanaJuego.panel_movimientos_1.getComponents()) {
+//			((JButton)boton).setEnabled(true);
+//		}
+//		for (Component boton : VentanaJuego.panel_movimientos_2.getComponents()) {
+//			((JButton)boton).setEnabled(true);
+//		}
 		
 //		v.getPanel_j1().setEnabled(true); 
 //		v.getPanel_j2().setEnabled(true);
@@ -168,7 +170,17 @@ public class MiHilo implements Runnable {
 	private void actualizarEstado() {
 				
 	}
-	
+	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
+		poke.setPs(poke.getPs() - 1);
+		barradeVida.setValue(poke.calcuPsPorcentaje());
+		System.out.println(poke.getPs());
+		if (poke.getPs() < poke.getPs_max() / 2) {
+			barradeVida.setForeground(Color.YELLOW);
+			if (poke.getPs() < poke.getPs_max() / 4) {
+				barradeVida.setForeground(Color.RED);
+			}
+		}
+	}
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
 	// es decir a cual sumarle el daño, asi que se actualiza al final ambos (DE MOMENTO)
 	private void actualizar_daño() {
@@ -178,25 +190,27 @@ public class MiHilo implements Runnable {
 			
 			for (int i = psPoke; i > psPokeDam; i--) {
 				if (segundo == c.getpActivo()) {
-					segundo.setPs(segundo.getPs() - 1);
-					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
-					System.out.println(segundo.getPs());
-					if (segundo.getPs() < segundo.getPs_max() / 2) {
-						v.getVida_1().setForeground(Color.YELLOW);
-						if (segundo.getPs() < segundo.getPs_max() / 4) {
-							v.getVida_1().setForeground(Color.RED);
-						}
-					}	
+					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
+//					segundo.setPs(segundo.getPs() - 1);
+//					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
+//					System.out.println(segundo.getPs());
+//					if (segundo.getPs() < segundo.getPs_max() / 2) {
+//						v.getVida_1().setForeground(Color.YELLOW);
+//						if (segundo.getPs() < segundo.getPs_max() / 4) {
+//							v.getVida_1().setForeground(Color.RED);
+//						}
+//					}	
 				}else {
-				segundo.setPs(segundo.getPs() - 1);
-				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-				System.out.println(segundo.getPs());
-				if (segundo.getPs() < segundo.getPs_max() / 2) {
-					v.getVida_2().setForeground(Color.YELLOW);
-					if (segundo.getPs() < segundo.getPs_max() / 4) {
-						v.getVida_2().setForeground(Color.RED);
-					}
-				}	
+					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+//				segundo.setPs(segundo.getPs() - 1);
+//				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
+//				System.out.println(segundo.getPs());
+//				if (segundo.getPs() < segundo.getPs_max() / 2) {
+//					v.getVida_2().setForeground(Color.YELLOW);
+//					if (segundo.getPs() < segundo.getPs_max() / 4) {
+//						v.getVida_2().setForeground(Color.RED);
+//					}
+//				}	
 				}
 				try {
 					Thread.sleep(10);
@@ -215,23 +229,25 @@ public class MiHilo implements Runnable {
 			
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
 				if (primero == c.getpActivo()) {
-					primero.setPs(primero.getPs() - 1);
-					v.getVida_1().setValue(primero.calcuPsPorcentaje());
-					if (primero.getPs() < primero.getPs_max() / 2) {
-						v.getVida_1().setForeground(Color.YELLOW);
-						if (primero.getPs() < primero.getPs_max() / 4) {
-							v.getVida_1().setForeground(Color.RED);
-						}
-					}
+					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
+//					primero.setPs(primero.getPs() - 1);
+//					v.getVida_1().setValue(primero.calcuPsPorcentaje());
+//					if (primero.getPs() < primero.getPs_max() / 2) {
+//						v.getVida_1().setForeground(Color.YELLOW);
+//						if (primero.getPs() < primero.getPs_max() / 4) {
+//							v.getVida_1().setForeground(Color.RED);
+//						}
+//					}
 				}else {
-					primero.setPs(primero.getPs() - 1);
-					v.getVida_2().setValue(primero.calcuPsPorcentaje());
-					if (primero.getPs() < primero.getPs_max() / 2) {
-						v.getVida_2().setForeground(Color.YELLOW);
-						if (primero.getPs() < primero.getPs_max() / 4) {
-							v.getVida_2().setForeground(Color.RED);
-						}
-					}
+					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+//					primero.setPs(primero.getPs() - 1);
+//					v.getVida_2().setValue(primero.calcuPsPorcentaje());
+//					if (primero.getPs() < primero.getPs_max() / 2) {
+//						v.getVida_2().setForeground(Color.YELLOW);
+//						if (primero.getPs() < primero.getPs_max() / 4) {
+//							v.getVida_2().setForeground(Color.RED);
+//						}
+//					}
 				}	
 				try {
 					Thread.sleep(10);
