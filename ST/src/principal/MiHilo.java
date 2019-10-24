@@ -45,14 +45,14 @@ public class MiHilo implements Runnable {
 		
 		if (c.isJ1_cambia()) {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
-			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
 			
 		}
 		
 		if (c.isJ2_cambia()) {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
-			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(220, 220, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
 			
 		}

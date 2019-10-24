@@ -138,12 +138,12 @@ public class VentanaJuego extends JFrame{
 		panel_poke_J2.add(vida_2, BorderLayout.NORTH);
 		
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
-		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 		poke_1 = new JLabel();
 		poke_1.setIcon(icono_2);
 		
 		ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
-		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(150, 150, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(220, 220, java.awt.Image.SCALE_DEFAULT));
 		poke_2 = new JLabel();
 		poke_2.setIcon(iconoo_2);
 		
