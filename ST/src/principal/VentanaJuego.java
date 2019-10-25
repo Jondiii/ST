@@ -47,6 +47,7 @@ public class VentanaJuego extends JFrame{
 	public JLabel poke_2;
 	private MuestraInfoPoke info_poke;
 
+	private VentanaJuego v;
 	
 	private JProgressBar vida_1;
 	private JProgressBar vida_2;
@@ -54,7 +55,7 @@ public class VentanaJuego extends JFrame{
 	private Combate c;
 	
 	public VentanaJuego(ArrayList<Pokemon> miPokemon, ArrayList<Pokemon> oponente) {
-		
+		v = this;
 		setTitle("POKEMON");
 		setLocation(200, 100);
 		setSize(800, 500);
@@ -77,7 +78,7 @@ public class VentanaJuego extends JFrame{
 	 * @param c
 	 */
 	public VentanaJuego(Combate c) {
-		
+		v = this;
 		this.miEquipo = c.getAliados();
 		this.oponente = c.getOponentes();
 		
@@ -222,7 +223,7 @@ public class VentanaJuego extends JFrame{
 						if (comp instanceof JLabel) {
 							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
-							info_poke.setLocation(0, 300);
+							info_poke.setLocation(v.getLocation().x - 200, v.getLocation().y + 200);
 							info_poke.setVisible(true);
 						}
 					}
@@ -274,7 +275,7 @@ public class VentanaJuego extends JFrame{
 						if (comp instanceof JLabel) {
 							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
-							info_poke.setLocation(1000, 300);
+							info_poke.setLocation(v.getLocation().x + 800, v.getLocation().y + 200);
 							info_poke.setVisible(true);
 						}
 					}
