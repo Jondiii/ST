@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
 
@@ -40,7 +41,8 @@ public class MiHilo implements Runnable {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}	
+			}
+			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) cambiaPokeDebilitado(); //El hilo nunca llega aquí. TODO
 		}
 	}
 	private void actualizar() {
@@ -145,6 +147,11 @@ public class MiHilo implements Runnable {
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
+	
+	private void cambiaPokeDebilitado() {
+		//TODO
+	}
+	
 	private void actualizar_progress_bar() {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
@@ -168,8 +175,9 @@ public class MiHilo implements Runnable {
 		v.revalidate();
 	}
 	private void actualizarEstado() {
-				
+				//TODO
 	}
+	
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
 		poke.setPs(poke.getPs() - 1);
 		barradeVida.setValue(poke.calcuPsPorcentaje());
@@ -187,7 +195,7 @@ public class MiHilo implements Runnable {
 			
 			int psPoke = segundo.getPs();
 			int psPokeDam = ( (int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
-			
+			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
 			for (int i = psPoke; i > psPokeDam; i--) {
 				if (segundo == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
@@ -233,12 +241,16 @@ public class MiHilo implements Runnable {
 			
 			int psPoke2 = primero.getPs();
 			int psPoke2Dam = ( (int)(primero.getPs() - c.calculaDaño( segundo, primero, seg_mov)));
-			
+			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
+
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
-				if (primero == c.getpActivo()) {
+				if (primero == c.getpActivo()) {				//CAMBIAR ESTO. Si el primer pokemon es el enemigo, entonces nunca pasará lo demás.
+																//Ahora mismo está puesto para que Serperior sea más rápido, por lo que nunca
+																//se ve el mensaje de que Gallade se haya debilitado
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
 					if (comprobar_muerte(c.getpActivo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);
@@ -252,7 +264,8 @@ public class MiHilo implements Runnable {
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);
@@ -272,7 +285,7 @@ public class MiHilo implements Runnable {
 		}		
 	}
 	
-	private boolean comprobar_muerte(Pokemon poke) {
+	private boolean comprobar_muerte(Pokemon poke) { //No se mueren, tú, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
 			return true;

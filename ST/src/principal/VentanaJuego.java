@@ -35,8 +35,9 @@ public class VentanaJuego extends JFrame{
 	private static ArrayList<Pokemon> miEquipo = new ArrayList<>();
 	private static ArrayList<Pokemon> oponente = new ArrayList<>();
 	private static VentanaJuego vj;
-	public static JPanel panel_movimientos_1;
-	public static JPanel panel_movimientos_2;
+	public static JPanel movimientos_P1;
+	public static JPanel movimientos_P2;
+	public JPanel panelInfo;
 	public JPanel panel_j1;
 	public JPanel panel_j2;
 	public JPanel panel_poke_J1;
@@ -88,7 +89,7 @@ public class VentanaJuego extends JFrame{
 		
 		setTitle("POKEMON");
 		setLocation(200, 100);
-		setSize(800, 500);
+		setSize(850, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		
 //		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
@@ -297,16 +298,20 @@ public class VentanaJuego extends JFrame{
 		add(panel_j2, BorderLayout.EAST);
 	}
 
-	/* Crear un JPanel donde van a estar conenido otros dos JPanel con los 
+	/** Crear un JPanel donde van a estar conenido otros dos JPanel con los 
 	 * movimientos de cada correspondiente pokemon.
 	 */
 	private void crearPanelInferior() {
-		JPanel panel_inf = new JPanel();
-		panel_inf.setLayout(new GridLayout(0, 2, 8, 0));
+		JPanel panelInferior = new JPanel(new BorderLayout());
+		panelInfo = new JPanel();
+		panelInfo.add(new JLabel("Prueba"));
+		panelInfo.removeAll();
+		JPanel panel_movimientos = new JPanel();
+		panel_movimientos.setLayout(new GridLayout(0, 2, 8, 0));
 		
-		panel_movimientos_1 = new JPanel();
-		panel_movimientos_1.setBackground(Color.GRAY);
-		panel_movimientos_1.setLayout(new FlowLayout());
+		movimientos_P1 = new JPanel();
+		movimientos_P1.setBackground(Color.GRAY);
+		movimientos_P1.setLayout(new FlowLayout());
 		JButton l;
 		
 		for (Movimiento m :c.getpActivo().getMovimientos_poke()) {
@@ -321,7 +326,7 @@ public class VentanaJuego extends JFrame{
 					if(c.isJ1_accion_hecha()) return;
 					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 //					panel_j1.setEnabled(false);
-					for (Component boton : panel_movimientos_1.getComponents()) {
+					for (Component boton : movimientos_P1.getComponents()) {
 //						((JButton)boton).setEnabled(false); 
 						if (((JButton)boton).getName() == m.getNombre()) {
 							c.setMovActivo(m);
@@ -332,12 +337,12 @@ public class VentanaJuego extends JFrame{
 				}
 
 			});
-			panel_movimientos_1.add(l);
+			movimientos_P1.add(l);
 		}
 		
-		panel_movimientos_2 = new JPanel();
-		panel_movimientos_2.setBackground(Color.GRAY);
-		panel_movimientos_2.setLayout(new FlowLayout());
+		movimientos_P2 = new JPanel();
+		movimientos_P2.setBackground(Color.GRAY);
+		movimientos_P2.setLayout(new FlowLayout());
 		JButton l_1;
 		
 		for (Movimiento m : c.getpEnemigo().getMovimientos_poke()) {
@@ -350,7 +355,7 @@ public class VentanaJuego extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					if(c.isJ2_accion_hecha()) return;
 					//panel_j2.setEnabled(false);
-					for (Component boton : panel_movimientos_2.getComponents()) {
+					for (Component boton : movimientos_P2.getComponents()) {
 						//((JButton)boton).setEnabled(false);
 						if (((JButton)boton).getName() == m.getNombre()) {
 							c.setMovEnemigo(m);
@@ -363,11 +368,14 @@ public class VentanaJuego extends JFrame{
 					cambiarEstados();	
 				}
 			});
-			panel_movimientos_2.add(l_1);
+			movimientos_P2.add(l_1);
 		}
-		panel_inf.add(panel_movimientos_1);
-		panel_inf.add(panel_movimientos_2);
-		add(panel_inf, BorderLayout.SOUTH);
+		
+		panel_movimientos.add(movimientos_P1);
+		panel_movimientos.add(movimientos_P2);
+		panelInferior.add(panel_movimientos, BorderLayout.NORTH);
+		panelInferior.add(panelInfo, BorderLayout.SOUTH);
+		add(panelInferior, BorderLayout.SOUTH);
 	}
 	
 	private void cambiarEstados() {
@@ -384,6 +392,13 @@ public class VentanaJuego extends JFrame{
 		else {
 			estado = EstadosJuego.ESPERANDO;
 		}
+	}
+	
+	public void cambiaPanelInfo(String info) {
+		v.getPanelInfo().removeAll();
+		v.revalidate();								//Hay que hacer el revalidate 2 veces, si no el mensaje anterior se queda.
+		v.getPanelInfo().add(new JLabel(info));
+		v.revalidate();
 	}
 	
 	public static ArrayList<Pokemon> getMiEquipo() {
@@ -422,19 +437,27 @@ public class VentanaJuego extends JFrame{
 	}
 
 	public static JPanel getPanel_movimientos_1() {
-		return panel_movimientos_1;
+		return movimientos_P1;
 	}
 
 	public static void setPanel_movimientos_1(JPanel panel_movimientos_1) {
-		VentanaJuego.panel_movimientos_1 = panel_movimientos_1;
+		VentanaJuego.movimientos_P1 = panel_movimientos_1;
 	}
 
 	public static JPanel getPanel_movimientos_2() {
-		return panel_movimientos_2;
+		return movimientos_P2;
 	}
 
 	public static void setPanel_movimientos_2(JPanel panel_movimientos_2) {
-		VentanaJuego.panel_movimientos_2 = panel_movimientos_2;
+		VentanaJuego.movimientos_P2 = panel_movimientos_2;
+	}
+
+	public JPanel getPanelInfo() {
+		return panelInfo;
+	}
+
+	public void setPanelInfo(JPanel panelInfo) {
+		this.panelInfo = panelInfo;
 	}
 
 	public JPanel getPanel_j1() {
