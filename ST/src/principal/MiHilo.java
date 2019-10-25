@@ -191,6 +191,10 @@ public class MiHilo implements Runnable {
 			for (int i = psPoke; i > psPokeDam; i--) {
 				if (segundo == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
+					if (comprobar_muerte(c.getpActivo())) {
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						return;
+					}
 //					segundo.setPs(segundo.getPs() - 1);
 //					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
 //					System.out.println(segundo.getPs());
@@ -202,6 +206,10 @@ public class MiHilo implements Runnable {
 //					}	
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+					if (comprobar_muerte(c.getpEnemigo())) {
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						return;
+					}
 //				segundo.setPs(segundo.getPs() - 1);
 //				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
 //				System.out.println(segundo.getPs());
@@ -221,8 +229,7 @@ public class MiHilo implements Runnable {
 			}	
 			
 			if (seg_mov == null) return;
-			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
-			//si el pokemon esta debilitado despues del ataque
+//			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
 			
 			int psPoke2 = primero.getPs();
 			int psPoke2Dam = ( (int)(primero.getPs() - c.calculaDaño( segundo, primero, seg_mov)));
@@ -230,6 +237,10 @@ public class MiHilo implements Runnable {
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
 				if (primero == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
+					if (comprobar_muerte(c.getpActivo())) {
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						return;
+					}
 //					primero.setPs(primero.getPs() - 1);
 //					v.getVida_1().setValue(primero.calcuPsPorcentaje());
 //					if (primero.getPs() < primero.getPs_max() / 2) {
@@ -240,6 +251,10 @@ public class MiHilo implements Runnable {
 //					}
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+					if (comprobar_muerte(c.getpEnemigo())) {
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						return;
+					}
 //					primero.setPs(primero.getPs() - 1);
 //					v.getVida_2().setValue(primero.calcuPsPorcentaje());
 //					if (primero.getPs() < primero.getPs_max() / 2) {
@@ -257,6 +272,15 @@ public class MiHilo implements Runnable {
 		}		
 	}
 	
+	private boolean comprobar_muerte(Pokemon poke) {
+		if (poke.getPs() == 0) {
+			poke.setEstado(EstadosAlterados.DEBILITADO);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	public void start() {
 		if (running) return;
 		running = true;
