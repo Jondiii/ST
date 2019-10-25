@@ -34,7 +34,7 @@ public class MuestraInfoPoke extends JDialog {
 		pStats.add(new JLabel("Def.: " + poke.getDefensa(), JLabel.CENTER));
 		pStats.add(new JLabel("Atq. Esp.: " + poke.getAtaque_especial(), JLabel.CENTER));
 		pStats.add(new JLabel("Def. Esp." + poke.getDefensa_especial(), JLabel.CENTER));
-		pStats.add(new JLabel("Ataque: " + poke.getVelocidad(), JLabel.CENTER));
+		pStats.add(new JLabel("Vel.: " + poke.getVelocidad(), JLabel.CENTER));
 		pStats.add(new JLabel(""));
 		
 		pPrincipal.add(pSuperior, BorderLayout.NORTH);
