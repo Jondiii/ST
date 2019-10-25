@@ -200,7 +200,8 @@ public class MiHilo implements Runnable {
 				if (segundo == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
 					if (comprobar_muerte(c.getpActivo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					segundo.setPs(segundo.getPs() - 1);
@@ -215,7 +216,8 @@ public class MiHilo implements Runnable {
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; 
+						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //				segundo.setPs(segundo.getPs() - 1);
@@ -244,9 +246,7 @@ public class MiHilo implements Runnable {
 			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
 
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
-				if (primero == c.getpActivo()) {				//CAMBIAR ESTO. Si el primer pokemon es el enemigo, entonces nunca pasará lo demás.
-																//Ahora mismo está puesto para que Serperior sea más rápido, por lo que nunca
-																//se ve el mensaje de que Gallade se haya debilitado
+				if (primero == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
