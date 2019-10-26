@@ -45,6 +45,7 @@ public class MiHilo implements Runnable {
 			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) cambiaPokeDebilitado(); //El hilo nunca llega aquí. TODO
 		}
 	}
+	
 	private void actualizar() {
 		
 		if (c.isJ1_cambia()) {
@@ -148,8 +149,28 @@ public class MiHilo implements Runnable {
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
 	
-	private void cambiaPokeDebilitado() {
-		//TODO
+	private void cambiaPokeDebilitado() { //TODO
+		boolean debilitadoJ1 = false;
+		boolean debilitadoJ2 = false;
+
+		if(c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ1 = true; v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + "."); }
+
+		if(c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ2 = true; v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + "."); }
+		
+		while (debilitadoJ1) {
+			if (c.getpActivo().getEstado() != EstadosAlterados.DEBILITADO) break;
+			
+			try {
+				Thread.sleep(100);
+			} catch (Exception e) {
+			}
+		}
+		
+		while (debilitadoJ2) {
+			
+		}
+		
+
 	}
 	
 	private void actualizar_progress_bar() {
@@ -202,6 +223,10 @@ public class MiHilo implements Runnable {
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+						try {
+							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+						} catch (Exception e) {
+						}
 						return;
 					}
 //					segundo.setPs(segundo.getPs() - 1);
@@ -218,6 +243,10 @@ public class MiHilo implements Runnable {
 					if (comprobar_muerte(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+						try {
+							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+						} catch (Exception e) {
+						}
 						return;
 					}
 //				segundo.setPs(segundo.getPs() - 1);
@@ -233,7 +262,6 @@ public class MiHilo implements Runnable {
 				try {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}	
@@ -282,7 +310,9 @@ public class MiHilo implements Runnable {
 				} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}		
+			
+		}	
+			
 	}
 	
 	private boolean comprobar_muerte(Pokemon poke) { //No se mueren, tú, solo se debilitan, pobrecitos
