@@ -52,7 +52,10 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
 			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+//				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_accion_hecha()) {
+
 				VentanaJuego.estado = EstadosJuego.ESPERANDO;
+				c.setJ1_accion_hecha(false);
 				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
 			}
 			
@@ -63,7 +66,10 @@ public class MiHilo implements Runnable {
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
 			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+//				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_accion_hecha()) {
+
 				VentanaJuego.estado = EstadosJuego.ESPERANDO;
+				c.setJ2_accion_hecha(false);
 				v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
 			}
 		}
@@ -159,29 +165,6 @@ public class MiHilo implements Runnable {
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
 	
-	private void cambiaPokeDebilitado() { //TODO
-		boolean debilitadoJ1 = false;
-		boolean debilitadoJ2 = false;
-
-		if(c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ1 = true; v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");}
-
-		if(c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) {debilitadoJ2 = true; v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + "."); }
-		while (debilitadoJ1) {
-			if (c.getpActivo().getEstado() != EstadosAlterados.DEBILITADO) break;
-			
-			try {
-				Thread.sleep(100);
-			} catch (Exception e) {
-			}
-		}
-		
-		while (debilitadoJ2) {
-			
-		}
-		
-
-	}
-	
 	private void actualizar_progress_bar() {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
@@ -231,7 +214,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("Â¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						try {
 							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
 						} catch (Exception e) {
@@ -251,7 +234,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("Â¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						try {
 							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
 						} catch (Exception e) {
@@ -287,7 +270,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("Â¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);
@@ -302,7 +285,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("Â¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);

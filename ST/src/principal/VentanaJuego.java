@@ -206,7 +206,7 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if(c.isJ1_accion_hecha()) return;
+						if(c.isJ1_accion_hecha() || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
 //						Point pPulsado = new Point(e.getPoint());
 //						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 						Component comp = e.getComponent();
@@ -262,7 +262,7 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if(c.isJ2_accion_hecha()) return;
+						if(c.isJ2_accion_hecha() || c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) return;
 //						Point pPulsado = new Point(e.getPoint());
 //						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 						Component comp = e.getComponent();
@@ -333,7 +333,7 @@ public class VentanaJuego extends JFrame{
 			l.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(c.isJ1_accion_hecha()) return;
+					if(c.isJ1_accion_hecha() || c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
 					//setEnabled(false); //NO PONERLO AQUÃ? PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 //					panel_j1.setEnabled(false);
 					for (Component boton : movimientos_P1.getComponents()) {
@@ -363,7 +363,7 @@ public class VentanaJuego extends JFrame{
 			l_1.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(c.isJ2_accion_hecha()) return;
+					if(c.isJ2_accion_hecha() || c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
 					//panel_j2.setEnabled(false);
 					for (Component boton : movimientos_P2.getComponents()) {
 						//((JButton)boton).setEnabled(false);
