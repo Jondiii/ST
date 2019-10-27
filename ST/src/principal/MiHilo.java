@@ -35,14 +35,13 @@ public class MiHilo implements Runnable {
 			if (Main.cerrada) {
 				stop();
 			}
-			if (VentanaJuego.estado == EstadosJuego.CALCULANDO) 
+			if (VentanaJuego.estado == EstadosJuego.CALCULANDO || VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) 
 				actualizar();
 			try { 
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) cambiaPokeDebilitado(); //El hilo nunca llega aquí. TODO
 		}
 	}
 	
@@ -52,14 +51,16 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
-			
+			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO)
+			v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");	
 		}
 		
 		if (c.isJ2_cambia()) {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
-			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(220, 220, java.awt.Image.SCALE_DEFAULT));
+			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
-			
+			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO)
+			v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
 		}
 		
 		actualizar_progress_bar();
@@ -67,7 +68,7 @@ public class MiHilo implements Runnable {
 		//(en la ventana crear un metodo que lo devuelva) y el moviento que se ha pulsado
 		// tambien en la ventana
 		
-		if (c.isJ1_cambia()) { //Lo que ocurre si el J1 cambia y el J2 no.
+		if (c.isJ1_cambia()&& VentanaJuego.estado == EstadosJuego.CALCULANDO) { //Lo que ocurre si el J1 cambia y el J2 no.
 			if(!c.isJ2_cambia()) {
 				primero = c.getpEnemigo();
 				prim_mov = c.getMovEnemigo();
@@ -112,7 +113,7 @@ public class MiHilo implements Runnable {
 				}
 			}
 		}
-		
+		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
 		if (prim_mov != null && prim_mov.getCat() == CategoriaMov.ESTADO) {
 			actualizarEstado();
 		}
@@ -120,9 +121,10 @@ public class MiHilo implements Runnable {
 			actualizarEstado();
 		}
 		
-		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habrá cambios en la vida de los poke.
+		if (prim_mov != null) { //prim_mov solo serÃ¡ null si ambos han cambiado, en cuyo caso no habrÃ¡ cambios en la vida de los poke.
 			actualizar_daño();
 			//actualizar_progress_bar();
+		}
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
 	
@@ -145,6 +147,9 @@ public class MiHilo implements Runnable {
 		c.setJ1_cambia(false);
 		c.setJ2_cambia(false);
 		
+		if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+			return;
+		}
 		VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
@@ -153,10 +158,9 @@ public class MiHilo implements Runnable {
 		boolean debilitadoJ1 = false;
 		boolean debilitadoJ2 = false;
 
-		if(c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ1 = true; v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + "."); }
+		if(c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ1 = true; v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");}
 
-		if(c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) { debilitadoJ2 = true; v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + "."); }
-		
+		if(c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) {debilitadoJ2 = true; v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + "."); }
 		while (debilitadoJ1) {
 			if (c.getpActivo().getEstado() != EstadosAlterados.DEBILITADO) break;
 			
@@ -177,7 +181,7 @@ public class MiHilo implements Runnable {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
 			v.getVida_1().setForeground(Color.YELLOW);
-			if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 4) { //Antes en vez de c.getpActivo().getPs_max() ponía segundo.getPs_Max()
+			if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 4) { //Antes en vez de c.getpActivo().getPs_max() ponÃ­a segundo.getPs_Max()
 				v.getVida_1().setForeground(Color.RED);
 			}
 		}
@@ -187,7 +191,7 @@ public class MiHilo implements Runnable {
 		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
 		if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 2) {
 			v.getVida_2().setForeground(Color.YELLOW);
-			if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 4) { //Antes en vez de c.getpEnemigo().getPs_max() ponía segundo.getPs_Max()
+			if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 4) { //Antes en vez de c.getpEnemigo().getPs_max() ponÃ­a segundo.getPs_Max()
 				v.getVida_2().setForeground(Color.RED);
 			}
 		}else {
@@ -211,7 +215,7 @@ public class MiHilo implements Runnable {
 		}
 	}
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
-	// es decir a cual sumarle el daño, asi que se actualiza al final ambos (DE MOMENTO)
+	// es decir a cual sumarle el daÃ±o, asi que se actualiza al final ambos (DE MOMENTO)
 	private void actualizar_daño() {
 			
 			int psPoke = segundo.getPs();
@@ -222,9 +226,9 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("Â¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						try {
-							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
 						} catch (Exception e) {
 						}
 						return;
@@ -242,9 +246,9 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("Â¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						try {
-							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
 						} catch (Exception e) {
 						}
 						return;
@@ -278,7 +282,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
 					if (comprobar_muerte(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("Â¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);
@@ -293,7 +297,7 @@ public class MiHilo implements Runnable {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
 					if (comprobar_muerte(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+						v.cambiaPanelInfo("Â¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						return;
 					}
 //					primero.setPs(primero.getPs() - 1);
@@ -315,7 +319,7 @@ public class MiHilo implements Runnable {
 			
 	}
 	
-	private boolean comprobar_muerte(Pokemon poke) { //No se mueren, tú, solo se debilitan, pobrecitos
+	private boolean comprobar_muerte(Pokemon poke) { //No se mueren, tÃº, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
 			return true;

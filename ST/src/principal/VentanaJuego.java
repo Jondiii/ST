@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -145,7 +146,7 @@ public class VentanaJuego extends JFrame{
 		poke_1.setIcon(icono_2);
 		
 		ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
-		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(220, 220, java.awt.Image.SCALE_DEFAULT));
+		ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 		poke_2 = new JLabel();
 		poke_2.setIcon(iconoo_2);
 		
@@ -179,7 +180,7 @@ public class VentanaJuego extends JFrame{
 		panel_j2.setLayout(new BorderLayout());
 		
 		/**
-		 * Añadair un listener al label para que se cambie de pokemon.
+		 * AÃ±adair un listener al label para que se cambie de pokemon.
 		 */
 		JPanel panel_pokeballs_J1 = new JPanel();
 		panel_pokeballs_J1.setLayout(new GridLayout(6, 0));
@@ -187,7 +188,7 @@ public class VentanaJuego extends JFrame{
 		JPanel panel_pokeballs_J2 = new JPanel();
 		panel_pokeballs_J2.setLayout(new GridLayout(6, 0));
 
-		for (Pokemon p : miEquipo) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
+		for (Pokemon p : miEquipo) { //PodrÃ­amos hacer que en vez de pokÃ©balls saliesen los mini sprites de los pokes, para saber a quiÃ©n se estÃ¡ cambiando.
 			
 //			if (c.getpActivo() == p) {
 //				Pokeball ball = new Pokeball(iconoPokeball, p);
@@ -215,7 +216,11 @@ public class VentanaJuego extends JFrame{
 							c.setJ1_cambia(true);
 							c.setJ1_accion_hecha(true);
 						}
+						if (estado == EstadosJuego.POKE_DEBILITADO) {
+							return;
+						}else {
 						cambiarEstados();
+						}
 					}
 					
 					@Override
@@ -240,7 +245,7 @@ public class VentanaJuego extends JFrame{
 		}
 		panel_j1.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
-		for (Pokemon p : oponente) { //Podríamos hacer que en vez de pokéballs saliesen los mini sprites de los pokes, para saber a quién se está cambiando.
+		for (Pokemon p : oponente) { //PodrÃ­amos hacer que en vez de pokÃ©balls saliesen los mini sprites de los pokes, para saber a quiÃ©n se estÃ¡ cambiando.
 			
 //			if (c.getpEnemigo() == p) {
 //				Pokeball ball = new Pokeball(iconoPokeball, p);
@@ -267,8 +272,11 @@ public class VentanaJuego extends JFrame{
 							c.setJ2_cambia(true);
 							c.setJ2_accion_hecha(true);
 							}
+						if (estado == EstadosJuego.POKE_DEBILITADO) {
+							return;
+						}else {
 						cambiarEstados();
-						
+						}
 					}
 					@Override
 					public void mouseEntered(MouseEvent e) {
@@ -276,7 +284,8 @@ public class VentanaJuego extends JFrame{
 						if (comp instanceof JLabel) {
 							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
-							info_poke.setLocation(v.getLocation().x + 800, v.getLocation().y + 200);
+							info_poke.setLocation(v.getLocation().x + 800, v.getLocation().y + 200
+									);
 							info_poke.setVisible(true);
 						}
 					}
@@ -306,6 +315,7 @@ public class VentanaJuego extends JFrame{
 		panelInfo = new JPanel();
 		panelInfo.add(new JLabel("Prueba"));
 		panelInfo.removeAll();
+		panelInfo.setPreferredSize(new Dimension(850, 25));
 		JPanel panel_movimientos = new JPanel();
 		panel_movimientos.setLayout(new GridLayout(0, 2, 8, 0));
 		
@@ -324,7 +334,7 @@ public class VentanaJuego extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(c.isJ1_accion_hecha()) return;
-					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
+					//setEnabled(false); //NO PONERLO AQUÃ? PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 //					panel_j1.setEnabled(false);
 					for (Component boton : movimientos_P1.getComponents()) {
 //						((JButton)boton).setEnabled(false); 
@@ -385,7 +395,6 @@ public class VentanaJuego extends JFrame{
 //		else {
 //			estado = EstadosJuego.ESPERANDO;
 //		}
-
 		if (c.isJ1_accion_hecha() == true && c.isJ2_accion_hecha() == true) {
 			estado = EstadosJuego.CALCULANDO;
 		}
