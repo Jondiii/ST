@@ -206,7 +206,7 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if (ball.getPoke().getEstado() == EstadosAlterados.DEBILITADO) return;
+						if (ball.getPoke().getEstado() == EstadosAlterados.DEBILITADO || ball.getPoke() == c.getpActivo()) return;
 						if(c.isJ1_accion_hecha() || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
 //						Point pPulsado = new Point(e.getPoint());
 //						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
@@ -263,7 +263,7 @@ public class VentanaJuego extends JFrame{
 					 
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						if (ball.getPoke().getEstado() == EstadosAlterados.DEBILITADO) return;
+						if (ball.getPoke().getEstado() == EstadosAlterados.DEBILITADO || ball.getPoke() == c.getpEnemigo()) return;
 						if(c.isJ2_accion_hecha() || c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO) return;
 //						Point pPulsado = new Point(e.getPoint());
 //						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
