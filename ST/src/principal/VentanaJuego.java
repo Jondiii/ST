@@ -284,7 +284,7 @@ public class VentanaJuego extends JFrame{
 						if (comp instanceof JLabel) {
 							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
-							info_poke.setLocation(v.getLocation().x + 800, v.getLocation().y + 200
+							info_poke.setLocation(v.getLocation().x + 850, v.getLocation().y + 200
 									);
 							info_poke.setVisible(true);
 						}
@@ -405,7 +405,8 @@ public class VentanaJuego extends JFrame{
 	
 	public void cambiaPanelInfo(String info) {
 		v.getPanelInfo().removeAll();
-		v.revalidate();								//Hay que hacer el revalidate 2 veces, si no el mensaje anterior se queda.
+		v.revalidate();	
+		v.repaint();//Hay que hacer el revalidate 2 veces, si no el mensaje anterior se queda.
 		v.getPanelInfo().add(new JLabel(info));
 		v.revalidate();
 	}

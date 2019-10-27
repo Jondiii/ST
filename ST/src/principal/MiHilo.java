@@ -51,16 +51,21 @@ public class MiHilo implements Runnable {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
-			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO)
-			v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");	
+			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+				VentanaJuego.estado = EstadosJuego.ESPERANDO;
+				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
+			}
+			
 		}
 		
 		if (c.isJ2_cambia()) {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
-			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO)
-			v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
+			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+				VentanaJuego.estado = EstadosJuego.ESPERANDO;
+				v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
+			}
 		}
 		
 		actualizar_progress_bar();
@@ -150,7 +155,7 @@ public class MiHilo implements Runnable {
 		if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
 			return;
 		}
-		VentanaJuego.esperar = 0;
+		//VentanaJuego.esperar = 0;
 		VentanaJuego.estado = EstadosJuego.ESPERANDO;
 	}
 	
@@ -217,7 +222,7 @@ public class MiHilo implements Runnable {
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
 	// es decir a cual sumarle el daÃ±o, asi que se actualiza al final ambos (DE MOMENTO)
 	private void actualizar_daño() {
-			
+		
 			int psPoke = segundo.getPs();
 			int psPokeDam = ( (int)(segundo.getPs() - c.calculaDaño( primero, segundo, prim_mov)));
 			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
