@@ -212,7 +212,7 @@ public class MiHilo implements Runnable {
 			for (int i = psPoke; i > psPokeDam; i--) {
 				if (segundo == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
-					if (comprobar_muerte(c.getpActivo())) {
+					if (autopsia(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						try {
@@ -232,7 +232,7 @@ public class MiHilo implements Runnable {
 //					}	
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-					if (comprobar_muerte(c.getpEnemigo())) {
+					if (autopsia(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						try {
@@ -268,7 +268,7 @@ public class MiHilo implements Runnable {
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
 				if (primero == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
-					if (comprobar_muerte(c.getpActivo())) {
+					if (autopsia(c.getpActivo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						return;
@@ -283,7 +283,7 @@ public class MiHilo implements Runnable {
 //					}
 				}else {
 					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-					if (comprobar_muerte(c.getpEnemigo())) {
+					if (autopsia(c.getpEnemigo())) {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						return;
@@ -307,7 +307,7 @@ public class MiHilo implements Runnable {
 			
 	}
 	
-	private boolean comprobar_muerte(Pokemon poke) { //No se mueren, tÃº, solo se debilitan, pobrecitos
+	private boolean autopsia(Pokemon poke) { //No se mueren, tÃº, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
 			return true;
