@@ -126,10 +126,10 @@ public class MiHilo implements Runnable {
 		}
 		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
 		if (prim_mov != null && prim_mov.getCat() == CategoriaMov.ESTADO) {
-			actualizarEstado();
+			//actualizarEstado(); esto actualiza los estados alternos de los movimientos
 		}
 		if (seg_mov != null &&  seg_mov.getCat() == CategoriaMov.ESTADO) {
-			actualizarEstado();
+			//actualizarEstado();
 		}
 		
 		if (prim_mov != null) { //prim_mov solo serÃ¡ null si ambos han cambiado, en cuyo caso no habrÃ¡ cambios en la vida de los poke.
@@ -187,8 +187,15 @@ public class MiHilo implements Runnable {
 		}
 		v.revalidate();
 	}
-	private void actualizarEstado() {
-				//TODO
+	private void actualizarEstadoAlterno(Pokemon oponente, Movimiento m) {
+				if (m.getEfecto()!= null) {
+					Random aleatorio = new Random();
+					int intAletorio = aleatorio.nextInt(100);
+					if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEfecto());
+					v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
+				}else {
+					return;
+				}
 	}
 	
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
@@ -209,6 +216,8 @@ public class MiHilo implements Runnable {
 			int psPoke = segundo.getPs();
 			int psPokeDam = ( (int)(segundo.getPs() - Combate.calculaDaño( primero, segundo, prim_mov)));
 			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
+			actualizarEstadoAlterno(segundo, prim_mov);
+			
 			for (int i = psPoke; i > psPokeDam; i--) {
 				if (segundo == c.getpActivo()) {
 					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
@@ -264,6 +273,7 @@ public class MiHilo implements Runnable {
 			int psPoke2 = primero.getPs();
 			int psPoke2Dam = ( (int)(primero.getPs() - Combate.calculaDaño( segundo, primero, seg_mov)));
 			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
+			actualizarEstadoAlterno(primero, seg_mov);
 
 			for (int i = psPoke2; i > psPoke2Dam; i--) {
 				if (primero == c.getpActivo()) {
