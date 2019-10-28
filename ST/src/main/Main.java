@@ -14,28 +14,17 @@ public class Main {
 	
 	static ArrayList<Pokemon>  miEquipo = new ArrayList<>();
 	static ArrayList<Pokemon> oponente = new ArrayList<>();
-
+	
 	public static void main(String[] args) {
-		
 		creaEquiposPorDefecto();
 		Combate c = new Combate(miEquipo, oponente);
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		VentanaJuego vj = c.getVentana();
-		vj.setVisible(true);
-		vj.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent e) {
-				cerrada = true;
-			}
-		});
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}
 		
-	//	Combate c = new Combate(); //no hace falta que se cree aqui si no cuando se pulsan los botones.
-		MiHilo mh = new MiHilo(c, vj);
-		mh.start();
+		VentanaInicio vi = new VentanaInicio(c);
 	}
 	
 	public static void creaEquiposPorDefecto() {

@@ -1,10 +1,13 @@
 package principal;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -16,19 +19,21 @@ import java.awt.image.BufferedImage;
 
 public class VentanaInicio extends JFrame {
 	
-	private JFrame ventana;
+	private VentanaInicio vi;
 	public JLabel logo;
+	static ArrayList<Pokemon>  miEquipo = new ArrayList<>();
+	static ArrayList<Pokemon> oponente = new ArrayList<>();
+	private Combate c;
 	
-	public VentanaInicio() {
-		
-		setResizable(false);
-		
-		setTitle("Pokemon Stars");
-		setLocation(700, 300);
-		setSize(500, 500);
-		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
-		
-		crearPanelInferior();
+	public VentanaInicio( Combate c) {
+		vi = this;
+		vi.setResizable(false);
+		vi.setTitle("Pokemon Stars");
+		vi.setLocation(700, 300);
+		vi.setSize(500, 500);
+		vi.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+		vi.crearPanelInferior();
+		this.c = c;
 	}
 	
 	private void crearPanelInferior(){
@@ -48,11 +53,28 @@ public class VentanaInicio extends JFrame {
 		pBotones.add(salir);
 		panel.add(pLogo, BorderLayout.CENTER);
 		panel.add(pBotones, BorderLayout.SOUTH);
-		getContentPane().add(panel);
+		vi.add(panel);
 		setVisible(true);
+		
+		jugar.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaJuego vj = new VentanaJuego(c);
+				vj.setVisible(true);
+				vi.dispose();
+				MiHilo mh = new MiHilo(c, vj);
+				mh.start();
+			}
+		});
+		
+		salir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vi.dispose();
+			}
+		});
 	}
 	
-	public static void main(String[] args) {
-		VentanaInicio ventana = new VentanaInicio();
-	}
 }

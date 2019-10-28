@@ -188,14 +188,11 @@ public class MiHilo implements Runnable {
 		v.revalidate();
 	}
 	private void actualizarEstadoAlterno(Pokemon oponente, Movimiento m) {
-				if (m.getEfecto()!= null) {
-					Random aleatorio = new Random();
-					int intAletorio = aleatorio.nextInt(100);
-					if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEfecto());
-					v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
-				}else {
-					return;
-				}
+				if (m.getEfecto()== null) return;
+				Random aleatorio = new Random();
+				int intAletorio = aleatorio.nextInt(100);
+				if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEfecto());
+				v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
 	}
 	
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
@@ -317,7 +314,7 @@ public class MiHilo implements Runnable {
 			
 	}
 	
-	private boolean autopsia(Pokemon poke) { //No se mueren, tÃº, solo se debilitan, pobrecitos
+	private boolean autopsia(Pokemon poke) { //No se mueren, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
 			return true;

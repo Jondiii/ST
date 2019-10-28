@@ -88,7 +88,7 @@ public class VentanaJuego extends JFrame{
 		
 		setResizable(false);
 		
-		setTitle("POKEMON");
+		setTitle("Pokemon Stars");
 		setLocation(200, 100);
 		setSize(850, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
