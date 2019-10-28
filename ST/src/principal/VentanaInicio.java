@@ -3,6 +3,8 @@ package principal;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
@@ -15,6 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import main.Main;
+
 import java.awt.image.BufferedImage;
 
 public class VentanaInicio extends JFrame {
@@ -61,6 +66,12 @@ public class VentanaInicio extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaJuego vj = new VentanaJuego(c);
+				vj.addWindowListener( new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						Main.cerrada = true;
+					}
+				});
 				vj.setVisible(true);
 				vi.dispose();
 				MiHilo mh = new MiHilo(c, vj);
