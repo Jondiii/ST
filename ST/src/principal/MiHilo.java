@@ -2,6 +2,7 @@ package principal;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -198,7 +199,7 @@ public class MiHilo implements Runnable {
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
 		poke.setPs(poke.getPs() - 1);
 		barradeVida.setValue(poke.calcuPsPorcentaje());
-		System.out.println(poke.getPs());
+		//System.out.println(poke.getPs());
 		if (poke.getPs() < poke.getPs_max() / 2) {
 			barradeVida.setForeground(Color.YELLOW);
 			if (poke.getPs() < poke.getPs_max() / 4) {
@@ -222,7 +223,9 @@ public class MiHilo implements Runnable {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
 						try {
-							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
+							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+							todosMuertos();
+							
 						} catch (Exception e) {
 						}
 						return;
@@ -242,7 +245,8 @@ public class MiHilo implements Runnable {
 						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
 						try {
-							Thread.sleep(200); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
+							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
+							todosMuertos();
 						} catch (Exception e) {
 						}
 						return;
@@ -314,6 +318,31 @@ public class MiHilo implements Runnable {
 			
 	}
 	
+	private void todosMuertos() {
+		boolean vivoA = false;
+		boolean vivoB = false;
+		for(int i = 0; i < Combate.getAliados().size(); i++) {	
+			ArrayList<Pokemon> listaPoke = Combate.getAliados();
+			Pokemon poke = listaPoke.get(i);
+			if(poke.getEstado() != EstadosAlterados.DEBILITADO) {
+				vivoA = true;
+			}
+		}
+		for(int i = 0; i < Combate.getOponentes().size(); i++) {
+			ArrayList<Pokemon> listaPoke = Combate.getOponentes();
+			Pokemon poke = listaPoke.get(i);
+			if(poke.getEstado() != EstadosAlterados.DEBILITADO) {
+				vivoB = true;
+			}		
+		}
+		if (vivoA == false) {
+			v.cambiaPanelInfo("¡Todos los Pokémon del J1 han sido debilitados, la victoria es para el J2!");
+		}
+		if (vivoB == false) {
+			v.cambiaPanelInfo("¡Todos los Pokémon del J2 han sido debilitados, la victoria es para el J1!");
+		}
+		
+	}
 	private boolean autopsia(Pokemon poke) { //No se mueren, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
