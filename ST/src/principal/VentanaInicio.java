@@ -74,7 +74,7 @@ public class VentanaInicio extends JFrame {
 				});
 				vj.setVisible(true);
 				vi.dispose();
-				MiHilo mh = new MiHilo(c, vj);
+				HiloJuego mh = new HiloJuego(c, vj);
 				mh.start();
 			}
 		});

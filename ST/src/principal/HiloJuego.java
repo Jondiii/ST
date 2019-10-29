@@ -14,7 +14,7 @@ import javax.swing.plaf.ProgressBarUI;
 import main.EstadosJuego;
 import main.Main;
 
-public class MiHilo implements Runnable {
+public class HiloJuego implements Runnable {
 	
 	private boolean running;
 	private Thread game;
@@ -25,7 +25,7 @@ public class MiHilo implements Runnable {
 	private Movimiento prim_mov;
 	private Movimiento seg_mov;
 	
-	public MiHilo(Combate c, VentanaJuego v) {
+	public HiloJuego(Combate c, VentanaJuego v) {
 		this.c = c;
 		this.v = v;
 		
