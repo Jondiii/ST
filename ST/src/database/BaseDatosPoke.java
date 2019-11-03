@@ -27,22 +27,29 @@ public class BaseDatosPoke {
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 
 			statement.executeUpdate("drop table if exists person");
-			statement.executeUpdate("create table pokemon (id integer, name string, ps integer, ataque integer,"
+			statement.executeUpdate("create table pokemon (id integer NOT NULL, name string, ps integer, ataque integer,"
 					+ "defensa integer, ataqueEspecial integer, defensaEspecial integer, velocidad integer,"
 					+ "altura integer, peso integer, mov1 integer, mov2 integer, mov3 integer, mov4 integer, "
 					+ "mov5 integer, mov6 integer, mov7 integer, mov8 integer, mov9 integer, mov10 integer, tipo1 string,"
-					+ "tipo2 string)");
+					+ "tipo2 string, PRIMARY KEY(id), FOREIGN KEY (mov1) REFERENCES movimiento(id),"
+					+ "FOREIGN KEY (mov2) REFERENCES movimiento(id), FOREIGN KEY (mov3) REFERENCES movimiento(id),"
+					+ "FOREIGN KEY (mov4) REFERENCES movimiento(id), FOREIGN KEY (mov5) REFERENCES movimiento(id),"
+					+ "FOREIGN KEY (mov6) REFERENCES movimiento(id), FOREIGN KEY (mov7) REFERENCES movimiento(id),"
+					+ "FOREIGN KEY (mov8) REFERENCES movimiento(id), FOREIGN KEY (mov9) REFERENCES movimiento(id),"
+					+ "FOREIGN KEY (mov10) REFERENCES movimiento(id)");
 			
-			statement.executeUpdate("create table movimiento (id integer, name string, tipo string,"
+			statement.executeUpdate("create table movimiento (id integer NOT NULL, name string, tipo string,"
 					+ "potencia integer, precision integer, pp integer, prioridad integer, efecto string,"
-					+ "categoria string, alcance string, probEfecto integer)");
+					+ "categoria string, alcance string, probEfecto integer, PRIMARY KEY(id))");
 			
-			statement.executeUpdate("create table usuario (id integer, nombre string, contraseña string,"
-					+ "entrenador string)");
+			statement.executeUpdate("create table usuario (id integer NOT NULL, nombre string, contraseña string,"
+					+ "entrenador string, PRIMARY KEY(id))");
 			
-			statement.executeUpdate("create table equipo (id integer, nombre string, idUsuario integer)");
-			int res = statement.executeUpdate("insert into person values(1, 'leo')");
-			res = statement.executeUpdate("insert into person values(2, 'yui')");
+			statement.executeUpdate("create table equipo (id integer NOT NULL, nombre string, idUsuario integer)"
+					+ ", PRIMARY KEY(id), FOREIGN KEY (idUsuario) REFERENCES usuario(id)");
+//			int res = statement.executeUpdate("insert into person values(1, 'leo')");
+//			res = statement.executeUpdate("insert into person values(2, 'yui')");
+			System.out.println("BD creada (espero).");
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
