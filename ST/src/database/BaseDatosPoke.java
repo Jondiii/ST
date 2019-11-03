@@ -22,11 +22,10 @@ public class BaseDatosPoke {
 		Connection connection = null;
 		try {
 			// Crear una conexión de BD
-			connection = DriverManager.getConnection("jdbc:sqlite:database/PokemonStars.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:src/database/PokemonStars.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 
-			statement.executeUpdate("drop table if exists person");
 			statement.executeUpdate("create table pokemon (id integer NOT NULL, name string, ps integer, ataque integer,"
 					+ "defensa integer, ataqueEspecial integer, defensaEspecial integer, velocidad integer,"
 					+ "altura integer, peso integer, mov1 integer, mov2 integer, mov3 integer, mov4 integer, "
@@ -49,9 +48,9 @@ public class BaseDatosPoke {
 					+ ", PRIMARY KEY(id), FOREIGN KEY (idUsuario) REFERENCES usuario(id)");
 //			int res = statement.executeUpdate("insert into person values(1, 'leo')");
 //			res = statement.executeUpdate("insert into person values(2, 'yui')");
-			System.out.println("BD creada (espero).");
 		} catch(SQLException e) {
 			System.err.println(e.getMessage());
+			System.out.println("error en algo de sql");
 		} finally {
 			try {
 				if(connection != null)
@@ -59,6 +58,7 @@ public class BaseDatosPoke {
 			} catch(SQLException e) {
 				// Cierre de conexión fallido
 				System.err.println(e);
+				System.out.println("error en cierre");
 			}
 		}
 	}
