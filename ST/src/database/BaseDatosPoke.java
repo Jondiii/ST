@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.sqlite.SQLiteConfig;
+
 /**
  * Clase que crea la Base de Datos. En principio solo la usaremos una única vez, una vez creada pensamos editar la
  * base de datos con programas externos.
@@ -28,30 +30,30 @@ public class BaseDatosPoke {
                 + "    velocidad integer,\n"
                 + "    altura integer,\n"
                 + "    peso integer, \n"
-                + "    mov1 integer, \n"
-                + "    mov2 integer, \n"
-                + "    mov3 integer,\n "
-                + "    mov4 integer,\n"
-                + "    mov5 integer,\n"
-                + "    mov6 integer, \n"
-                + "    mov7 integer,\n"
-                + "    mov8 integer, \n"
-                + "    mov9 integer, \n"
-                + "    mov10 integer, \n"
+                + "    mov1 integer , \n"
+                + "    mov2 integer , \n"
+                + "    mov3 integer ,\n "
+                + "    mov4 integer ,\n"
+                + "    mov5 integer ,\n"
+                + "    mov6 integer , \n"
+                + "    mov7 integer ,\n"
+                + "    mov8 integer , \n"
+                + "    mov9 integer , \n"
+                + "    mov10 integer , \n"
                 + "    tipo1 text ,\n"
-                + "    tipo2 text \n"
+                + "    tipo2 text, \n"
 //                + "PRIMARY KEY(id),\n" 
-//                + "FOREIGN KEY (mov1),\n" 
-//                + "REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov2) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov3) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov4) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov5) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov6) REFERENCES movimiento(id), \n"
-//    			+ "FOREIGN KEY (mov7) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov8) REFERENCES movimiento(id), \n"
-//    			+ "FOREIGN KEY (mov9) REFERENCES movimiento(id),\n"
-//    			+ "FOREIGN KEY (mov10) REFERENCES movimiento(id) \n"
+//                + "FOREIGN KEY (mov1)," 
+//                + "REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov2) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov3) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov4) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov5) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov6) REFERENCES movimiento(id), "
+    			+ "FOREIGN KEY (mov7) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov8) REFERENCES movimiento(id), "
+    			+ "FOREIGN KEY (mov9) REFERENCES movimiento(id),"
+    			+ "FOREIGN KEY (mov10) REFERENCES movimiento(id) "
                 + ");";
 		String sql_1 = "CREATE TABLE IF NOT EXISTS movimientos (\n"
 				+ "id integer NOT NULL PRIMARY KEY,\n"
@@ -77,15 +79,17 @@ public class BaseDatosPoke {
 		String sql_3 = "CREATE TABLE IF NOT EXISTS equipo (\n"
 				+ "id integer NOT NULL PRIMARY KEY,\n"
 				+ "nombre text ,\n"
-				+ "idUsuario integer\n"
+				+ "idUsuario integer,\n"
 //				+ "PRIMARY KEY(id),\n"
-//				+ "FOREIGN KEY (idUsuario) REFERENCES usuario(id) \n"
+				+ "FOREIGN KEY (idUsuario) REFERENCES usuario(id) "
 				+ ");";
-		try (Connection conn = DriverManager.getConnection(url)) {
+		SQLiteConfig config = new SQLiteConfig();  
+	    config.enforceForeignKeys(true);
+		try (Connection conn = DriverManager.getConnection(url, config.toProperties())) {
 			 Statement stmt = conn.createStatement(); 
 			 //crea nuevas tablas
-		            stmt.execute(sql);
 		            stmt.execute(sql_1);
+		            stmt.execute(sql);
 		            stmt.execute(sql_2);
 		            stmt.execute(sql_3);
 		}catch(SQLException e){
