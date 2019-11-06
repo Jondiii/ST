@@ -63,6 +63,7 @@ public class Usuario {
 		int numero = pokes_entrenador.lastKey();
 		pokes_entrenador.put(numero ++, nuevo_equipo);
 	}
+	
 	/* Devuelve el equipo pokemon asociado al int que se pasa como parametro. 
 	 * devuelve null si no se puede encontrar 
 	 * @param int numero_equipo 
