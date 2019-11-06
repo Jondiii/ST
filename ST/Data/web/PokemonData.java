@@ -33,7 +33,7 @@ public class PokemonData {
 			"Typhlosion", "Tyranitar", "Umbreon", "Vaporeon", "Venasaur", "Wigglytuff", "Yanmega"
 			
 	};
-	private static String [][] info_pokes = new String[55][7];
+	private static String [][] info_pokes = new String[55][9];
 	private static URL webGetUrl(int indice_poke) {	
 		try {
 			return new URL(url + pokemons[indice_poke]);
@@ -88,27 +88,35 @@ public class PokemonData {
 				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 109)) +
 				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 110));
 		info_pokes[indice][6] = velocidad;
+		String altura = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura")+ 54))
+				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura")+ 55)) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 56) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 57)) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 58)));
+		info_pokes[indice][7] = altura;
+		String peso = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso")+ 52))
+				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso")+ 53)) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 54) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 55)) +
+				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 56)));
+		info_pokes[indice][8] = peso;
 	}
 	public static void main(String[] args) throws IOException {
 		int indice = 0;
 		for (String s : PokemonData.pokemons) {
-			
-			
-		
-		URLConnection con = webGetUrl(indice).openConnection();
-		InputStream in =con.getInputStream();
-		BufferedReader ine = new BufferedReader(new InputStreamReader(
+			URLConnection con = webGetUrl(indice).openConnection();
+			InputStream in =con.getInputStream();
+			BufferedReader ine = new BufferedReader(new InputStreamReader(
                 con.getInputStream(), "UTF-8"));
-		String inputLine;
-        StringBuilder a = new StringBuilder();
-        while ((inputLine = ine.readLine()) != null)
-            a.append(inputLine + "\n" );
-        in.close();
-        
-        guardar_Data(a, indice);
-        indice ++;
-		}
-		crearArchivo();
+			String inputLine;
+			StringBuilder a = new StringBuilder();
+			while ((inputLine = ine.readLine()) != null)
+				a.append(inputLine + "\n" );
+			in.close();
+			guardar_Data(a, indice);
+			indice ++;
+			}
+			crearArchivo();
 
 	}
 
