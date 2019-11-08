@@ -30,7 +30,7 @@ public class PokemonData {
 			"Lucario", "Lumineon", "Luxray", "Lycanroc", "Magnezone", 
 			"Metagross", "Milotic", "Mimikyu", "Mismagius", "Porygon",  "Raichu_de_Alola", 
 			"Reuniclus", "Salazzle", "Sceptile", "Scolipede", "Serperior", "Spiritomb", "Sylveon", "Togekiss", 
-			"Typhlosion", "Tyranitar", "Umbreon", "Vaporeon", "Venasaur", "Wigglytuff", "Yanmega"
+			"Typhlosion", "Tyranitar", "Umbreon", "Vaporeon", "Venusaur", "Wigglytuff", "Yanmega"
 			
 	};
 	private static String [] moviminetos = {"Hoja_afilada", "Viento_hielo", "Canto_helado", 
@@ -45,47 +45,24 @@ public class PokemonData {
 			"Espacio_raro", "Paz_mental",	"Llamarada", "Pulso_umbrío",	"Dia_soleado",	"Fuego_fatuo",
 			"Vuelo", "Ataque_ala",	"Cuchillada",	"Golpe_cabeza",	"Púas_tóxicas",	"Hidrobomba",
 			"Rayo_hielo",	"Surf",	"Carámbano",	"Rompecoraza", "Danza_dragón",	"Cometa_draco",
-			"Lanzallamas", "Desarme",	"Rayo",	"Voltiocambio",	"Gigadrenado",
-			"BRILLO MAGICO"	"REFLEJO"	"HIPERRAYO"	"PANTALLA LUZ"	"SOL MATINAL"
-			"HIDROBOMBA"	"AQUA JET"	"TRITURAR"	"TÓXICO"	"SURF"	"RAYO HIELO"	"PUÑO HIELO"	"HIPERRAYO"	"DANZA LLUVIA"	"MOFA"
-			"GARRA DRAGÓN"	"TERREMOTO"	"TRITURAR"	"TÓXICO"	"LLANZALLAMAS"	"COMETA DRACO"	"VUELO"	"HIPERRAYO"	"DESCANSO"	"ROCA AFILADA"
-			"RAYO HIELO"	"VENTISCA"	"MISMO DESTINO"	"RAYO CONFUSO"	"BOLA SOMBRA"	"ONDA TRUENO"	"FUEGO FATUO"	"TÓXICO"	"PROTECCIÓN"	"MOFA"
-			"A BOCAJARRO"	"CUCHILLADA"	"TAJO UMBRIO"	"PSICO CORTE"	"PAZ MENTAL"	"PROTECCIÓN"	"PSIQUICO"	"BRILLO MAGICO"	"DEMOLICIÓN"	"AVALANCHA"
-			"TRUENO"	"ONDA TRUENO"	"RAYO"	"ZUMBIDO"	"RED VISCOSA"	"PROTECCIÓN"	"TÓXICO"	"ENERGIBOLA"	"VOLTIOCAMBIO"	"PUYA NOCIVA"
-			"GARRA DRAGÓN"	"TERREMOTO"	"TRITURAR"	"COLMILLO IGNEO"	"AVALANCHA"	"COMETA DRACO"	"TÓXICO"	"DANZA ESPADA"	"ROCA AFILADA"	"GIGAIMPACTO"
-			"FUERZA LUNAR"	"PAZ MENTAL"	"PSÍQUICO"	"HIPNOSIS"	"DESEO"	"PROTECCIÓN"	"TÓXICO"	"BOLA SOMBRA"	"COME SUEÑOS"	"PREMONICIÓN"
-			"BOLA SOMBRA"	"RAYO CONFUSO"	"PULSO UMBRIO"	"MISMO DESTINO"	"HIPNOSIS"	"PROTECCIÓN"	"PUYA NOCIVA"	"BRILLO MAGICO"	"BOMBA LODO"	"TÓXICO"
-			"RAYO HIELO"	"GRANIZO"	"OJITOS TIERNOS"	"VENTISCA"	"MORDISCO"	"SUSTITUTO"	"PROTECCIÓN"	"BOLA SOMBRA"	"TÓXICO"	"GIGAIMPACTO"
-			"GOLPE AEREO"	"RESPIRO"	"PULSO UMBRIO"	"DANZA ESPADA"	"BOMBA LODO"	"PROTECCIÓN"	"TERREMOTO"	"ROCA AFILADA"	"ÁCROBATA"	"TÓXICO"
-			"GIGADRENADO"	"DANZA ESPADA"	"SINTESIS"	"TÓXICO"	"BOLA SOMBRA"	"PROTECCIÓN"	"TIJERA X"	"RAYO SOLAR"	"ENERGIBOLA"	"HIPERRAYO"
-			"TRUENO"	"ONDA TRUENO"	"PROTECCIÓN"	"TÓXICO"	"BOLA SOMBRA"	"DOBLE PATADA"	"COLMILLO RAYO"	"GOLPE CABEZA"	"VOLTIOCAMBIO"	"GIGAIMPACTO"
-			"A BOCAJARRO"	"DANZA ESPADA"	"VELOCIDAD EXTREMA"	"ATAQUE OSEO"	"TÓXICO"	"PROTECCIÓN"	"BOLA SOMBRA"	"ROCA AFILADA"	"TERREMOTO"	"DEMOLICIÓN"
-			"SURF"	"DANZA LLUVIA"	"VIENTO PLATA"	"RAYO HIELO"	"ESCALDAR"	"IDA Y VUELTA"	"HIPERRAYO"	"PROTECCIÓN"	"TÓXICO"	"GIGAIMPACTO"
-			"TRUENO"	"COLMILLO RAYO"	"TRITURAR"	"ONDA TRUENO"	"TÓXICO"	"PROTECCIÓN"	"RUGIDO"	"CONTENEO"	"VOLTIOCAMBIO"	"GIGAIMPACTO"
-			"ROCA AFILADA"	"TRITURAR" 	"AVALANCHA"	"CORPULENCIA"	"DEMOLICIÓN"	"TÓXICO"	"PROTECCIÓN"	"TUMBA ROCAS"	"DANZA ESPADA"	"TREPARROCAS"
-			"TRUENO"	"FOCO RESPLANDOR"	"ONDA TRUENO"	"SUPERSONICO"	"GIRO BOLA"	"TÓXICO"	"PROTECCIÓN"	"GIGAIMPACTO"	"VOLTIOCAMBIO"	"EXPLOXIÓN"
-			"HIERBA LAZO"	"MACHADA"	"CABEZAZO ZEN"	"PUÑO METEORO"	"TERREMOTO"	"AVALANCHA"	"CABEZA DE HIERRO"	"GIRO BOLA"	"AGILIDAD"	"TÓXICO"
-			"SURF"	"RAYO HIELO"	"DANZA LLUVIA"	"RECUPERACIÓN"	"COLA DRAGON"	"VENTISCA"	"TÓXICO"	"DESCANSO"	"ESCALDAR"	"SONÁMBULO"
-			"FUERZA LUNAR"	"GARRA UMBRIA"	"CUCHILLADA"	"SOMBRA VIL"	"BOLA SOMBRA"	"TIJERA X"	"PSIQUICO"	"PROTECCIÓN"	"BRILLO MÁGICO"	"TÓXICO"
-			"PAZ MENTAL"	"PSÍQUICO"	"BRILLO MÁGICO"	"PULSO UMBRIO"	"ONDA TRUENO"	"BOLA SOMBRA"	"RAYO"	"ENERGIBOLA"	"TÓXICO"	"MAQUINACIÓN"
-			"TRIATAQUE"	"ELECTROCAÑÓN"	"RECUPERACIÓN"	"DOBLE RAYO"	"ONDA TRUENO"	"PSICOCARGA"	"AGILIDAD"	"GOLPE AEREO"	"TÓXICO"	"GIGAIMPACTO"
-			"PSIQUICO"	"RAYO"	"PAZ MENTAL"	"PROTECCIÓN"	"DEMOLICIÓN"	"PSICOCARGA"	"TRUENO"	"TÓXICO"	"VOLTIOCAMBIO" "ONDA CERTERA"
-			"PUÑO MAREO"	"PAZ MENTAL"	"BOLA SOMBRA"	"ENERGIBOLA"	"ESPACIO RARO"	"PSICOCARGA"	"PROTECCIÓN"	"PSIQUICO"	"GIRO BOLA"	"ONDA CERTERA"
-			"LLAMARADA"	"BOMBA LODO" "TÓXICO"	"TRAMPA VENENOSA"	"PUYA NOCIVA"	"LANZALLAMAS"	"PROTECCIÓN"	"MOFA"	"ONDA TÓXICA"	"MAQUINACIÓN"
-			"GIGADRENADO"	"TIJERA X"	"SINTESIS"	"LLUEVE HOJAS"	"TAJO UMBRIO"	"GARRA DRAGÓN"	"TERREMOTO"	"TUMBA ROCAS"	"TÓXICO"	"PROTECCIÓN"
-			"MEGACUERNO"	"BOMBA LODO"	"PUYA NOCIVA"	"TIJERA X"	"TRAMPA VENENOSA"	"TÓXICO"	"GIRO BOLA"	"TERREMOTO"	"PROTECCIÓN"	"GIGAIMPACTO"
-			"GIGADRENADO"	"PAZ MENTAL"	"ENERGIBOLA"	"DRENADORAS"	"COLA DRAGON"	"TÓXICO"	"GIRO VIL"	"PROTECCIÓN"	"RAYO SOLAR"	"GIGAIMPACTO"
-			"BOLA SOMBRA"	"RAYO CONFUSO"	"SOMBRA VIL"	"GOLPE BAJO"	"PULSO UMBRIO"	"PAZ MENTAL"	"TÓXICO"	"PSÍQUICO"	"TUMBA ROCAS"	"PROTECCIÓN"
-			"FUERZA LUNAR"	"BESO DRENAJE"	"PAZ MENTAL"	"BOLA SOMBRA"	"BRILLO MÁGICO"	"PSICOCARGA" "TÓXICO"	"BOLA SOMBRA"	"PROTECCIÓN"	"DESEO"
-			"TAJO AEREO"	"ESFERA AURAL"	"PSÍQUICO"	"BOLA SOMBRA"	"BRILLO MÁGICO"	"PSICOCARGA"	"VUELO"	"ONDA TRUENO"	"VELOCIDAD EXTREMA"	"GIGAIMPACTO"
-			"LLAMARADA"	"TERREMOTO"	"HUMAREDA"	"ONDA CERTERA"	"TUMBA ROCAS"	"DEMOLICIÓN"	"PROTECCIÓN "	"FUEGO FATUO"	"DESCANSO"	"ESTALLIDO"
-			"TRITURAR"	"TERREMOTO"	"PULSO UMBRIO"	"ROCA AFILADA"	"GARRA DRAGÓN"	"PROTECCIÓN"	"DEMOLICIÓN"	"TUMBA ROCAS"	"TORMENTA DE ARENA"	"GIGAIMPACTO"
-			"PULSO UMBRIO"	"RAYO CONFUSO"	"DESCANSO"	"TÓXICO"	"PROTECCIÓN"	"BOLA SOMBRA"	"HIPERRAYO"	"PSÍQUICO"	"JUEGO SUCIO"	"DESEO"
-			"HIDROBOMBA"	"RAYO HIELO"	"VENTISCA"	"ESCALDAR"	"DANZA LLUVIA"	"ARMADURA ÁCIDA"	"DESEO"	"PROTECCIÓN"	"TÓXICO"	"DESCANSO"
-			"GIGADRENADO"	"SOMNÍFERO"	"SINTESIS"	"ENERGIBOLA"	"TERREMOTO"	"TÓXICO"	"BOMBA LODO"	"DANZA PÉTALO"	"DRENADORAS"	"GIGAIMPACTO"
-			"CARANTOÑA"	"DOBLE FILO" "ONDA TRUENO"	"BOLA SOMBRA"	"RAYO HIELO"	"BRILLO MAGICO"	"PSÍQUICO"	"DESCANSO"	"PROTECCIÓN"	"TÓXICO"
-			"TAJO AEREO"	"IDA Y VUELTA"	"CUCHILLADA"	"SUPERSONICO"	"TAJO UMBRIO"	"PSÍQUICO"	"ALA DE ACERO"	"TÓXICO"	"PROTECCIÓN"	"GIGAIMPACTO"
-};
+			"Lanzallamas", "Desarme",	"Rayo",	"Voltiocambio",	"Gigadrenado", "Premonición",	"Mofa",
+			"Brillo_magico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
+			"Bola_sombra", "Psicocarga", "Puño_hielo", "Mismo_destino", "Sustituto", "Zumbido",
+			"Ida_y_vuelta", "Energibola", "Granizo", "Hierba_lazo", "Deseo", "Onda_certera", "Rayo",
+			"Drenadoras", "Triturar", "Danza_pétalo", "Demolicion", "Rayo_solar", "Acua_jet",
+			"Hidrobomba", "Energibola", "Lanzallamas", "Bomba_lodo", "Maquinacion", "Golpe_aereo",
+			"Recuperacion", "A_bocajarro", "Psico_corte", "Red_viscosa", "Colmillo_ígneo", "Hipnosis",
+			"Come_sueños", "Escaldar", "Colmillo_rayo", "Trampa_venenosa", "Llueve_hojas", "Tajo_aéreo",
+			"Fuerza_lunar", "Pulso_umbrio", "Respiro", "Acrobata",	"Tijera _x",	"Rayo_solar",
+			"Doble_patada", "Golpe_cabeza",	"Velocidad_extrema",	"Ataque_óseo", "Demolición",
+			"Viento_plata", "Rugido", "Conteneo", "Avalancha", "Corpulencia", "Tumba rocas",	
+			"Supersonico",	"Giro_bola","Voltiocambio",	"Exploxión", "Cabezazo_zen",
+			"Puño_meteoro", "Cabeza_de_hierro",	"Agilidad",	"Recuperación",	"Cola_dragon",	"Descanso",
+			"Sonámbulo", "Sombra_vil", "Triataque",	"Electrocañón",	"Agilidad",	"Puño_mareo",
+			"Lanzallamas", "Onda_tóxica", "Megacuerno",	"Golpe_bajo", "Beso_drenaje", "Esfera_aural",
+			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala de acero"
+			};
+	
 	private static String [][] info_pokes = new String[55][9];
 	private static URL webGetUrl(int indice_poke) {	
 		try {
