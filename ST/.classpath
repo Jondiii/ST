@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="src/librerias/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="src" path="Data"/>
 	<classpathentry kind="lib" path="src/librerias/poi-3.12.jar"/>
+	<classpathentry kind="lib" path="src/librerias/jsoup-1.12.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
