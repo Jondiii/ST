@@ -19,6 +19,8 @@ public class Combate {
 	private boolean J2_cambia = false;
 	private boolean J1_accion_hecha = false;
 	private boolean J2_accion_hecha = false;
+	private boolean J1_inmune = false;
+	private boolean J2_inmune = false;
 
 
 	/**
@@ -188,5 +190,21 @@ public class Combate {
 
 	public void setMovEnemigo(Movimiento movEnemigo) {
 		this.movEnemigo = movEnemigo;
+	}
+
+	public boolean isJ1_inmune() {
+		return J1_inmune;
+	}
+
+	public void setJ1_inmune(boolean j1_inmune) {
+		J1_inmune = j1_inmune;
+	}
+
+	public boolean isJ2_inmune() {
+		return J2_inmune;
+	}
+
+	public void setJ2_inmune(boolean j2_inmune) {
+		J2_inmune = j2_inmune;
 	}
 }

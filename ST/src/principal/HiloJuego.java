@@ -126,17 +126,33 @@ public class HiloJuego implements Runnable {
 			}
 		}
 		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
-		if (prim_mov != null && prim_mov.getCat() == CategoriaMov.ESTADO) {
-			//actualizarEstado(); esto actualiza los estados alternos de los movimientos
-		}
+		
+		
 		if (seg_mov != null &&  seg_mov.getCat() == CategoriaMov.ESTADO) {
-			//actualizarEstado();
+			if (seg_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
+				c.setJ1_inmune(true);
+			} else {
+				c.setJ2_inmune(true);
+			}
 		}
 		
-		if (prim_mov != null) { //prim_mov solo serÃ¡ null si ambos han cambiado, en cuyo caso no habrÃ¡ cambios en la vida de los poke.
+		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habría cambios en la vida de los poke.
 			actualizar_daño();
 			//actualizar_progress_bar();
 		}
+		
+		if (prim_mov != null) { //TODO Jon, aquí lo dejaste
+			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
+				c.setJ1_inmune(true);
+			} else {
+				c.setJ2_inmune(true);
+			}
+			
+		}
+		
+		
+		
+			
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
 	
@@ -170,7 +186,7 @@ public class HiloJuego implements Runnable {
 		v.getVida_1().setValue(c.getpActivo().calcuPsPorcentaje());
 		if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 2) {
 			v.getVida_1().setForeground(Color.YELLOW);
-			if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 4) { //Antes en vez de c.getpActivo().getPs_max() ponÃ­a segundo.getPs_Max()
+			if (c.getpActivo().getPs() < c.getpActivo().getPs_max() / 4) { //Antes en vez de c.getpActivo().getPs_max() ponía segundo.getPs_Max()
 				v.getVida_1().setForeground(Color.RED);
 			}
 		}
@@ -180,7 +196,7 @@ public class HiloJuego implements Runnable {
 		v.getVida_2().setValue(c.getpEnemigo().calcuPsPorcentaje());
 		if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 2) {
 			v.getVida_2().setForeground(Color.YELLOW);
-			if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 4) { //Antes en vez de c.getpEnemigo().getPs_max() ponÃ­a segundo.getPs_Max()
+			if (c.getpEnemigo().getPs() < c.getpEnemigo().getPs_max() / 4) { //Antes en vez de c.getpEnemigo().getPs_max() ponía segundo.getPs_Max()
 				v.getVida_2().setForeground(Color.RED);
 			}
 		}else {
@@ -188,13 +204,18 @@ public class HiloJuego implements Runnable {
 		}
 		v.revalidate();
 	}
+	
+	/**
+	 * Método que actualiza el estado alterado de un pokémon.
+	 */
 	private void actualizarEstadoAlterno(Pokemon oponente, Movimiento m) {
-				if (m.getEfecto()== null) return;
+				if (m.getEstadoAlt()== null) return;
 				Random aleatorio = new Random();
 				int intAletorio = aleatorio.nextInt(100);
-				if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEfecto());
+				if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEstadoAlt());
 				v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
 	}
+	
 	
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
 		poke.setPs(poke.getPs() - 1);
@@ -207,8 +228,9 @@ public class HiloJuego implements Runnable {
 			}
 		}
 	}
+	
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
-	// es decir a cual sumarle el daÃ±o, asi que se actualiza al final ambos (DE MOMENTO)
+	// es decir a cual sumarle el dañoo, asi que se actualiza al final ambos (DE MOMENTO)
 	private void actualizar_daño() {
 		
 			int psPoke = segundo.getPs();
