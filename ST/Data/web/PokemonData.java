@@ -12,12 +12,19 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Sheet; 
-import org.apache.poi.ss.usermodel.Workbook; 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import principal.Movimiento; 
 
 
 
@@ -33,19 +40,20 @@ public class PokemonData {
 			"Typhlosion", "Tyranitar", "Umbreon", "Vaporeon", "Venusaur", "Wigglytuff", "Yanmega"
 			
 	};
-	private static String [] moviminetos = {"Hoja_afilada", "Viento_hielo", "Canto_helado", 
+	private static String [] movimientos = {"Hoja_afilada", "Viento_hielo", "Canto_helado", 
 			"Arraigo", "Mazazo", "Ventisca", "Hiperrayo", "Protección", "Avalancha", "Terremoto",
 			"Sombra_vil", "Cabeza_de_hierro", "Espada_santa",	"Escudo_real", "Bola_sombra",	"Golpe_aéreo",
-			"Gigaimpacto",	"Foco_resplandor",	"Danza_espada",	"Tajo_umbrío",	"Defensa_ferréa",
+			"Giga_impacto",	"Foco_resplandor",	"Danza_espada",	"Tajo_umbrío",	"Defensa_férrea",
 			"Doble_filo",	"Cuerpo_pesado",	"Puño_Trueno",	"Tormenta_de_arena", "Enfado",
 			"Liofilización", "Onda_trueno",	"Descanso",	"Tóxico", "Trueno",	"Psíquico",	"Poder_pasado",
 			"Roca_afilada", "Ojitos_tiernos", "Azote", "Vendetta",	"Machada", 	"Garra_dragón",
-			"Garra_umbría", "Puño_fuego", "Evite_ígneo", "Patada_salto_alta", "Pájaro_osado",
+			"Garra_umbría", "Puño_fuego", "Envite_ígneo", "Patada_salto_alta", "Pájaro_osado",
 			"Gancho_alto",	"Puya_nociva",	"Avivar",	"Danza_lluvia",	"Hipnosis",	"Rayo_confuso",
 			"Espacio_raro", "Paz_mental",	"Llamarada", "Pulso_umbrío",	"Dia_soleado",	"Fuego_fatuo",
 			"Vuelo", "Ataque_ala",	"Cuchillada",	"Golpe_cabeza",	"Púas_tóxicas",	"Hidrobomba",
 			"Rayo_hielo",	"Surf",	"Carámbano",	"Rompecoraza", "Danza_dragón",	"Cometa_draco",
 			"Lanzallamas", "Desarme",	"Rayo",	"Voltiocambio",	"Gigadrenado", "Premonición",	"Mofa",
+//<<<<<<< HEAD
 			"Brillo_magico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
 			"Bola_sombra", "Psicocarga", "Puño_hielo", "Mismo_destino", "Sustituto", "Zumbido",
 			"Ida_y_vuelta", "Energibola", "Granizo", "Hierba_lazo", "Deseo", "Onda_certera", "Rayo",
@@ -63,8 +71,28 @@ public class PokemonData {
 			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala de acero"
 			};
 	
+//=======
+//			"Brillo_mágico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
+//			"Bola_sombra", "Psicocarga", "Puño_hielo", "Mismo_destino", "Sustituto", "Zumbido",
+//			"Ida_y_vuelta", "Energibola", "Granizo", "Hierba_lazo", "Deseo", "Onda_certera", "Rayo",
+//			"Drenadoras", "Triturar", "Danza_pétalo", "Demolición", "Rayo_solar", "Acua_jet",
+//			"Hidrobomba", "Energibola", "Lanzallamas", "Bomba_lodo", "Maquinación", "Golpe_aereo",
+//			"Recuperacion", "A_bocajarro", "Psico_corte", "Red_viscosa", "Colmillo_ígneo", "Hipnosis",
+//			"Come_sueños", "Escaldar", "Colmillo_rayo", "Trampa_venenosa", "Llueve_hojas", "Tajo_aéreo",
+//			"Fuerza_lunar", "Pulso_umbrio", "Respiro", "Acróbata",	"Tijera_X",	"Rayo_solar",
+//			"Doble_patada", "Golpe_cabeza",	"Velocidad_extrema",	"Ataque_óseo", "Demolición",
+//			"Viento_plata", "Rugido", "Contoneo", "Avalancha", "Corpulencia", "Tumba_rocas",	
+//			"Supersonico",	"Giro_bola","Voltiocambio",	"Explosión", "Cabezazo_zen",
+//			"Puño_meteoro", "Cabeza_de_hierro",	"Agilidad",	"Recuperación",	"Cola_dragon",	"Descanso",
+//			"Sonámbulo", "Sombra_vil", "Triataque",	"Electrocañón",	"Agilidad",	"Puño_mareo",
+//			"Onda_tóxica", "Megacuerno",	"Golpe_bajo", "Beso_drenaje", "Esfera_aural",
+//			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala_de_acero"
+//			}; //He hecho pull y estaba todo esto así sin comentar y dando errores, lo he comentado. Creo que se ha duplicado algo.
+	private static String [] mov = {"potencia","precisión", "prioridad", "pp", "blanco", "secundario" };
+//>>>>>>> branch 'master' of https://github.com/Jondiii/ST
 	private static String [][] info_pokes = new String[55][9];
-	private static URL webGetUrl(int indice_poke) {	
+	private static String [][] info_movimientos = new String[200][10];
+	private static URL webGetUrlPokemons(int indice_poke) {	
 		try {
 			return new URL(url + pokemons[indice_poke]);
 		} catch (MalformedURLException e) {
@@ -72,14 +100,22 @@ public class PokemonData {
 		}
 		return null;
 	}
-	private static void crearArchivo() throws IOException {
+	private static URL webGetUrlMovi(int indice_movi) {	
+		try {
+			return new URL(url + movimientos[indice_movi]);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private static void crearArchivo(String nombre, String [][] lista) throws IOException {
 		Workbook pokemons = new HSSFWorkbook();
-        Sheet hoja = pokemons.createSheet("poke_info");
+        Sheet hoja = pokemons.createSheet(nombre);
 		int rowCount = 0;
-	    for (String[] pokemon : info_pokes) {
+	    for (String[] l : lista) {
 	    	Row row = hoja.createRow(++rowCount);
 	        int columnCount = 0;
-	        for (String datos : pokemon) {
+	        for (String datos : l) {
 	                Cell cell = row.createCell(++columnCount);
 	                try{cell.setCellValue(Integer.valueOf(datos));
 	                
@@ -88,65 +124,71 @@ public class PokemonData {
 	                }
 	        }
 	    }
-	    try (FileOutputStream outputStream = new FileOutputStream("poke_info.xlsx")) {
+	    try (FileOutputStream outputStream = new FileOutputStream(nombre +".xlsx")) {
             pokemons.write(outputStream);
         }
 	}
-	private static void guardar_Data(StringBuilder sb, int indice) {
-		info_pokes[indice][0] = pokemons[indice];
-		String PS = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 38))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 39)) +
-				 String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 40));
-		info_pokes[indice][1] = PS;
-		String ataque = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 52))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 53)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 54));
-		info_pokes[indice][2] = ataque;
-		String defensa = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 66))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 67)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 68));
-		info_pokes[indice][3] = defensa;
-		String at_especial = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 80))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 81)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 82));
-		info_pokes[indice][4] = at_especial;
-		String def_espacial = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 94))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 95)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 96));
-		info_pokes[indice][5] = def_espacial;
-		String velocidad = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)") + 108))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 109)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Máximos (naturaleza neutra)")+ 110));
-		info_pokes[indice][6] = velocidad;
-		String altura = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura")+ 54))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura")+ 55)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 56) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 57)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Altura") + 58)));
-		info_pokes[indice][7] = altura;
-		String peso = String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso")+ 52))
-				 + String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso")+ 53)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 54) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 55)) +
-				String.valueOf(sb.toString().charAt(sb.toString().indexOf("Peso") + 56)));
-		info_pokes[indice][8] = peso;
+	public static void guardar_datos(String info_poke, int indice_1, int indice_2, String[][] lista) {
+		lista[indice_1][indice_2] = String.valueOf(info_poke);
+	}
+	public static void getInfo_poke() throws IOException {
+		int indice = 0; 
+		for (String s : pokemons) {	
+			guardar_datos(pokemons[indice], indice, 0, info_pokes);
+			URL con = webGetUrlPokemons(indice);
+			Document doc = Jsoup.parse(con, 50000);
+			Elements rows = doc.select("table.estadisticas");
+			Element cols = rows.select("tr").get(4);
+			Elements stats = cols.select("td"); 
+			int indice_2 = 1;
+			for (Element e : stats) {
+				guardar_datos(e.text(), indice, indice_2, info_pokes);
+				if(indice_2 == 5) {
+					indice_2 = 1;
+				}else {
+				indice_2++;
+				}
+			}
+			indice++;
+		}
+		crearArchivo("poke_info", info_pokes);
+	}
+	private static void getInfo_movi() throws IOException {
+		int indice = 0; 
+		for (String s_1 : movimientos) {
+			guardar_datos(movimientos[indice], indice, 0, info_movimientos);
+			URL con = webGetUrlMovi(indice);
+			Document doc = Jsoup.parse(con, 50000);
+			Elements rows = doc.select("div[data-source]");
+			int indice_2 = 1;
+			for (Element e : rows) {
+				for (String s : mov) {
+					if (e.attr("data-source").toString().equals(s)){
+						Element e_1 = e.select("div").get(1);
+						guardar_datos(e_1.ownText(), indice, indice_2, info_movimientos);
+					}
+					if (e.attr("data-source").equals("categoría") || e.attr("data-source").equals("tipo")){
+						Elements tipo = e.select("div");
+						Element e_6 = tipo.select("a[title]").get(1);
+						guardar_datos(e_6.attr("title"), indice, indice_2, info_movimientos);
+							
+					}
+				}
+				if(indice_2 == 8) {
+					indice_2 = 1;
+				}else {
+				indice_2++;
+				}
+			}
+			indice++;
+		}
+		crearArchivo("mov_info", info_movimientos);
+	
 	}
 	public static void main(String[] args) throws IOException {
-		int indice = 0;
-		for (String s : PokemonData.pokemons) {
-			URLConnection con = webGetUrl(indice).openConnection();
-			InputStream in =con.getInputStream();
-			BufferedReader ine = new BufferedReader(new InputStreamReader(
-                con.getInputStream(), "UTF-8"));
-			String inputLine;
-			StringBuilder a = new StringBuilder();
-			while ((inputLine = ine.readLine()) != null)
-				a.append(inputLine + "\n" );
-			in.close();
-			guardar_Data(a, indice);
-			indice ++;
-			}
-			crearArchivo();
+		//getInfo_poke();
+		getInfo_movi();
+		
 
 	}
 
