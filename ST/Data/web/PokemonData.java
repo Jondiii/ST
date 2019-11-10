@@ -53,43 +53,25 @@ public class PokemonData {
 			"Vuelo", "Ataque_ala",	"Cuchillada",	"Golpe_cabeza",	"Púas_tóxicas",	"Hidrobomba",
 			"Rayo_hielo",	"Surf",	"Carámbano",	"Rompecoraza", "Danza_dragón",	"Cometa_draco",
 			"Lanzallamas", "Desarme",	"Rayo",	"Voltiocambio",	"Gigadrenado", "Premonición",	"Mofa",
-//<<<<<<< HEAD
-			"Brillo_magico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
+			"Brillo_mágico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
 			"Bola_sombra", "Psicocarga", "Puño_hielo", "Mismo_destino", "Sustituto", "Zumbido",
 			"Ida_y_vuelta", "Energibola", "Granizo", "Hierba_lazo", "Deseo", "Onda_certera", "Rayo",
 			"Drenadoras", "Triturar", "Danza_pétalo", "Demolicion", "Rayo_solar", "Acua_jet",
 			"Hidrobomba", "Energibola", "Lanzallamas", "Bomba_lodo", "Maquinacion", "Golpe_aereo",
 			"Recuperacion", "A_bocajarro", "Psico_corte", "Red_viscosa", "Colmillo_ígneo", "Hipnosis",
 			"Come_sueños", "Escaldar", "Colmillo_rayo", "Trampa_venenosa", "Llueve_hojas", "Tajo_aéreo",
-			"Fuerza_lunar", "Pulso_umbrio", "Respiro", "Acrobata",	"Tijera _x",	"Rayo_solar",
+			"Fuerza_lunar", "Pulso_umbrio", "Respiro", "Acróbata",	"Tijera_X",	"Rayo_solar",
 			"Doble_patada", "Golpe_cabeza",	"Velocidad_extrema",	"Ataque_óseo", "Demolición",
-			"Viento_plata", "Rugido", "Conteneo", "Avalancha", "Corpulencia", "Tumba rocas",	
-			"Supersonico",	"Giro_bola","Voltiocambio",	"Exploxión", "Cabezazo_zen",
+			"Viento_plata", "Rugido", "Contoneo", "Avalancha", "Corpulencia", "Tumba_rocas",	
+			"Supersonico",	"Giro_bola","Voltiocambio",	"Explosión", "Cabezazo_zen",
 			"Puño_meteoro", "Cabeza_de_hierro",	"Agilidad",	"Recuperación",	"Cola_dragon",	"Descanso",
 			"Sonámbulo", "Sombra_vil", "Triataque",	"Electrocañón",	"Agilidad",	"Puño_mareo",
 			"Lanzallamas", "Onda_tóxica", "Megacuerno",	"Golpe_bajo", "Beso_drenaje", "Esfera_aural",
-			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala de acero"
+			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala_de_acero"
 			};
 	
-//=======
-//			"Brillo_mágico","Reflejo",	"Pantalla_luz", "Sol_matinal", "Roca_afilada",
-//			"Bola_sombra", "Psicocarga", "Puño_hielo", "Mismo_destino", "Sustituto", "Zumbido",
-//			"Ida_y_vuelta", "Energibola", "Granizo", "Hierba_lazo", "Deseo", "Onda_certera", "Rayo",
-//			"Drenadoras", "Triturar", "Danza_pétalo", "Demolición", "Rayo_solar", "Acua_jet",
-//			"Hidrobomba", "Energibola", "Lanzallamas", "Bomba_lodo", "Maquinación", "Golpe_aereo",
-//			"Recuperacion", "A_bocajarro", "Psico_corte", "Red_viscosa", "Colmillo_ígneo", "Hipnosis",
-//			"Come_sueños", "Escaldar", "Colmillo_rayo", "Trampa_venenosa", "Llueve_hojas", "Tajo_aéreo",
-//			"Fuerza_lunar", "Pulso_umbrio", "Respiro", "Acróbata",	"Tijera_X",	"Rayo_solar",
-//			"Doble_patada", "Golpe_cabeza",	"Velocidad_extrema",	"Ataque_óseo", "Demolición",
-//			"Viento_plata", "Rugido", "Contoneo", "Avalancha", "Corpulencia", "Tumba_rocas",	
-//			"Supersonico",	"Giro_bola","Voltiocambio",	"Explosión", "Cabezazo_zen",
-//			"Puño_meteoro", "Cabeza_de_hierro",	"Agilidad",	"Recuperación",	"Cola_dragon",	"Descanso",
-//			"Sonámbulo", "Sombra_vil", "Triataque",	"Electrocañón",	"Agilidad",	"Puño_mareo",
-//			"Onda_tóxica", "Megacuerno",	"Golpe_bajo", "Beso_drenaje", "Esfera_aural",
-//			"Humareda",	"Estallido", "Juego_sucio", "Armadura_ácida", "Somnífero", "Ala_de_acero"
-//			}; //He hecho pull y estaba todo esto así sin comentar y dando errores, lo he comentado. Creo que se ha duplicado algo.
+
 	private static String [] mov = {"potencia","precisión", "prioridad", "pp", "blanco", "secundario" };
-//>>>>>>> branch 'master' of https://github.com/Jondiii/ST
 	private static String [][] info_pokes = new String[55][9];
 	private static String [][] info_movimientos = new String[200][10];
 	private static URL webGetUrlPokemons(int indice_poke) {	
@@ -171,7 +153,6 @@ public class PokemonData {
 						Elements tipo = e.select("div");
 						Element e_6 = tipo.select("a[title]").get(1);
 						guardar_datos(e_6.attr("title"), indice, indice_2, info_movimientos);
-							
 					}
 				}
 				if(indice_2 == 8) {
@@ -182,8 +163,7 @@ public class PokemonData {
 			}
 			indice++;
 		}
-		crearArchivo("mov_info", info_movimientos);
-	
+		//crearArchivo("mov_info", info_movimientos);
 	}
 	public static void main(String[] args) throws IOException {
 		//getInfo_poke();
