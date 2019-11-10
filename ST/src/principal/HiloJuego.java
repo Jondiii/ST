@@ -141,17 +141,19 @@ public class HiloJuego implements Runnable {
 			//actualizar_progress_bar();
 		}
 		
-		if (prim_mov != null) { //TODO Jon, aquí lo dejaste
+		if (prim_mov != null) {
 			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
 				c.setJ1_inmune(true);
-			} else {
+			}
+			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpEnemigo())) {
 				c.setJ2_inmune(true);
 			}
 			
+			actualizar_daño_individual(primero, segundo, prim_mov);
+			actualizar_daño_individual(segundo, primero, seg_mov);
+			
 		}
-		
-		
-		
+	
 			
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
@@ -228,6 +230,42 @@ public class HiloJuego implements Runnable {
 			}
 		}
 	}
+	
+	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
+	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
+		int psPoke = defensor.getPs();
+		int psPokeDam = ( (int)(defensor.getPs() - Combate.calculaDaño( atacante, defensor, mov)));
+		v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
+		actualizarEstadoAlterno(defensor, mov);
+		
+		for (int i = psPoke; i > psPokeDam; i--) {
+			if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1());
+			if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2());
+
+				if (autopsia(c.getpActivo())) {
+					VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+					v.cambiaPanelInfo("¡" + defensor.getNombre() +  " se ha debilitado!");
+					try {
+						Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+						todosMuertos();
+						
+					} catch (Exception e) {
+					}
+				}
+			}
+		try {
+			Thread.sleep(10);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		if (mov.isCambiaStatsAEnemigo() == false) {
+			atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante.getCambiosEstadisticas(), mov));
+			//TODO faltaría añadir un mensaje indicando los cambios, y también que se indiquen los cambios en la pantalla de info de los pokes.
+		}
+		if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor.getCambiosEstadisticas(), mov));
+	}
+	
 	
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
 	// es decir a cual sumarle el dañoo, asi que se actualiza al final ambos (DE MOMENTO)
