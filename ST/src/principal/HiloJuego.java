@@ -135,11 +135,11 @@ public class HiloJuego implements Runnable {
 				c.setJ2_inmune(true);
 			}
 		}
-		
-		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habría cambios en la vida de los poke.
-			actualizar_daño();
-			//actualizar_progress_bar();
-		}
+//		
+//		if (prim_mov != null) { //prim_mov solo será null si ambos han cambiado, en cuyo caso no habría cambios en la vida de los poke.
+//			actualizar_daño();
+//			//actualizar_progress_bar();
+//		}
 		
 		if (prim_mov != null) {
 			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
@@ -148,9 +148,11 @@ public class HiloJuego implements Runnable {
 			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpEnemigo())) {
 				c.setJ2_inmune(true);
 			}
-			
 			actualizar_daño_individual(primero, segundo, prim_mov);
-			actualizar_daño_individual(segundo, primero, seg_mov);
+			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
+			}else {
+				actualizar_daño_individual(segundo, primero, seg_mov);
+			}
 			
 		}
 	
@@ -219,46 +221,65 @@ public class HiloJuego implements Runnable {
 	}
 	
 	
-	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida) {
-		poke.setPs(poke.getPs() - 1);
-		barradeVida.setValue(poke.calcuPsPorcentaje());
-		//System.out.println(poke.getPs());
-		if (poke.getPs() < poke.getPs_max() / 2) {
-			barradeVida.setForeground(Color.YELLOW);
-			if (poke.getPs() < poke.getPs_max() / 4) {
-				barradeVida.setForeground(Color.RED);
+	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida, int vidaPokeDaño) {
+		if (vidaPokeDaño == 0) {
+			return;
+		}else {
+			poke.setPs(poke.getPs() - 1);
+			if (autopsia(poke)) {
+				VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+				v.cambiaPanelInfo("¡" + poke.getNombre() +  " se ha debilitado!");
+					try {
+						Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+						todosMuertos();	
+					} catch (Exception e) {
+					}
+					return;
+				}else {
+			barradeVida.setValue(poke.calcuPsPorcentaje());
+			if (poke.getPs() < poke.getPs_max() / 2) {
+				barradeVida.setForeground(Color.YELLOW);
+				if (poke.getPs() < poke.getPs_max() / 4) {
+					barradeVida.setForeground(Color.RED);
+				}
+			}
+			try {
+				Thread.sleep(15);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			actualizar_progress_bar_1a1(poke, barradeVida, vidaPokeDaño - 1);
 			}
 		}
 	}
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
 	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
-		int psPoke = defensor.getPs();
+		//int psPoke = defensor.getPs();
 		int psPokeDam = ( (int)(defensor.getPs() - Combate.calculaDaño( atacante, defensor, mov)));
 		v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 		actualizarEstadoAlterno(defensor, mov);
 		
-		for (int i = psPoke; i > psPokeDam; i--) {
-			if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1());
-			if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2());
-
-				if (autopsia(c.getpActivo())) {
-					VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-					v.cambiaPanelInfo("¡" + defensor.getNombre() +  " se ha debilitado!");
-					try {
-						Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
-						todosMuertos();
-						
-					} catch (Exception e) {
-					}
-				}
-			}
-		try {
-			Thread.sleep(10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+		//for (int i = psPoke; i > psPokeDam; i--) {
+		if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1(), psPokeDam);
+		if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2(), psPokeDam);
+//		if (autopsia(c.getpActivo())) {
+//				VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+//				v.cambiaPanelInfo("¡" + defensor.getNombre() +  " se ha debilitado!");
+//					try {
+//						Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+//						todosMuertos();
+//						
+//					} catch (Exception e) {
+//					}
+//				}
+//			//}
+//		try {
+//			Thread.sleep(10);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		
 		if (mov.isCambiaStatsAEnemigo() == false) {
 			atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante.getCambiosEstadisticas(), mov));
 			//TODO faltaría añadir un mensaje indicando los cambios, y también que se indiquen los cambios en la pantalla de info de los pokes.
@@ -269,114 +290,114 @@ public class HiloJuego implements Runnable {
 	
 	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
 	// es decir a cual sumarle el dañoo, asi que se actualiza al final ambos (DE MOMENTO)
-	private void actualizar_daño() {
-		
-			int psPoke = segundo.getPs();
-			int psPokeDam = ( (int)(segundo.getPs() - Combate.calculaDaño( primero, segundo, prim_mov)));
-			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
-			actualizarEstadoAlterno(segundo, prim_mov);
-			
-			for (int i = psPoke; i > psPokeDam; i--) {
-				if (segundo == c.getpActivo()) {
-					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
-					if (autopsia(c.getpActivo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
-						try {
-							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
-							todosMuertos();
-							
-						} catch (Exception e) {
-						}
-						return;
-					}
-//					segundo.setPs(segundo.getPs() - 1);
-//					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
-//					System.out.println(segundo.getPs());
-//					if (segundo.getPs() < segundo.getPs_max() / 2) {
-//						v.getVida_1().setForeground(Color.YELLOW);
-//						if (segundo.getPs() < segundo.getPs_max() / 4) {
-//							v.getVida_1().setForeground(Color.RED);
+//	private void actualizar_daño() {
+//		
+//			int psPoke = segundo.getPs();
+//			int psPokeDam = ( (int)(segundo.getPs() - Combate.calculaDaño( primero, segundo, prim_mov)));
+//			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
+//			actualizarEstadoAlterno(segundo, prim_mov);
+//			
+//			for (int i = psPoke; i > psPokeDam; i--) {
+//				if (segundo == c.getpActivo()) {
+//					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
+//					if (autopsia(c.getpActivo())) {
+//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+//						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+//						try {
+//							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
+//							todosMuertos();
+//							
+//						} catch (Exception e) {
 //						}
-//					}	
-				}else {
-					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-					if (autopsia(c.getpEnemigo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
-						try {
-							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
-							todosMuertos();
-						} catch (Exception e) {
-						}
-						return;
-					}
-//				segundo.setPs(segundo.getPs() - 1);
-//				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-//				System.out.println(segundo.getPs());
-//				if (segundo.getPs() < segundo.getPs_max() / 2) {
-//					v.getVida_2().setForeground(Color.YELLOW);
-//					if (segundo.getPs() < segundo.getPs_max() / 4) {
-//						v.getVida_2().setForeground(Color.RED);
+//						return;
 //					}
+////					segundo.setPs(segundo.getPs() - 1);
+////					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
+////					System.out.println(segundo.getPs());
+////					if (segundo.getPs() < segundo.getPs_max() / 2) {
+////						v.getVida_1().setForeground(Color.YELLOW);
+////						if (segundo.getPs() < segundo.getPs_max() / 4) {
+////							v.getVida_1().setForeground(Color.RED);
+////						}
+////					}	
+//				}else {
+//					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+//					if (autopsia(c.getpEnemigo())) {
+//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+//						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+//						try {
+//							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
+//							todosMuertos();
+//						} catch (Exception e) {
+//						}
+//						return;
+//					}
+////				segundo.setPs(segundo.getPs() - 1);
+////				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
+////				System.out.println(segundo.getPs());
+////				if (segundo.getPs() < segundo.getPs_max() / 2) {
+////					v.getVida_2().setForeground(Color.YELLOW);
+////					if (segundo.getPs() < segundo.getPs_max() / 4) {
+////						v.getVida_2().setForeground(Color.RED);
+////					}
+////				}	
+//				}
+//				try {
+//					Thread.sleep(10);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}	
+//			
+//			if (seg_mov == null) return;
+////			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
+//			
+//			int psPoke2 = primero.getPs();
+//			int psPoke2Dam = ( (int)(primero.getPs() - Combate.calculaDaño( segundo, primero, seg_mov)));
+//			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
+//			actualizarEstadoAlterno(primero, seg_mov);
+//
+//			for (int i = psPoke2; i > psPoke2Dam; i--) {
+//				if (primero == c.getpActivo()) {
+//					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
+//					if (autopsia(c.getpActivo())) {
+//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+//						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
+//						return;
+//					}
+////					primero.setPs(primero.getPs() - 1);
+////					v.getVida_1().setValue(primero.calcuPsPorcentaje());
+////					if (primero.getPs() < primero.getPs_max() / 2) {
+////						v.getVida_1().setForeground(Color.YELLOW);
+////						if (primero.getPs() < primero.getPs_max() / 4) {
+////							v.getVida_1().setForeground(Color.RED);
+////						}
+////					}
+//				}else {
+//					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
+//					if (autopsia(c.getpEnemigo())) {
+//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
+//						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
+//						return;
+//					}
+////					primero.setPs(primero.getPs() - 1);
+////					v.getVida_2().setValue(primero.calcuPsPorcentaje());
+////					if (primero.getPs() < primero.getPs_max() / 2) {
+////						v.getVida_2().setForeground(Color.YELLOW);
+////						if (primero.getPs() < primero.getPs_max() / 4) {
+////							v.getVida_2().setForeground(Color.RED);
+////						}
+////					}
 //				}	
-				}
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}	
-			
-			if (seg_mov == null) return;
-//			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
-			
-			int psPoke2 = primero.getPs();
-			int psPoke2Dam = ( (int)(primero.getPs() - Combate.calculaDaño( segundo, primero, seg_mov)));
-			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
-			actualizarEstadoAlterno(primero, seg_mov);
-
-			for (int i = psPoke2; i > psPoke2Dam; i--) {
-				if (primero == c.getpActivo()) {
-					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
-					if (autopsia(c.getpActivo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
-						return;
-					}
-//					primero.setPs(primero.getPs() - 1);
-//					v.getVida_1().setValue(primero.calcuPsPorcentaje());
-//					if (primero.getPs() < primero.getPs_max() / 2) {
-//						v.getVida_1().setForeground(Color.YELLOW);
-//						if (primero.getPs() < primero.getPs_max() / 4) {
-//							v.getVida_1().setForeground(Color.RED);
-//						}
-//					}
-				}else {
-					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-					if (autopsia(c.getpEnemigo())) {
-						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
-						return;
-					}
-//					primero.setPs(primero.getPs() - 1);
-//					v.getVida_2().setValue(primero.calcuPsPorcentaje());
-//					if (primero.getPs() < primero.getPs_max() / 2) {
-//						v.getVida_2().setForeground(Color.YELLOW);
-//						if (primero.getPs() < primero.getPs_max() / 4) {
-//							v.getVida_2().setForeground(Color.RED);
-//						}
-//					}
-				}	
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			
-		}	
-			
-	}
+//				try {
+//					Thread.sleep(10);
+//				} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}	
+//			
+//	}
 	
 	private void todosMuertos() {
 		boolean vivoA = false;
