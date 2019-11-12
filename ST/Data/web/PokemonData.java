@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Sheet; 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -91,8 +93,8 @@ public class PokemonData {
 		return null;
 	}
 	private static void crearArchivo(String nombre, String [][] lista) throws IOException {
-		Workbook pokemons = new HSSFWorkbook();
-        Sheet hoja = pokemons.createSheet(nombre);
+		XSSFWorkbook pokemons = new XSSFWorkbook();
+		XSSFSheet hoja = pokemons.createSheet(nombre);
 		int rowCount = 0;
 	    for (String[] l : lista) {
 	    	Row row = hoja.createRow(++rowCount);
@@ -163,7 +165,7 @@ public class PokemonData {
 			}
 			indice++;
 		}
-		//crearArchivo("mov_info", info_movimientos);
+		crearArchivo("mov_info", info_movimientos);
 	}
 	public static void main(String[] args) throws IOException {
 		//getInfo_poke();

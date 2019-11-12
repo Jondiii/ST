@@ -2,20 +2,16 @@ package database;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.sqlite.SQLiteConfig;
 
 /**
@@ -106,9 +102,40 @@ public class BaseDatosPoke {
 			
 		}
 	}
+	public static void leerFichero(String fichero_nombre) {
+		try {
+			FileInputStream fichero = new FileInputStream(new File(fichero_nombre +".xlsx"));
+			XSSFWorkbook workbook = new XSSFWorkbook(fichero);
+			XSSFSheet hoja = workbook.getSheetAt(0);
+			Iterator<Row> rowIterator = hoja.iterator();
+            while (rowIterator.hasNext()){
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                while (cellIterator.hasNext()){
+                    Cell cell = cellIterator.next();
+                    switch (cell.getCellType()){
+                        case NUMERIC:
+                            System.out.print(cell.getNumericCellValue() + " ");
+                            break;
+                        case STRING:
+                            System.out.print(cell.getStringCellValue() + " ");
+                            break;
+                    }
+                }
+                System.out.println("");
+            }
+            fichero.close();
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }		
+	}
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		crearTabla();
+		//se lee solo hay se hacer que se guarde en una lista y de hay a la base de datos
+		leerFichero("Data/web/" + "poke_info");
 ////		 Carga el sqlite-JDBC driver usando el cargador de clases
 //
 //		Connection connection = null;

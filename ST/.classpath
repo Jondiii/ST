@@ -5,7 +5,13 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="src/librerias/sqlite-jdbc-3.27.2.1.jar"/>
 	<classpathentry kind="src" path="Data"/>
-	<classpathentry kind="lib" path="src/librerias/poi-3.12.jar"/>
 	<classpathentry kind="lib" path="src/librerias/jsoup-1.12.1.jar"/>
+	<classpathentry kind="lib" path="src/librerias/curvesapi-1.05.jar"/>
+	<classpathentry kind="lib" path="src/librerias/poi-ooxml-4.0.0.jar"/>
+	<classpathentry kind="lib" path="src/librerias/xmlbeans-3.0.1.jar"/>
+	<classpathentry kind="lib" path="src/librerias/poi-4.0.0.jar"/>
+	<classpathentry kind="lib" path="src/librerias/commons-collections4-4.2.jar"/>
+	<classpathentry kind="lib" path="src/librerias/commons-compress-1.19.jar"/>
+	<classpathentry kind="lib" path="src/librerias/poi-ooxml-schemas-4.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
