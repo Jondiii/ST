@@ -97,34 +97,45 @@ public class HiloJuego implements Runnable {
 			seg_mov = null;
 			
 		} else { //Lo que ocurre si nadie cambia.
-			if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
+			if (c.getMovActivo().getPrioridad() > c.getMovEnemigo().getPrioridad()) {
 				primero = c.getpActivo();
 				segundo = c.getpEnemigo();
 				prim_mov = c.getMovActivo();
 				seg_mov = c.getMovEnemigo();
-			}
-			if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
+			}else if(c.getMovActivo().getPrioridad() < c.getMovEnemigo().getPrioridad()) {
 				primero = c.getpEnemigo();
 				segundo = c.getpActivo();
 				prim_mov = c.getMovEnemigo();
 				seg_mov = c.getMovActivo();
-			}
-			if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
-				Random aleatorio = new Random();
-				int intAletorio = aleatorio.nextInt(2);
-				if (intAletorio == 0) {
+			}else if (c.getMovActivo().getPrioridad() == c.getMovEnemigo().getPrioridad()) {
+				if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
 					primero = c.getpActivo();
 					segundo = c.getpEnemigo();
 					prim_mov = c.getMovActivo();
 					seg_mov = c.getMovEnemigo();
-				}else {
+				}else if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
 					primero = c.getpEnemigo();
 					segundo = c.getpActivo();
 					prim_mov = c.getMovEnemigo();
 					seg_mov = c.getMovActivo();
+				}else if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
+					Random aleatorio = new Random();
+					int intAletorio = aleatorio.nextInt(2);
+					if (intAletorio == 0) {
+						primero = c.getpActivo();
+						segundo = c.getpEnemigo();
+						prim_mov = c.getMovActivo();
+						seg_mov = c.getMovEnemigo();
+					}else {
+						primero = c.getpEnemigo();
+						segundo = c.getpActivo();
+						prim_mov = c.getMovEnemigo();
+						seg_mov = c.getMovActivo();
+					}
 				}
 			}
 		}
+		
 		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
 		
 		

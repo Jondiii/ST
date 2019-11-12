@@ -1,11 +1,21 @@
 package database;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.sqlite.SQLiteConfig;
 
 /**
@@ -96,11 +106,10 @@ public class BaseDatosPoke {
 			
 		}
 	}
-	
 	public static void main(String[] args) throws ClassNotFoundException {
+		Class.forName("org.sqlite.JDBC");
 		crearTabla();
 ////		 Carga el sqlite-JDBC driver usando el cargador de clases
-//		Class.forName("org.sqlite.JDBC");
 //
 //		Connection connection = null;
 //		try {

@@ -17,7 +17,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		creaEquiposPorDefecto();
-		Combate c = new Combate(miEquipo, oponente);
+		Combate c = new Combate(miEquipo, oponente); 
 //		try {
 //			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //		}catch (Exception e){
