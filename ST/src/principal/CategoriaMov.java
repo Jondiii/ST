@@ -1,7 +1,7 @@
 package principal;
 
 public enum CategoriaMov {
-	FISICA, ESPECIAL, ESTADO;
+	FISICO, ESPECIAL, ESTADO;
 	/**
 	 * Los movimientos pueden pertenecer a 3 categorías:
 	 * 

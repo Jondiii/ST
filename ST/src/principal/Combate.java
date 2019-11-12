@@ -59,7 +59,7 @@ public class Combate {
 		
 		float efectividad = TablaTipos.calculaEficacia(defensor, mov);
 		
-		if (mov.getCat() == CategoriaMov.FISICA) {
+		if (mov.getCat() == CategoriaMov.FISICO) {
 
 			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
 					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque() * mov.getPotencia()) / (25 * defensor.getDefensa()) + 2);
