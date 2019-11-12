@@ -68,7 +68,7 @@ public class Pokemon {
 	/**
 	 * Devuelve el multiplicador de la estadística correspondiente.
 	 * @param posicion Posición de al estadística en el array.
-	 * 1 - PS, 2 - Ataque, 3 - Defensa, 4 - Ata. especial, 5 - Def. especial y 6 - Velocidad.
+	 * 0 - Ataque, 1 - Defensa, 2 - Ata. especial, 3 - Def. especial y 4 - Velocidad.
 	 */
 	public double getStats(int posicion) {
 		int stat = cambiosEstadisticas[posicion];

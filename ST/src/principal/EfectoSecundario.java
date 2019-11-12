@@ -11,5 +11,5 @@ package principal;
  *
  */
 public enum EfectoSecundario {
-	RETROCESO, INMUNIDAD, RECOIL;
+	RETROCESO, INMUNIDAD, RECOIL, DEBILITACION, CURACION, DESCANSAR;
 }

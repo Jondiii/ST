@@ -16,6 +16,7 @@ public class Movimiento {
 	private EstadosAlterados estadoAlt;
 	private EfectoSecundario efecto;
 	private int prob_efecto;
+	private int critico;	//Algunos movimientos tienen una probabilidad de crítico adicional
 	
 	/**
 	 * Las estadísticas de Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
