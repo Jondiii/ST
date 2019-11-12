@@ -26,7 +26,7 @@ import org.sqlite.SQLiteConfig;
  */
 public class BaseDatosPoke {
 	
-	static String url = "jdbc:sqlite:src/database/PokemonStars";
+	static String url = "jdbc:sqlite:src/database/PokemonStars.db";
 	
 	public static void crearTabla() {
 		String sql = "CREATE TABLE IF NOT EXISTS pokemons (\n"
