@@ -9,8 +9,13 @@ import java.awt.event.WindowEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -106,6 +111,28 @@ public class VentanaInicio extends JFrame {
 				JPanel panelOk = new JPanel();
 				JButton bConfirmar = new JButton("OK");
 				panelOk.add(bConfirmar);
+				d.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowOpened(WindowEvent e) {
+						Properties properties = new Properties();
+						try {
+							properties.loadFromXML(new FileInputStream("propiedades.xml"));
+						} catch (InvalidPropertiesFormatException e1) {
+							e1.printStackTrace();
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+						String user = properties.getProperty("Usuario");
+						String pass = properties.getProperty("Contraseña");
+						areaUsername.setText(user);
+						areaContra.setText(pass);
+						
+						super.windowOpened(e);
+					}
+				});
+
 				//Ane quiere ponerlo bonito y que esté todo en el medio. :)
 				d.add(pUsuario, BorderLayout.NORTH);
 				d.add(pContraseña, BorderLayout.CENTER);
@@ -115,16 +142,35 @@ public class VentanaInicio extends JFrame {
 				d.setLocation(vi.getLocation());
 				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				
+
+				
 				bConfirmar.addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if (areaUsername.getText() == null || areaUsername.getText().trim() == "") return; //añadir jlabel que diga info de porque no
-						if (areaContra.getSelectedText()== null || areaContra.getSelectedText().trim() == "") return; //añadir jlabel que diga info de porque no
+						String pass = new String (areaContra.getPassword());
+						if (pass== null || pass.trim() == "") return; //añadir jlabel que diga info de porque no
 						String user = areaUsername.getText();
-						String pass = areaContra.getSelectedText();
+						
+						Properties properties = new Properties();
+						properties.setProperty("Usuario", user);
+						properties.setProperty("Contraseña", pass);
+						
+						try {
+							properties.storeToXML(new FileOutputStream("propiedades.xml"), "Propiedades de usuario");
+						} catch (FileNotFoundException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
 					}
 				});
+			}
+
+			private void addWindowOpened(WindowAdapter windowAdapter) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		
