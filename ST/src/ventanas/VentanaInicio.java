@@ -1,6 +1,7 @@
-package principal;
+package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -14,11 +15,17 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import main.Main;
+import principal.Combate;
+import principal.HiloJuego;
+import principal.Pokemon;
 
 import java.awt.image.BufferedImage;
 
@@ -44,6 +51,8 @@ public class VentanaInicio extends JFrame {
 	private void crearPanelInferior(){
 		JPanel panel = new JPanel(new BorderLayout());
 		JButton jugar = new JButton("Jugar");
+		JButton logIn = new JButton("Log in");
+		JButton register = new JButton("Regisrarse");
 		JButton salir = new JButton("Salir");
 		JPanel pBotones = new JPanel();
 		JPanel pLogo = new JPanel();
@@ -55,6 +64,8 @@ public class VentanaInicio extends JFrame {
 
 		pLogo.add(logo);
 		pBotones.add(jugar);
+		pBotones.add(logIn);
+		pBotones.add(register);
 		pBotones.add(salir);
 		panel.add(pLogo, BorderLayout.CENTER);
 		panel.add(pBotones, BorderLayout.SOUTH);
@@ -76,6 +87,44 @@ public class VentanaInicio extends JFrame {
 				vi.dispose();
 				HiloJuego mh = new HiloJuego(c, vj);
 				mh.start();
+			}
+		});
+		
+		logIn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JDialog d = new JDialog();
+				JPanel pUsuario = new JPanel(new FlowLayout());
+				JTextField areaUsername = new JTextField(14);
+				pUsuario.add(new JLabel("Usuario: "));
+				pUsuario.add(areaUsername);
+				JPanel pContraseña = new JPanel(new FlowLayout());
+				JPasswordField areaContra = new JPasswordField(14);
+				pContraseña.add(new JLabel("Contraseña: "));
+				pContraseña.add(areaContra);
+				JPanel panelOk = new JPanel();
+				JButton bConfirmar = new JButton("OK");
+				panelOk.add(bConfirmar);
+				//Ane quiere ponerlo bonito y que esté todo en el medio. :)
+				d.add(pUsuario, BorderLayout.NORTH);
+				d.add(pContraseña, BorderLayout.CENTER);
+				d.add(panelOk, BorderLayout.SOUTH);
+				d.setSize(300, 150);
+				d.setVisible(true);
+				d.setLocation(vi.getLocation());
+				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				
+				bConfirmar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						if (areaUsername.getText() == null || areaUsername.getText().trim() == "") return; //añadir jlabel que diga info de porque no
+						if (areaContra.getSelectedText()== null || areaContra.getSelectedText().trim() == "") return; //añadir jlabel que diga info de porque no
+						String user = areaUsername.getText();
+						String pass = areaContra.getSelectedText();
+					}
+				});
 			}
 		});
 		

@@ -3,6 +3,8 @@ package principal;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import ventanas.VentanaJuego;
+
 /**
  * Clase que gestiona toda la lógica de combate.
  */

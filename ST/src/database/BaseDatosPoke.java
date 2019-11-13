@@ -48,9 +48,7 @@ public class BaseDatosPoke {
                 + "    mov10 integer , \n"
                 + "    tipo1 text ,\n"
                 + "    tipo2 text, \n"
-//                + "PRIMARY KEY(id),\n" 
-//                + "FOREIGN KEY (mov1)," 
-//                + "REFERENCES movimiento(id),"
+                + "FOREIGN KEY (mov1) REFERENCES movimiento(id),"
     			+ "FOREIGN KEY (mov2) REFERENCES movimiento(id),"
     			+ "FOREIGN KEY (mov3) REFERENCES movimiento(id),"
     			+ "FOREIGN KEY (mov4) REFERENCES movimiento(id),"
@@ -102,6 +100,9 @@ public class BaseDatosPoke {
 			
 		}
 	}
+	
+	
+	
 	public static void leerFichero(String fichero_nombre) {
 		try {
 			FileInputStream fichero = new FileInputStream(new File(fichero_nombre +".xlsx"));
@@ -136,49 +137,6 @@ public class BaseDatosPoke {
 		crearTabla();
 		//se lee solo hay se hacer que se guarde en una lista y de hay a la base de datos
 		leerFichero("Data/web/" + "poke_info");
-////		 Carga el sqlite-JDBC driver usando el cargador de clases
-//
-//		Connection connection = null;
-//		try {
-//			// Crear una conexión de BD
-//			connection = DriverManager.getConnection("jdbc:sqlite:src/database/PokemonStars");
-//			Statement statement = connection.createStatement();
-//			statement.setQueryTimeout(30);  // poner timeout 30 msg
-//
-//			statement.executeUpdate("create table pokemon (id integer NOT NULL, name string, ps integer, ataque integer,"
-//					+ "defensa integer, ataqueEspecial integer, defensaEspecial integer, velocidad integer,"
-//					+ "altura integer, peso integer, mov1 integer, mov2 integer, mov3 integer, mov4 integer, "
-//					+ "mov5 integer, mov6 integer, mov7 integer, mov8 integer, mov9 integer, mov10 integer, tipo1 string,"
-//					+ "tipo2 string, PRIMARY KEY(id), FOREIGN KEY (mov1) REFERENCES movimiento(id),"
-//					+ "FOREIGN KEY (mov2) REFERENCES movimiento(id), FOREIGN KEY (mov3) REFERENCES movimiento(id),"
-//					+ "FOREIGN KEY (mov4) REFERENCES movimiento(id), FOREIGN KEY (mov5) REFERENCES movimiento(id),"
-//					+ "FOREIGN KEY (mov6) REFERENCES movimiento(id), FOREIGN KEY (mov7) REFERENCES movimiento(id),"
-//					+ "FOREIGN KEY (mov8) REFERENCES movimiento(id), FOREIGN KEY (mov9) REFERENCES movimiento(id),"
-//					+ "FOREIGN KEY (mov10) REFERENCES movimiento(id)");
-//			
-//			statement.executeUpdate("create table movimiento (id integer NOT NULL, name string, tipo string,"
-//					+ "potencia integer, precision integer, pp integer, prioridad integer, efecto string,"
-//					+ "categoria string, alcance string, probEfecto integer, PRIMARY KEY(id))");
-//			
-//			statement.executeUpdate("create table usuario (id integer NOT NULL, nombre string, contraseña string,"
-//					+ "entrenador string, PRIMARY KEY(id))");
-//			
-//			statement.executeUpdate("create table equipo (id integer NOT NULL, nombre string, idUsuario integer)"
-//					+ ", PRIMARY KEY(id), FOREIGN KEY (idUsuario) REFERENCES usuario(id)");
-////			int res = statement.executeUpdate("insert into person values(1, 'leo')");
-////			res = statement.executeUpdate("insert into person values(2, 'yui')");
-//		} catch(SQLException e) {
-//			System.err.println(e.getMessage());
-//			System.out.println("error en algo de sql");
-//		} finally {
-//			try {
-//				if(connection != null)
-//					connection.close();
-//			} catch(SQLException e) {
-//				// Cierre de conexión fallido
-//				System.err.println(e);
-//				System.out.println("error en cierre");
-//			}
-//		}
+
 	}
 }

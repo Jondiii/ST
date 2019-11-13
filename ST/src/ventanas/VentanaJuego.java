@@ -1,4 +1,4 @@
-package principal;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,6 +27,14 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 
 import main.EstadosJuego;
+import principal.Combate;
+import principal.EstadosAlterados;
+import principal.Movimiento;
+import principal.MuestraInfoPoke;
+import principal.PanelConFondo;
+import principal.Pokeball;
+import principal.Pokemon;
+import principal.Tipo;
 
 public class VentanaJuego extends JFrame{
 	

@@ -13,6 +13,7 @@ import javax.swing.plaf.ProgressBarUI;
 
 import main.EstadosJuego;
 import main.Main;
+import ventanas.VentanaJuego;
 
 public class HiloJuego implements Runnable {
 	

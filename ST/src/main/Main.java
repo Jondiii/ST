@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.UIManager;
 
 import principal.*;
+import ventanas.VentanaInicio;
 
 public class Main {
 	
