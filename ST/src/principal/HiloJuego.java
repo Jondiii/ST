@@ -163,7 +163,8 @@ public class HiloJuego implements Runnable {
 			actualizar_daño_individual(primero, segundo, prim_mov);
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
 			}else {
-				actualizar_daño_individual(segundo, primero, seg_mov);
+				if (seg_mov != null) 
+					actualizar_daño_individual(segundo, primero, seg_mov);
 			}
 			
 		}
@@ -238,7 +239,6 @@ public class HiloJuego implements Runnable {
 			return;
 		}else {
 			poke.setPs(poke.getPs() - 1);
-			System.out.println(poke.getPs());
 			if (autopsia(poke)) {
 				VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 				v.cambiaPanelInfo("¡" + poke.getNombre() +  " se ha debilitado!");
@@ -249,27 +249,27 @@ public class HiloJuego implements Runnable {
 					}
 					return;
 				}else {
-			barradeVida.setValue(poke.calcuPsPorcentaje());
-			if (poke.getPs() < poke.getPs_max() / 2) {
-				barradeVida.setForeground(Color.YELLOW);
-				if (poke.getPs() < poke.getPs_max() / 4) {
-					barradeVida.setForeground(Color.RED);
+					barradeVida.setValue(poke.calcuPsPorcentaje());
+					if (poke.getPs() < poke.getPs_max() / 2) {
+						barradeVida.setForeground(Color.YELLOW);
+						if (poke.getPs() < poke.getPs_max() / 4) {
+							barradeVida.setForeground(Color.RED);
+						}
+					}
+					try {
+						Thread.sleep(15);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					actualizar_progress_bar_1a1(poke, barradeVida, vidaPokeDaño - 1);
 				}
-			}
-			try {
-				Thread.sleep(15);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			actualizar_progress_bar_1a1(poke, barradeVida, vidaPokeDaño - 1);
-			}
 		}
 	}
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
 	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
 		//int psPoke = defensor.getPs();
-		int psPokeDam = ( (int)(defensor.getPs() - Combate.calculaDaño( atacante, defensor, mov)));
+		int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
 		v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 		actualizarEstadoAlterno(defensor, mov);
 		
