@@ -109,17 +109,17 @@ public class HiloJuego implements Runnable {
 				prim_mov = c.getMovEnemigo();
 				seg_mov = c.getMovActivo();
 			}else if (c.getMovActivo().getPrioridad() == c.getMovEnemigo().getPrioridad()) {
-				if (c.getpActivo().getVelocidad() > c.getpEnemigo().getVelocidad()) {
+				if (c.getpActivo().getVelocidadStat() > c.getpEnemigo().getVelocidadStat()) {
 					primero = c.getpActivo();
 					segundo = c.getpEnemigo();
 					prim_mov = c.getMovActivo();
 					seg_mov = c.getMovEnemigo();
-				}else if (c.getpActivo().getVelocidad() < c.getpEnemigo().getVelocidad()) {
+				}else if (c.getpActivo().getVelocidadStat() < c.getpEnemigo().getVelocidadStat()) {
 					primero = c.getpEnemigo();
 					segundo = c.getpActivo();
 					prim_mov = c.getMovEnemigo();
 					seg_mov = c.getMovActivo();
-				}else if (c.getpActivo().getVelocidad() == c.getpEnemigo().getVelocidad()) {
+				}else if (c.getpActivo().getVelocidadStat() == c.getpEnemigo().getVelocidadStat()) {
 					Random aleatorio = new Random();
 					int intAletorio = aleatorio.nextInt(2);
 					if (intAletorio == 0) {
@@ -293,10 +293,10 @@ public class HiloJuego implements Runnable {
 //		}
 //		
 		if (mov.isCambiaStatsAEnemigo() == false) {
-			atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante.getCambiosEstadisticas(), mov));
+			atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante, mov));
 			//TODO faltaría añadir un mensaje indicando los cambios, y también que se indiquen los cambios en la pantalla de info de los pokes.
 		}
-		if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor.getCambiosEstadisticas(), mov));
+		if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor, mov));
 	}
 	
 	

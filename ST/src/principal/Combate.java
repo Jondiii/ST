@@ -64,14 +64,14 @@ public class Combate {
 		if (mov.getCat() == CategoriaMov.FISICO) {
 
 			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
-					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque() * mov.getPotencia()) / (25 * defensor.getDefensa()) + 2);
+					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaqueStat() * mov.getPotencia()) / (25 * defensor.getDefensaStat()) + 2);
 			
 			return daño;
 			
 		} else {
 
 			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
-					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque_especial() * mov.getPotencia()) / (25 * defensor.getDefensa_especial()) + 2);
+					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque_especialStat() * mov.getPotencia()) / (25 * defensor.getDefensa_especialStat()) + 2);
 			
 			return daño;
 		}
@@ -87,23 +87,23 @@ public class Combate {
 	 * MEJORAS: Si añadimos un cuadro de texto que explique lo que ocurre a tiempo real se podrá
 	 * hacer que saliese un mensaje del estilo "¡el ataque no puede subir más!" o algo así por cada stat.
 	 * 
-	 * @param estadoActual  Cambios en los stats actuales del pokémon
+	 * @param poke  		el pokemon al que se le van a aplicar los cambios
 	 * @param move			Movimiento efectuado
 	 * @return				Array de los cambios en los stats tras aplicar las alteraciones del movimiento.
 	 */
-	public static Integer[] calculaCambiosStats(Integer[] estadoActual, Movimiento move) {
-		for (int i = 0; i < estadoActual.length; i++) {
-			int cambio = estadoActual[i] + move.getCambiosEstadisticas()[i];
+	public static Integer[] calculaCambiosStats(Pokemon poke, Movimiento move) {
+		for (int i = 0; i < move.getCambiosEstadisticas().length; i++) {
+			int cambio = poke.getCambiosEstadisticas()[i] + move.getCambiosEstadisticas()[i];
 			
 			if(cambio > 6) cambio = 6;
 			if(cambio < -6) cambio = -6;
 			
 			if (cambio > -6 && cambio < 6) {
-				estadoActual[i] = cambio;
+				poke.getCambiosEstadisticas()[i] = cambio;
 			}
 		}
 		
-		return estadoActual;
+		return poke.getCambiosEstadisticas();
 	}
 
 	public Pokemon getpActivo() {

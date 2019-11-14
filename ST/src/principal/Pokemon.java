@@ -30,7 +30,8 @@ public class Pokemon {
 	 * Pueden ir desde -6 (x0,25) hasta +6 (x4)
 	 * 0 - Ataque, 1 - Defensa, 2 - Ata. especial, 3 - Def. especial y 4 - Velocidad.
 	 */
-	private Integer[] cambiosEstadisticas = new Integer[4];
+	// chicos tiene que estar a 5 , sino la velocidad no se almacena
+	private Integer[] cambiosEstadisticas = new Integer[5];
 	
 	
 	public Pokemon(String nombre, int peso, int altura, String habilidad, int ps, int ataque,
@@ -184,6 +185,19 @@ public class Pokemon {
 	private void setPs_max(int ps) {
 		this.ps_max = ps;
 	}
-
-	
+	public int getAtaqueStat() {
+		return (int) (ataque * getStats(0));
+	}
+	public int getDefensaStat() {
+		return (int) (defensa * getStats(1));
+	}
+	public int getAtaque_especialStat() {
+		return (int) (ataque_especial * getStats(2));
+	}
+	public int getDefensa_especialStat() {
+		return (int) (defensa_especial * getStats(3));
+	}
+	public int getVelocidadStat() {
+		return (int) (velocidad * getStats(4));
+	}
 }

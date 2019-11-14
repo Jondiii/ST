@@ -23,7 +23,8 @@ public class Movimiento {
 	 * Pueden ir desde -6 (x0,25) hasta +6 (x4)
 	 * 0 - Ataque, 1 - Defensa, 2 - Ata. especial, 3 - Def. especial y 4 - Velocidad.
 	 */
-	private Integer[] cambiosEstadisticas = new Integer[4];
+	// chicos tiene que estar a 5 , sino la velocidad no se almacena
+	private Integer[] cambiosEstadisticas = new Integer[5];
 	private boolean cambiaStatsAEnemigo = false; //Algunos movimientos cambian los stats del enemigos, otros los del usuario. Solo es true en el primer caso
 	
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
