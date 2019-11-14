@@ -73,6 +73,7 @@ public class Combate {
 			float daño = (float)0.01 * STAB * efectividad * ThreadLocalRandom.current().nextInt(85, 100 + 1)
 					* ( ( ((float)(0.2) * 100 + 1) * atacante.getAtaque_especialStat() * mov.getPotencia()) / (25 * defensor.getDefensa_especialStat()) + 2);
 			
+			System.out.println(atacante.getNombre() + " " + daño);
 			return daño;
 		}
 	

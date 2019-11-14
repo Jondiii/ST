@@ -238,6 +238,7 @@ public class HiloJuego implements Runnable {
 			return;
 		}else {
 			poke.setPs(poke.getPs() - 1);
+			System.out.println(poke.getPs());
 			if (autopsia(poke)) {
 				VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
 				v.cambiaPanelInfo("¡" + poke.getNombre() +  " se ha debilitado!");
