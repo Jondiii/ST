@@ -56,8 +56,8 @@ public class VentanaInicio extends JFrame {
 	private void crearPanelInferior(){
 		JPanel panel = new JPanel(new BorderLayout());
 		JButton jugar = new JButton("Jugar");
-		JButton logIn = new JButton("Log in");
-		JButton register = new JButton("Regisrarse");
+		JButton bLogIn = new JButton("Log in");
+		JButton bRegister = new JButton("Regisrarse");
 		JButton salir = new JButton("Salir");
 		JPanel pBotones = new JPanel();
 		JPanel pLogo = new JPanel();
@@ -69,8 +69,8 @@ public class VentanaInicio extends JFrame {
 
 		pLogo.add(logo);
 		pBotones.add(jugar);
-		pBotones.add(logIn);
-		pBotones.add(register);
+		pBotones.add(bLogIn);
+		pBotones.add(bRegister);
 		pBotones.add(salir);
 		panel.add(pLogo, BorderLayout.CENTER);
 		panel.add(pBotones, BorderLayout.SOUTH);
@@ -95,7 +95,7 @@ public class VentanaInicio extends JFrame {
 			}
 		});
 		
-		logIn.addActionListener(new ActionListener() {
+		bLogIn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -168,8 +168,37 @@ public class VentanaInicio extends JFrame {
 				});
 			}
 
-			private void addWindowOpened(WindowAdapter windowAdapter) {
-				// TODO Auto-generated method stub
+		});
+		
+		bRegister.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ArrayList<String> listaEntrenadores = new ArrayList<String>();
+				
+				File folder = new File("/img/entrenadores/");//Esto no chuta.
+				System.out.println(folder.isDirectory());
+				File[] listOfFiles = folder.listFiles();
+				System.out.println(listOfFiles);
+
+				for (int i = 0; i < listOfFiles.length; i++) {
+				   listaEntrenadores.add(listOfFiles[i].getName());
+				   System.out.println(listOfFiles[i].getName());
+				}
+				
+				JDialog d = new JDialog();
+				JPanel pUsuario = new JPanel(new FlowLayout());
+				JTextField areaUsername = new JTextField(14);
+				pUsuario.add(new JLabel("Usuario: "));
+				pUsuario.add(areaUsername);
+				JPanel pContraseña = new JPanel(new FlowLayout());
+				JPasswordField areaContra = new JPasswordField(14);
+				pContraseña.add(new JLabel("Contraseña: "));
+				pContraseña.add(areaContra);
+				JPanel panelOk = new JPanel();
+				JButton bConfirmar = new JButton("OK");
+				panelOk.add(bConfirmar);
+				
 				
 			}
 		});
