@@ -40,6 +40,7 @@ import main.Main;
 import principal.Combate;
 import principal.HiloJuego;
 import principal.Pokemon;
+import principal.Usuario;
 
 import java.awt.image.BufferedImage;
 
@@ -119,6 +120,10 @@ public class VentanaInicio extends JFrame {
 				pContraseña.add(areaContra);
 				JPanel panelOk = new JPanel();
 				JButton bConfirmar = new JButton("OK");
+				JLabel info = new JLabel(""); //Label que mostrará mensaje de error si el usuario introducido ya existe, el campo
+				//usuario está vacío o el campo contraseña está vacío.
+				info.setHorizontalAlignment(JLabel.CENTER);
+				pContraseña.add(info);
 				panelOk.add(bConfirmar);
 				d.addWindowListener(new WindowAdapter() {
 					@Override
@@ -146,7 +151,7 @@ public class VentanaInicio extends JFrame {
 				d.add(pUsuario, BorderLayout.NORTH);
 				d.add(pContraseña, BorderLayout.CENTER);
 				d.add(panelOk, BorderLayout.SOUTH);
-				d.setSize(300, 150);
+				d.setSize(300, 200);
 				d.setVisible(true);
 				d.setLocation(vi.getLocation());
 				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -157,11 +162,42 @@ public class VentanaInicio extends JFrame {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (areaUsername.getText() == null || areaUsername.getText().trim() == "") return; //añadir jlabel que diga info de porque no
+						if (areaUsername.getText().isEmpty() || areaUsername.getText().trim().equals("")) {
+							info.setText("Error, el usuario está vacío.");
+							d.revalidate();
+							return; 
+						}
 						String pass = new String (areaContra.getPassword());
-						if (pass== null || pass.trim() == "") return; //añadir jlabel que diga info de porque no
+						if (pass.isEmpty() || pass.trim().equals("")) {
+							info.setText("Error, el contraseña está vacío.");
+							d.revalidate();
+							return; 
+						}
 						String user = areaUsername.getText();
-						
+						if (!areaUsername.getText().isEmpty() && !pass.isEmpty()) {
+							try (
+									Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+									Statement stmt  = conn.createStatement();
+									ResultSet rs    = stmt.executeQuery("SELECT nombre, contraseña FROM usuario")){
+						           
+						            while (rs.next()){
+						            	if (rs.getString("nombre").equals(areaUsername.getText()) & rs.getString("contraseña").equals(pass)) {
+											Usuario u = new Usuario(rs.getString("nombre"), rs.getString("contraseña"), null, 0, 0, 0);
+											info.setText("Te has logeado correctamente.");
+											d.revalidate();
+						            		return;
+						            	}
+						            	if (rs.getString("nombre").equals(areaUsername.getText()) & !rs.getString("contraseña").equals(pass)) {
+						            		info.setText("La contraseña es incorrecta.");
+											d.revalidate();
+						            		return;
+						            	}
+						            }
+						      } catch (SQLException e1) {
+							      System.out.println(e1.getMessage());
+					}
+							
+						}
 						Properties properties = new Properties();
 						properties.setProperty("Usuario", user);
 						properties.setProperty("Contraseña", pass);
@@ -317,6 +353,7 @@ public class VentanaInicio extends JFrame {
 						            r.next();
 						            int rowCount = rs.getInt(1);
 						            stmt.executeUpdate("INSERT INTO usuario(id, nombre, contraseña) VALUES ("+rowCount+",'"+ areaUsername.getText() +"','"+ contraseña +"') ");
+						           // Usuario u = new Usuario(areaUsername.getText(), contraseña, null, 0, 0, 0);
 						        } catch (SQLException e1) {
 						            System.out.println(e1.getMessage());
 						        }
