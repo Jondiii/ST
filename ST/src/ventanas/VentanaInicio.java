@@ -14,6 +14,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
@@ -30,6 +35,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import database.BaseDatosPoke;
 import main.Main;
 import principal.Combate;
 import principal.HiloJuego;
@@ -292,8 +298,29 @@ public class VentanaInicio extends JFrame {
 							d.revalidate();
 							return;
 						}
-						
-						
+						if (!areaUsername.getText().isEmpty() && !contraseña.isEmpty()) {
+							 try (
+									Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+									Statement stmt  = conn.createStatement();
+									ResultSet rs    = stmt.executeQuery("SELECT nombre FROM usuario")){
+						            // esto se puede quuitar todo depende de si queremos que pueda haber 2 usuarios con
+								 // el mismo nombre
+						            while (rs.next()){
+						            	if (rs.getString("nombre").equals(areaUsername.getText())) {
+						            		info.setText("Error, el usuario ya esta registrado");
+											d.revalidate();
+											return;
+						            	}
+						            }
+						            ResultSet r;
+						            r = stmt.executeQuery("SELECT COUNT(*) FROM usuario");
+						            r.next();
+						            int rowCount = rs.getInt(1);
+						            stmt.executeUpdate("INSERT INTO usuario(id, nombre, contraseña) VALUES ("+rowCount+",'"+ areaUsername.getText() +"','"+ contraseña +"') ");
+						        } catch (SQLException e1) {
+						            System.out.println(e1.getMessage());
+						        }
+						}
 					}
 				});
 			}
