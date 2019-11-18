@@ -1,5 +1,7 @@
 package principal;
 
+import java.util.Random;
+
 /**
  * Un pokémon podrá sufrir uno de los siguientes estados alterados. Si un pokemon ya sufre un cambio de estado, 
  * este no podrá ser cambiado por otro, salvo en circunstancias especiales.
@@ -49,14 +51,18 @@ public enum EstadosAlterados {
 	public void setTurno(int turno) {
 		 this.turno = turno;
 	}
-	public int calcularEstadoFinTurno(Pokemon poke){
+	public int getTurno() {
+		 return turno;
+	}
+	public static int calcularEstadoFinTurno(Pokemon poke){
 		int dañoPoke = 0;
 		switch (poke.getEstado()) {
 			case ENVENENADO:
+				
 				break;
 			case QUEMADO:
 				dañoPoke = poke.getPs_max()/16;
-				if (turno == 1) {
+				if (poke.getEstado().getTurno() == 1) {
 					int ataque_disminuido = poke.getCambiosEstadisticas()[0] - 2;
 					Integer[] estadisticas = {ataque_disminuido, poke.getCambiosEstadisticas()[1], 
 					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4], 
@@ -69,7 +75,36 @@ public enum EstadosAlterados {
 			default:
 				break;
 		}
-		return dañoPoke;
-		
+		return dañoPoke;	
+	}
+	public static boolean calcularProbAtacar(Pokemon poke) {
+		boolean atacar = true;
+		Random r = new Random();
+		switch (poke.getEstado()) {
+			case PARALIZADO:
+				int intAleatorio = r.nextInt(101);
+				if (intAleatorio<=25) { atacar = false;}
+				if (poke.getEstado().getTurno() == 1) {
+					int vel_disminuida = poke.getCambiosEstadisticas()[5] - 2;
+					Integer[] estadisticas = {poke.getCambiosEstadisticas()[0], poke.getCambiosEstadisticas()[1], 
+					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4], 
+					vel_disminuida};
+					poke.setCambiosEstadisticas(estadisticas);
+				}
+				break;
+			case CONGELADO:
+				int intAleatorio_1 = r.nextInt(101);
+				if (intAleatorio_1<=75) { atacar = false;}//prob de que siga congelado
+			case DORMIDO:
+				int intAleatorio_2 = r.nextInt(101);
+				if (intAleatorio_2<=75) { atacar = false;}// prob del que el pokemon siga dormido
+			case CONFUSO:
+				int intAleatorio_3 = r.nextInt(101);
+				if (intAleatorio_3<=33) { atacar = false;}// habria que calcular el daño lo unico que eso 
+				//igual en el hilo de juego
+			default:
+				break;
+		}
+		return atacar;
 	}
 }
