@@ -225,15 +225,56 @@ public class HiloJuego implements Runnable {
 	/**
 	 * Método que actualiza el estado alterado de un pokémon.
 	 */
-	private void actualizarEstadoAlterno(Pokemon oponente, Movimiento m) {
-				if (m.getEstadoAlt()== null) return;
-				Random aleatorio = new Random();
-				int intAletorio = aleatorio.nextInt(100);
-				if (m.getProb_efecto() >= intAletorio) {oponente.setEstado(m.getEstadoAlt());
-				v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
+	private void actualizarEstadoAlterno(Pokemon oponente, Movimiento m) {	
+		if (m.getEstadoAlt()== null) return;
+		Random aleatorio = new Random();
+		int intAletorio = aleatorio.nextInt(100);
+		if (m.getProb_efecto() >= intAletorio) {
+			if (combroparInumidadEstado(m.getEstadoAlt(), oponente)) {return;}
+			oponente.setEstado(m.getEstadoAlt());
+			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
 	}
 	
 	
+	private boolean combroparInumidadEstado(EstadosAlterados estadoAlt, Pokemon oponente) {
+		if (estadoAlt.equals(EstadosAlterados.QUEMADO)) {
+			if (oponente.getTipos().get(0).equals(Tipo.FUEGO)) {
+				return true;
+			}
+			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.FUEGO)) {
+				return true;
+			}else {return false;}
+		}
+		if (estadoAlt.equals(EstadosAlterados.ENVENENADO)) {
+			if (oponente.getTipos().get(0).equals(Tipo.VENENO) || oponente.getTipos().get(0).equals(Tipo.ACERO)) {
+				return true;
+			}
+			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.VENENO) || oponente.getTipos().get(1).equals(Tipo.ACERO)) {
+				return true;
+			}
+			else {return false;}
+		}
+		if (estadoAlt.equals(EstadosAlterados.PARALIZADO)) {
+			if (oponente.getTipos().get(0).equals(Tipo.ELECTRICO)) {
+				return true;
+			}
+			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.ELECTRICO)) {
+				return true;
+			}
+			else {return false;}
+		}
+		if (estadoAlt.equals(EstadosAlterados.CONGELADO)) {
+			if (oponente.getTipos().get(0).equals(Tipo.HIELO)) {
+				return true;
+			}
+			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.HIELO)) {
+				return true;
+			}
+			//si hace dia soleado no te puedes congelar
+			else {return false;}
+		}
+		return false;
+	}
 	private void actualizar_progress_bar_1a1(Pokemon poke, JProgressBar barradeVida, int vidaPokeDaño) {
 		if (vidaPokeDaño == 0) {
 			return;

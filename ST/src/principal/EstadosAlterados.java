@@ -33,15 +33,43 @@ package principal;
  *   Dura entre 1 y 4 turnos.
  */
 public enum EstadosAlterados {
-	ENVENENADO(1/16), ENV_GRAVE(1/16), QUEMADO(1/16), PARALIZADO(1/4), DORMIDO(1/3), CONGELADO(1/4), CONFUSO(1/3), DEBILITADO(0);
+	ENVENENADO(1/16, 1), ENV_GRAVE(1/16, 1), QUEMADO(1/16, 1), PARALIZADO(1/4, 1), DORMIDO(1/3, 1), CONGELADO(1/4, 1), CONFUSO(1/3, 1), DEBILITADO(0, 0);
 	
+	private int turno;
 	private float valor;
 	
-	EstadosAlterados(float valor){
+	EstadosAlterados(float valor, int turno){
 		this.valor = valor;
+		this.turno = turno;
 	}
 	
 	public float getValor() {
 		return valor;
+	}
+	public void setTurno(int turno) {
+		 this.turno = turno;
+	}
+	public int calcularEstadoFinTurno(Pokemon poke){
+		int dañoPoke = 0;
+		switch (poke.getEstado()) {
+			case ENVENENADO:
+				break;
+			case QUEMADO:
+				dañoPoke = poke.getPs_max()/16;
+				if (turno == 1) {
+					int ataque_disminuido = poke.getCambiosEstadisticas()[0] - 2;
+					Integer[] estadisticas = {ataque_disminuido, poke.getCambiosEstadisticas()[1], 
+					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4], 
+					poke.getCambiosEstadisticas()[5]};
+					poke.setCambiosEstadisticas(estadisticas);
+				}
+				break;
+			case ENV_GRAVE:
+				break;
+			default:
+				break;
+		}
+		return dañoPoke;
+		
 	}
 }
