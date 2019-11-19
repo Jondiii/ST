@@ -230,13 +230,13 @@ public class HiloJuego implements Runnable {
 		Random aleatorio = new Random();
 		int intAletorio = aleatorio.nextInt(101);
 		if (m.getProb_efecto() >= intAletorio) {
-			if (combroparInumidadEstado(m.getEstadoAlt(), oponente)) {return;}
+			if (comprobarInmunidadEstado(m.getEstadoAlt(), oponente)) {return;}
 			oponente.setEstado(m.getEstadoAlt());
 			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
 	}
 	
 	
-	private boolean combroparInumidadEstado(EstadosAlterados estadoAlt, Pokemon oponente) {
+	private boolean comprobarInmunidadEstado(EstadosAlterados estadoAlt, Pokemon oponente) {
 		if (estadoAlt.equals(EstadosAlterados.QUEMADO)) {
 			if (oponente.getTipos().get(0).equals(Tipo.FUEGO)) {return true;}
 			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.FUEGO)) {return true;}
