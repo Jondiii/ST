@@ -55,6 +55,8 @@ public class VentanaJuego extends JFrame{
 	public JPanel panel_vacio_2;
 	public JLabel poke_1;
 	public JLabel poke_2;
+	public JLabel estadoAlterado1 = new JLabel("congelado");
+	public JLabel estadoAlterado2 = new JLabel("");
 	private MuestraInfoPoke info_poke;
 
 	private VentanaJuego v;
@@ -140,13 +142,16 @@ public class VentanaJuego extends JFrame{
 		vida_1.setValue(c.getpActivo().calcuPsPorcentaje());
 		vida_1.setForeground(Color.GREEN);
 		vida_1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panel_poke_J1.add(estadoAlterado1, BorderLayout.NORTH);
 		panel_poke_J1.add(vida_1, BorderLayout.NORTH);
+
 		
 		vida_2 = new JProgressBar();
 		vida_2.setValue(c.getpEnemigo().calcuPsPorcentaje());
 		vida_2.setForeground(Color.GREEN);
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_poke_J2.add(vida_2, BorderLayout.NORTH);
+		panel_poke_J2.add(estadoAlterado2, BorderLayout.NORTH);
 		
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
@@ -470,6 +475,54 @@ public class VentanaJuego extends JFrame{
 
 	public static void setPanel_movimientos_2(JPanel panel_movimientos_2) {
 		VentanaJuego.movimientos_P2 = panel_movimientos_2;
+	}
+
+	public static JPanel getMovimientos_P1() {
+		return movimientos_P1;
+	}
+
+	public static void setMovimientos_P1(JPanel movimientos_P1) {
+		VentanaJuego.movimientos_P1 = movimientos_P1;
+	}
+
+	public static JPanel getMovimientos_P2() {
+		return movimientos_P2;
+	}
+
+	public static void setMovimientos_P2(JPanel movimientos_P2) {
+		VentanaJuego.movimientos_P2 = movimientos_P2;
+	}
+
+	public JLabel getEstadoAlterado1() {
+		return estadoAlterado1;
+	}
+
+	public void setEstadoAlterado1(JLabel estadoAlterado1) {
+		this.estadoAlterado1 = estadoAlterado1;
+	}
+
+	public JLabel getEstadoAlterado2() {
+		return estadoAlterado2;
+	}
+
+	public void setEstadoAlterado2(JLabel estadoAlterado2) {
+		this.estadoAlterado2 = estadoAlterado2;
+	}
+
+	public MuestraInfoPoke getInfo_poke() {
+		return info_poke;
+	}
+
+	public void setInfo_poke(MuestraInfoPoke info_poke) {
+		this.info_poke = info_poke;
+	}
+
+	public VentanaJuego getV() {
+		return v;
+	}
+
+	public void setV(VentanaJuego v) {
+		this.v = v;
 	}
 
 	public JPanel getPanelInfo() {

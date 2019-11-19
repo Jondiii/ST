@@ -35,7 +35,7 @@ import java.util.Random;
  *   Dura entre 1 y 4 turnos.
  */
 public enum EstadosAlterados {
-	ENVENENADO(1/16, 1), ENV_GRAVE(1/16, 1), QUEMADO(1/16, 1), PARALIZADO(1/4, 1), DORMIDO(1/3, 1), CONGELADO(1/4, 1), CONFUSO(1/3, 1), DEBILITADO(0, 0);
+	ENVENENADO(1/16, 0), ENV_GRAVE(1/16, 0), QUEMADO(1/16, 0), PARALIZADO(1/4, 0), DORMIDO(1/3, 4), CONGELADO(1/4, 0), CONFUSO(1/3, 4), DEBILITADO(0, 0);
 	
 	private int turno;
 	private float valor;
@@ -61,7 +61,7 @@ public enum EstadosAlterados {
 				
 				break;
 			case QUEMADO:
-				dañoPoke = poke.getPs_max()/16;
+				dañoPoke = (int)(poke.getPs_max()*QUEMADO.getValor());
 				if (poke.getEstado().getTurno() == 1) {
 					int ataque_disminuido = poke.getCambiosEstadisticas()[0] - 2;
 					Integer[] estadisticas = {ataque_disminuido, poke.getCambiosEstadisticas()[1], 
