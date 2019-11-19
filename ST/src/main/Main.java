@@ -41,7 +41,7 @@ public class Main {
 		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO, Tipo.PSIQUICO));
 		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.PSIQUICO));
 		
-		oponente.add(new Pokemon("Serperior", 1, 1, "Probando", 100, 1, 1, 1, 1, 3, 3, m, Tipo.PLANTA));
+		oponente.add(new Pokemon("Charizard", 1, 1, "Probando", 100, 1, 1, 1, 1, 3, 3, m, Tipo.PLANTA));
 		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON, Tipo.VOLADOR));
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.FANTASMA));
 	}

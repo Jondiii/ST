@@ -244,17 +244,17 @@ public class HiloJuego implements Runnable {
 		}
 		if (estadoAlt.equals(EstadosAlterados.ENVENENADO)) {
 			if (oponente.getTipos().get(0).equals(Tipo.VENENO) || oponente.getTipos().get(0).equals(Tipo.ACERO)) {return true;}
-			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.VENENO) || oponente.getTipos().get(1).equals(Tipo.ACERO)) {return true;}
+			if (oponente.getTipos().size() == 2 && oponente.getTipos().get(1).equals(Tipo.VENENO) || oponente.getTipos().get(1).equals(Tipo.ACERO)) {return true;}
 			else {return false;}
 		}
 		if (estadoAlt.equals(EstadosAlterados.PARALIZADO)) {//pokemon tipo tierra??
 			if (oponente.getTipos().get(0).equals(Tipo.ELECTRICO)) {return true;}
-			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.ELECTRICO)) {return true;}
+			if (oponente.getTipos().size() == 2 && oponente.getTipos().get(1).equals(Tipo.ELECTRICO)) {return true;}
 			else {return false;}
 		}
 		if (estadoAlt.equals(EstadosAlterados.CONGELADO)) {
 			if (oponente.getTipos().get(0).equals(Tipo.HIELO)) {return true;}
-			if (oponente.getTipos().size() == 1 && oponente.getTipos().get(1).equals(Tipo.HIELO)) {return true;}
+			if (oponente.getTipos().size() == 2 && oponente.getTipos().get(1).equals(Tipo.HIELO)) {return true;}
 			//si hace dia soleado no te puedes congelar
 			else {return false;}
 		}
