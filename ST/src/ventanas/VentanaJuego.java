@@ -55,7 +55,7 @@ public class VentanaJuego extends JFrame{
 	public JPanel panel_vacio_2;
 	public JLabel poke_1;
 	public JLabel poke_2;
-	public JLabel estadoAlterado1 = new JLabel("congelado");
+	public JLabel estadoAlterado1 = new JLabel("");
 	public JLabel estadoAlterado2 = new JLabel("");
 	private MuestraInfoPoke info_poke;
 
