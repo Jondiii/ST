@@ -45,7 +45,7 @@ import principal.Usuario;
 import java.awt.image.BufferedImage;
 
 public class VentanaInicio extends JFrame {
-	
+	public static Usuario u;
 	private VentanaInicio vi;
 	public JLabel logo;
 	static ArrayList<Pokemon>  miEquipo = new ArrayList<>();
@@ -352,8 +352,14 @@ public class VentanaInicio extends JFrame {
 						            r = stmt.executeQuery("SELECT COUNT(*) FROM usuario");
 						            r.next();
 						            int rowCount = rs.getInt(1);
-						            stmt.executeUpdate("INSERT INTO usuario(id, nombre, contraseña) VALUES ("+rowCount+",'"+ areaUsername.getText() +"','"+ contraseña +"') ");
-						           // Usuario u = new Usuario(areaUsername.getText(), contraseña, null, 0, 0, 0);
+						            stmt.executeUpdate("INSERT INTO usuario(id, nombre, contraseña, puntuacion, partidasGanadas, partidasPerdidas, imagen) VALUES ("+rowCount+",'"+ 
+						            areaUsername.getText() +"','"+ contraseña +"'," + 0 + "," + 0 + "," + 0 + ",'"+String.valueOf(entrenadores.getSelectedItem()) +"') ");
+						            Usuario u = new Usuario(areaUsername.getText(), contraseña, String.valueOf(entrenadores.getSelectedItem()), 0, 0, 0);
+						            VentanaInicio.u = u;
+						            d.dispose();
+						            dispose();
+						            VentanaSelecion vs = new VentanaSelecion();
+						            vs.setVisible(true);
 						        } catch (SQLException e1) {
 						            System.out.println(e1.getMessage());
 						        }

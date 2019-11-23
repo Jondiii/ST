@@ -6,18 +6,18 @@ import java.util.TreeMap;
 public class Usuario {
 	private String nombre;
 	private String contra;
-	private String nickname;
+	private String imagen;
 	private int puntuacion;
 	private int partidasGanadas;
 	private int partidasPerdidas;
 	private TreeMap<Integer, ArrayList<Pokemon>> pokes_entrenador; // he puesto que los equipos esten
 	// ordenados por numero pero se puede cambiar
 	
-	public Usuario(String nombre, String contra, String nickname, int puntuacion, int partidasGanadas,
+	public Usuario(String nombre, String contra, String imagen, int puntuacion, int partidasGanadas,
 			int partidasPerdidas) {
 		this.nombre = nombre;
 		this.contra = contra;
-		this.nickname = nickname;
+		this.imagen = imagen;
 		this.puntuacion = puntuacion;
 		this.partidasGanadas = partidasGanadas;
 		this.partidasPerdidas = partidasPerdidas;
@@ -35,11 +35,11 @@ public class Usuario {
 	public void setContra(String contra) {
 		this.contra = contra;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getImagen() {
+		return imagen;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 	public int getPuntuacion() {
 		return puntuacion;
