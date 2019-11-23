@@ -196,11 +196,11 @@ public class VentanaInicio extends JFrame {
 						            		return;
 						            	}
 						            }
+						            
 						            d.dispose();
 						            dispose();
 						            VentanaSelecion vs = new VentanaSelecion();
 						            vs.setVisible(true);
-						       
 						            
 						      } catch (SQLException e1) {
 							      System.out.println(e1.getMessage());
@@ -327,7 +327,12 @@ public class VentanaInicio extends JFrame {
 				d.setVisible(true);
 				d.setLocation(vi.getLocation());
 				d.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				
+				bCancelar.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						d.dispose();
+					}
+				});
 				bConfirmar.addActionListener(new ActionListener() {
 					
 					@Override
