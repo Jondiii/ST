@@ -182,10 +182,13 @@ public class VentanaInicio extends JFrame {
 						           
 						            while (rs.next()){
 						            	if (rs.getString("nombre").equals(areaUsername.getText()) & rs.getString("contraseña").equals(pass)) {
-											Usuario u = new Usuario(rs.getString("nombre"), rs.getString("contraseña"), null, 0, 0, 0);
+						            		ResultSet rs_1    = stmt.executeQuery("SELECT * FROM usuario WHERE nombre = '" + areaUsername.getText()+"\'");
+											Usuario u = new Usuario(rs_1.getString("nombre"), rs_1.getString("contraseña"),
+													rs_1.getString("imagen"), rs_1.getInt("puntuacion"), rs_1.getInt("partidasGanadas"), rs_1.getInt("partidasPerdidas"));
+						            		VentanaInicio.u = u;
 											info.setText("Te has logeado correctamente.");
 											d.revalidate();
-						            		return;
+						            		break;
 						            	}
 						            	if (rs.getString("nombre").equals(areaUsername.getText()) & !rs.getString("contraseña").equals(pass)) {
 						            		info.setText("La contraseña es incorrecta.");
@@ -193,6 +196,12 @@ public class VentanaInicio extends JFrame {
 						            		return;
 						            	}
 						            }
+						            d.dispose();
+						            dispose();
+						            VentanaSelecion vs = new VentanaSelecion();
+						            vs.setVisible(true);
+						       
+						            
 						      } catch (SQLException e1) {
 							      System.out.println(e1.getMessage());
 					}
@@ -339,8 +348,7 @@ public class VentanaInicio extends JFrame {
 									Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 									Statement stmt  = conn.createStatement();
 									ResultSet rs    = stmt.executeQuery("SELECT nombre FROM usuario")){
-						            // esto se puede quuitar todo depende de si queremos que pueda haber 2 usuarios con
-								 // el mismo nombre
+						           
 						            while (rs.next()){
 						            	if (rs.getString("nombre").equals(areaUsername.getText())) {
 						            		info.setText("Error, el usuario ya esta registrado");
