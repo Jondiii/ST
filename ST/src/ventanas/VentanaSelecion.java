@@ -4,6 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -14,11 +18,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.Main;
+import principal.Combate;
+
 
 public class VentanaSelecion extends JFrame {
 	private Font font = new Font("Arial", Font.PLAIN, 16);
+	private Combate c;
 	
-	public VentanaSelecion() {
+	
+	public VentanaSelecion(Combate c) {
 		setSize(400, 500);
 		setLocation(600, 100);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -28,6 +37,7 @@ public class VentanaSelecion extends JFrame {
 		panelEscoger();
 		panelInferior();
 		panelVacio();
+		this.c = c;
 	}
 	private void panelVacio() {
 		JPanel panel_izq = new JPanel();
@@ -71,6 +81,14 @@ public class VentanaSelecion extends JFrame {
 		
 		
 		add(pEscoger, BorderLayout.CENTER);
+		
+		luchar.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 	}
 
 	private void panelUsuario() {
@@ -83,15 +101,26 @@ public class VentanaSelecion extends JFrame {
 		nombre_usuario.setFont(font);
 		
 		pUsuario.add(cerrar_sesion);
-		
 		pUsuario.add(imagen_usuario);
 		pUsuario.add(nombre_usuario);
 		
 		add(pUsuario, BorderLayout.NORTH);
+		
+		cerrar_sesion.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio v = new VentanaInicio(c);
+				v.setVisible(true);
+				dispose();
+			}
+		});
+		
+		
 	}
 	
-	public static void main(String[] args) {
-		VentanaSelecion vs = new VentanaSelecion();
-		vs.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		VentanaSelecion vs = new VentanaSelecion();
+//		vs.setVisible(true);
+//	}
 }

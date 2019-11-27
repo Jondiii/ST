@@ -67,7 +67,7 @@ public class VentanaInicio extends JFrame {
 		JPanel panel = new JPanel(new BorderLayout());
 		JButton jugar = new JButton("Jugar");
 		JButton bLogIn = new JButton("Log in");
-		JButton bRegister = new JButton("Regisrarse");
+		JButton bRegister = new JButton("Registrarse");
 		JButton salir = new JButton("Salir");
 		JPanel pBotones = new JPanel();
 		JPanel pLogo = new JPanel();
@@ -199,7 +199,7 @@ public class VentanaInicio extends JFrame {
 						            
 						            d.dispose();
 						            dispose();
-						            VentanaSelecion vs = new VentanaSelecion();
+						            VentanaSelecion vs = new VentanaSelecion(c);
 						            vs.setVisible(true);
 						            
 						      } catch (SQLException e1) {
@@ -371,7 +371,7 @@ public class VentanaInicio extends JFrame {
 						            VentanaInicio.u = u;
 						            d.dispose();
 						            dispose();
-						            VentanaSelecion vs = new VentanaSelecion();
+						            VentanaSelecion vs = new VentanaSelecion(c);
 						            vs.setVisible(true);
 						        } catch (SQLException e1) {
 						            System.out.println(e1.getMessage());
