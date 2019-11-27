@@ -19,13 +19,20 @@ public class VentanaSelecion extends JFrame {
 	private Font font = new Font("Arial", Font.PLAIN, 16);
 	
 	public VentanaSelecion() {
-		setSize(600, 800);
+		setSize(400, 500);
 		setLocation(600, 100);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setLayout(new BorderLayout());
 		
 		panelUsuario();
 		panelEscoger();
 		panelInferior();
+		panelVacio();
+	}
+	private void panelVacio() {
+		JPanel panel_izq = new JPanel();
+		panel_izq.setPreferredSize(new Dimension(115, 50));
+		add(panel_izq, BorderLayout.WEST);
 	}
 
 	private void panelInferior() {
@@ -48,22 +55,27 @@ public class VentanaSelecion extends JFrame {
 		JPanel pEscoger = new JPanel();
 		BoxLayout box = new BoxLayout(pEscoger, BoxLayout.Y_AXIS);
 		pEscoger.setLayout(box);
-		JComboBox<Modalidades_Juego> escoger_modalidad = new JComboBox<Modalidades_Juego>();
-		escoger_modalidad.setModel(new DefaultComboBoxModel<>(Modalidades_Juego.values()));
-		escoger_modalidad.setMaximumSize( escoger_modalidad.getPreferredSize() );
-		pEscoger.add(escoger_modalidad);
+//		JComboBox<Modalidades_Juego> escoger_modalidad = new JComboBox<Modalidades_Juego>();
+//		escoger_modalidad.setModel(new DefaultComboBoxModel<>(Modalidades_Juego.values()));
+//		escoger_modalidad.setMaximumSize( escoger_modalidad.getPreferredSize() );
+//		pEscoger.add(escoger_modalidad);
 		JButton luchar = new JButton("LUCHAR");
+		luchar.setMaximumSize(new Dimension(120, 40));
 		pEscoger.add(luchar);
-		JButton clasif = new JButton("CLASIFICACION");
+		JButton clasif = new JButton("LADDER");
+		clasif.setMaximumSize(new Dimension(120, 40));
 		pEscoger.add(clasif);
 		JButton crear_eq = new JButton("CREAR EQUIPO");
+		crear_eq.setMaximumSize(new Dimension(120, 40));
 		pEscoger.add(crear_eq);
+		
 		
 		add(pEscoger, BorderLayout.CENTER);
 	}
 
 	private void panelUsuario() {
 		JPanel pUsuario = new JPanel();
+		pUsuario.setPreferredSize(new Dimension(400, 150));
 		JButton cerrar_sesion = new JButton("Cerrar Sesion");
 		ImageIcon usuario = new ImageIcon(getClass().getResource("/img/entrenadores/" +VentanaInicio.u.getImagen()+ ".png"));
 		JLabel imagen_usuario = new JLabel(usuario);
