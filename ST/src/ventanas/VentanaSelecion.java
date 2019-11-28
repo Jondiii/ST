@@ -74,6 +74,7 @@ public class VentanaSelecion extends JFrame {
 		pEscoger.add(luchar);
 		JButton clasif = new JButton("LADDER");
 		clasif.setMaximumSize(new Dimension(120, 40));
+		
 		pEscoger.add(clasif);
 		JButton crear_eq = new JButton("CREAR EQUIPO");
 		crear_eq.setMaximumSize(new Dimension(120, 40));
@@ -87,6 +88,14 @@ public class VentanaSelecion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
+			}
+		});
+		clasif.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaClasif vc = new VentanaClasif();
+				vc.setVisible(true);
 			}
 		});
 	}
