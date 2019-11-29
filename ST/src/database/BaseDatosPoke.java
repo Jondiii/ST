@@ -13,6 +13,8 @@ import java.util.Iterator;
 
 import org.sqlite.SQLiteConfig;
 
+import main.Main;
+
 /**
  * Clase que crea la Base de Datos. En principio solo la usaremos una única vez,
  * una vez creada pensamos editar la base de datos con programas externos.
@@ -71,10 +73,9 @@ public class BaseDatosPoke {
 				+ "idUsuario integer,\n"
 				+ "FOREIGN KEY (idUsuario) REFERENCES usuario(id) "
 				+ ");";
-		SQLiteConfig config = new SQLiteConfig();  
-	    config.enforceForeignKeys(true);
+		
 		try {
-				conn = DriverManager.getConnection(url, config.toProperties());
+	
 			 Statement stmt = conn.createStatement(); 
 			 //crea nuevas tablas
 		            stmt.execute(sqlPokemon);
@@ -87,36 +88,62 @@ public class BaseDatosPoke {
 		}
 	}
 
-	public static void pokemonInsert(String nombre, int stats[], double altura, double peso, String tipo1,
-			String tipo2) {
+	public static void pokemonInsert(int id, String nombre, int stats[], double altura, double peso, String ataques[], String tipos[]) {
 		if(conn != null
 				&& (stats != null && stats.length == 6)) {
 			try {
-				String sql = "insert into pokemon values(?, ?, ?, ?, ? ?, ?, ?, ?, ? ,?)";
-				PreparedStatement st = conn.prepareStatement(sql);
-				st.setString(0, nombre);
-				st.setInt(1, stats[0]); // Nombre
-				st.setInt(2, stats[1]); // ps
-				st.setInt(3, stats[2]); // 
-				st.setInt(4, stats[3]);
-				st.setInt(5, stats[4]);
-				st.setInt(6, stats[5]);
-				st.setDouble(7, altura);
-				st.setDouble(8, peso);
-				st.setString(9, tipo1);
-				st.setString(10, tipo2);
-				st.executeUpdate();
+				String sql = "insert into pokemon values('"+id+"','"+nombre+"','"+stats[0]+"', '"+stats[1]+"', "
+						+ "'"+stats[2]+"', '"+stats[4]+"','"+stats[5]+"', '"+altura+"', '"+peso+"', "
+						+ "'"+ataques[0]+"','"+ataques[1]+"', '"+ataques[2]+"', '"+ataques[3]+"', '"+ataques[4]+"'"
+						+ ", '"+ataques[5]+"', '"+ataques[6]+"', '"+ataques[7]+"', '"+ataques[8]+"', '"+ataques[9]+"',"
+						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
+				//HACER CONSULTAS PARA COGER EL ID DE CADA MOVIENTO Y ASI PODER AÑADIR LOS POKEMONS
+				Statement st = conn.createStatement();
+				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
 
 	}
-
+	public static void movInsert(int id, String nombre, String alcance, int prioridad, int dano, int precision, int pp,
+			String categoria, String mov_tipo, String estado_alterno, String estado_secunf, double[] probabilidades,
+			String cambioStat, int[] stats) {
+			if(conn != null
+					) {
+				try {
+					String sql = "insert into movimientos values("+id+",'"+nombre+"','"+mov_tipo+"',"
+							+ ""+dano+","+precision+","+pp+","+prioridad+",'"+estado_alterno+"','"+categoria+"',"
+							+ "'"+alcance+"', "+probabilidades[0]+", "+probabilidades[1]+","
+							+ ""+probabilidades[2]+",'"+estado_secunf+"','"+cambioStat+"',"+stats[0]+","
+							+ ""+stats[1]+", "+stats[2]+", "+stats[3]+","+stats[4]+")";
+					
+					Statement st = conn.createStatement();
+					st.executeUpdate(sql);
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
-		crearTabla();
+		//crearTabla();
+		try {
+			conn = DriverManager.getConnection(url);
+
+			Main.basesDatosCargarMov();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		
+		//Main.basesDatosCargarPoke();
 	}
+
+
+
+		
+	
 }

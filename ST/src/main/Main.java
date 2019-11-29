@@ -53,34 +53,92 @@ public class Main {
 		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.FANTASMA));
 	}
 	
-	public static void basesDatos() {
-		BaseDatosPoke.crearTabla();
+	public static void basesDatosCargarPoke() {
+//		BaseDatosPoke.crearTabla();
 		try {
 			
-			// TODO: leemos el fichero de movimientos y los insertamos
-			
-			
-			
 			// Leemos el fichero de pokemons e insertamos primero el pokemon en su tabla, y luego, los movimientos del pokemon en la tabla PokemonMovimiento
-			BufferedReader br = new BufferedReader(new FileReader("Data\\web\\poke_info.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("Data/web/poke_info.csv"));
+			int id = 0;
 			String line = null;
 			while((line = br.readLine()) != null) {
 				String [] datos = line.split(";");
 				String nombre = datos[0];
 				int [] stats = new int[6];
-				for(int i =0;i<stats.length;i++)
+				for(int i =0;i<stats.length;i++) {
 					stats[i] = Integer.parseInt(datos[i+1]);
-				double alture = Double.parseDouble(datos[7]);
+				}
+				double altura = Double.parseDouble(datos[7]);
 				double peso = Double.parseDouble(datos[8]);
-				BaseDatosPoke.pokemonInsert(nombre, stats, alture, peso, datos[9], datos[10]);
 				
 				String [] ataques = new String[10];
 				for(int i = 0; i < ataques.length; i++) {
-					ataques[i] = datos[i + 11];
+					ataques[i] = datos[9+i];
 				}
 				
-				//TODO: Insertar los movimientos en la tabla PokemonMovimiento
+				String [] tipos = new String[2];
+				for(int i = 0; i < tipos.length; i++) {
+					tipos[i] = datos[i + 11];
+					if (datos.length == 14) {
+						break;
+					}
+				}
 				
+				BaseDatosPoke.pokemonInsert(id , nombre, stats, altura, peso, ataques, tipos);
+				id ++;	
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void basesDatosCargarMov() {
+		try {
+			
+			// Leemos el fichero de pokemons e insertamos primero el pokemon en su tabla, y luego, los movimientos del pokemon en la tabla PokemonMovimiento
+			BufferedReader br = new BufferedReader(new FileReader("Data/web/mov_info.csv"));
+			int id = 0;
+			int dano = 0;
+			int precision = 0;
+			String line = null;
+			while((line = br.readLine()) != null) {
+				String [] datos = line.split(";");
+				String nombre = datos[0];
+				String alcance = datos[1];
+				int prioridad = Integer.parseInt(datos[2]);
+				String mov_tipo = datos[3];
+				String categoria = datos[4];
+				if (datos[5].equals("null")) {
+					dano = 0;
+				}else {
+					dano = Integer.parseInt(datos[5]);
+				}
+				if (datos[6].equals("null")) {
+					precision = 0;
+				}else {
+					precision = Integer.parseInt(datos[6]);
+				}
+				int pp = Integer.parseInt(datos[7]);
+				String estado_alterno = datos[8];
+				String estado_secunf = datos[9];
+				
+				double [] probabilidades = new double [3];
+				for(int i = 0; i < probabilidades.length; i++) {
+					probabilidades[i] = Double.parseDouble(datos[10+i]);
+				}
+				String cambioStat = datos[13];
+				int [] stats = new int [5];
+				for(int i = 0; i < stats.length; i++) {
+					stats[i] = Integer.parseInt(datos[14+i]);
+				}
+				id++;
+				
+				BaseDatosPoke.movInsert(id,nombre, alcance, prioridad, dano, precision, pp, categoria, mov_tipo, estado_alterno, 
+						estado_secunf, probabilidades, cambioStat, stats);
 				
 			}
 		} catch (FileNotFoundException e) {
