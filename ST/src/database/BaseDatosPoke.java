@@ -92,13 +92,23 @@ public class BaseDatosPoke {
 		if(conn != null
 				&& (stats != null && stats.length == 6)) {
 			try {
-				String sql = "insert into pokemon values('"+id+"','"+nombre+"','"+stats[0]+"', '"+stats[1]+"', "
-						+ "'"+stats[2]+"', '"+stats[4]+"','"+stats[5]+"', '"+altura+"', '"+peso+"', "
-						+ "'"+ataques[0]+"','"+ataques[1]+"', '"+ataques[2]+"', '"+ataques[3]+"', '"+ataques[4]+"'"
-						+ ", '"+ataques[5]+"', '"+ataques[6]+"', '"+ataques[7]+"', '"+ataques[8]+"', '"+ataques[9]+"',"
-						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
-				//HACER CONSULTAS PARA COGER EL ID DE CADA MOVIENTO Y ASI PODER AÑADIR LOS POKEMONS
+				
 				Statement st = conn.createStatement();
+				ResultSet rs = st.executeQuery("select id from movimientos where name in ('"+ataques[0]+"','"+ataques[1]+"', '"+ataques[2]+"', '"+ataques[3]+"', '"+ataques[4]+"'"
+						+ ", '"+ataques[5]+"', '"+ataques[6]+"', '"+ataques[7]+"', '"+ataques[8]+"', '"+ataques[9]+ "')");
+				int id_mow[] = new int[11];
+				int i = 0;
+				while (rs.next()) {
+					System.out.println(rs.getInt("id"));
+					id_mow[i] = rs.getInt("id");
+					i++;
+				}
+				String sql = "insert into pokemons values("+id+",'"+nombre+"',"+stats[0]+", "+stats[1]+", "
+						+ ""+stats[2]+", "+stats[3]+", "+stats[4]+", "+stats[5]+", "+altura+", "+peso+", "
+						+ ""+id_mow[0]+", "+ id_mow[1]+", "+id_mow[2]+", " +id_mow[3]+", " +id_mow[4]+", "
+						+ id_mow[5]+", "+ id_mow[6]+", " + id_mow[7]+", " + id_mow[8]+", " +id_mow[9]+", "
+						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
+				
 				st.executeUpdate(sql);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -133,7 +143,8 @@ public class BaseDatosPoke {
 		try {
 			conn = DriverManager.getConnection(url);
 
-			Main.basesDatosCargarMov();
+			//Main.basesDatosCargarMov();
+			Main.basesDatosCargarPoke();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

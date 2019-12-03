@@ -4,7 +4,7 @@ Aggron;344;319;459;219;219;199;2.1;360;Protección;Defensa_férrea;Cabeza_de_hie
 Aurorus;450;253;243;297;283;215;2.7;225;Liofilización;Onda_trueno;Descanso;Ventisca;Doble_filo;Tóxico;Trueno;Psíquico;Poder_pasado;Roca_afilada;Roca;Hiero
 Bewear;444;349;243;209;219;219;2.1;135;Ojitos_tiernos;Azote;Vendetta;Machada;Doble_filo;Golpe_aéreo;Garra_dragón;Golpe_aéreo;Garra_umbría;Danza_espada;Lucha;Normal
 Blaziken;364;339;243;319;239;259;1.9;52;Puño_fuego;Envite_ígneo;Patada_salto_alta;Pájaro_osado;Gancho_alto;Roca_afilada;Puya_nociva;Danza_espada;Avivar;Puño_trueno;Lucha;Fuego
-Bronzong;338;277;243;257;331;165;1.3;187;Danza_lluvia;Hipnosis;Rayo_confuso;Espacio_raro_;Psíquico;Paz_mental;Tóxico;Foco_resplandor;Bola_sombra;Gigaimpacto;Acero;Psiquico
+Bronzong;338;277;243;257;331;165;1.3;187;Danza_lluvia;Hipnosis;Rayo_confuso;Espacio_raro;Psíquico;Paz_mental;Tóxico;Foco_resplandor;Bola_sombra;Gigaimpacto;Acero;Psiquico
 Chandelure;324;209;243;389;279;259;1;34.3;Rayo_confuso;Tóxico;Llamarada;Bola_sombra;Psíquico;Paz_mental;Pulso_umbrio;Protección;Dia_soleado;Fuego_fatuo;Fuego;Fantasma
 Charizard;360;267;243;317;269;299;1.7;90.5;Vuelo;Ataque_ala;Llamarada;Garra_dragón;Cuchillada;Protección;Puño_fuego;Golpe_cabeza;Danza_espada;Evite_igneo;Volador;Fuego
 Cloyster;304;289;243;269;189;239;1.5;132.5;Púas_tóxicas;Hidrobomba;Rayo_hielo;Surf;Ventisca;Protección;Tóxico;Carámbano;Danza_lluvia;Rompecoraza;Agua;Hielo
@@ -12,7 +12,7 @@ Dragonite;386;367;243;299;299;259;2.2;210;Danza_dragón;Ataque_ala;Vuelo;Onda_tr
 Eelektross;374;329;243;309;259;199;2.1;85.5;Desarme;Rayo;Voltiocambio;Tóxico;Trueno;Protección;Onda_trueno;Protección;Lanzallamas;Gigadrenado;Electrico;
 Espeon;334;229;243;359;289;319;0.9;26.5;Bola_sombra;Paz_mental;Protección;Tóxico;Psíquico;Brillo_magico;Reflejo;Hiperrayo;Pantalla_luz;Sol_matinal;Siniestro;
 Floatzel;374;309;243;269;199;329;1.1;33.5;Hidrobomba;Aqua_jet;Triturar;Tóxico;Surf;Rayo_hielo;Puño_hielo;Hiperrayo;Danza_lluvia;Mofa;Agua;
-Flygon;364;299;243;259;259;299;2;82;Garra_dragón_;Terremoto;Triturar;Tóxico;Llanzallamas;Cometa_draco;Vuelo;Hiperrayo;Descanso;Roca_afilada;Dragon;Tierra
+Flygon;364;299;243;259;259;299;2;82;Garra_dragón;Terremoto;Triturar;Tóxico;Llanzallamas;Cometa_draco;Vuelo;Hiperrayo;Descanso;Roca_afilada;Dragon;Tierra
 Froslass;344;259;243;259;239;319;1.3;26.6;Rayo_hielo;Ventisca;Mismo_destino;Rayo_confuso;Bola_sombra;Onda_trueno;Fuego_fatuo;Tóxico;Protección;Mofa;Hielo;Fantasma
 Gallade;340;349;243;229;329;259;1.6;52;A_bocajarro;Cuchillada;Tajo_umbrio;Psico_corte;Paz_mental;Protección;Psiquico;Brillo_magico;Demolición;Avalancha;Lucha;Psiquico
 Galvantula;344;253;243;293;219;315;0.8;14.3;Trueno;Onda_trueno;Rayo;Zumbido;Red_viscosa;Protección;Tóxico;Energibola;Voltiocambio;Puya_nociva;Bicho;Electrico
@@ -20,7 +20,7 @@ Garchomp;420;359;243;259;269;303;1.9;95;Carra_dragón;Terremoto;Triturar;Colmill
 Gardevoir;340;229;243;349;329;259;1.6;48.4;Fuerza_lunar;Paz_mental;Psíquico;Hipnosis;Deseo;Protección;Tóxico;Bola_sombra;Come_sueños;Premonición;Hada;Psiquico
 Gengar;324;229;243;359;249;319;1.5;40.5;Bola_sombra;Rayo_confuso;Pulso_umbrio;Mismo_destino;Hipnosis;Protección;Puya_nociva;Brillo_magico;Bomba_lodo;Tóxico;Veneno;Fantasma
 Glaceon;334;219;243;359;289;229;0.8;25.9;Rayo_hielo;Granizo;Ojitos_tiernos;Ventisca;Mordisco;Sustituto;Protección;Bola_sombra;Tóxico;Gigaimpacto;Hielo;
-Gliscor;354;289;243;189;249;289;2;42.5;Golpe_aereo_;Respiro;Pulso_umbrio;Danza_espada;Bomba_lodo;Protección;Terremoto;Roca_afilada;Ácrobata;Tóxico;Tierra;Volador
+Gliscor;354;289;243;189;249;289;2;42.5;Golpe_aereo;Respiro;Pulso_umbrio;Danza_espada;Bomba_lodo;Protección;Terremoto;Roca_afilada;Ácrobata;Tóxico;Tierra;Volador
 Leafeon;334;319;243;219;229;289;1;25.5;Gigadrenado;Danza_espada;Sintesis;Tóxico;Bola_sombra;Protección;Tijera_X;Rayo_solar;Energibola;Hiperrayo;Planta;
 Jolteon;334;229;243;319;289;359;0.8;24.5;Trueno;Onda_trueno;Protección;Tóxico;Bola_sombra;Doble_patada;Colmillo_rayo;Golpe_cabeza;Voltiocambio;Gigaimpacto;Electrico;
 Lucario;344;319;243;329;239;279;1.2;54;A_bocajarro;Danza_espada;Velocidad_extrema;Ataque_oseo;Tóxico;Protección;Bola_sombra;Roca_afilada;Terremoto;Demolición;Acero;Lucha
@@ -42,7 +42,7 @@ Serperior;354;249;243;249;289;325;3.3;63;Gigadrenado;Paz_mental;Energibola;Drena
 Spiritomb;304;283;243;283;315;169;1;108;Bola_sombra;Rayo_confuso;Sombra_vil;Golpe_bajo;Pulso_umbrio;Paz_mental;Tóxico;Psíquico;Tumba_rocas;Protección;Siniestro;Fantasma
 Sylveon;394;229;243;319;359;219;1;23.5;Fuerza_lunar;Beso_drenaje;Paz_mental;Bola_sombra;Brillo_mágico;Psicocarga;Tóxico;Bola_sombra;Protección;Deseo;Hada;
 Togekiss;374;199;243;339;329;259;1.5;38;Tajo_aereo;Esfera_aural;Psíquico;Bola_sombra;Brillo_mágico;Psicocarga;Vuelo;Onda_trueno;Velocidad_extrema;Gigaimpacto;Hada;Volador
-Typhlosion;360;267;243;317;269;299;1.7;79.5;Llamarada;Terremoto;Humareda;Onda_certera;Tumba_rocas;Demolición;Protección_;Fuego_fatuo;Descanso;Estallido;Fuego;
+Typhlosion;360;267;243;317;269;299;1.7;79.5;Llamarada;Terremoto;Humareda;Onda_certera;Tumba_rocas;Demolición;Protección;Fuego_fatuo;Descanso;Estallido;Fuego;
 Tyranitar;404;367;243;289;299;221;2;202;Triturar;Terremoto;Pulso_umbrio;Roca_afilada;Garra_dragón;Protección;Demolición;Tumba_rocas;Tormenta_de_arena_(?);Gigaimpacto;Roca;Siniestro
 Umbreon;394;229;243;219;359;229;1;27;Pulso_umbrio;Rayo_confuso;Descanso;Tóxico;Protección;Bola_sombra;Hiperrayo;Psiquico;Juego_sucio;Deseo;Siniestro;
 Vaporeon;464;229;243;319;289;229;1;29;Hidrobomba;Rayo_hielo;Ventisca;Escaldar;Danza_lluvia;Armadura_ácida;Deseo;Protección;Tóxico;Descanso;Agua;
