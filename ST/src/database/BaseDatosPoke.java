@@ -4,29 +4,32 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import org.sqlite.SQLiteConfig;
 
+import main.Main;
+
 /**
- * Clase que crea la Base de Datos. En principio solo la usaremos una única vez, una vez creada pensamos editar la
- * base de datos con programas externos.
+ * Clase que crea la Base de Datos. En principio solo la usaremos una única vez,
+ * una vez creada pensamos editar la base de datos con programas externos.
  * 
- * FALTA: Claves primarias y claves externas. Relaciones faltan también. 
+ * FALTA: Claves primarias y claves externas. Relaciones faltan también.
  */
 public class BaseDatosPoke {
-	
+
 	public static String url = "jdbc:sqlite:src/database/PokemonStars.db";
-	
+	private static Connection conn;
+
 	public static void crearTabla() {
-		String sql = "CREATE TABLE IF NOT EXISTS pokemons (\n"
-                + "    id integer NOT NULL PRIMARY KEY,\n"
+		//TODO: Los id de las tablas hacer auto increment
+		String sqlPokemon = "CREATE TABLE IF NOT EXISTS pokemons (\n"
+                + "    idPokemon integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                 + "    name text ,\n"
                 + "    ps integer,\n"
                 + "    ataque  integer,\n"
@@ -35,32 +38,13 @@ public class BaseDatosPoke {
                 + "	   defensaEspecial integer,\n"
                 + "    velocidad integer,\n"
                 + "    altura integer,\n"
-                + "    peso integer, \n"
-                + "    mov1 integer , \n"
-                + "    mov2 integer , \n"
-                + "    mov3 integer ,\n "
-                + "    mov4 integer ,\n"
-                + "    mov5 integer ,\n"
-                + "    mov6 integer , \n"
-                + "    mov7 integer ,\n"
-                + "    mov8 integer , \n"
-                + "    mov9 integer , \n"
-                + "    mov10 integer , \n"
+                + "    peso integer,\n"
                 + "    tipo1 text ,\n"
-                + "    tipo2 text, \n"
-                + "FOREIGN KEY (mov1) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov2) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov3) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov4) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov5) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov6) REFERENCES movimiento(id), "
-    			+ "FOREIGN KEY (mov7) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov8) REFERENCES movimiento(id), "
-    			+ "FOREIGN KEY (mov9) REFERENCES movimiento(id),"
-    			+ "FOREIGN KEY (mov10) REFERENCES movimiento(id) "
+                + "    tipo2 text"
                 + ");";
-		String sql_1 = "CREATE TABLE IF NOT EXISTS movimientos (\n"
-				+ "id integer NOT NULL PRIMARY KEY,\n"
+		
+		String sqlMovimientos = "CREATE TABLE IF NOT EXISTS movimientos (\n"
+				+ "idMovimiento integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
 				+ "name text ,\n"
 				+ "tipo text ,\n"
 				+ "potencia integer,\n"
@@ -71,72 +55,106 @@ public class BaseDatosPoke {
 				+ "categoria text ,\n"
 				+ " alcance text ,\n"
 				+ " probEfecto integer\n"
-//				+ " PRIMARY KEY(id)) \n"
 				+ ");";
-		String sql_2 = "CREATE TABLE IF NOT EXISTS usuario (\n"
-				+ "id integer NOT NULL PRIMARY KEY,\n"
+		String sqlPokemonMovimientos = "CREATE TABLE IF NOT EXISTS pokemon_movimiento ("
+				+ "idPokemonMovimiento integer NOT NULL PRIMARY KEY AUTOINCREMENT,"
+				+ "FOREIGN KEY idPokemon REFERENCES pokemons(idPokemon)"
+				+ "FOREIGN KEY idMovimiento REFERENCES movimientos(idMovimiento)"
+				+ ");";
+		String sqlUsuarios = "CREATE TABLE IF NOT EXISTS usuario (\n"
+				+ "idUsuario integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
 				+ " nombre text ,\n"
 				+ " contraseña text ,\n"
 				+ "entrenador text \n"
-//				+ " PRIMARY KEY(id)) \n"
 				+ ");";
-		String sql_3 = "CREATE TABLE IF NOT EXISTS equipo (\n"
-				+ "id integer NOT NULL PRIMARY KEY,\n"
+		String sqlEquipos = "CREATE TABLE IF NOT EXISTS equipo (\n"
+				+ "idEquipo integer NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
 				+ "nombre text ,\n"
 				+ "idUsuario integer,\n"
-//				+ "PRIMARY KEY(id),\n"
 				+ "FOREIGN KEY (idUsuario) REFERENCES usuario(id) "
 				+ ");";
-		SQLiteConfig config = new SQLiteConfig();  
-	    config.enforceForeignKeys(true);
-		try (Connection conn = DriverManager.getConnection(url, config.toProperties())) {
+		
+		try {
+	
 			 Statement stmt = conn.createStatement(); 
 			 //crea nuevas tablas
-		            stmt.execute(sql_1);
-		            stmt.execute(sql);
-		            stmt.execute(sql_2);
-		            stmt.execute(sql_3);
+		            stmt.execute(sqlPokemon);
+		            stmt.execute(sqlMovimientos);
+		            stmt.execute(sqlPokemonMovimientos);
+		            stmt.execute(sqlUsuarios);
+		            stmt.execute(sqlEquipos);
 		}catch(SQLException e){
 			
 		}
 	}
-	
-	
-	
-	public static void leerFichero(String fichero_nombre) {
-		try {
-			FileInputStream fichero = new FileInputStream(new File(fichero_nombre +".xlsx"));
-			XSSFWorkbook workbook = new XSSFWorkbook(fichero);
-			XSSFSheet hoja = workbook.getSheetAt(0);
-			Iterator<Row> rowIterator = hoja.iterator();
-            while (rowIterator.hasNext()){
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-                while (cellIterator.hasNext()){
-                    Cell cell = cellIterator.next();
-                    switch (cell.getCellType()){
-                        case NUMERIC:
-                            System.out.print(cell.getNumericCellValue() + " ");
-                            break;
-                        case STRING:
-                            System.out.print(cell.getStringCellValue() + " ");
-                            break;
-                    }
-                }
-                System.out.println("");
-            }
-            fichero.close();
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
-        }		
-	}
-	public static void main(String[] args) throws ClassNotFoundException {
-		Class.forName("org.sqlite.JDBC");
-		crearTabla();
-		//se lee solo hay se hacer que se guarde en una lista y de hay a la base de datos
-		leerFichero("Data/web/" + "poke_info");
+
+	public static void pokemonInsert(int id, String nombre, int stats[], double altura, double peso, String ataques[], String tipos[]) {
+		if(conn != null
+				&& (stats != null && stats.length == 6)) {
+			try {
+				
+				Statement st = conn.createStatement();
+				ResultSet rs = st.executeQuery("select id from movimientos where name in ('"+ataques[0]+"','"+ataques[1]+"', '"+ataques[2]+"', '"+ataques[3]+"', '"+ataques[4]+"'"
+						+ ", '"+ataques[5]+"', '"+ataques[6]+"', '"+ataques[7]+"', '"+ataques[8]+"', '"+ataques[9]+ "')");
+				int id_mow[] = new int[11];
+				int i = 0;
+				while (rs.next()) {
+					System.out.println(rs.getInt("id"));
+					id_mow[i] = rs.getInt("id");
+					i++;
+				}
+				String sql = "insert into pokemons values("+id+",'"+nombre+"',"+stats[0]+", "+stats[1]+", "
+						+ ""+stats[2]+", "+stats[3]+", "+stats[4]+", "+stats[5]+", "+altura+", "+peso+", "
+						+ ""+id_mow[0]+", "+ id_mow[1]+", "+id_mow[2]+", " +id_mow[3]+", " +id_mow[4]+", "
+						+ id_mow[5]+", "+ id_mow[6]+", " + id_mow[7]+", " + id_mow[8]+", " +id_mow[9]+", "
+						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
+				
+				st.executeUpdate(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
+	public static void movInsert(int id, String nombre, String alcance, int prioridad, int dano, int precision, int pp,
+			String categoria, String mov_tipo, String estado_alterno, String estado_secunf, double[] probabilidades,
+			String cambioStat, int[] stats) {
+			if(conn != null
+					) {
+				try {
+					String sql = "insert into movimientos values("+id+",'"+nombre+"','"+mov_tipo+"',"
+							+ ""+dano+","+precision+","+pp+","+prioridad+",'"+estado_alterno+"','"+categoria+"',"
+							+ "'"+alcance+"', "+probabilidades[0]+", "+probabilidades[1]+","
+							+ ""+probabilidades[2]+",'"+estado_secunf+"','"+cambioStat+"',"+stats[0]+","
+							+ ""+stats[1]+", "+stats[2]+", "+stats[3]+","+stats[4]+")";
+					
+					Statement st = conn.createStatement();
+					st.executeUpdate(sql);
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		Class.forName("org.sqlite.JDBC");
+		//crearTabla();
+		try {
+			conn = DriverManager.getConnection(url);
+
+			//Main.basesDatosCargarMov();
+			Main.basesDatosCargarPoke();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		//Main.basesDatosCargarPoke();
+	}
+
+
+
+		
+	
 }
