@@ -59,7 +59,7 @@ public class Main {
 			
 			// Leemos el fichero de pokemons e insertamos primero el pokemon en su tabla, y luego, los movimientos del pokemon en la tabla PokemonMovimiento
 			BufferedReader br = new BufferedReader(new FileReader("Data/web/poke_info.csv"));
-			int id = 0;
+			int id = 1;
 			String line = null;
 			while((line = br.readLine()) != null) {
 				String [] datos = line.split(";");

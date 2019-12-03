@@ -1,6 +1,6 @@
 ﻿Abomasnow;384;283;249;283;269;219;2.2;135.5;Hoja_afilada;Viento_hielo;Canto_helado;Arraigo;Mazazo;Ventisca;Hiperrayo;Protección;Avalancha;Terremoto;Planta;Hielo
 Aegislash;324;199;399;199;399;219;1.7;53;Sombra_vil;Cabeza_de_hierro;Espada_santa;Escudo_real;Bola_sombra;Golpe_aéreo;Gigaimpacto;Foco_resplandor;Danza_espada;Tajo_umbrío;Fantasma;Acero
-Aggron;344;319;459;219;219;199;2.1;360;Protección;Defensa_férrea;Cabeza_de_hierro;Doble_filo;Cuerpo_pesado;Gigaimpacto;Puño_trueno;Terremoto;Tormenta_de_arena_(?);Enfado;Roca;Acero
+Aggron;344;319;459;219;219;199;2.1;360;Protección;Defensa_férrea;Cabeza_de_hierro;Doble_filo;Cuerpo_pesado;Gigaimpacto;Puño_trueno;Terremoto;Tormenta_de_arena;Enfado;Roca;Acero
 Aurorus;450;253;243;297;283;215;2.7;225;Liofilización;Onda_trueno;Descanso;Ventisca;Doble_filo;Tóxico;Trueno;Psíquico;Poder_pasado;Roca_afilada;Roca;Hiero
 Bewear;444;349;243;209;219;219;2.1;135;Ojitos_tiernos;Azote;Vendetta;Machada;Doble_filo;Golpe_aéreo;Garra_dragón;Golpe_aéreo;Garra_umbría;Danza_espada;Lucha;Normal
 Blaziken;364;339;243;319;239;259;1.9;52;Puño_fuego;Envite_ígneo;Patada_salto_alta;Pájaro_osado;Gancho_alto;Roca_afilada;Puya_nociva;Danza_espada;Avivar;Puño_trueno;Lucha;Fuego
@@ -43,7 +43,7 @@ Spiritomb;304;283;243;283;315;169;1;108;Bola_sombra;Rayo_confuso;Sombra_vil;Golp
 Sylveon;394;229;243;319;359;219;1;23.5;Fuerza_lunar;Beso_drenaje;Paz_mental;Bola_sombra;Brillo_mágico;Psicocarga;Tóxico;Bola_sombra;Protección;Deseo;Hada;
 Togekiss;374;199;243;339;329;259;1.5;38;Tajo_aereo;Esfera_aural;Psíquico;Bola_sombra;Brillo_mágico;Psicocarga;Vuelo;Onda_trueno;Velocidad_extrema;Gigaimpacto;Hada;Volador
 Typhlosion;360;267;243;317;269;299;1.7;79.5;Llamarada;Terremoto;Humareda;Onda_certera;Tumba_rocas;Demolición;Protección;Fuego_fatuo;Descanso;Estallido;Fuego;
-Tyranitar;404;367;243;289;299;221;2;202;Triturar;Terremoto;Pulso_umbrio;Roca_afilada;Garra_dragón;Protección;Demolición;Tumba_rocas;Tormenta_de_arena_(?);Gigaimpacto;Roca;Siniestro
+Tyranitar;404;367;243;289;299;221;2;202;Triturar;Terremoto;Pulso_umbrio;Roca_afilada;Garra_dragón;Protección;Demolición;Tumba_rocas;Tormenta_de_arena;Gigaimpacto;Roca;Siniestro
 Umbreon;394;229;243;219;359;229;1;27;Pulso_umbrio;Rayo_confuso;Descanso;Tóxico;Protección;Bola_sombra;Hiperrayo;Psiquico;Juego_sucio;Deseo;Siniestro;
 Vaporeon;464;229;243;319;289;229;1;29;Hidrobomba;Rayo_hielo;Ventisca;Escaldar;Danza_lluvia;Armadura_ácida;Deseo;Protección;Tóxico;Descanso;Agua;
 Venasaur;364;263;243;299;299;259;2;100;Gigadrenado;Somnífero;Sintesis;Energibola;Terremoto;Tóxico;Bomba_lodo;Danza_pétalo;Drenadoras;Gigaimpacto;Planta;Veneno

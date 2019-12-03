@@ -90,18 +90,19 @@ public class BaseDatosPoke {
 
 	public static void pokemonInsert(int id, String nombre, int stats[], double altura, double peso, String ataques[], String tipos[]) {
 		if(conn != null
-				&& (stats != null && stats.length == 6)) {
+				&& (stats != null)) {
 			try {
 				
 				Statement st = conn.createStatement();
 				ResultSet rs = st.executeQuery("select id from movimientos where name in ('"+ataques[0]+"','"+ataques[1]+"', '"+ataques[2]+"', '"+ataques[3]+"', '"+ataques[4]+"'"
 						+ ", '"+ataques[5]+"', '"+ataques[6]+"', '"+ataques[7]+"', '"+ataques[8]+"', '"+ataques[9]+ "')");
-				int id_mow[] = new int[11];
+				int id_mow[] = new int[10];
 				int i = 0;
 				while (rs.next()) {
-					System.out.println(rs.getInt("id"));
 					id_mow[i] = rs.getInt("id");
 					i++;
+					if (i == 10)
+						break;
 				}
 				String sql = "insert into pokemons values("+id+",'"+nombre+"',"+stats[0]+", "+stats[1]+", "
 						+ ""+stats[2]+", "+stats[3]+", "+stats[4]+", "+stats[5]+", "+altura+", "+peso+", "
@@ -110,6 +111,7 @@ public class BaseDatosPoke {
 						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
 				
 				st.executeUpdate(sql);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
