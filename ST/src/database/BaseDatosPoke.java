@@ -146,7 +146,7 @@ public class BaseDatosPoke {
 			conn = DriverManager.getConnection(url);
 
 			//Main.basesDatosCargarMov();
-			Main.basesDatosCargarPoke();
+			//Main.basesDatosCargarPoke();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
