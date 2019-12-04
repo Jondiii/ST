@@ -111,7 +111,7 @@ public class BaseDatosPoke {
 						+ "'"+tipos[0]+"', '"+tipos[1]+"')";
 				
 				st.executeUpdate(sql);
-
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -146,7 +146,7 @@ public class BaseDatosPoke {
 			conn = DriverManager.getConnection(url);
 
 			//Main.basesDatosCargarMov();
-			//Main.basesDatosCargarPoke();
+			Main.basesDatosCargarPoke();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

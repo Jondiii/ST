@@ -78,10 +78,9 @@ public class Main {
 				
 				String [] tipos = new String[2];
 				for(int i = 0; i < tipos.length; i++) {
-					tipos[i] = datos[i + 11];
-					if (datos.length == 14) {
+					tipos[i] = datos[i + 19];
+					if (datos.length  == 20)
 						break;
-					}
 				}
 				
 				BaseDatosPoke.pokemonInsert(id , nombre, stats, altura, peso, ataques, tipos);
