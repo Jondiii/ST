@@ -2,7 +2,7 @@ package principal;
 
 public class TablaTipos {
 
-	/*
+	/* PRUEBA PARA COMPROBAR QUE GITHUB ME FUNCIONA
     FILAS = Pokemon atacante
     COLUMNAS = Pokemon que recibe el ataque
     
