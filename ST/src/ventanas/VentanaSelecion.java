@@ -110,6 +110,14 @@ public class VentanaSelecion extends JFrame {
 				vc.setVisible(true);
 			}
 		});
+		
+		crear_eq.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCreadorEquipos ventEqui = new VentanaCreadorEquipos();
+			}
+		});
 	}
 
 	private void panelUsuario() {
