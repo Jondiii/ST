@@ -6,18 +6,29 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import database.BaseDatosPoke;
 import main.Main;
 import principal.Combate;
 
@@ -25,7 +36,7 @@ import principal.Combate;
 public class VentanaSelecion extends JFrame {
 	private Font font = new Font("Arial", Font.PLAIN, 16);
 	private Combate c;
-	
+	public VentanaSelecion vs;
 	
 	public VentanaSelecion(Combate c) {
 		setSize(400, 500);
@@ -38,6 +49,7 @@ public class VentanaSelecion extends JFrame {
 		panelInferior();
 		panelVacio();
 		this.c = c;
+		vs = this;
 	}
 	private void panelVacio() {
 		JPanel panel_izq = new JPanel();
@@ -106,6 +118,71 @@ public class VentanaSelecion extends JFrame {
 		JButton cerrar_sesion = new JButton("Cerrar Sesion");
 		ImageIcon usuario = new ImageIcon(getClass().getResource("/img/entrenadores/" +VentanaInicio.u.getImagen()+ ".png"));
 		JLabel imagen_usuario = new JLabel(usuario);
+		imagen_usuario.addMouseListener(new MouseAdapter() {
+		
+			@Override
+			public void mousePressed(MouseEvent e) {
+				JDialog pCambioTrainer = new JDialog();
+				JPanel pOption = new JPanel();
+				pOption.add(VentanaInicio.entrenadores);
+				pCambioTrainer.add(pOption, BorderLayout.CENTER);
+				pCambioTrainer.setLocation(vs.getLocation().x + 100, vs.getLocation().y + 40);
+				pCambioTrainer.setSize(200, 200);
+				JPanel pSprite = new JPanel();
+				JLabel labelSprite = new JLabel();
+				pSprite.add(labelSprite);
+				
+				ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/entrenadores/unknown.png"));
+				ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+				labelSprite.setIcon(icono_2);
+				pSprite.add(labelSprite);
+				
+				VentanaInicio.entrenadores.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/entrenadores/" + VentanaInicio.entrenadores.getSelectedItem() + ".png"));
+						ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+						labelSprite.setIcon(icono_2);
+						pSprite.removeAll();
+						pSprite.add(labelSprite);
+					}
+				});
+				
+				pCambioTrainer.add(pSprite, BorderLayout.EAST);
+				
+				JButton bAceptar = new JButton("Aceptar");
+				
+				bAceptar.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						try {
+							Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+							Statement stmt  = conn.createStatement();
+							stmt.executeUpdate("update usuario set imagen='" + VentanaInicio.entrenadores.getSelectedItem() + "' where nombre='" + VentanaInicio.u.getNombre()+"'");
+							VentanaInicio.u.setImagen(VentanaInicio.entrenadores.getSelectedItem().toString());
+							conn.close();
+						} catch (SQLException e2) {
+							System.out.println(e2.getMessage());
+						}
+						
+						ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/entrenadores/" + VentanaInicio.u.getImagen() + ".png"));
+						ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+						imagen_usuario.removeAll();
+						imagen_usuario.setIcon(icono_2);
+						pOption.revalidate();
+						pCambioTrainer.dispose();						
+					}
+				});
+				
+				pCambioTrainer.add(bAceptar, BorderLayout.SOUTH);
+				pCambioTrainer.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				pCambioTrainer.setVisible(true);
+			}
+		});
+		
+		
 		JLabel nombre_usuario = new JLabel(VentanaInicio.u.getNombre());
 		nombre_usuario.setFont(font);
 		

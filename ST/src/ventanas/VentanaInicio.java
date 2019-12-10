@@ -51,6 +51,9 @@ public class VentanaInicio extends JFrame {
 	static ArrayList<Pokemon>  miEquipo = new ArrayList<>();
 	static ArrayList<Pokemon> oponente = new ArrayList<>();
 	private Combate c;
+	public static JComboBox<String> entrenadores;
+
+
 	
 	public VentanaInicio( Combate c) {
 		vi = this;
@@ -60,6 +63,28 @@ public class VentanaInicio extends JFrame {
 		vi.setSize(500, 500);
 		vi.setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
 		vi.crearPanelInferior();
+		
+		//Necesitamos que se cree desde el principio la lista de entrenadores
+		ArrayList<String> listaEntrenadores = new ArrayList<String>();
+		 //Pasamos de un array list a un array porque java no lo pilla si no.
+		
+		File fInic = new File("src/img/entrenadores/");
+		 if (fInic.isDirectory()) {
+			 for( File f : fInic.listFiles() ) {
+				 	String nombreRuta = f.getName();
+					listaEntrenadores.add(nombreRuta);
+		 		}
+		 }
+		 
+		 String[] ArrayEntrenadores = new String[listaEntrenadores.size()]; //Pasamos de un array list a un array porque java no lo pilla si no.
+
+		for (int i = 0; i < listaEntrenadores.size(); i++) {
+			String nombreEntrenador = listaEntrenadores.get(i).replaceAll(".png", "");
+			ArrayEntrenadores[i] = nombreEntrenador;
+		}
+		
+		entrenadores = new JComboBox<String>(ArrayEntrenadores);
+		
 		this.c = c;
 	}
 	
@@ -169,7 +194,7 @@ public class VentanaInicio extends JFrame {
 						}
 						String pass = new String (areaContra.getPassword());
 						if (pass.isEmpty() || pass.trim().equals("")) {
-							info.setText("Error, el contraseña está vacío.");
+							info.setText("Error, la contraseña está vacía.");
 							d.revalidate();
 							return; 
 						}
@@ -201,7 +226,7 @@ public class VentanaInicio extends JFrame {
 						            dispose();
 						            VentanaSelecion vs = new VentanaSelecion(c);
 						            vs.setVisible(true);
-						            
+						            conn.close();
 						      } catch (SQLException e1) {
 							      System.out.println(e1.getMessage());
 					}
@@ -224,6 +249,7 @@ public class VentanaInicio extends JFrame {
 
 		});
 		
+		
 		bRegister.addActionListener(new ActionListener() {
 			
 			@Override
@@ -231,30 +257,7 @@ public class VentanaInicio extends JFrame {
 														   //que al hacer click en registrarse compruebe que no haya otro user igual y que se añadan
 														   //los datos del user a la BD.
 				
-				ArrayList<String> listaEntrenadores = new ArrayList<String>();
-				 //Pasamos de un array list a un array porque java no lo pilla si no.
-				
-				File fInic = new File("src/img/entrenadores/");
-				 if (fInic.isDirectory()) {
-					 for( File f : fInic.listFiles() ) {
-						 	String nombreRuta = f.getName();
-							listaEntrenadores.add(nombreRuta);
-				 		}
-				 }
-//				File folder = new File("/img/entrenadores");//Esto no chuta.
-//				File[] listOfFiles = folder.listFiles();
-//
-//				for (int i = 0; i < listOfFiles.length; i++) {
-//					String nombreRuta = listOfFiles[i].getName();
-//					String nombreEntrenador = nombreRuta.split(".")[0];
-//					listaEntrenadores.add(nombreEntrenador);
-//				}
-//				
-				String[] ArrayEntrenadores = new String[listaEntrenadores.size()]; //Pasamos de un array list a un array porque java no lo pilla si no.
-				for (int i = 0; i < listaEntrenadores.size(); i++) {
-					String nombreEntrenador = listaEntrenadores.get(i).replaceAll(".png", "");
-					ArrayEntrenadores[i] = nombreEntrenador;
-				}
+
 //				
 //				ArrayEntrenadores[0] = "Blasco"; //Pongo estos porque como lo de arriba no va pues con algo habrá que probar
 //				ArrayEntrenadores[1] = "Israel";
@@ -280,7 +283,6 @@ public class VentanaInicio extends JFrame {
 				pContra.add(new JLabel("Contraseña: "));
 				pContra.add(areaContra);
 				pEntrenador.add(new JLabel("Elige tu avatar: "));
-				JComboBox<String> entrenadores = new JComboBox<String>(ArrayEntrenadores);
 				pEntrenador.add(entrenadores);
 				pDatos.add(pUsuario);
 				pDatos.add(pContra);
@@ -299,18 +301,7 @@ public class VentanaInicio extends JFrame {
 				JPanel pSprite = new JPanel();
 				pSprite.add(labelSprite);
 				
-				entrenadores.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/entrenadores/" + entrenadores.getSelectedItem() + ".png"));
-						ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
-						labelSprite.setIcon(icono_2);
-						pSprite.removeAll();
-						pSprite.add(labelSprite);
-						d.revalidate();
-					}
-				});
+				
 				
 				JPanel panelOk = new JPanel();
 				JButton bConfirmar = new JButton("Registrarse");
