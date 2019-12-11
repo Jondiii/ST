@@ -24,11 +24,12 @@ public class Main {
 	public static void main(String[] args) {
 		creaEquiposPorDefecto();
 		Combate c = new Combate(miEquipo, oponente); 
-//		try {
+		try {
 //			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		
 		VentanaInicio vi = new VentanaInicio(c);
 	}
