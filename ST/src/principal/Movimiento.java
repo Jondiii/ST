@@ -49,8 +49,33 @@ public class Movimiento {
 		}
 	}
 	
-	
+	//TODO TODO Hay que añadir las probabilidades de los estados, de bajar stats...
+	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
+			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto, int probEfecto) {
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.potencia = potencia;
+		this.precisión = precisión;
+		this.pp = pp;
+		this.ppRestantes = pp;
+		this.cat = cat;
+		this.prioridad = prio;
+		this.alcance = alcance;
+		this.estadoAlt = estadoAlt;
+		this.prob_efecto = probEstado;
+		this.efecto = efecto;
 
+		
+		//Por defecto los movimientos no producen cambios de estadísticas.
+		for (int i = 0; i < cambiosEstadisticas.length; i++) {
+			cambiosEstadisticas[i] = 0;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 	public AlcanceMovimiento getAlcance() {
 		return alcance;
 	}
@@ -71,8 +96,6 @@ public class Movimiento {
 	public EstadosAlterados getEstadoAlt() {
 		return estadoAlt;
 	}
-
-
 
 	public void setEstadoAlt(EstadosAlterados estadoAlt) {
 		this.estadoAlt = estadoAlt;

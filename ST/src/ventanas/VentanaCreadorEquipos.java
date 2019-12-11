@@ -29,7 +29,12 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import database.BaseDatosPoke;
+import principal.AlcanceMovimiento;
+import principal.CategoriaMov;
+import principal.EfectoSecundario;
+import principal.EstadosAlterados;
 import principal.Movimiento;
+import principal.Tipo;
 
 public class VentanaCreadorEquipos extends JFrame {
 	
@@ -85,8 +90,8 @@ public class VentanaCreadorEquipos extends JFrame {
 		pCentro.add(pNombreMov, BorderLayout.NORTH);
 		pCentro.add(pMovs, BorderLayout.CENTER);
 		
-		String[] arrayMovs = cargaNombreMovs((String)comboPoke.getSelectedItem());//CAMBIAR
-		JComboBox<String> comboMovs = new JComboBox<String>(arrayMovs);
+		Movimiento[] arrayMovs = cargaMovs((String)comboPoke.getSelectedItem());
+		JComboBox<Movimiento> comboMovs = new JComboBox<Movimiento>(arrayMovs);
 		pNombreMov.add(comboMovs);
 
 		
@@ -117,8 +122,8 @@ public class VentanaCreadorEquipos extends JFrame {
 		return arrayPokemons;
 	}
 	
-	public String[] cargaNombreMovs(String nombrePoke) {
-		ArrayList<String> listaMovs = new ArrayList<String>();
+	public Movimiento[] cargaMovs(String nombrePoke) {
+		ArrayList<Movimiento> listaMovs = new ArrayList<Movimiento>();
 		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();
 
 		
@@ -132,11 +137,13 @@ public class VentanaCreadorEquipos extends JFrame {
 				listaIdMovs.add(rs.getInt(("mov" + i)));
 			}
 			
-			//Añade los nombres de los movimientos a la lista.
-			//TODO TODO Igual es mejor que se cree directamente un objeto movimiento y que eso sea lo que se le pasa al panelMovimiento??¿¿¿
+			//Añade los movimientos a la lista.
+			//TODO TODO TENEMOS QUE AÑADIR LAS PROBABILIDADES AL CONSTRUCTOR Y MIRAR BIEN LA BASE DE DATOS
 			for (int i = 0; i < 10; i++) {
-				ResultSet rs2 = stmt.executeQuery("select * from movimientos where id=" + nombrePoke);
-				listaMovs.add(rs2.getString("name"));
+				ResultSet rs2 = stmt.executeQuery("select * from movimientos where id=" + listaIdMovs.get(i));
+				listaMovs.add(new Movimiento(rs2.getString("name"), Tipo.valueOf(rs2.getString("tipo")), rs2.getInt("potencia"), rs2.getInt("precision"),
+						rs2.getInt("pp"), CategoriaMov.valueOf(rs2.getString("categoria")),  rs2.getInt("prioridad"), AlcanceMovimiento.valueOf(rs2.getString("alcance")),
+						EstadosAlterados.valueOf(rs2.getString("estadoAlt")), rs2.getInt("probEstado"), EfectoSecundario.valueOf(rs2.getString("efecto"))));
 			}
 
 			conn.close();
@@ -145,11 +152,11 @@ public class VentanaCreadorEquipos extends JFrame {
 			System.out.println(e.getMessage());
 		}
 		
-		String[] arrayMovs = new String[listaMovs.size()];
+		Movimiento[] arrayMovs = new Movimiento[listaMovs.size()];
 		
 		for (int i = 0; i < listaMovs.size(); i++) {
-				String nombreMov = listaMovs.get(i);
-				arrayMovs[i] = nombreMov;
+			Movimiento nombreMov = listaMovs.get(i);
+			arrayMovs[i] = nombreMov;
 			}
 		System.out.println(arrayMovs);
 		return arrayMovs;
