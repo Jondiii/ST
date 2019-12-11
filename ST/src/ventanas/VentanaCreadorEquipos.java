@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import database.BaseDatosPoke;
+import principal.Movimiento;
 
 public class VentanaCreadorEquipos extends JFrame {
 	
@@ -65,7 +66,6 @@ public class VentanaCreadorEquipos extends JFrame {
 		pEquipo.add(pPoke);
 	
 		String[] arrayPokemons = cargarNombrePokes();
-		String[] arrayMovs = cargaNombreMovs();//CAMBIAR
 		
 		JComboBox<String> comboPoke = new JComboBox<String>(arrayPokemons);
 		pIzq.add(comboPoke, BorderLayout.NORTH);
@@ -82,10 +82,13 @@ public class VentanaCreadorEquipos extends JFrame {
 			}
 		});
 		
-		JComboBox<String> comboMovs = new JComboBox<String>(arrayMovs);
-		pNombreMov.add(comboMovs);
 		pCentro.add(pNombreMov, BorderLayout.NORTH);
 		pCentro.add(pMovs, BorderLayout.CENTER);
+		
+		String[] arrayMovs = cargaNombreMovs((String)comboPoke.getSelectedItem());//CAMBIAR
+		JComboBox<String> comboMovs = new JComboBox<String>(arrayMovs);
+		pNombreMov.add(comboMovs);
+
 		
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getSelectedItem() + "_frente.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
@@ -114,17 +117,28 @@ public class VentanaCreadorEquipos extends JFrame {
 		return arrayPokemons;
 	}
 	
-	public String[] cargaNombreMovs() {
+	public String[] cargaNombreMovs(String nombrePoke) {
 		ArrayList<String> listaMovs = new ArrayList<String>();
+		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();
+
 		
 		try {//CAMBIAR CUANDO SE LLAMA A EST METODO Y PASARLE EL OBJETO SELECCIONADO EN LA COMBO BOX POKES.
 			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 			Statement stmt  = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='");
+			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
 		
-			while(rs.next()) {
-				listaMovs.add(rs.getString("name").replaceAll("_", " "));
+			//Coge los IDs de los movimientos de los pokémon
+			for (int i = 0; i <10; i++) {
+				listaIdMovs.add(rs.getInt(("mov" + i)));
 			}
+			
+			//Añade los nombres de los movimientos a la lista.
+			//TODO TODO Igual es mejor que se cree directamente un objeto movimiento y que eso sea lo que se le pasa al panelMovimiento??¿¿¿
+			for (int i = 0; i < 10; i++) {
+				ResultSet rs2 = stmt.executeQuery("select * from movimientos where id=" + nombrePoke);
+				listaMovs.add(rs2.getString("name"));
+			}
+
 			conn.close();
 			
 		} catch (SQLException e) {
@@ -134,8 +148,8 @@ public class VentanaCreadorEquipos extends JFrame {
 		String[] arrayMovs = new String[listaMovs.size()];
 		
 		for (int i = 0; i < listaMovs.size(); i++) {
-				String nombrePoke = listaMovs.get(i);
-				arrayMovs[i] = nombrePoke;
+				String nombreMov = listaMovs.get(i);
+				arrayMovs[i] = nombreMov;
 			}
 		System.out.println(arrayMovs);
 		return arrayMovs;
@@ -176,7 +190,7 @@ public class VentanaCreadorEquipos extends JFrame {
 	
 	private static class PanelMovimiento extends JPanel {
 		
-		public PanelMovimiento(String nombreMov, ResultSet rs) {//TODO No sé si se puede hacer esto así
+		public PanelMovimiento(Movimiento mov) {
 			//COSAS A AÑADIR:
 			//Combo box arriba para elegir el movimiento y que salga también su tipo, clase, pot, prec y pp
 			//Pequeña descripción del efecto del movimiento abajo.
