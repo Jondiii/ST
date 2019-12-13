@@ -28,6 +28,7 @@ public class Movimiento {
 	// chicos tiene que estar a 5 , sino la velocidad no se almacena
 	private Integer[] cambiosEstadisticas = new Integer[5];
 	private boolean cambiaStatsAEnemigo = false; //Algunos movimientos cambian los stats del enemigos, otros los del usuario. Solo es true en el primer caso
+												 //Será true también en el caso de que el estado alterado se le cause al enemigo.
 	
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
 			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto) {
