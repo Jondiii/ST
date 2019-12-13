@@ -150,6 +150,7 @@ public class BaseDatosPoke {
 			st.executeUpdate("delete from pokemons");
 			Main.basesDatosCargarMov();
 			Main.basesDatosCargarPoke();
+			System.out.println("Cargada/actualizada la base de datos");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
