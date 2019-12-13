@@ -12,10 +12,12 @@ public class Movimiento {
 	private int ppRestantes;//Número de veces restante que se puede usar el movimiento.
 	private CategoriaMov cat;//Categoría a la que pertenece el movimiento.
 	private int prioridad; //Varía desde -6 a +6. Los movimientos con prioridad ignoran la velocidad al ejecutarse.
-	private AlcanceMovimiento alcance;
-	private EstadosAlterados estadoAlt;
-	private EfectoSecundario efecto;
-	private int prob_efecto;
+	private AlcanceMovimiento alcance; //Indica si el movimiento afecta a un rival, a ambos, al usuario...
+	private EstadosAlterados estadoAlt;	//Indica si el mov congela, quema...
+	private EfectoSecundario efecto_secundario; //Algunos movimientos pueden proteger al usuario, hacer retroceder al rival...
+	private float prob_efecto_secundario;
+	private float prob_cambio_stats;
+	private float prob_estado_alt;
 	
 	/**
 	 * Las estadísticas de Ataque, Defensa, Ataque especial, Defensa especial y velocidad se pueden cambiar durante el combate.
@@ -39,8 +41,8 @@ public class Movimiento {
 		this.prioridad = prio;
 		this.alcance = alcance;
 		this.estadoAlt = estadoAlt;
-		this.prob_efecto = probEstado;
-		this.efecto = efecto;
+		this.prob_efecto_secundario = probEstado;
+		this.efecto_secundario = efecto;
 
 		
 		//Por defecto los movimientos no producen cambios de estadísticas.
@@ -62,8 +64,8 @@ public class Movimiento {
 		this.prioridad = prio;
 		this.alcance = alcance;
 		this.estadoAlt = estadoAlt;
-		this.prob_efecto = probEstado;
-		this.efecto = efecto;
+		this.prob_efecto_secundario = probEstado;
+		this.efecto_secundario = efecto;
 
 		
 		//Por defecto los movimientos no producen cambios de estadísticas.
@@ -72,6 +74,36 @@ public class Movimiento {
 		}
 	}
 	
+	
+	//Constructor que se usará al leer desde la bd
+	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
+			int prioridad, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, EfectoSecundario efecto_secundario,
+			float prob_efecto_secundario, float prob_cambio_stats, float prob_estado_alt, boolean cambiaStatsAEnemigo, int ata,
+			int def, int ata_esp, int def_esp, int vel) {
+		super();
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.potencia = potencia;
+		this.precisión = precisión;
+		this.pp = pp;
+		this.cat = cat;
+		this.prioridad = prioridad;
+		this.alcance = alcance;
+		this.estadoAlt = estadoAlt;
+		this.efecto_secundario = efecto_secundario;
+		this.prob_efecto_secundario = prob_efecto_secundario;
+		this.prob_cambio_stats = prob_cambio_stats;
+		this.prob_estado_alt = prob_estado_alt;
+		this.cambiaStatsAEnemigo = cambiaStatsAEnemigo;
+		
+		cambiosEstadisticas[0] = ata;
+		cambiosEstadisticas[1] = def;
+		cambiosEstadisticas[2] = ata_esp;
+		cambiosEstadisticas[3] = def_esp;
+		cambiosEstadisticas[4] = vel;
+
+	}
+
 	@Override
 	public String toString() {
 		return this.nombre;
@@ -83,11 +115,11 @@ public class Movimiento {
 		this.alcance = alcance;
 	}
 	
-	public int getProb_efecto() {
-		return prob_efecto;
+	public float getProb_efecto() {
+		return prob_efecto_secundario;
 	}
 	public void setProb_efecto(int prob_efecto) {
-		this.prob_efecto = prob_efecto;
+		this.prob_efecto_secundario = prob_efecto;
 	}
 	public Integer[] getCambiosEstadisticas() {
 		return cambiosEstadisticas;
@@ -104,11 +136,11 @@ public class Movimiento {
 
 
 	public void setEfecto(EfectoSecundario efecto) {
-		this.efecto = efecto;
+		this.efecto_secundario = efecto;
 	}
 
 	public EfectoSecundario getEfecto() {
-		return efecto;
+		return efecto_secundario;
 	}
 
 

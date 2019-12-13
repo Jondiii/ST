@@ -138,12 +138,13 @@ public class VentanaCreadorEquipos extends JFrame {
 			}
 			
 			//Añade los movimientos a la lista.
-			//TODO TODO TENEMOS QUE AÑADIR LAS PROBABILIDADES AL CONSTRUCTOR Y MIRAR BIEN LA BASE DE DATOS
 			for (int i = 0; i < 10; i++) {
 				ResultSet rs2 = stmt.executeQuery("select * from movimientos where id=" + listaIdMovs.get(i));
 				listaMovs.add(new Movimiento(rs2.getString("name"), Tipo.valueOf(rs2.getString("tipo")), rs2.getInt("potencia"), rs2.getInt("precision"),
 						rs2.getInt("pp"), CategoriaMov.valueOf(rs2.getString("categoria")),  rs2.getInt("prioridad"), AlcanceMovimiento.valueOf(rs2.getString("alcance")),
-						EstadosAlterados.valueOf(rs2.getString("estadoAlt")), rs2.getInt("probEstado"), EfectoSecundario.valueOf(rs2.getString("efecto"))));
+						EstadosAlterados.valueOf(rs2.getString("estadoAlt")), EfectoSecundario.valueOf(rs2.getString("estadoSecundario")),
+						rs2.getInt("prEfecto"), rs2.getInt("prStats"),rs2.getInt("prEstado"), rs2.getBoolean("cambioStatsARival"), rs2.getInt("ataque"),
+						rs2.getInt("defensa"), rs2.getInt("ataqueEspecial"),rs2.getInt("defensaEspecial"),rs2.getInt("velocidad")));
 			}
 
 			conn.close();
