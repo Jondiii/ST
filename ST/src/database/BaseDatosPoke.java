@@ -124,13 +124,14 @@ public class BaseDatosPoke {
 			if(conn != null
 					) {
 				try {
+					Statement st = conn.createStatement();
 					String sql = "insert into movimientos values("+id+",'"+nombre+"','"+mov_tipo+"',"
 							+ ""+dano+","+precision+","+pp+","+prioridad+",'"+estado_alterno+"','"+categoria+"',"
 							+ "'"+alcance+"', "+probabilidades[0]+", "+probabilidades[1]+","
 							+ ""+probabilidades[2]+",'"+estado_secunf+"','"+cambioStat+"',"+stats[0]+","
 							+ ""+stats[1]+", "+stats[2]+", "+stats[3]+","+stats[4]+")";
 					
-					Statement st = conn.createStatement();
+					
 					st.executeUpdate(sql);
 					
 			} catch (SQLException e) {
@@ -144,9 +145,11 @@ public class BaseDatosPoke {
 		//crearTabla();
 		try {
 			conn = DriverManager.getConnection(url);
-
-			//Main.basesDatosCargarMov();
-			//Main.basesDatosCargarPoke();
+			Statement st = conn.createStatement();
+			st.executeUpdate("delete from movimientos");
+			st.executeUpdate("delete from pokemons");
+			Main.basesDatosCargarMov();
+			Main.basesDatosCargarPoke();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
