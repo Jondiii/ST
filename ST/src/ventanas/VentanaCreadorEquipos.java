@@ -133,14 +133,28 @@ public class VentanaCreadorEquipos extends JFrame {
 			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 			Statement stmt  = conn.createStatement();
 //			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
+			
 			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='Serperior'");			
+//			System.out.println(rs.getInt(1));
 			//Coge los IDs de los movimientos de los pokémon
 			
 			for (int i = 1; i <=10; i++) {
-				listaIdMovs.add(rs.getInt(("mov" + i)));
+				listaIdMovs.add(rs.getInt("mov" + i));
 			}
+			
 			conn.close();
 			
+			//Esto tampoco funciona: 
+//			for (int i = 1; i <= 10; i++) {
+//				Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+//				Statement stmt  = conn.createStatement();
+//				ResultSet rs = stmt.executeQuery("select mov" + i + " from pokemons where name='" + nombrePoke + "'");
+//
+//					listaIdMovs.add(rs.getInt("mov" + i));
+//			
+//				conn.close();
+//			}
+		
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + ". Error al cargar los movimientos (posiblemente los de Abomasnow).");
 		}
