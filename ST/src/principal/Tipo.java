@@ -31,4 +31,9 @@ public enum Tipo {
 		return color;
 	}
 	
+	@Override
+	public String toString() {
+		return this.name();
+	}
+	
 };

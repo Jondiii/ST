@@ -7,7 +7,7 @@ public class Movimiento {
 	private String nombre;
 	private Tipo tipo;		//Cada movimiento pertenece a un único tipo.
 	private int potencia;	//Potencia del ataque.
-	private int precisión;	//Probabilidad de que el movimiento acierte.
+	private int precision;	//Probabilidad de que el movimiento acierte.
 	private int pp;			//Puntos de Poder. Número máximo de veces que se puede usar un movimiento.
 	private int ppRestantes;//Número de veces restante que se puede usar el movimiento.
 	private CategoriaMov cat;//Categoría a la que pertenece el movimiento.
@@ -30,12 +30,12 @@ public class Movimiento {
 	private boolean cambiaStatsAEnemigo = false; //Algunos movimientos cambian los stats del enemigos, otros los del usuario. Solo es true en el primer caso
 												 //Será true también en el caso de que el estado alterado se le cause al enemigo.
 	
-	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
+	public Movimiento(String nombre, Tipo tipo, int potencia, int precision, int pp, CategoriaMov cat,
 			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto) {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.potencia = potencia;
-		this.precisión = precisión;
+		this.precision = precision;
 		this.pp = pp;
 		this.ppRestantes = pp;
 		this.cat = cat;
@@ -53,12 +53,12 @@ public class Movimiento {
 	}
 	
 	//TODO TODO Hay que añadir las probabilidades de los estados, de bajar stats...
-	public Movimiento(String nombre, Tipo tipo, int potencia, int precisión, int pp, CategoriaMov cat,
+	public Movimiento(String nombre, Tipo tipo, int potencia, int precision, int pp, CategoriaMov cat,
 			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto, int probEfecto) {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.potencia = potencia;
-		this.precisión = precisión;
+		this.precision = precision;
 		this.pp = pp;
 		this.ppRestantes = pp;
 		this.cat = cat;
@@ -85,7 +85,7 @@ public class Movimiento {
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.potencia = potencia;
-		this.precisión = precisión;
+		this.precision = precisión;
 		this.pp = pp;
 		this.cat = cat;
 		this.prioridad = prioridad;
@@ -186,12 +186,12 @@ public class Movimiento {
 		this.potencia = potencia;
 	}
 
-	public int getPrecisión() {
-		return precisión;
+	public int getPrecision() {
+		return precision;
 	}
 
-	public void setPrecisión(int precisión) {
-		this.precisión = precisión;
+	public void setPrecision(int precisión) {
+		this.precision = precisión;
 	}
 
 	public int getPp() {

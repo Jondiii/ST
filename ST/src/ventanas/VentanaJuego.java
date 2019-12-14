@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -32,6 +33,7 @@ import principal.EstadosAlterados;
 import principal.Movimiento;
 import principal.MuestraInfoPoke;
 import principal.PanelConFondo;
+import principal.PanelMovimiento;
 import principal.Pokeball;
 import principal.Pokemon;
 import principal.Tipo;
@@ -58,6 +60,7 @@ public class VentanaJuego extends JFrame{
 	public JLabel estadoAlterado1 = new JLabel("");
 	public JLabel estadoAlterado2 = new JLabel("");
 	private MuestraInfoPoke info_poke;
+	private JFrame info_mov;
 
 	private VentanaJuego v;
 	
@@ -299,8 +302,7 @@ public class VentanaJuego extends JFrame{
 						if (comp instanceof JLabel) {
 							info_poke = new MuestraInfoPoke(ball);
 							info_poke.setSize(200, 200);
-							info_poke.setLocation(v.getLocation().x + 850, v.getLocation().y + 200
-									);
+							info_poke.setLocation(v.getLocation().x + 850, v.getLocation().y + 200);
 							info_poke.setVisible(true);
 						}
 					}
@@ -328,8 +330,6 @@ public class VentanaJuego extends JFrame{
 	private void crearPanelInferior() {
 		JPanel panelInferior = new JPanel(new BorderLayout());
 		panelInfo = new JPanel();
-		panelInfo.add(new JLabel("Prueba"));
-		panelInfo.removeAll();
 		panelInfo.setPreferredSize(new Dimension(850, 25));
 		JPanel panel_movimientos = new JPanel();
 		panel_movimientos.setLayout(new GridLayout(0, 2, 8, 0));
@@ -349,7 +349,7 @@ public class VentanaJuego extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if(c.isJ1_accion_hecha() || c.getpActivo().getEstado() == EstadosAlterados.DEBILITADO || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
-					//setEnabled(false); //NO PONERLO AQUÃ? PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
+					//setEnabled(false); //NO PONERLO AQUÍ PORQUE SE BLOQUEA TODA LA VENTANA Y NO SE PUEDE CERRAR. AYUDA.
 //					panel_j1.setEnabled(false);
 					for (Component boton : movimientos_P1.getComponents()) {
 //						((JButton)boton).setEnabled(false); 
@@ -362,6 +362,31 @@ public class VentanaJuego extends JFrame{
 				}
 
 			});
+			
+			l.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					Component comp = e.getComponent();
+					if (comp instanceof JButton) {
+						info_mov = new JFrame();
+						info_mov.add(new PanelMovimiento(m));
+						info_mov.setLocation(v.getLocation().x, v.getLocation().y + 500);
+						info_mov.setSize(300, 115);
+						info_mov.setVisible(true);
+					}
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					Component comp = e.getComponent();
+					if (comp instanceof JButton) {
+						info_mov.dispose();
+					}
+					
+				}
+			});
+			
 			movimientos_P1.add(l);
 		}
 		
@@ -373,7 +398,8 @@ public class VentanaJuego extends JFrame{
 		for (Movimiento m : c.getpEnemigo().getMovimientos_poke()) {
 			l_1 = new JButton(m.getNombre());
 			l_1.setName(m.getNombre());
-			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l_1.setForeground(Color.white);} //Cambia la letra a blanco
+			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA || m.getTipo() == Tipo.AGUA) 
+			{ l_1.setForeground(Color.white);} //Cambia la letra a blanco
 			l_1.setBackground(m.getTipo().getColor());
 			l_1.addActionListener(new ActionListener() {
 				@Override
@@ -391,6 +417,30 @@ public class VentanaJuego extends JFrame{
 
 					//esperar++;
 					cambiarEstados();	
+				}
+			});
+			
+			l_1.addMouseListener(new MouseAdapter() {
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					Component comp = e.getComponent();
+					if (comp instanceof JButton) {
+						info_mov = new JFrame();
+						info_mov.add(new PanelMovimiento(m));
+						info_mov.setLocation(v.getLocation().x + 500, v.getLocation().y + 500);
+						info_mov.setSize(300, 115);
+						info_mov.setVisible(true);
+					}
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					Component comp = e.getComponent();
+					if (comp instanceof JButton) {
+						info_mov.dispose();
+					}
+					
 				}
 			});
 			movimientos_P2.add(l_1);

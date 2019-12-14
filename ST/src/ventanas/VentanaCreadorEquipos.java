@@ -89,13 +89,12 @@ public class VentanaCreadorEquipos extends JFrame {
 		pCentro.add(pNombreMov, BorderLayout.NORTH);
 		pCentro.add(pMovs, BorderLayout.CENTER);
 		
-		System.out.println(comboPoke.getItemAt(0));
 		Movimiento[] arrayMovs = cargaMovs((String)comboPoke.getItemAt(0));
 		JComboBox<Movimiento> comboMovs = new JComboBox<Movimiento>(arrayMovs);
 
 		pNombreMov.add(comboMovs);
 
-		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getSelectedItem() + "_frente.png"));
+		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getItemAt(0) + "_frente.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
 		imgPoke.setIcon(icono_2);
 		pIzq.add(imgPoke, BorderLayout.CENTER);
@@ -135,9 +134,8 @@ public class VentanaCreadorEquipos extends JFrame {
 //			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
 			
 			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='Serperior'");			
-//			System.out.println(rs.getInt(1));
-			//Coge los IDs de los movimientos de los pokémon
 			
+			//Coge los IDs de los movimientos de los pokémon
 			for (int i = 1; i <=10; i++) {
 				listaIdMovs.add(rs.getInt("mov" + i));
 			}
@@ -219,15 +217,5 @@ public class VentanaCreadorEquipos extends JFrame {
 		pInferior.add(bCancelar, BorderLayout.EAST);
 		add(pInferior, BorderLayout.SOUTH);
 	}
-	
-	private static class PanelMovimiento extends JPanel {
-		
-		public PanelMovimiento(Movimiento mov) {
-			//COSAS A AÑADIR:
-			//Combo box arriba para elegir el movimiento y que salga también su tipo, clase, pot, prec y pp
-			//Pequeña descripción del efecto del movimiento abajo.
-			//Este panel tendrá que añadirse 4 veces por cada pokémon elegido.
-			//Hacer que el color del panel cambie en función del tipo de movimiento????
-		}
-	}
+
 }
