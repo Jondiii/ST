@@ -154,13 +154,6 @@ public class BaseDatosPoke {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		//Main.basesDatosCargarPoke();
 	}
-
-
-
-		
 	
 }

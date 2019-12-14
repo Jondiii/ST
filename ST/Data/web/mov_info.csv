@@ -99,7 +99,7 @@ Energibola;Elegido;0;Planta;Especial;90;100;10;null;null;0;0;0.1;false;0;0;0;0;0
 Bomba_lodo;Elegido;0;Veneno;Especial;90;100;10;Envenenado;null;0.3;0;0;true;0;0;0;0;0
 Maquinación;Elegido;0;Siniestro;Estado;null;null;20;null;null;0;0;1;false;0;0;2;0;0
 Golpe_aereo;Elegido;0;Volador;Fisico;60;null;20;null;null;0;0;0;false;0;0;0;0;0
-Recuperacion;Usuario;0;Normal;Estado;null;null;10;null;Curacion;0;0;0;false;0;0;0;0;0
+Recuperación;Usuario;0;Normal;Estado;null;null;10;null;Curacion;0;0;0;false;0;0;0;0;0
 A_bocajarro;Elegido;0;Lucha;Fisico;120;100;5;null;null;0;0;0;false;0;-1;0;-1;0
 Psicocorte;Elegido;0;Psiquico;Fisico;70;100;20;null;null;0;0;0;false;0;0;0;0;0
 Red_viscosa;Campo;0;Bicho;Estado;null;null;20;null;null;0;0;0;false;0;0;0;0;0
