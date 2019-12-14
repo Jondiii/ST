@@ -89,6 +89,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		pCentro.add(pNombreMov, BorderLayout.NORTH);
 		pCentro.add(pMovs, BorderLayout.CENTER);
 		
+		System.out.println(comboPoke.getItemAt(0));
 		Movimiento[] arrayMovs = cargaMovs((String)comboPoke.getItemAt(0));
 		JComboBox<Movimiento> comboMovs = new JComboBox<Movimiento>(arrayMovs);
 
@@ -113,6 +114,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		 }
 		
 		listaPokemons.remove("Aegislash-blade_frente.png");
+		listaPokemons.remove("Mimikyu-roto_frente.png");
 		String[] arrayPokemons = new String[listaPokemons.size()];
 			
 		for (int i = 0; i < listaPokemons.size(); i++) {
@@ -130,8 +132,8 @@ public class VentanaCreadorEquipos extends JFrame {
 		try {
 			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 			Statement stmt  = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
-//			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='Serperior'");			
+//			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
+			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='Serperior'");			
 			//Coge los IDs de los movimientos de los pokémon
 			
 			for (int i = 1; i <=10; i++) {
@@ -140,7 +142,7 @@ public class VentanaCreadorEquipos extends JFrame {
 			conn.close();
 			
 		} catch (SQLException e) {
-			System.out.println(e.getMessage() + ". Error al cargar los movimientos.");
+			System.out.println(e.getMessage() + ". Error al cargar los movimientos (posiblemente los de Abomasnow).");
 		}
 		
 		try {
