@@ -33,9 +33,12 @@ import java.util.Random;
  *   
  * - Confuso: el valor indica la probabilidad de que el pokémon se golpee a sí mismo en lugar de efectuar el movimiento seleccionado.
  *   Dura entre 1 y 4 turnos.
+ *   
+ *   -El null lo he tenido que meter para que no de error.
  */
 public enum EstadosAlterados {
-	ENVENENADO(1/16, 0), ENV_GRAVE(1/16, 0), QUEMADO(1/16, 0), PARALIZADO(1/4, 0), DORMIDO(1/3, 4), CONGELADO(1/4, 0), CONFUSO(1/3, 4), DEBILITADO(0, 0);
+	ENVENENADO(1/16, 0), ENV_GRAVE(1/16, 0), QUEMADO(1/16, 0), PARALIZADO(1/4, 0), DORMIDO(1/3, 4), CONGELADO(1/4, 0), CONFUSO(1/3, 4), DEBILITADO(0, 0), 
+	NULL(0, 0);
 	
 	private int turno;
 	private float valor;
