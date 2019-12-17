@@ -301,7 +301,18 @@ public class VentanaInicio extends JFrame {
 				JPanel pSprite = new JPanel();
 				pSprite.add(labelSprite);
 				
-				
+				entrenadores.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/entrenadores/" + entrenadores.getSelectedItem() + ".png"));
+						ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+						labelSprite.setIcon(icono_2);
+						pSprite.removeAll();
+						pSprite.add(labelSprite);
+						d.revalidate();
+					}
+				});
 				
 				JPanel panelOk = new JPanel();
 				JButton bConfirmar = new JButton("Registrarse");
