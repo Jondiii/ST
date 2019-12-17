@@ -8,12 +8,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
 import org.sqlite.SQLiteConfig;
 
 import main.Main;
+import principal.AlcanceMovimiento;
+import principal.CategoriaMov;
+import principal.EfectoSecundario;
+import principal.EstadosAlterados;
+import principal.Movimiento;
+import principal.Tipo;
 
 /**
  * Clase que crea la Base de Datos. En principio solo la usaremos una única vez,
@@ -139,7 +146,69 @@ public class BaseDatosPoke {
 			}
 		}
 	}
-
+	public static ArrayList<Movimiento> queryDB(String nombrepoke) throws SQLException {
+		ArrayList<Movimiento> movlist = new ArrayList<Movimiento>();
+		conn = DriverManager.getConnection(url);
+		Statement stmt = conn.createStatement();
+	    ResultSet rs = stmt.executeQuery("Select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9,mov10 from pokemons where name ='"+nombrepoke+"'" );
+	    while (rs.next()) {
+	    	movlist.add(getMov(rs.getInt("mov1")));
+	    	movlist.add(getMov(rs.getInt("mov2")));
+	    	movlist.add(getMov(rs.getInt("mov3")));
+	    	movlist.add(getMov(rs.getInt("mov4")));
+	    	movlist.add(getMov(rs.getInt("mov5")));
+	    	movlist.add(getMov(rs.getInt("mov6")));
+	    	movlist.add(getMov(rs.getInt("mov7")));
+	    	movlist.add(getMov(rs.getInt("mov8")));
+	    	movlist.add(getMov(rs.getInt("mov9")));
+	    	movlist.add(getMov(rs.getInt("mov10")));
+	    }
+	    return movlist;
+	}
+	public static Movimiento getMov(int id) throws SQLException {
+		Movimiento m = null;
+		Statement stmt_1 = conn.createStatement();
+		ResultSet rs = stmt_1.executeQuery("Select * from movimientos where id ="+id);
+	    while (rs.next()) { 
+	    	m = new Movimiento(rs.getString("name").replace("_", " "), Tipo.valueOf(rs.getString("tipo").toUpperCase()), rs.getInt("potencia"), rs.getInt("precision"),
+				rs.getInt("pp"), CategoriaMov.valueOf(rs.getString("categoria").toUpperCase()),  rs.getInt("prioridad"), AlcanceMovimiento.valueOf(rs.getString("alcance").toUpperCase()),
+				EstadosAlterados.valueOf(rs.getString("efecto").toUpperCase()), EfectoSecundario.valueOf(rs.getString("estadoSecundario").toUpperCase()),
+				rs.getInt("prEfecto"), rs.getInt("prStats"),rs.getInt("prEstado"), rs.getBoolean("cambioStatsARival"), rs.getInt("ataque"),
+				rs.getInt("defensa"), rs.getInt("ataqueEspecial"),rs.getInt("defensaEspecial"),rs.getInt("velocidad"));
+	    }
+	    
+		return m;
+	}
+		
+	
+	public static ArrayList<String> getPokemons() throws SQLException {
+		ArrayList<String> as = new ArrayList<String>();
+		conn = DriverManager.getConnection(url);
+		Statement stmt = conn.createStatement();
+	    ResultSet rs = stmt.executeQuery("Select name from pokemons");
+	    int i = 0;
+	    while (rs.next()) { 
+	    	if (i == 0) {
+	    		as.add("Abomasnow");
+	    		System.out.println("Abomasnow");
+	    	}else {
+	    	as.add(rs.getString("name"));
+	    	}
+	    	i++;
+	    }
+		return as;
+	}
+	public static String getNombreAbomasnow() throws SQLException {
+		conn = DriverManager.getConnection(url);
+		Statement stmt = conn.createStatement();
+	    ResultSet rs = stmt.executeQuery("Select * from pokemons");
+	    int i = 0;
+	    while (rs.next()) {
+	    	if (i==0)
+	    		return rs.getString("name");
+	    }
+		return null;
+	}
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		//crearTabla();
@@ -155,5 +224,7 @@ public class BaseDatosPoke {
 			e.printStackTrace();
 		}
 	}
+
+	
 	
 }

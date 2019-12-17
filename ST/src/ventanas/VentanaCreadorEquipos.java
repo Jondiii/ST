@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,6 +29,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import org.hamcrest.BaseDescription;
 
 import database.BaseDatosPoke;
 import principal.AlcanceMovimiento;
@@ -39,6 +43,7 @@ import principal.Tipo;
 public class VentanaCreadorEquipos extends JFrame {
 	
 	VentanaCreadorEquipos vc;
+	JComboBox<Movimiento> comboMovs;
 	
 	public VentanaCreadorEquipos() {
 		vc = this;
@@ -78,42 +83,63 @@ public class VentanaCreadorEquipos extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getSelectedItem() + "_frente.png"));
 				ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
 				imgPoke.removeAll();
 				imgPoke.setIcon(icono_2);
+				
+				Movimiento[] arrayMovs = null;
+				if (comboPoke.getSelectedItem().equals("Abomasnow")) {
+					try {
+						arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					arrayMovs = cargaMovs((String) comboPoke.getSelectedItem());
+				}
+				comboMovs.removeAllItems();
+				comboMovs.setModel(new DefaultComboBoxModel(arrayMovs));
+				
 				pEquipo.revalidate();
+				pNombreMov.revalidate();
+				
+				
 			}
 		});
 		
 		pCentro.add(pNombreMov, BorderLayout.NORTH);
 		pCentro.add(pMovs, BorderLayout.CENTER);
 		
-		Movimiento[] arrayMovs = cargaMovs((String)comboPoke.getItemAt(0));
-		JComboBox<Movimiento> comboMovs = new JComboBox<Movimiento>(arrayMovs);
-
+		Movimiento[] arrayMovs = null;
+		if (comboPoke.getItemAt(0).equals("Abomasnow")) {
+			try {
+				arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} else {
+			arrayMovs = cargaMovs((String)comboPoke.getItemAt(0));
+		}
+		comboMovs = new JComboBox<Movimiento>();
+		comboMovs.setModel(new DefaultComboBoxModel(arrayMovs));
 		pNombreMov.add(comboMovs);
-
-		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getItemAt(0) + "_frente.png"));
+		
+		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getItemAt(0)  + "_frente.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
 		imgPoke.setIcon(icono_2);
+	
 		pIzq.add(imgPoke, BorderLayout.CENTER);
 		
 	}
-	
 	public String[] cargarNombrePokes(){
 		ArrayList<String> listaPokemons = new ArrayList<String>();
-
-		File fInic = new File("src/img/");
-		 if (fInic.isDirectory()) {
-			 for( File f : fInic.listFiles() ) {
-				 	String nombreRuta = f.getName();
-				 	if(nombreRuta.contains("frente")) listaPokemons.add(nombreRuta);
-		 		}
-		 }
-		
-		listaPokemons.remove("Aegislash-blade_frente.png");
-		listaPokemons.remove("Mimikyu-roto_frente.png");
+		try {
+			listaPokemons = BaseDatosPoke.getPokemons();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		String[] arrayPokemons = new String[listaPokemons.size()];
 			
 		for (int i = 0; i < listaPokemons.size(); i++) {
@@ -122,67 +148,62 @@ public class VentanaCreadorEquipos extends JFrame {
 			}
 		return arrayPokemons;
 	}
-	
-	public Movimiento[] cargaMovs(String nombrePoke) {
+	public static Movimiento[] cargaMovs(String nombrePoke) {
 		ArrayList<Movimiento> listaMovs = new ArrayList<Movimiento>();
 		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();
-
-		
 		try {
-			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
-			Statement stmt  = conn.createStatement();
-//			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
-			
-			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='Serperior'");			
-			
-			//Coge los IDs de los movimientos de los pokémon
-			for (int i = 1; i <=10; i++) {
-				listaIdMovs.add(rs.getInt("mov" + i));
-			}
-			
-			conn.close();
-			
-			//Esto tampoco funciona: 
-//			for (int i = 1; i <= 10; i++) {
-//				Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
-//				Statement stmt  = conn.createStatement();
-//				ResultSet rs = stmt.executeQuery("select mov" + i + " from pokemons where name='" + nombrePoke + "'");
-//
-//					listaIdMovs.add(rs.getInt("mov" + i));
-//			
-//				conn.close();
-//			}
-		
+			listaMovs = BaseDatosPoke.queryDB(nombrePoke);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage() + ". Error al cargar los movimientos (posiblemente los de Abomasnow).");
+			e.printStackTrace();
 		}
-		
-		try {
-			Connection conn2 = DriverManager.getConnection(BaseDatosPoke.url);
-			Statement stmt2  = conn2.createStatement();
-			//Añade los movimientos a la lista.
-			for (int i = 0; i < 10; i++) {
-				ResultSet rs2 = stmt2.executeQuery("select * from movimientos where id=" + listaIdMovs.get(i));
-				listaMovs.add(new Movimiento(rs2.getString("name").replace("_", " "), Tipo.valueOf(rs2.getString("tipo").toUpperCase()), rs2.getInt("potencia"), rs2.getInt("precision"),
-						rs2.getInt("pp"), CategoriaMov.valueOf(rs2.getString("categoria").toUpperCase()),  rs2.getInt("prioridad"), AlcanceMovimiento.valueOf(rs2.getString("alcance").toUpperCase()),
-						EstadosAlterados.valueOf(rs2.getString("efecto").toUpperCase()), EfectoSecundario.valueOf(rs2.getString("estadoSecundario").toUpperCase()),
-						rs2.getInt("prEfecto"), rs2.getInt("prStats"),rs2.getInt("prEstado"), rs2.getBoolean("cambioStatsARival"), rs2.getInt("ataque"),
-						rs2.getInt("defensa"), rs2.getInt("ataqueEspecial"),rs2.getInt("defensaEspecial"),rs2.getInt("velocidad")));
-			}
-			
-			conn2.close();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage() + ". Error al crear los movimientos.");
-		}
-		
 		Movimiento[] arrayMovs = new Movimiento[listaMovs.size()];
-		
 		for (int i = 0; i < listaMovs.size(); i++) {
 			Movimiento nombreMov = listaMovs.get(i);
 			arrayMovs[i] = nombreMov;
 			}
 		return arrayMovs;
+//		try {
+//			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+//			Statement stmt = conn.createStatement();
+////			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
+//			
+//			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");	
+//			
+//			//Coge los IDs de los movimientos de los pokémon
+//			for (int i = 1; i <=10; i++) {
+//				listaIdMovs.add(rs.getInt("mov" + i));
+//			}
+//	
+//		
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage() + ". Error al cargar los movimientos (posiblemente los de Abomasnow).");
+//		}
+//		
+//		try {
+//			Connection conn2 = DriverManager.getConnection(BaseDatosPoke.url);
+//			Statement stmt2 = conn2.createStatement();
+//			//Añade los movimientos a la lista.
+//			for (int i = 0; i < 10; i++) {
+//				ResultSet rs2 = stmt2.executeQuery("select * from movimientos where id=" + listaIdMovs.get(i));
+//				listaMovs.add(new Movimiento(rs2.getString("name").replace("_", " "), Tipo.valueOf(rs2.getString("tipo").toUpperCase()), rs2.getInt("potencia"), rs2.getInt("precision"),
+//						rs2.getInt("pp"), CategoriaMov.valueOf(rs2.getString("categoria").toUpperCase()),  rs2.getInt("prioridad"), AlcanceMovimiento.valueOf(rs2.getString("alcance").toUpperCase()),
+//						EstadosAlterados.valueOf(rs2.getString("efecto").toUpperCase()), EfectoSecundario.valueOf(rs2.getString("estadoSecundario").toUpperCase()),
+//						rs2.getInt("prEfecto"), rs2.getInt("prStats"),rs2.getInt("prEstado"), rs2.getBoolean("cambioStatsARival"), rs2.getInt("ataque"),
+//						rs2.getInt("defensa"), rs2.getInt("ataqueEspecial"),rs2.getInt("defensaEspecial"),rs2.getInt("velocidad")));
+//			
+//			}
+//
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage() + ". Error al crear los movimientos.");
+//		}
+//		
+//		Movimiento[] arrayMovs = new Movimiento[listaMovs.size()];
+//		
+//		for (int i = 0; i < listaMovs.size(); i++) {
+//			Movimiento nombreMov = listaMovs.get(i);
+//			arrayMovs[i] = nombreMov;
+//			}
+//		return arrayMovs;
 	}
 	
 	private void creaPanelSup() {

@@ -131,11 +131,11 @@ public class VentanaSelecion extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				JDialog pCambioTrainer = new JDialog();
-				JPanel pOption = new JPanel();
+				JPanel pOption = new JPanel(new FlowLayout());
 				pOption.add(VentanaInicio.entrenadores);
 				pCambioTrainer.add(pOption, BorderLayout.CENTER);
-				pCambioTrainer.setLocation(vs.getLocation().x + 100, vs.getLocation().y + 40);
-				pCambioTrainer.setSize(200, 200);
+				pCambioTrainer.setLocation(vs.getLocation().x + 40, vs.getLocation().y + 40);
+				pCambioTrainer.setSize(300, 200);
 				JPanel pSprite = new JPanel();
 				JLabel labelSprite = new JLabel();
 				pSprite.add(labelSprite);

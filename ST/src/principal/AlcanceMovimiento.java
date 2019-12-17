@@ -1,7 +1,7 @@
 package principal;
 
 public enum AlcanceMovimiento {
-	USUARIO, ELEGIDO, OPONENTES, TODOS, EQUIPO, CAMPO, OPONENTE_AL_AZAR;
+	USUARIO, ELEGIDO, ENEMIGOS, TODOS, EQUIPO, CAMPO, OPONENTE_AL_AZAR;
 	/**
 	 * Usuario: alcanza a quien lo usa
 	 * Elegido: alcanza a un oponente
