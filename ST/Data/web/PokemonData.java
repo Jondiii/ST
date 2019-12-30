@@ -214,8 +214,8 @@ public class PokemonData {
 	public static void main(String[] args) throws IOException {
 		//getInfo_poke();
 		//getInfo_movi();
-		getInfo_movs_caracteristicas();
-		escribir_fichero();
+		//getInfo_movs_caracteristicas();
+		//escribir_fichero();
 		
 
 	}
