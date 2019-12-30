@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,17 +20,20 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Sheet; 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 
-import principal.Movimiento; 
+import principal.Movimiento;
 
 
 
 public class PokemonData {
 	private static String url ="https://pokemon.fandom.com/es/wiki/";
+	private static String [] data = new String [200];
 	private static String [] pokemons = {"Abomasnow", "Aegislash", "Aggron", "Aurorus", "Bewear",
 			"Blaziken", "Bronzong", "Chandelure", "Charizard", "Cloyster", "Dragonite", 
 			"Eelektross", "Espeon", "Floatzel", "Flygon", "Froslass", "Gallade", "Galvantula", 
@@ -45,7 +49,7 @@ public class PokemonData {
 			"Sombra_vil", "Cabeza_de_hierro", "Espada_santa",	"Escudo_real", "Bola_sombra",	"Golpe_aéreo",
 			"Giga_impacto",	"Foco_resplandor",	"Danza_espada",	"Tajo_umbrío",	"Defensa_férrea",
 			"Doble_filo",	"Cuerpo_pesado",	"Puño_Trueno",	"Tormenta_de_arena", "Enfado",
-			"Liofilización", "Onda_trueno",	"Descanso",	"Tóxico", "Trueno",	"Psíquico",	"Poder_pasado",
+			"Liofilización", "Onda_trueno",	"Descanso",	"Tóxico", "Trueno",	"Psíquico",
 			"Roca_afilada", "Ojitos_tiernos", "Azote", "Vendetta",	"Machada", 	"Garra_dragón",
 			"Garra_umbría", "Puño_fuego", "Envite_ígneo", "Patada_salto_alta", "Pájaro_osado",
 			"Gancho_alto",	"Puya_nociva",	"Avivar",	"Danza_lluvia",	"Hipnosis",	"Rayo_confuso",
@@ -165,9 +169,53 @@ public class PokemonData {
 		}
 		crearArchivo("mov_info", info_movimientos);
 	}
+	private static void getInfo_movs_caracteristicas() throws IOException{
+		int indice = 0; 
+		boolean concursos = true;
+		for (String s_1 : movimientos) {
+			URL con = webGetUrlMovi(indice);
+			Document doc = Jsoup.parse(con, 50000);
+					Elements e_2 = doc.select("dl");
+					Elements e_3 = e_2.select("dt");
+					if (e_3.eachText().get(0).equals("Gran concurso") || e_3.eachText().get(0).equals("Concurso") || e_3.eachText().get(0).equals("Súper concurso")) {
+						Element e_1 = doc.select("p").get(1);
+						System.out.println(s_1 + "," + e_1.text());
+						guardarLista(s_1 + "," + e_1.text(), indice);
+					} else {
+							Elements e_4 = e_2.select("dd");
+							guardarLista(s_1 + "," + e_4.text(), indice);
+							System.out.println(s_1 + "," + e_4.text());
+				
+					}
+			indice ++;
+		}
+		
+	}
+	private static void guardarLista(String string, int i) {
+		data[i] = string; 
+	}
+	private static void escribir_fichero() {
+		 try {
+			 	
+	        	FileWriter escritor = new FileWriter(new File("Data/web/caracteristica_mov.txt"));
+	        	BufferedWriter buferescr = new BufferedWriter(escritor);
+	        	
+	        	for (String s : data) {
+	        		buferescr.write(s);
+	        		buferescr.newLine();
+	        	}
+	        	buferescr.close();
+	        	escritor.close();
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } 
+	        }
 	public static void main(String[] args) throws IOException {
 		//getInfo_poke();
-		getInfo_movi();
+		//getInfo_movi();
+		getInfo_movs_caracteristicas();
+		escribir_fichero();
 		
 
 	}
