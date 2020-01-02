@@ -342,7 +342,8 @@ public class VentanaJuego extends JFrame{
 		for (Movimiento m :c.getpActivo().getMovimientos_poke()) {
 			l = new JButton(m.getNombre());
 			l.setName(m.getNombre());
-			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA) { l.setForeground(Color.white);} //Cambia la letra a blanco
+			if(m.getTipo() == Tipo.SINIESTRO  || m.getTipo() == Tipo.ROCA || m.getTipo() == Tipo.FANTASMA || m.getTipo() == Tipo.AGUA) {
+				l.setForeground(Color.white);} //Cambia la letra a blanco
 			l.setBackground(m.getTipo().getColor());
 			
 			l.addActionListener(new ActionListener() {

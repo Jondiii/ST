@@ -37,8 +37,8 @@ public class Main {
 	public static void creaEquiposPorDefecto() {
 		// Leer fichero CSV e insertar datos en la BDD
 		
-		Movimiento movi = new Movimiento("FUEGO", Tipo.FUEGO, 100, 100, 100, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, null, 0, null);
-		Movimiento movi2 = new Movimiento("PLANTA", Tipo.PLANTA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONGELADO, 20, null);
+		Movimiento movi = new Movimiento("Hoja afilada", Tipo.FUEGO, 100, 100, 100, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, null, 0, null);
+		Movimiento movi2 = new Movimiento("Beso drenaje", Tipo.PLANTA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONGELADO, 20, null);
 		Movimiento movi3 = new Movimiento("AGUA", Tipo.AGUA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, null, 0, null);
 		Movimiento movi4 = new Movimiento("ROCA", Tipo.ROCA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.ENVENENADO, 20, null);		
 		

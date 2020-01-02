@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -38,46 +39,68 @@ import principal.CategoriaMov;
 import principal.EfectoSecundario;
 import principal.EstadosAlterados;
 import principal.Movimiento;
+import principal.PanelMovimiento;
+import principal.Pokemon;
 import principal.Tipo;
 
 public class VentanaCreadorEquipos extends JFrame {
 	
 	VentanaCreadorEquipos vc;
-	JComboBox<Movimiento> comboMovs;
-	
+	JComboBox<Movimiento> comboMov1 = new JComboBox<Movimiento>();
+	JComboBox<Movimiento> comboMov2 = new JComboBox<Movimiento>();
+	JComboBox<Movimiento> comboMov3 = new JComboBox<Movimiento>();
+	JComboBox<Movimiento> comboMov4 = new JComboBox<Movimiento>();
+	PanelMovimiento p1;
+	PanelMovimiento p2;
+	PanelMovimiento p3;
+	PanelMovimiento p4;
+	JLabel psPoke = new JLabel();
+	JLabel ataquePoke = new JLabel();
+	JLabel defensaPoke = new JLabel();
+	JLabel ataqueEspecialPoke = new JLabel();
+	JLabel defensaEspecialPoke = new JLabel();
+	JLabel velocidadPoke = new JLabel();
+
+	HashMap<String, Pokemon> pokesEnEquipo = new HashMap<String, Pokemon>();
+
 	public VentanaCreadorEquipos() {
 		vc = this;
 		setTitle("Creador de equipos");
 		setLocation(200, 100);
-		setSize(1000, 1000);
+		setSize(700, 500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		//Se crean los componentes básicos de la ventana
 		creaPanelSup();
 		creaPanelInf();
-		creaPanelEquipo();
+		creaPanelPoke();
 		
 		setVisible(true);
 	}
 	
-	private void creaPanelEquipo() {
-		JPanel pEquipo = new JPanel(new GridLayout(6,1));
-		add(pEquipo, BorderLayout.CENTER);
-		
+	private void creaPanelPoke() {
+		JPanel pDescripcionMovs = new JPanel(new GridLayout(2,2));
+		JPanel pPrincipal = new JPanel();
 		JPanel pPoke = new JPanel();
+		pPoke.add(pPrincipal, BorderLayout.NORTH);
+		pPoke.add(pDescripcionMovs, BorderLayout.SOUTH);
+		add(pPoke, BorderLayout.CENTER);
+
 		JPanel pIzq = new JPanel();
 		JPanel pCentro = new JPanel();
-		JPanel pNombreMov = new JPanel();
-		JPanel pMovs = new JPanel();
+		JPanel pDer = new JPanel(new GridLayout(6,2));
+		JPanel pMovs = new JPanel(new GridLayout(4,1));
 		JLabel imgPoke = new JLabel();
 		
-		pPoke.add(pIzq, BorderLayout.WEST);
-		pPoke.add(pCentro, BorderLayout.CENTER);
-		pEquipo.add(pPoke);
-	
+		pPrincipal.add(pIzq, BorderLayout.WEST);
+		pPrincipal.add(pCentro, BorderLayout.CENTER);
+		pPrincipal.add(pDer, BorderLayout.EAST);
+
 		String[] arrayPokemons = cargarNombrePokes();
 		
 		JComboBox<String> comboPoke = new JComboBox<String>(arrayPokemons);
+		comboPoke.setEditable(true);
+		comboPoke.setSelectedItem("");
 		pIzq.add(comboPoke, BorderLayout.NORTH);
 		comboPoke.addActionListener(new ActionListener() {
 
@@ -99,40 +122,111 @@ public class VentanaCreadorEquipos extends JFrame {
 				} else {
 					arrayMovs = cargaMovs((String) comboPoke.getSelectedItem());
 				}
-				comboMovs.removeAllItems();
-				comboMovs.setModel(new DefaultComboBoxModel(arrayMovs));
 				
-				pEquipo.revalidate();
-				pNombreMov.revalidate();
+				actualizaCombos(arrayMovs);
+		
+				try {
+					Connection conn;
+					conn = DriverManager.getConnection(BaseDatosPoke.url);
+					Statement stmt = conn.createStatement();
+				    ResultSet rs = stmt.executeQuery("Select ps, ataque, defensa, ataqueEspecial, "
+				    		+ "defensaEspecial, velocidad from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
+				    psPoke.setText(rs.getInt("ps")+"");
+				    ataquePoke.setText(rs.getInt("ataque")+"");
+				    defensaPoke.setText(rs.getInt("defensa")+"");
+				    ataqueEspecialPoke.setText(rs.getInt("ataqueEspecial")+"");
+				    defensaEspecialPoke.setText(rs.getInt("defensaEspecial")+"");
+				    velocidadPoke.setText(rs.getInt("velocidad")+"");
+				    conn.close();
+				}catch(SQLException e2){
+					System.out.println(e2.getMessage());
+				}
 				
+				pPrincipal.revalidate();
 				
 			}
 		});
 		
-		pCentro.add(pNombreMov, BorderLayout.NORTH);
+		pCentro.add(new JLabel("Movimientos"), BorderLayout.NORTH);
+		pMovs.add(comboMov1);
+		pMovs.add(comboMov2);
+		pMovs.add(comboMov3);
+		pMovs.add(comboMov4);
 		pCentro.add(pMovs, BorderLayout.CENTER);
 		
-		Movimiento[] arrayMovs = null;
-		if (comboPoke.getItemAt(0).equals("Abomasnow")) {
-			try {
-				arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
-			} catch (SQLException e1) {
-				e1.printStackTrace();
+		comboMov1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				p1.setMov((Movimiento)comboMov1.getSelectedItem());
 			}
-		} else {
-			arrayMovs = cargaMovs((String)comboPoke.getItemAt(0));
-		}
-		comboMovs = new JComboBox<Movimiento>();
-		comboMovs.setModel(new DefaultComboBoxModel(arrayMovs));
-		pNombreMov.add(comboMovs);
+		});
 		
-		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getItemAt(0)  + "_frente.png"));
-		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
-		imgPoke.setIcon(icono_2);
-	
+		comboMov2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				p2.setMov((Movimiento)comboMov2.getSelectedItem());
+			}
+		});
+		
+		comboMov3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				p3.setMov((Movimiento)comboMov3.getSelectedItem());
+			}
+		});
+		
+		comboMov4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				p4.setMov((Movimiento)comboMov4.getSelectedItem());
+			}
+		});
+		
+
 		pIzq.add(imgPoke, BorderLayout.CENTER);
 		
+		pDer.add(new JLabel("PS"));
+		pDer.add(psPoke);
+		pDer.add(new JLabel("Ataque"));
+		pDer.add(ataquePoke);
+		pDer.add(new JLabel("Defensa"));
+		pDer.add(defensaPoke);
+		pDer.add(new JLabel("Ata. especial"));
+		pDer.add(ataqueEspecialPoke);
+		pDer.add(new JLabel("Def. especial  "));
+		pDer.add(defensaEspecialPoke);
+		pDer.add(new JLabel("Velocidad"));
+		pDer.add(velocidadPoke);
+		
+		creaPanelMovs(pDescripcionMovs);
+		
 	}
+	
+	public void actualizaCombos(Movimiento[] movs) {
+		comboMov1.removeAllItems();
+		comboMov2.removeAllItems();
+		comboMov3.removeAllItems();
+		comboMov4.removeAllItems();
+		
+		comboMov1.setModel(new DefaultComboBoxModel<Movimiento>(movs));
+		comboMov2.setModel(new DefaultComboBoxModel<Movimiento>(movs));
+		comboMov3.setModel(new DefaultComboBoxModel<Movimiento>(movs));
+		comboMov4.setModel(new DefaultComboBoxModel<Movimiento>(movs));
+	}
+	
+	public void creaPanelMovs(JPanel p) {
+		Movimiento movVacio = new Movimiento("Vacío", Tipo.FANTASMA, 0, 0, 0, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.CAMPO, EstadosAlterados.NULL, 0, EfectoSecundario.DEBILITACION);
+		p.add(p1 = new PanelMovimiento(movVacio));
+		p.add(p2 = new PanelMovimiento(movVacio));
+		p.add(p3 = new PanelMovimiento(movVacio));
+		p.add(p4 = new PanelMovimiento(movVacio));
+
+	}
+	
 	public String[] cargarNombrePokes(){
 		ArrayList<String> listaPokemons = new ArrayList<String>();
 		try {

@@ -7,19 +7,6 @@ public class Pokemon {
 	
 	//https://pokemondb.net/sprites
 	//https://play.pokemonshowdown.com/sprites/
-	/**
-	 * Vito y Lito
-	 * Candela
-	 * La superestrela de ROZA
-	 * Inverna
-	 * Fantina
-	 * Quinoa
-	 * Malta
-	 * Sémola
-	 * Anís y el de siniestro
-	 * Diantia
-	 * Tilo
-	 */
 	private String nombre;
 	private ArrayList<Tipo> tipos; //Crear array
 	private int peso;
