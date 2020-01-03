@@ -3,6 +3,7 @@ package principal;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,10 +24,10 @@ public class PanelMovimiento extends JPanel{
 		anadirDatos();
 		
 		setVisible(true);
-		
 	}
 	
 	public void anadirDatos() {
+		if (mov.getNombre().isEmpty()) return;
 		removeAll();
 		setBackground(mov.getTipo().getColor());
 		setLayout(new BorderLayout());
@@ -42,7 +43,7 @@ public class PanelMovimiento extends JPanel{
 		add(pDatos, BorderLayout.NORTH);
 		
 		JLabel descripcion = new JLabel(leeDescripcion(mov.getNombre()));
-		
+
 		add(descripcion, BorderLayout.SOUTH);
 		
 		if(mov.getTipo() == Tipo.SINIESTRO  || mov.getTipo() == Tipo.ROCA || mov.getTipo() == Tipo.FANTASMA || mov.getTipo() == Tipo.AGUA) {
@@ -51,6 +52,7 @@ public class PanelMovimiento extends JPanel{
 		}
 		
 		revalidate();
+		
 	}
 	public String leeDescripcion(String nombre) {
 		String linea;
@@ -64,7 +66,7 @@ public class PanelMovimiento extends JPanel{
 				 if (array[0].replace("_", " ").contentEquals(nombre)) return array[1];
 			 }
 			 
-			 return "desc no encontrada o está mal o algo";
+			 return "      ";
 			 
 		} catch (Exception e) {
 			return "blablablá";

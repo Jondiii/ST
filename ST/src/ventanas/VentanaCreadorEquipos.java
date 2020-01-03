@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -40,12 +43,14 @@ import principal.EfectoSecundario;
 import principal.EstadosAlterados;
 import principal.Movimiento;
 import principal.PanelMovimiento;
+import principal.Pokeball;
 import principal.Pokemon;
 import principal.Tipo;
 
 public class VentanaCreadorEquipos extends JFrame {
 	
 	VentanaCreadorEquipos vc;
+	JComboBox<String> comboPoke;
 	JComboBox<Movimiento> comboMov1 = new JComboBox<Movimiento>();
 	JComboBox<Movimiento> comboMov2 = new JComboBox<Movimiento>();
 	JComboBox<Movimiento> comboMov3 = new JComboBox<Movimiento>();
@@ -54,6 +59,17 @@ public class VentanaCreadorEquipos extends JFrame {
 	PanelMovimiento p2;
 	PanelMovimiento p3;
 	PanelMovimiento p4;
+	Pokeball pb1;
+	Pokeball pb2;
+	Pokeball pb3;
+	Pokeball pb4;
+	Pokeball pb5;
+	Pokeball pb6;
+	Pokeball[] listaPokeball = {pb1, pb2, pb3, pb4, pb5, pb6};
+	//Pokeball[] listaPokeball = new Pokeball[6];
+
+	int pokeballSeleccionada = 1;
+
 	JLabel psPoke = new JLabel();
 	JLabel ataquePoke = new JLabel();
 	JLabel defensaPoke = new JLabel();
@@ -72,11 +88,14 @@ public class VentanaCreadorEquipos extends JFrame {
 		
 		//Se crean los componentes básicos de la ventana
 		creaPanelSup();
+		creaPanelEquipo();
 		creaPanelInf();
 		creaPanelPoke();
 		
 		setVisible(true);
 	}
+	
+
 	
 	private void creaPanelPoke() {
 		JPanel pDescripcionMovs = new JPanel(new GridLayout(2,2));
@@ -98,7 +117,7 @@ public class VentanaCreadorEquipos extends JFrame {
 
 		String[] arrayPokemons = cargarNombrePokes();
 		
-		JComboBox<String> comboPoke = new JComboBox<String>(arrayPokemons);
+		comboPoke = new JComboBox<String>(arrayPokemons);
 		comboPoke.setEditable(true);
 		comboPoke.setSelectedItem("");
 		pIzq.add(comboPoke, BorderLayout.NORTH);
@@ -211,7 +230,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		comboMov2.removeAllItems();
 		comboMov3.removeAllItems();
 		comboMov4.removeAllItems();
-		
+		//Se puede meter aquí lo de que se cambien las combo boxes cuando se selecciona un pokemon ya creado.
 		comboMov1.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov2.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov3.setModel(new DefaultComboBoxModel<Movimiento>(movs));
@@ -219,7 +238,7 @@ public class VentanaCreadorEquipos extends JFrame {
 	}
 	
 	public void creaPanelMovs(JPanel p) {
-		Movimiento movVacio = new Movimiento("Vacío", Tipo.FANTASMA, 0, 0, 0, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.CAMPO, EstadosAlterados.NULL, 0, EfectoSecundario.DEBILITACION);
+		Movimiento movVacio = new Movimiento("", Tipo.FANTASMA, 0, 0, 0, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.CAMPO, EstadosAlterados.NULL, 0, EfectoSecundario.DEBILITACION);
 		p.add(p1 = new PanelMovimiento(movVacio));
 		p.add(p2 = new PanelMovimiento(movVacio));
 		p.add(p3 = new PanelMovimiento(movVacio));
@@ -256,48 +275,7 @@ public class VentanaCreadorEquipos extends JFrame {
 			arrayMovs[i] = nombreMov;
 			}
 		return arrayMovs;
-//		try {
-//			Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
-//			Statement stmt = conn.createStatement();
-////			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");
-//			
-//			ResultSet rs = stmt.executeQuery("select mov1, mov2, mov3, mov4, mov5, mov6, mov7, mov8, mov9, mov10 from pokemons where name='" + nombrePoke + "'");	
-//			
-//			//Coge los IDs de los movimientos de los pokémon
-//			for (int i = 1; i <=10; i++) {
-//				listaIdMovs.add(rs.getInt("mov" + i));
-//			}
-//	
-//		
-//		} catch (SQLException e) {
-//			System.out.println(e.getMessage() + ". Error al cargar los movimientos (posiblemente los de Abomasnow).");
-//		}
-//		
-//		try {
-//			Connection conn2 = DriverManager.getConnection(BaseDatosPoke.url);
-//			Statement stmt2 = conn2.createStatement();
-//			//Añade los movimientos a la lista.
-//			for (int i = 0; i < 10; i++) {
-//				ResultSet rs2 = stmt2.executeQuery("select * from movimientos where id=" + listaIdMovs.get(i));
-//				listaMovs.add(new Movimiento(rs2.getString("name").replace("_", " "), Tipo.valueOf(rs2.getString("tipo").toUpperCase()), rs2.getInt("potencia"), rs2.getInt("precision"),
-//						rs2.getInt("pp"), CategoriaMov.valueOf(rs2.getString("categoria").toUpperCase()),  rs2.getInt("prioridad"), AlcanceMovimiento.valueOf(rs2.getString("alcance").toUpperCase()),
-//						EstadosAlterados.valueOf(rs2.getString("efecto").toUpperCase()), EfectoSecundario.valueOf(rs2.getString("estadoSecundario").toUpperCase()),
-//						rs2.getInt("prEfecto"), rs2.getInt("prStats"),rs2.getInt("prEstado"), rs2.getBoolean("cambioStatsARival"), rs2.getInt("ataque"),
-//						rs2.getInt("defensa"), rs2.getInt("ataqueEspecial"),rs2.getInt("defensaEspecial"),rs2.getInt("velocidad")));
-//			
-//			}
-//
-//		} catch (SQLException e) {
-//			System.out.println(e.getMessage() + ". Error al crear los movimientos.");
-//		}
-//		
-//		Movimiento[] arrayMovs = new Movimiento[listaMovs.size()];
-//		
-//		for (int i = 0; i < listaMovs.size(); i++) {
-//			Movimiento nombreMov = listaMovs.get(i);
-//			arrayMovs[i] = nombreMov;
-//			}
-//		return arrayMovs;
+
 	}
 	
 	private void creaPanelSup() {
@@ -325,12 +303,104 @@ public class VentanaCreadorEquipos extends JFrame {
 	}
 	
 	private void creaPanelInf() {
-		JButton bGuardar = new JButton("Guardar y salir");
-		JButton bCancelar = new JButton("Cancelar");
+		JButton bGuardarPoke = new JButton("Guardar Pokémon");
+		JButton bGuardarEquipo = new JButton("Guardar equipo");
+		JButton bSalir = new JButton("Salir");
 		JPanel pInferior = new JPanel();
-		pInferior.add(bGuardar, BorderLayout.WEST);
-		pInferior.add(bCancelar, BorderLayout.EAST);
+		pInferior.add(bGuardarEquipo, BorderLayout.WEST);
+		pInferior.add(bGuardarPoke, BorderLayout.CENTER);
+		pInferior.add(bSalir, BorderLayout.EAST);
 		add(pInferior, BorderLayout.SOUTH);
+		
+		bGuardarPoke.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String[] datosPoke = {(String)comboPoke.getSelectedItem(), comboMov1.getSelectedItem().toString(), 
+						comboMov2.getSelectedItem().toString(), comboMov3.getSelectedItem().toString(), comboMov4.getSelectedItem().toString()};
+				System.out.println(listaPokeball[0]);
+				listaPokeball[pokeballSeleccionada-1].setDatosPoke(datosPoke); //Pone que la ball no existe
+			}
+		});
+	}
+	
+	private void creaPanelEquipo() {
+		JPanel pPokeballs = new JPanel(new GridLayout(6,1));
+		ImageIcon icono = new ImageIcon(getClass().getResource("/img/pokeball.png"));
+		ImageIcon iconoPokeball = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
+		
+		String[] datosVacios = {"", "", "", "", "", ""};
+
+		pb1 = new Pokeball(iconoPokeball, datosVacios);
+		pb2 = new Pokeball(iconoPokeball, datosVacios);
+		pb3 = new Pokeball(iconoPokeball, datosVacios);
+		pb4 = new Pokeball(iconoPokeball, datosVacios);
+		pb5 = new Pokeball(iconoPokeball, datosVacios);
+		pb6 = new Pokeball(iconoPokeball, datosVacios);
+
+		addPokeballListeners();
+		
+		pPokeballs.add(pb1);
+		pPokeballs.add(pb2);
+		pPokeballs.add(pb3);
+		pPokeballs.add(pb4);
+		pPokeballs.add(pb5);
+		pPokeballs.add(pb6);
+		
+		add(pPokeballs, BorderLayout.EAST);
+
+	}
+	
+	private void addPokeballListeners() {
+		pb1.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 1) return;
+				pokeballSeleccionada = 1;
+				
+				if(pb1.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb1.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb1.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb1.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb1.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb1.getDatosPoke()[4]);
+
+				}
+			}
+		});
+		
+		pb2.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 2) return;
+				pokeballSeleccionada = 2;
+				
+				if(pb1.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb2.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb3.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb4.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb5.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb6.getDatosPoke()[4]);
+
+				}
+			}
+		});
 	}
 
 }
