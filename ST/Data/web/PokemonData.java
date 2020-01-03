@@ -3,7 +3,9 @@ package web;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +22,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook; 
 import org.apache.poi.ss.usermodel.Sheet; 
 import org.apache.poi.ss.usermodel.Workbook;
+import org.ietf.jgss.Oid;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -211,12 +214,41 @@ public class PokemonData {
 	            e.printStackTrace();
 	        } 
 	        }
+	
+	private static void leer_fichero() {
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Data/web/caracteristica_mov.txt"));
+			
+			String st; 
+			  try {
+				while ((st = br.readLine()) != null) {
+					String[] partes = st.split( "\\." );
+					String stringFinal = partes[0];
+					stringFinal = stringFinal + ".";	
+						
+				    System.out.println(stringFinal);
+				    }
+			} catch (IOException e) {
+				e.printStackTrace();
+			} 
+			  try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	public static void main(String[] args) throws IOException {
 		//getInfo_poke();
 		//getInfo_movi();
 		//getInfo_movs_caracteristicas();
 		//escribir_fichero();
-		
+		//leer_fichero();
 
 	}
 
