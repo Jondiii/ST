@@ -27,6 +27,7 @@ public class PanelMovimiento extends JPanel{
 	}
 	
 	public void anadirDatos() {
+		if (mov == null) return;
 		if (mov.getNombre().isEmpty()) return;
 		removeAll();
 		setBackground(mov.getTipo().getColor());
