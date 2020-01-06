@@ -22,12 +22,7 @@ public class Cliente {
 	            oos= new ObjectOutputStream(clientSocket.getOutputStream());
 	            while (conectado) {
 	            	Object o = ois.readObject();
-	            	if (o instanceof VentanaJuego) {
-	            		((VentanaJuego) o).setVisible(true);
-	            	}
-	            	else if (o instanceof VentanaSelecion ) {
-	            		((VentanaSelecion) o).setVisible(true);
-	            	}
+	            	
 	            }
 	    }
 	    public static void sendObject (Object o) throws IOException {
