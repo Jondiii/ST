@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,6 +32,7 @@ import javax.swing.JPanel;
 import database.BaseDatosPoke;
 import main.Main;
 import principal.Combate;
+import socket.Cliente;
 
 
 public class VentanaSelecion extends JFrame {
@@ -43,13 +45,14 @@ public class VentanaSelecion extends JFrame {
 		setLocation(600, 100);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
-		
+        
 		panelUsuario();
 		panelEscoger();
 		panelInferior();
 		panelVacio();
 		this.c = c;
 		vs = this;
+		
 	}
 	private void panelVacio() {
 		JPanel panel_izq = new JPanel();
@@ -99,7 +102,12 @@ public class VentanaSelecion extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Cliente c1 = new Cliente();
+		        try {
+					c1.startConnection("192.168.1.18", 5000);
+				} catch (ClassNotFoundException | IOException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		clasif.addActionListener(new ActionListener() {

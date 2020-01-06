@@ -373,11 +373,12 @@ public class VentanaInicio extends JFrame {
 						            VentanaInicio.u = u;
 						            d.dispose();
 						            dispose();
-						            VentanaSelecion vs = new VentanaSelecion(c);
+						            VentanaSelecion vs = new VentanaSelecion(c);						            
 						            vs.setVisible(true);
 						        } catch (SQLException e1) {
 						            System.out.println(e1.getMessage());
-						        }
+						        
+								}
 						}
 					}
 				});
