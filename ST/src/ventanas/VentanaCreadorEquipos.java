@@ -65,7 +65,7 @@ public class VentanaCreadorEquipos extends JFrame {
 	Pokeball pb4;
 	Pokeball pb5;
 	Pokeball pb6;
-	Pokeball[] listaPokeball = {pb1, pb2, pb3, pb4, pb5, pb6};
+	Pokeball[] listaPokeball = new Pokeball[6];
 	//Pokeball[] listaPokeball = new Pokeball[6];
 
 	int pokeballSeleccionada = 1;
@@ -125,43 +125,45 @@ public class VentanaCreadorEquipos extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getSelectedItem() + "_frente.png"));
-				ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
-				imgPoke.removeAll();
-				imgPoke.setIcon(icono_2);
-				
-				Movimiento[] arrayMovs = null;
-				if (comboPoke.getSelectedItem().equals("Abomasnow")) {
-					try {
-						arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
-					} catch (SQLException e1) {
-						e1.printStackTrace();
-					}
-				} else {
-					arrayMovs = cargaMovs((String) comboPoke.getSelectedItem());
-				}
-				
-				actualizaCombos(arrayMovs);
-		
 				try {
-					Connection conn;
-					conn = DriverManager.getConnection(BaseDatosPoke.url);
-					Statement stmt = conn.createStatement();
-				    ResultSet rs = stmt.executeQuery("Select ps, ataque, defensa, ataqueEspecial, "
-				    		+ "defensaEspecial, velocidad from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
-				    psPoke.setText(rs.getInt("ps")+"");
-				    ataquePoke.setText(rs.getInt("ataque")+"");
-				    defensaPoke.setText(rs.getInt("defensa")+"");
-				    ataqueEspecialPoke.setText(rs.getInt("ataqueEspecial")+"");
-				    defensaEspecialPoke.setText(rs.getInt("defensaEspecial")+"");
-				    velocidadPoke.setText(rs.getInt("velocidad")+"");
-				    conn.close();
-				}catch(SQLException e2){
-					System.out.println(e2.getMessage());
-				}
-				
-				pPrincipal.revalidate();
+					ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + comboPoke.getSelectedItem() + "_frente.png"));
+					ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+					imgPoke.removeAll();
+					imgPoke.setIcon(icono_2);
+					
+					Movimiento[] arrayMovs = null;
+					
+					if (comboPoke.getSelectedItem().equals("Abomasnow")) {
+						try {
+							arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					} else {
+						arrayMovs = cargaMovs((String) comboPoke.getSelectedItem());
+					}
+					
+					actualizaCombos(arrayMovs);
+			
+					try {
+						Connection conn;
+						conn = DriverManager.getConnection(BaseDatosPoke.url);
+						Statement stmt = conn.createStatement();
+					    ResultSet rs = stmt.executeQuery("Select ps, ataque, defensa, ataqueEspecial, "
+					    		+ "defensaEspecial, velocidad from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
+					    psPoke.setText(rs.getInt("ps")+"");
+					    ataquePoke.setText(rs.getInt("ataque")+"");
+					    defensaPoke.setText(rs.getInt("defensa")+"");
+					    ataqueEspecialPoke.setText(rs.getInt("ataqueEspecial")+"");
+					    defensaEspecialPoke.setText(rs.getInt("defensaEspecial")+"");
+					    velocidadPoke.setText(rs.getInt("velocidad")+"");
+					    conn.close();
+					}catch(SQLException e2){
+						System.out.println(e2.getMessage());
+					}
+					
+					pPrincipal.revalidate();
+				} catch (NullPointerException exception) {	}
 				
 			}
 		});
@@ -318,7 +320,7 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String[] datosPoke = {(String)comboPoke.getSelectedItem(), comboMov1.getSelectedItem().toString(), 
 						comboMov2.getSelectedItem().toString(), comboMov3.getSelectedItem().toString(), comboMov4.getSelectedItem().toString()};
-				System.out.println(listaPokeball[0]);
+				System.out.println(listaPokeball[0]); //print
 				listaPokeball[pokeballSeleccionada-1].setDatosPoke(datosPoke); //Pone que la ball no existe
 			}
 		});
@@ -331,13 +333,13 @@ public class VentanaCreadorEquipos extends JFrame {
 		
 		String[] datosVacios = {"", "", "", "", "", ""};
 
-		pb1 = new Pokeball(iconoPokeball, datosVacios);
-		pb2 = new Pokeball(iconoPokeball, datosVacios);
-		pb3 = new Pokeball(iconoPokeball, datosVacios);
-		pb4 = new Pokeball(iconoPokeball, datosVacios);
-		pb5 = new Pokeball(iconoPokeball, datosVacios);
-		pb6 = new Pokeball(iconoPokeball, datosVacios);
-
+		listaPokeball[0] = (pb1 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[1] = (pb2 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[2] = (pb3 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[3] = (pb4 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[4] = (pb5 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[5] = (pb6 = new Pokeball(iconoPokeball, datosVacios));
+		
 		addPokeballListeners();
 		
 		pPokeballs.add(pb1);
