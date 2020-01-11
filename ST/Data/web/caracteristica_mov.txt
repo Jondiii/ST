@@ -30,7 +30,7 @@ Descanso,Descanso hace que el usuario se duerma y recupere la totalidad de los P
 Tóxico,Tóxico provoca un grave envenenamiento que se agrava con el paso de los turnos.
 Trueno,Trueno causa daño y tiene una probabilidad del 10% de paralizar al objetivo. Si hace lluvia acierta siempre.
 Psíquico,Psíquico causa daño y tiene una probabilidad del 30% de bajar en un nivel el especial del objetivo.
-Roca_afilada,Roca afilada causa daño y tiene una alta probabilidad de dar un golpe crítico (12,5%).
+Roca_afilada,Roca afilada causa daño.
 Ojitos_tiernos,Ojitos tiernos disminuye el ataque del objetivo en un nivel y tiene prioridad +1.
 Azote,Azote causa más daño cuanta menos vida tenga el usuario.
 Vendetta,Vendetta causa daño. Si el usuario ha recibido un golpe ese turno la potencia se duplica.
