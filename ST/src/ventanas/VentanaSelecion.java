@@ -104,7 +104,7 @@ public class VentanaSelecion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente c1 = new Cliente();
 		        try {
-					c1.startConnection("192.168.1.105", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
+					c1.startConnection("192.168.43.198", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
 				} catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();
 				}
