@@ -36,7 +36,6 @@ public class Servidor {
                     conexones.get(conexones.size() - 1).start();
                 }
                 ssockect.close();
-
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
