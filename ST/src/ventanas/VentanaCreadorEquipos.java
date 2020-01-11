@@ -95,8 +95,6 @@ public class VentanaCreadorEquipos extends JFrame {
 		setVisible(true);
 	}
 	
-
-	
 	private void creaPanelPoke() {
 		JPanel pDescripcionMovs = new JPanel(new GridLayout(2,2));
 		JPanel pPrincipal = new JPanel();
@@ -263,9 +261,10 @@ public class VentanaCreadorEquipos extends JFrame {
 			}
 		return arrayPokemons;
 	}
+	
 	public static Movimiento[] cargaMovs(String nombrePoke) {
 		ArrayList<Movimiento> listaMovs = new ArrayList<Movimiento>();
-		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();
+		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();//No sé qué es esto.
 		try {
 			listaMovs = BaseDatosPoke.queryDB(nombrePoke);
 		} catch (SQLException e) {
@@ -301,7 +300,6 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void focusGained(FocusEvent e) {	} //No hacemos nada con esto
 		});
 		
-		
 	}
 	
 	private void creaPanelInf() {
@@ -320,7 +318,6 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String[] datosPoke = {(String)comboPoke.getSelectedItem(), comboMov1.getSelectedItem().toString(), 
 						comboMov2.getSelectedItem().toString(), comboMov3.getSelectedItem().toString(), comboMov4.getSelectedItem().toString()};
-				System.out.println(listaPokeball[0]); //print
 				listaPokeball[pokeballSeleccionada-1].setDatosPoke(datosPoke); //Pone que la ball no existe
 			}
 		});
@@ -353,7 +350,7 @@ public class VentanaCreadorEquipos extends JFrame {
 
 	}
 	
-	private void addPokeballListeners() {
+	private void addPokeballListeners() { //FALTA: Guardar los datos en cada pokeball. Añadir listener al botón de salir. Quitar la imagen del poke al cambiar de pokemon
 		pb1.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -395,14 +392,114 @@ public class VentanaCreadorEquipos extends JFrame {
 
 				} else {
 					comboPoke.setSelectedItem(pb2.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb3.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb4.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb5.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb6.getDatosPoke()[4]);
+					comboMov1.setSelectedItem(pb2.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb2.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb2.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb2.getDatosPoke()[4]);
 
 				}
 			}
 		});
+		
+		pb3.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 3) return;
+				pokeballSeleccionada = 3;
+				
+				if(pb3.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb3.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb3.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb3.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb3.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb3.getDatosPoke()[4]);
+
+				}
+			}
+		});	
+		
+		pb4.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 4) return;
+				pokeballSeleccionada = 4;
+				
+				if(pb4.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb4.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb4.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb4.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb4.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb4.getDatosPoke()[4]);
+
+				}
+			}
+		});	
+		
+		pb5.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 5) return;
+				pokeballSeleccionada = 5;
+				
+				if(pb5.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb5.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb5.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb5.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb5.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb5.getDatosPoke()[4]);
+
+				}
+			}
+		});	
+		
+		pb6.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (pokeballSeleccionada == 6) return;
+				pokeballSeleccionada = 6;
+				
+				if(pb1.getDatosPoke()[0].isEmpty()) {
+					comboPoke.setSelectedIndex(-1);
+					comboMov1.setSelectedIndex(-1);
+					comboMov2.setSelectedIndex(-1);
+					comboMov3.setSelectedIndex(-1);
+					comboMov4.setSelectedIndex(-1);
+
+				} else {
+					comboPoke.setSelectedItem(pb6.getDatosPoke()[0]);
+					comboMov1.setSelectedItem(pb6.getDatosPoke()[1]);
+					comboMov2.setSelectedItem(pb6.getDatosPoke()[2]);
+					comboMov3.setSelectedItem(pb6.getDatosPoke()[3]);
+					comboMov4.setSelectedItem(pb6.getDatosPoke()[4]);
+
+				}
+			}
+		});	
 	}
 
 }
