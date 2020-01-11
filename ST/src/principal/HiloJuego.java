@@ -161,14 +161,25 @@ public class HiloJuego implements Runnable {
 				c.setJ2_inmune(true);
 			}
 			actualizar_daño_individual(primero, segundo, prim_mov);
-			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
-			}else {
+			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) { //Si está debilitado no puede atacar
+			}else { 
 				if (seg_mov != null) 
 					actualizar_daño_individual(segundo, primero, seg_mov);
 			}
+			if (primero.getEstado() != EstadosAlterados.DEBILITADO) {
+				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(primero);
+				if (primero == c.getpActivo())	actualizar_progress_bar_1a1(primero, v.getVida_1(), dañoEstado);
+				if (primero == c.getpEnemigo()) actualizar_progress_bar_1a1(primero, v.getVida_2(), dañoEstado);
+			}
+			if (segundo.getEstado() != EstadosAlterados.DEBILITADO) {
+				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(segundo);
+				if (segundo == c.getpActivo())	actualizar_progress_bar_1a1(segundo, v.getVida_1(), dañoEstado);
+				if (segundo == c.getpEnemigo()) actualizar_progress_bar_1a1(segundo, v.getVida_2(), dañoEstado);
+			}
+			
 			
 		}
-	
+		
 			
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
@@ -309,7 +320,7 @@ public class HiloJuego implements Runnable {
 			if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor, mov));
 		}
 		else {
-			if (atacante.getEstado() == EstadosAlterados.CONFUSO ) { 
+			if (atacante.getEstado() == EstadosAlterados.CONFUSO ) {
 				int dañoConfus =  ((int)( Combate.calculaDaño( atacante, atacante, mov))/3);
 				v.cambiaPanelInfo(atacante.getNombre() + " está confuso y se ha herido a sí mismo.");
 				if (atacante == c.getpActivo())	actualizar_progress_bar_1a1(atacante, v.getVida_1(), dañoConfus);
