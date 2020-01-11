@@ -42,6 +42,7 @@ public class VentanaClasif extends JFrame{
 	private void crearPanel_inf() {
 		panel_inf = new JPanel(new BorderLayout());
 		JPanel central = new JPanel(new FlowLayout());
+		JPanel jtable_inf = new JPanel();
 		JLabel label = new JLabel("Intoduce el nombre el jugador que desea buscar:");
 		JTextField texto = new JTextField(15);
 		JPanel panel_boton = new JPanel();
@@ -51,12 +52,7 @@ public class VentanaClasif extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (sp_1 != null) {
-					central.remove(sp_1);
-				}if (error != null) {
-					central.remove(error);
-				}
-				central.revalidate();
+				jtable_inf.removeAll();
 				try (
 					Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 					Statement stmt  = conn.createStatement();
@@ -75,12 +71,12 @@ public class VentanaClasif extends JFrame{
 			        	}
 			        	JTable t_1 = new JTable(dato, encabezado);
 						sp_1 = new JScrollPane(t_1); 
-						central.add(sp_1);
-						central.revalidate();
+						jtable_inf.add(sp_1);
+						jtable_inf.revalidate();
 					}else {
 						error = new JLabel("No se ha podido encontrar a este usuario");
-					    central.add(error);
-					    central.revalidate();
+						jtable_inf.add(error);
+						jtable_inf.revalidate();
 					}
 					
 					
@@ -100,6 +96,7 @@ public class VentanaClasif extends JFrame{
 		});
 		central.add(label);
 		central.add(texto);
+		central.add(jtable_inf);
 		
 		panel_boton.add(aceptar);
 		panel_boton.add(volver);

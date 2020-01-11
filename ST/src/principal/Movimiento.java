@@ -29,7 +29,12 @@ public class Movimiento {
 	private Integer[] cambiosEstadisticas = new Integer[5];
 	private boolean cambiaStatsAEnemigo = false; //Algunos movimientos cambian los stats del enemigos, otros los del usuario. Solo es true en el primer caso
 												 //Será true también en el caso de que el estado alterado se le cause al enemigo.
-	
+	public Movimiento(String nombre, Tipo tipo, int potencia, CategoriaMov cat) {
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.potencia = potencia;
+		this.cat = cat;
+	}
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precision, int pp, CategoriaMov cat,
 			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto) {
 		this.nombre = nombre;

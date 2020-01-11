@@ -23,10 +23,8 @@ public class Servidor {
         @Override
         public void run() {
             ServerSocket ssockect;
-
             try {
                 ssockect = new ServerSocket(5000);
-
                 boolean loop = true;
                 while(loop) {
                     System.out.println("Esperando conexiones");

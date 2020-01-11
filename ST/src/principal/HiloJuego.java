@@ -161,14 +161,25 @@ public class HiloJuego implements Runnable {
 				c.setJ2_inmune(true);
 			}
 			actualizar_daño_individual(primero, segundo, prim_mov);
-			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
-			}else {
+			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) { //Si está debilitado no puede atacar
+			}else { 
 				if (seg_mov != null) 
 					actualizar_daño_individual(segundo, primero, seg_mov);
 			}
+			if (primero.getEstado() != EstadosAlterados.DEBILITADO) {
+				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(primero);
+				if (primero == c.getpActivo())	actualizar_progress_bar_1a1(primero, v.getVida_1(), dañoEstado);
+				if (primero == c.getpEnemigo()) actualizar_progress_bar_1a1(primero, v.getVida_2(), dañoEstado);
+			}
+			if (segundo.getEstado() != EstadosAlterados.DEBILITADO) {
+				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(segundo);
+				if (segundo == c.getpActivo())	actualizar_progress_bar_1a1(segundo, v.getVida_1(), dañoEstado);
+				if (segundo == c.getpEnemigo()) actualizar_progress_bar_1a1(segundo, v.getVida_2(), dañoEstado);
+			}
+			
 			
 		}
-	
+		
 			
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
@@ -294,149 +305,34 @@ public class HiloJuego implements Runnable {
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
 	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
-		//int psPoke = defensor.getPs();
-		int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
-		v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
-		actualizarEstadoAlterno(defensor, mov);
-		
-		//for (int i = psPoke; i > psPokeDam; i--) {
-		if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1(), psPokeDam);
-		if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2(), psPokeDam);
-//		if (autopsia(c.getpActivo())) {
-//				VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-//				v.cambiaPanelInfo("¡" + defensor.getNombre() +  " se ha debilitado!");
-//					try {
-//						Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
-//						todosMuertos();
-//						
-//					} catch (Exception e) {
-//					}
-//				}
-//			//}
-//		try {
-//			Thread.sleep(10);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		
-		if (mov.isCambiaStatsAEnemigo() == false) {
-			atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante, mov));
-			//TODO faltaría añadir un mensaje indicando los cambios, y también que se indiquen los cambios en la pantalla de info de los pokes.
+		if (EstadosAlterados.calcularProbAtacar(atacante)) {
+			int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
+			v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
+			actualizarEstadoAlterno(defensor, mov);
+			
+			if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1(), psPokeDam);
+			if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2(), psPokeDam);
+
+			if (mov.isCambiaStatsAEnemigo() == false) {
+				atacante.setCambiosEstadisticas( c.calculaCambiosStats(atacante, mov));
+				//TODO faltaría añadir un mensaje indicando los cambios, y también que se indiquen los cambios en la pantalla de info de los pokes.
+			}
+			if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor, mov));
 		}
-		if (mov.isCambiaStatsAEnemigo() == true) atacante.setCambiosEstadisticas( c.calculaCambiosStats(defensor, mov));
+		else {
+			if (atacante.getEstado() == EstadosAlterados.CONFUSO ) {
+				int dañoConfus =  ((int)( Combate.calculaDaño( atacante, atacante, mov))/3);
+				v.cambiaPanelInfo(atacante.getNombre() + " está confuso y se ha herido a sí mismo.");
+				if (atacante == c.getpActivo())	actualizar_progress_bar_1a1(atacante, v.getVida_1(), dañoConfus);
+				if (atacante == c.getpEnemigo()) actualizar_progress_bar_1a1(atacante, v.getVida_2(), dañoConfus);
+				
+			}
+		}
+		
 	}
 	
 	
-	//estaba mal la actualizacion del progress bar no se podia saber cual era el 1 o el 2
-	// es decir a cual sumarle el dañoo, asi que se actualiza al final ambos (DE MOMENTO)
-//	private void actualizar_daño() {
-//		
-//			int psPoke = segundo.getPs();
-//			int psPokeDam = ( (int)(segundo.getPs() - Combate.calculaDaño( primero, segundo, prim_mov)));
-//			v.cambiaPanelInfo(primero.getNombre() + " ha usado " + prim_mov.getNombre() + ".");
-//			actualizarEstadoAlterno(segundo, prim_mov);
-//			
-//			for (int i = psPoke; i > psPokeDam; i--) {
-//				if (segundo == c.getpActivo()) {
-//					actualizar_progress_bar_1a1(c.getpActivo(),v.getVida_1() );
-//					if (autopsia(c.getpActivo())) {
-//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-//						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
-//						try {
-//							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitación del pokémon.
-//							todosMuertos();
-//							
-//						} catch (Exception e) {
-//						}
-//						return;
-//					}
-////					segundo.setPs(segundo.getPs() - 1);
-////					v.getVida_1().setValue(segundo.calcuPsPorcentaje());
-////					System.out.println(segundo.getPs());
-////					if (segundo.getPs() < segundo.getPs_max() / 2) {
-////						v.getVida_1().setForeground(Color.YELLOW);
-////						if (segundo.getPs() < segundo.getPs_max() / 4) {
-////							v.getVida_1().setForeground(Color.RED);
-////						}
-////					}	
-//				}else {
-//					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-//					if (autopsia(c.getpEnemigo())) {
-//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-//						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
-//						try {
-//							Thread.sleep(600); //Sleep para que de tiempo a leerse el mensaje de debilitaciÃ³n del pokÃ©mon.
-//							todosMuertos();
-//						} catch (Exception e) {
-//						}
-//						return;
-//					}
-////				segundo.setPs(segundo.getPs() - 1);
-////				v.getVida_2().setValue(segundo.calcuPsPorcentaje());
-////				System.out.println(segundo.getPs());
-////				if (segundo.getPs() < segundo.getPs_max() / 2) {
-////					v.getVida_2().setForeground(Color.YELLOW);
-////					if (segundo.getPs() < segundo.getPs_max() / 4) {
-////						v.getVida_2().setForeground(Color.RED);
-////					}
-////				}	
-//				}
-//				try {
-//					Thread.sleep(10);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}	
-//			
-//			if (seg_mov == null) return;
-////			if (segundo.getPs() <= 0) { VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO; return;}
-//			
-//			int psPoke2 = primero.getPs();
-//			int psPoke2Dam = ( (int)(primero.getPs() - Combate.calculaDaño( segundo, primero, seg_mov)));
-//			v.cambiaPanelInfo(segundo.getNombre() + " ha usado " + seg_mov.getNombre() + ".");
-//			actualizarEstadoAlterno(primero, seg_mov);
-//
-//			for (int i = psPoke2; i > psPoke2Dam; i--) {
-//				if (primero == c.getpActivo()) {
-//					actualizar_progress_bar_1a1(c.getpActivo(), v.getVida_1());
-//					if (autopsia(c.getpActivo())) {
-//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-//						v.cambiaPanelInfo("¡" + c.getpActivo().getNombre() +  " se ha debilitado!");
-//						return;
-//					}
-////					primero.setPs(primero.getPs() - 1);
-////					v.getVida_1().setValue(primero.calcuPsPorcentaje());
-////					if (primero.getPs() < primero.getPs_max() / 2) {
-////						v.getVida_1().setForeground(Color.YELLOW);
-////						if (primero.getPs() < primero.getPs_max() / 4) {
-////							v.getVida_1().setForeground(Color.RED);
-////						}
-////					}
-//				}else {
-//					actualizar_progress_bar_1a1(c.getpEnemigo(), v.getVida_2());
-//					if (autopsia(c.getpEnemigo())) {
-//						VentanaJuego.estado = EstadosJuego.POKE_DEBILITADO;
-//						v.cambiaPanelInfo("¡" + c.getpEnemigo().getNombre() +  " se ha debilitado!");
-//						return;
-//					}
-////					primero.setPs(primero.getPs() - 1);
-////					v.getVida_2().setValue(primero.calcuPsPorcentaje());
-////					if (primero.getPs() < primero.getPs_max() / 2) {
-////						v.getVida_2().setForeground(Color.YELLOW);
-////						if (primero.getPs() < primero.getPs_max() / 4) {
-////							v.getVida_2().setForeground(Color.RED);
-////						}
-////					}
-//				}	
-//				try {
-//					Thread.sleep(10);
-//				} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			
-//		}	
-//			
-//	}
+
 	
 	private void todosMuertos() {
 		boolean vivoA = false;
@@ -482,4 +378,7 @@ public class HiloJuego implements Runnable {
 		if (!running) return;
 		running = false;
 	}
+	
+	
+	
 }

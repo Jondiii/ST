@@ -61,19 +61,22 @@ public enum EstadosAlterados {
 		int dañoPoke = 0;
 		switch (poke.getEstado()) {
 			case ENVENENADO:
-				
+				dañoPoke = (int)(poke.getPs_max()*ENVENENADO.getValor());
+				if (poke.getEstado().getTurno() == 1) {
+					int def_esp_baj = poke.getCambiosEstadisticas()[3] - 2;
+					Integer[] estadisticas = {poke.getCambiosEstadisticas()[0], poke.getCambiosEstadisticas()[1], 
+					poke.getCambiosEstadisticas()[2], def_esp_baj,  poke.getCambiosEstadisticas()[4]};
+					poke.setCambiosEstadisticas(estadisticas);
+				}
 				break;
 			case QUEMADO:
 				dañoPoke = (int)(poke.getPs_max()*QUEMADO.getValor());
 				if (poke.getEstado().getTurno() == 1) {
 					int ataque_disminuido = poke.getCambiosEstadisticas()[0] - 2;
 					Integer[] estadisticas = {ataque_disminuido, poke.getCambiosEstadisticas()[1], 
-					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4], 
-					poke.getCambiosEstadisticas()[5]};
+					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4]};
 					poke.setCambiosEstadisticas(estadisticas);
 				}
-				break;
-			case ENV_GRAVE:
 				break;
 			default:
 				break;
@@ -88,19 +91,20 @@ public enum EstadosAlterados {
 				int intAleatorio = r.nextInt(101);
 				if (intAleatorio<=25) { atacar = false;}
 				if (poke.getEstado().getTurno() == 1) {
-					int vel_disminuida = poke.getCambiosEstadisticas()[5] - 2;
+					int vel_disminuida = poke.getCambiosEstadisticas()[4] - 2;
 					Integer[] estadisticas = {poke.getCambiosEstadisticas()[0], poke.getCambiosEstadisticas()[1], 
-					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],  poke.getCambiosEstadisticas()[4], 
+					poke.getCambiosEstadisticas()[2],  poke.getCambiosEstadisticas()[3],   
 					vel_disminuida};
 					poke.setCambiosEstadisticas(estadisticas);
 				}
 				break;
 			case CONGELADO:
 				int intAleatorio_1 = r.nextInt(101);
-				if (intAleatorio_1<=75) { atacar = false;}//prob de que siga congelado
+				if (intAleatorio_1<=80) { atacar = false;}//prob de que siga congelado
 			case DORMIDO:
 				int intAleatorio_2 = r.nextInt(101);
-				if (intAleatorio_2<=75) { atacar = false;}// prob del que el pokemon siga dormido
+				if (intAleatorio_2<=60) { atacar = false;}// prob del que el pokemon siga dormido
+				
 			case CONFUSO:
 				int intAleatorio_3 = r.nextInt(101);
 				if (intAleatorio_3<=33) { atacar = false;}// habria que calcular el daño lo unico que eso 
