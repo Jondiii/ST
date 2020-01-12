@@ -243,7 +243,13 @@ public class HiloJuego implements Runnable {
 		if (m.getProb_efecto() >= intAletorio) {
 			if (comprobarInmunidadEstado(m.getEstadoAlt(), oponente)) {return;}
 			oponente.setEstado(m.getEstadoAlt());
-			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );}
+			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );
+			ImageIcon icono = new ImageIcon(getClass().getResource("/img/estados/"+ oponente.getEstado().toString() + ".png"));
+			if (oponente == c.getpActivo())	{v.getEstadoAlterado1().setIcon(icono); v.revalidate();}
+			if (oponente == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(icono); v.revalidate();}
+			}
+		
+		
 	}
 	
 	
@@ -305,7 +311,7 @@ public class HiloJuego implements Runnable {
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
 	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
-		if (EstadosAlterados.calcularProbAtacar(atacante)) {
+		if (EstadosAlterados.calcularProbAtacar(atacante, v, c)) {
 			int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
 			v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 			actualizarEstadoAlterno(defensor, mov);

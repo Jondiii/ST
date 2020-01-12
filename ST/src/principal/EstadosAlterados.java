@@ -2,6 +2,8 @@ package principal;
 
 import java.util.Random;
 
+import ventanas.VentanaJuego;
+
 /**
  * Un pokémon podrá sufrir uno de los siguientes estados alterados. Si un pokemon ya sufre un cambio de estado, 
  * este no podrá ser cambiado por otro, salvo en circunstancias especiales.
@@ -83,7 +85,7 @@ public enum EstadosAlterados {
 		}
 		return dañoPoke;	
 	}
-	public static boolean calcularProbAtacar(Pokemon poke) {
+	public static boolean calcularProbAtacar(Pokemon poke, VentanaJuego v, Combate c) {
 		boolean atacar = true;
 		Random r = new Random();
 		switch (poke.getEstado()) {
@@ -100,15 +102,31 @@ public enum EstadosAlterados {
 				break;
 			case CONGELADO:
 				int intAleatorio_1 = r.nextInt(101);
-				if (intAleatorio_1<=80) { atacar = false;}//prob de que siga congelado
+				if (intAleatorio_1 <= 80) { atacar = false;}//prob de que siga congelado
+				if (intAleatorio_1 > 80) {
+					poke.setEstado(EstadosAlterados.NULL);
+					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
+					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
+				}
+				break;
 			case DORMIDO:
 				int intAleatorio_2 = r.nextInt(101);
 				if (intAleatorio_2<=60) { atacar = false;}// prob del que el pokemon siga dormido
-				
+				if (intAleatorio_2 > 60) {
+					poke.setEstado(EstadosAlterados.NULL);
+					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
+					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
+				}
+				break;
 			case CONFUSO:
 				int intAleatorio_3 = r.nextInt(101);
-				if (intAleatorio_3<=33) { atacar = false;}// habria que calcular el daño lo unico que eso 
-				//igual en el hilo de juego
+				if (intAleatorio_3<=33) { atacar = false;}
+				if (intAleatorio_3 > 33) {
+					poke.setEstado(EstadosAlterados.NULL);
+					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
+					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
+				}
+				break;
 			default:
 				break;
 		}
