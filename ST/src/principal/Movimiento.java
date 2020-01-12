@@ -114,6 +114,7 @@ public class Movimiento {
 	public String toString() {
 		return this.nombre;
 	}
+	
 	public AlcanceMovimiento getAlcance() {
 		return alcance;
 	}
@@ -139,8 +140,6 @@ public class Movimiento {
 		this.estadoAlt = estadoAlt;
 	}
 
-
-
 	public void setEfecto(EfectoSecundario efecto) {
 		this.efecto_secundario = efecto;
 	}
@@ -148,8 +147,6 @@ public class Movimiento {
 	public EfectoSecundario getEfecto() {
 		return efecto_secundario;
 	}
-
-
 
 	public void setCambiosEstadisticas(Integer[] cambiosEstadisticas) {
 		this.cambiosEstadisticas = cambiosEstadisticas;
@@ -168,8 +165,6 @@ public class Movimiento {
 	public void setCambiaStatsAEnemigo(boolean cambiaStatsAEnemigo) {
 		this.cambiaStatsAEnemigo = cambiaStatsAEnemigo;
 	}
-
-
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -232,6 +227,13 @@ public class Movimiento {
 
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		//if (this == null || obj == null) return false; TODO Si quito esto da Null Pointer en el setSelectedIndex(-1);
+		if (this.nombre == ((Movimiento)obj).getNombre()) return true;
+		else return false;
 	}
 
 }

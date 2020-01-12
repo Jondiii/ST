@@ -76,6 +76,10 @@ public class VentanaCreadorEquipos extends JFrame {
 	JLabel ataqueEspecialPoke = new JLabel();
 	JLabel defensaEspecialPoke = new JLabel();
 	JLabel velocidadPoke = new JLabel();
+	int alturaPoke = 0;
+	int pesoPoke = 0;
+	Tipo t1 = Tipo.NULL;
+	Tipo t2 = Tipo.NULL;
 
 	HashMap<String, Pokemon> pokesEnEquipo = new HashMap<String, Pokemon>();
 
@@ -119,6 +123,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		comboPoke.setEditable(true);
 		comboPoke.setSelectedItem("");
 		pIzq.add(comboPoke, BorderLayout.NORTH);
+		
 		comboPoke.addActionListener(new ActionListener() {
 
 			@Override
@@ -148,13 +153,17 @@ public class VentanaCreadorEquipos extends JFrame {
 						conn = DriverManager.getConnection(BaseDatosPoke.url);
 						Statement stmt = conn.createStatement();
 					    ResultSet rs = stmt.executeQuery("Select ps, ataque, defensa, ataqueEspecial, "
-					    		+ "defensaEspecial, velocidad from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
+					    		+ "defensaEspecial, velocidad, altura, peso, tipo1, tipo2 from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
 					    psPoke.setText(rs.getInt("ps")+"");
 					    ataquePoke.setText(rs.getInt("ataque")+"");
 					    defensaPoke.setText(rs.getInt("defensa")+"");
 					    ataqueEspecialPoke.setText(rs.getInt("ataqueEspecial")+"");
 					    defensaEspecialPoke.setText(rs.getInt("defensaEspecial")+"");
 					    velocidadPoke.setText(rs.getInt("velocidad")+"");
+					    alturaPoke = rs.getInt("altura");
+					    pesoPoke = rs.getInt("peso");
+					    t1 =Tipo.valueOf(rs.getString("tipo1").toUpperCase()); //TODO Falta que salgan los tipos de los pokes, no sé dónde ponerlos.
+					    t2 =Tipo.valueOf(rs.getString("tipo2").toUpperCase());
 					    conn.close();
 					}catch(SQLException e2){
 						System.out.println(e2.getMessage());
@@ -230,7 +239,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		comboMov2.removeAllItems();
 		comboMov3.removeAllItems();
 		comboMov4.removeAllItems();
-		//Se puede meter aquí lo de que se cambien las combo boxes cuando se selecciona un pokemon ya creado.
+
 		comboMov1.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov2.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov3.setModel(new DefaultComboBoxModel<Movimiento>(movs));
@@ -264,7 +273,6 @@ public class VentanaCreadorEquipos extends JFrame {
 	
 	public static Movimiento[] cargaMovs(String nombrePoke) {
 		ArrayList<Movimiento> listaMovs = new ArrayList<Movimiento>();
-		ArrayList<Integer> listaIdMovs = new ArrayList<Integer>();//No sé qué es esto.
 		try {
 			listaMovs = BaseDatosPoke.queryDB(nombrePoke);
 		} catch (SQLException e) {
@@ -276,7 +284,6 @@ public class VentanaCreadorEquipos extends JFrame {
 			arrayMovs[i] = nombreMov;
 			}
 		return arrayMovs;
-
 	}
 	
 	private void creaPanelSup() {
@@ -316,9 +323,33 @@ public class VentanaCreadorEquipos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String[] datosPoke = {(String)comboPoke.getSelectedItem(), comboMov1.getSelectedItem().toString(), 
-						comboMov2.getSelectedItem().toString(), comboMov3.getSelectedItem().toString(), comboMov4.getSelectedItem().toString()};
-				listaPokeball[pokeballSeleccionada-1].setDatosPoke(datosPoke); //Pone que la ball no existe
+				
+				ArrayList<Movimiento> movimientos_poke = new ArrayList<Movimiento>();
+				
+				movimientos_poke.add((Movimiento)comboMov1.getSelectedItem());
+				movimientos_poke.add((Movimiento)comboMov2.getSelectedItem());
+				movimientos_poke.add((Movimiento)comboMov3.getSelectedItem());
+				movimientos_poke.add((Movimiento)comboMov4.getSelectedItem());
+						
+				Pokemon pokeAdd = new Pokemon((String)comboPoke.getSelectedItem(), pesoPoke, alturaPoke, "lol", Integer.parseInt(psPoke.getText()), 
+						Integer.parseInt(ataquePoke.getText()), Integer.parseInt(ataqueEspecialPoke.getText()), Integer.parseInt(defensaPoke.getText()), 
+						Integer.parseInt(defensaEspecialPoke.getText()), Integer.parseInt(velocidadPoke.getText()), 50, movimientos_poke, t1, t2);
+				
+				if (pokeballSeleccionada == 1) pb1.setPoke(pokeAdd);
+				if (pokeballSeleccionada == 2) pb2.setPoke(pokeAdd);
+				if (pokeballSeleccionada == 3) pb3.setPoke(pokeAdd);
+				if (pokeballSeleccionada == 4) pb4.setPoke(pokeAdd);
+				if (pokeballSeleccionada == 5) pb5.setPoke(pokeAdd);
+				if (pokeballSeleccionada == 6) pb6.setPoke(pokeAdd);
+
+			}
+		});
+		
+		bGuardarEquipo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				boolean bien = comprobarEquipoCorrecto();
 			}
 		});
 	}
@@ -328,14 +359,12 @@ public class VentanaCreadorEquipos extends JFrame {
 		ImageIcon icono = new ImageIcon(getClass().getResource("/img/pokeball.png"));
 		ImageIcon iconoPokeball = new ImageIcon(icono.getImage().getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 		
-		String[] datosVacios = {"", "", "", "", "", ""};
-
-		listaPokeball[0] = (pb1 = new Pokeball(iconoPokeball, datosVacios));
-		listaPokeball[1] = (pb2 = new Pokeball(iconoPokeball, datosVacios));
-		listaPokeball[2] = (pb3 = new Pokeball(iconoPokeball, datosVacios));
-		listaPokeball[3] = (pb4 = new Pokeball(iconoPokeball, datosVacios));
-		listaPokeball[4] = (pb5 = new Pokeball(iconoPokeball, datosVacios));
-		listaPokeball[5] = (pb6 = new Pokeball(iconoPokeball, datosVacios));
+		listaPokeball[0] = (pb1 = new Pokeball(iconoPokeball));
+		listaPokeball[1] = (pb2 = new Pokeball(iconoPokeball));
+		listaPokeball[2] = (pb3 = new Pokeball(iconoPokeball));
+		listaPokeball[3] = (pb4 = new Pokeball(iconoPokeball));
+		listaPokeball[4] = (pb5 = new Pokeball(iconoPokeball));
+		listaPokeball[5] = (pb6 = new Pokeball(iconoPokeball));
 		
 		addPokeballListeners();
 		
@@ -347,7 +376,6 @@ public class VentanaCreadorEquipos extends JFrame {
 		pPokeballs.add(pb6);
 		
 		add(pPokeballs, BorderLayout.EAST);
-
 	}
 	
 	private void addPokeballListeners() { //FALTA: Guardar los datos en cada pokeball. Añadir listener al botón de salir. Quitar la imagen del poke al cambiar de pokemon
@@ -357,21 +385,21 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 1) return;
 				pokeballSeleccionada = 1;
-				
-				if(pb1.getDatosPoke()[0].isEmpty()) {
+
+				if(pb1.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
 					comboMov3.setSelectedIndex(-1);
 					comboMov4.setSelectedIndex(-1);
-
 				} else {
-					comboPoke.setSelectedItem(pb1.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb1.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb1.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb1.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb1.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb1.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(3));
+					t1 = pb1.getPoke().getTipos().get(0);
+					t2 = pb1.getPoke().getTipos().get(1);
 				}
 			}
 		});
@@ -383,20 +411,20 @@ public class VentanaCreadorEquipos extends JFrame {
 				if (pokeballSeleccionada == 2) return;
 				pokeballSeleccionada = 2;
 				
-				if(pb1.getDatosPoke()[0].isEmpty()) {
+				if(pb2.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
 					comboMov3.setSelectedIndex(-1);
 					comboMov4.setSelectedIndex(-1);
-
 				} else {
-					comboPoke.setSelectedItem(pb2.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb2.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb2.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb2.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb2.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb2.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(3));
+					t1 = pb2.getPoke().getTipos().get(0);
+					t2 = pb2.getPoke().getTipos().get(1);
 				}
 			}
 		});
@@ -408,7 +436,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				if (pokeballSeleccionada == 3) return;
 				pokeballSeleccionada = 3;
 				
-				if(pb3.getDatosPoke()[0].isEmpty()) {
+				if(pb3.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
@@ -416,12 +444,13 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
-					comboPoke.setSelectedItem(pb3.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb3.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb3.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb3.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb3.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb3.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(3));
+					t1 = pb3.getPoke().getTipos().get(0);
+					t2 = pb3.getPoke().getTipos().get(1);
 				}
 			}
 		});	
@@ -433,7 +462,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				if (pokeballSeleccionada == 4) return;
 				pokeballSeleccionada = 4;
 				
-				if(pb4.getDatosPoke()[0].isEmpty()) {
+				if(pb4.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
@@ -441,12 +470,13 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
-					comboPoke.setSelectedItem(pb4.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb4.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb4.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb4.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb4.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb4.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(3));
+					t1 = pb4.getPoke().getTipos().get(0);
+					t2 = pb4.getPoke().getTipos().get(1);
 				}
 			}
 		});	
@@ -458,7 +488,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				if (pokeballSeleccionada == 5) return;
 				pokeballSeleccionada = 5;
 				
-				if(pb5.getDatosPoke()[0].isEmpty()) {
+				if(pb5.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
@@ -466,12 +496,13 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
-					comboPoke.setSelectedItem(pb5.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb5.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb5.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb5.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb5.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb5.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(3));
+					t1 = pb5.getPoke().getTipos().get(0);
+					t2 = pb5.getPoke().getTipos().get(1);
 				}
 			}
 		});	
@@ -483,7 +514,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				if (pokeballSeleccionada == 6) return;
 				pokeballSeleccionada = 6;
 				
-				if(pb1.getDatosPoke()[0].isEmpty()) {
+				if(pb6.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
 					comboMov2.setSelectedIndex(-1);
@@ -491,15 +522,20 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
-					comboPoke.setSelectedItem(pb6.getDatosPoke()[0]);
-					comboMov1.setSelectedItem(pb6.getDatosPoke()[1]);
-					comboMov2.setSelectedItem(pb6.getDatosPoke()[2]);
-					comboMov3.setSelectedItem(pb6.getDatosPoke()[3]);
-					comboMov4.setSelectedItem(pb6.getDatosPoke()[4]);
-
+					comboPoke.setSelectedItem(pb6.getPoke().getNombre());
+					comboMov1.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(0));
+					comboMov2.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(1));
+					comboMov3.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(2));
+					comboMov4.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(3));
+					t1 = pb5.getPoke().getTipos().get(0);
+					t2 = pb5.getPoke().getTipos().get(1);
 				}
 			}
 		});	
+	}
+	
+	private boolean comprobarEquipoCorrecto() {
+		return false; //TODO
 	}
 
 }

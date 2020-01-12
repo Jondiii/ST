@@ -6,9 +6,12 @@ import javax.swing.JLabel;
 
 public class Pokeball extends JLabel {
 	
-	public Pokemon poke;
+	public Pokemon poke = null;
 	public boolean pokemonOculto = false;
-	public String[] datosPoke;
+	public Movimiento[] movsPoke;
+	public String nombre;
+	
+	
 	public Pokeball(Icon img, Pokemon p){
 		super(img);
 		this.poke = p;
@@ -18,9 +21,9 @@ public class Pokeball extends JLabel {
 		super(img);
 	}
 	
-	public Pokeball(Icon img, String[] datos) {
+	public Pokeball(Icon img, Movimiento[] datos) {
 		super(img);
-		datosPoke = datos;
+		movsPoke = datos;
 	}
 	
 	public void mostrarPoke() {
@@ -31,7 +34,7 @@ public class Pokeball extends JLabel {
 			ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + poke.getNombre() + "_sprite.png" ));
 			icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(40, 30, java.awt.Image.SCALE_DEFAULT));
 		} catch (Exception e) {
-			ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + datosPoke[0] + "_sprite.png" ));
+			ImageIcon icono_p = new ImageIcon(getClass().getResource("/img/" + movsPoke[0] + "_sprite.png" ));
 			icono_p_1 = new ImageIcon(icono_p.getImage().getScaledInstance(40, 30, java.awt.Image.SCALE_DEFAULT));
 			}
 
@@ -39,14 +42,6 @@ public class Pokeball extends JLabel {
 		pokemonOculto = true;
 	}
 	
-	public void setDatosPoke(String[] datos) {
-		datosPoke = datos;
-	}
-
-	public String[] getDatosPoke() {
-		return datosPoke;
-	}
-
 	public Pokemon getPoke() {
 		return poke;
 	}
@@ -58,6 +53,22 @@ public class Pokeball extends JLabel {
 	}
 	public void setPokemonOculto(boolean pokemonOculto) {
 		this.pokemonOculto = pokemonOculto;
+	}
+
+	public Movimiento[] getMovsPoke() {
+		return movsPoke;
+	}
+
+	public void setMovsPoke(Movimiento[] movsPoke) {
+		this.movsPoke = movsPoke;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }
