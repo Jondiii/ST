@@ -218,7 +218,6 @@ public class VentanaCreadorEquipos extends JFrame {
 		
 
 		pIzq.add(imgPoke, BorderLayout.CENTER);
-		
 		pDer.add(new JLabel("PS"));
 		pDer.add(psPoke);
 		pDer.add(new JLabel("Ataque"));
