@@ -55,7 +55,7 @@ public class HiloJuego implements Runnable {
 			v.getPoke_1().setIcon(icono_2);
 			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_accion_hecha()) {
-
+				
 				VentanaJuego.estado = EstadosJuego.ESPERANDO;
 				c.setJ1_accion_hecha(false);
 				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
@@ -87,15 +87,24 @@ public class HiloJuego implements Runnable {
 				prim_mov = c.getMovEnemigo();
 				segundo = c.getpActivo();
 				seg_mov = null;
+				actualizar_est(c.getpActivo(), c.getpActivo().getEstado());
+				actualizar_est(c.getpEnemigo(), c.getpEnemigo().getEstado());
+				
 			} else { //Lo que ocurre si ambos cambian
 				prim_mov = null;
 				seg_mov = null;
+				
+				actualizar_est(c.getpActivo(), c.getpActivo().getEstado());
+				actualizar_est(c.getpEnemigo(), c.getpEnemigo().getEstado());
 			}
 		} else if (c.isJ2_cambia()) { //Lo que ocurre si el J2 cambia y el J1 no.
 			primero = c.getpActivo();
 			prim_mov = c.getMovActivo();
 			segundo = c.getpEnemigo();
 			seg_mov = null;
+			
+			actualizar_est(c.getpActivo(), c.getpActivo().getEstado());
+			actualizar_est(c.getpEnemigo(), c.getpEnemigo().getEstado());
 			
 		} else { //Lo que ocurre si nadie cambia.
 			if (c.getMovActivo().getPrioridad() > c.getMovEnemigo().getPrioridad()) {
@@ -161,7 +170,8 @@ public class HiloJuego implements Runnable {
 				c.setJ2_inmune(true);
 			}
 			actualizar_daño_individual(primero, segundo, prim_mov);
-			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) { //Si está debilitado no puede atacar
+			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
+				//Si está debilitado no puede atacar
 			}else { 
 				if (seg_mov != null) 
 					actualizar_daño_individual(segundo, primero, seg_mov);
@@ -175,12 +185,8 @@ public class HiloJuego implements Runnable {
 				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(segundo);
 				if (segundo == c.getpActivo())	actualizar_progress_bar_1a1(segundo, v.getVida_1(), dañoEstado);
 				if (segundo == c.getpEnemigo()) actualizar_progress_bar_1a1(segundo, v.getVida_2(), dañoEstado);
-			}
-			
-			
+			}	
 		}
-		
-			
 		}
 		//me he dado cuenta de que esto lo habia hecho mal,lo cambio para que se actualica genericamente
 	
@@ -244,9 +250,7 @@ public class HiloJuego implements Runnable {
 			if (comprobarInmunidadEstado(m.getEstadoAlt(), oponente)) {return;}
 			oponente.setEstado(m.getEstadoAlt());
 			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );
-			ImageIcon icono = new ImageIcon(getClass().getResource("/img/estados/"+ oponente.getEstado().toString() + ".png"));
-			if (oponente == c.getpActivo())	{v.getEstadoAlterado1().setIcon(icono); v.revalidate();}
-			if (oponente == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(icono); v.revalidate();}
+			actualizar_est(oponente, oponente.getEstado());
 			}
 		
 		
@@ -311,7 +315,8 @@ public class HiloJuego implements Runnable {
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
 	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
-		if (EstadosAlterados.calcularProbAtacar(atacante, v, c)) {
+		if (EstadosAlterados.calcularProbAtacar(atacante)) {
+			actualizar_est(atacante, atacante.getEstado());
 			int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
 			v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 			actualizarEstadoAlterno(defensor, mov);
@@ -368,11 +373,23 @@ public class HiloJuego implements Runnable {
 	private boolean autopsia(Pokemon poke) { //No se mueren, solo se debilitan, pobrecitos
 		if (poke.getPs() == 0) {
 			poke.setEstado(EstadosAlterados.DEBILITADO);
+			actualizar_est(poke, poke.getEstado());
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
+	private void actualizar_est(Pokemon poke, EstadosAlterados est) {
+		if (est == EstadosAlterados.NULL || est == EstadosAlterados.DEBILITADO) {
+			if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
+			if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
+		}else {
+			ImageIcon icono = new ImageIcon(getClass().getResource("/img/estados/"+ poke.getEstado().toString() + ".png"));
+			if (poke == c.getpActivo())	{v.getEstadoAlterado1().setIcon(icono); v.revalidate();}
+			if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(icono); v.revalidate();}
+		}
+		v.revalidate();
 	}
 	public void start() {
 		if (running) return;

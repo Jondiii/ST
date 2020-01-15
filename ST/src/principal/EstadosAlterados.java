@@ -85,7 +85,7 @@ public enum EstadosAlterados {
 		}
 		return dañoPoke;	
 	}
-	public static boolean calcularProbAtacar(Pokemon poke, VentanaJuego v, Combate c) {
+	public static boolean calcularProbAtacar(Pokemon poke) {
 		boolean atacar = true;
 		Random r = new Random();
 		switch (poke.getEstado()) {
@@ -105,8 +105,6 @@ public enum EstadosAlterados {
 				if (intAleatorio_1 <= 80) { atacar = false;}//prob de que siga congelado
 				if (intAleatorio_1 > 80) {
 					poke.setEstado(EstadosAlterados.NULL);
-					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
-					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
 				}
 				break;
 			case DORMIDO:
@@ -114,8 +112,6 @@ public enum EstadosAlterados {
 				if (intAleatorio_2<=60) { atacar = false;}// prob del que el pokemon siga dormido
 				if (intAleatorio_2 > 60) {
 					poke.setEstado(EstadosAlterados.NULL);
-					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
-					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
 				}
 				break;
 			case CONFUSO:
@@ -123,8 +119,6 @@ public enum EstadosAlterados {
 				if (intAleatorio_3<=33) { atacar = false;}
 				if (intAleatorio_3 > 33) {
 					poke.setEstado(EstadosAlterados.NULL);
-					if (poke == c.getpActivo()) {v.getEstadoAlterado1().setIcon(null);}
-					if (poke == c.getpEnemigo()) {v.getEstadoAlterado2().setIcon(null);}
 				}
 				break;
 			default:
