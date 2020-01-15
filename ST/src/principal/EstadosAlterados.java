@@ -39,18 +39,18 @@ import ventanas.VentanaJuego;
  *   -El null lo he tenido que meter para que no de error.
  */
 public enum EstadosAlterados {
-	ENVENENADO(1/16, 0), ENV_GRAVE(1/16, 0), QUEMADO(1/16, 0), PARALIZADO(1/4, 0), DORMIDO(1/3, 4), CONGELADO(1/4, 0), CONFUSO(1/3, 4), DEBILITADO(0, 0), 
+	ENVENENADO(0.0625, 0), ENV_GRAVE(0.0625, 0), QUEMADO(0.0625, 0), PARALIZADO(0.25, 0), DORMIDO(0.33, 4), CONGELADO(0.2, 0), CONFUSO(0.33, 4), DEBILITADO(0, 0), 
 	NULL(0, 0);
 	
 	private int turno;
-	private float valor;
+	private double valor;
 	
-	EstadosAlterados(float valor, int turno){
+	EstadosAlterados(double valor, int turno){
 		this.valor = valor;
 		this.turno = turno;
 	}
 	
-	public float getValor() {
+	public double getValor() {
 		return valor;
 	}
 	public void setTurno(int turno) {
