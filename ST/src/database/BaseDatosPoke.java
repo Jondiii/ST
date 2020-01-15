@@ -197,6 +197,7 @@ public class BaseDatosPoke {
 	    }
 		return as;
 	}
+	
 	public static String getNombreAbomasnow() throws SQLException {
 		conn = DriverManager.getConnection(url);
 		Statement stmt = conn.createStatement();
@@ -208,16 +209,40 @@ public class BaseDatosPoke {
 	    }
 		return null;
 	}
+	
+	public static String añadeTablaPokesEquipo() throws SQLException{
+		String sqlTablaEquiposPoke = "CREATE TABLE IF NOT EXISTS pokesEquipo (\n"
+                + " idEquipo integer NOT NULL,\n"
+                + " idPoke integer NOT NULL,\n"
+                + " mov1 integer,\n"
+                + " mov2 integer,\n"
+                + " mov3 integer,\n"
+                + " mov4 integer,\n"
+                + " PRIMARY KEY (idEquipo, idPoke),\n"
+                + " FOREIGN KEY (idEquipo) REFERENCES equipo(id),\n"
+                + " FOREIGN KEY (idPoke) REFERENCES pokemons(id),\n"
+                + " FOREIGN KEY (mov1) REFERENCES movimientos(id),\n"
+                + " FOREIGN KEY (mov2) REFERENCES movimientos(id),\n"
+                + " FOREIGN KEY (mov3) REFERENCES movimientos(id),\n"
+                + " FOREIGN KEY (mov4) REFERENCES movimientos(id)"
+                + ");";
+		
+		return sqlTablaEquiposPoke;
+	}
+	
 	public static void main(String[] args) throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		//crearTabla();
 		try {
 			conn = DriverManager.getConnection(url);
 			Statement st = conn.createStatement();
-			st.executeUpdate("delete from movimientos");
-			st.executeUpdate("delete from pokemons");
-			Main.basesDatosCargarMov();
-			Main.basesDatosCargarPoke();
+//			st.executeUpdate("delete from movimientos");
+//			st.executeUpdate("delete from pokemons");
+//			Main.basesDatosCargarMov();
+//			Main.basesDatosCargarPoke();
+			//st.execute(añadeTablaPokesEquipo());
+			//st.execute("ALTER TABLE pokesEquipo ADD PRIMARY KEY (idEquipo, idPoke);");
+			conn.close();
 			System.out.println("Cargada/actualizada la base de datos");
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -20,6 +20,7 @@ public class Pokemon {
 	private int defensa_especial;
 	private int velocidad;
 	private int nivel;
+	private int id = 0;
 	private EstadosAlterados estado;
 	private ArrayList<Movimiento> movimientos_poke;//podemos hacer tambien un array como querais
 	
@@ -87,6 +88,13 @@ public class Pokemon {
 		if (stat == -5) return 0.29;
 		if (stat == -6) return 0.25;
 		return 1.0;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
