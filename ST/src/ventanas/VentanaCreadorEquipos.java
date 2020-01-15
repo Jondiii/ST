@@ -350,6 +350,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				boolean bien = comprobarEquipoCorrecto();
+				
+				
 			}
 		});
 	}

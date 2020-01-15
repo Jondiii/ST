@@ -160,8 +160,6 @@ public class Movimiento {
 		return cambiaStatsAEnemigo;
 	}
 
-
-
 	public void setCambiaStatsAEnemigo(boolean cambiaStatsAEnemigo) {
 		this.cambiaStatsAEnemigo = cambiaStatsAEnemigo;
 	}
@@ -231,7 +229,7 @@ public class Movimiento {
 	
 	@Override
 	public boolean equals(Object obj) {
-		//if (this == null || obj == null) return false; TODO Si quito esto da Null Pointer en el setSelectedIndex(-1);
+//		if (this == null || obj == null) return false; //TODO Si quito esto da Null Pointer en el setSelectedIndex(-1);
 		if (this.nombre == ((Movimiento)obj).getNombre()) return true;
 		else return false;
 	}
