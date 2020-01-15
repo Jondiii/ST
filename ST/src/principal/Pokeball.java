@@ -10,7 +10,7 @@ public class Pokeball extends JLabel {
 	public boolean pokemonOculto = false;
 	public Movimiento[] movsPoke;
 	public String nombre;
-	
+	public boolean vacia = true;
 	
 	public Pokeball(Icon img, Pokemon p){
 		super(img);
@@ -47,6 +47,7 @@ public class Pokeball extends JLabel {
 	}
 	public void setPoke(Pokemon poke) {
 		this.poke = poke;
+		this.vacia = false;
 	}
 	public boolean isPokemonOculto() {
 		return pokemonOculto;
@@ -65,6 +66,14 @@ public class Pokeball extends JLabel {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public boolean isVacia() {
+		return vacia;
+	}
+
+	public void setVacia(boolean vacia) {
+		this.vacia = vacia;
 	}
 
 	public void setNombre(String nombre) {

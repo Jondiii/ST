@@ -70,6 +70,7 @@ public class VentanaCreadorEquipos extends JFrame {
 
 	int pokeballSeleccionada = 1;
 
+	int idPoke = 0;
 	JLabel psPoke = new JLabel();
 	JLabel ataquePoke = new JLabel();
 	JLabel defensaPoke = new JLabel();
@@ -152,7 +153,7 @@ public class VentanaCreadorEquipos extends JFrame {
 						Connection conn;
 						conn = DriverManager.getConnection(BaseDatosPoke.url);
 						Statement stmt = conn.createStatement();
-					    ResultSet rs = stmt.executeQuery("Select ps, ataque, defensa, ataqueEspecial, "
+					    ResultSet rs = stmt.executeQuery("Select id, ps, ataque, defensa, ataqueEspecial, "
 					    		+ "defensaEspecial, velocidad, altura, peso, tipo1, tipo2 from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
 					    psPoke.setText(rs.getInt("ps")+"");
 					    ataquePoke.setText(rs.getInt("ataque")+"");
@@ -164,6 +165,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					    pesoPoke = rs.getInt("peso");
 					    t1 =Tipo.valueOf(rs.getString("tipo1").toUpperCase()); //TODO Falta que salgan los tipos de los pokes, no sé dónde ponerlos.
 					    t2 =Tipo.valueOf(rs.getString("tipo2").toUpperCase());
+					    idPoke = rs.getInt("id");
 					    conn.close();
 					}catch(SQLException e2){
 						System.out.println(e2.getMessage());
@@ -244,6 +246,14 @@ public class VentanaCreadorEquipos extends JFrame {
 		comboMov2.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov3.setModel(new DefaultComboBoxModel<Movimiento>(movs));
 		comboMov4.setModel(new DefaultComboBoxModel<Movimiento>(movs));
+	}
+	
+	public Movimiento[] recuperaMovimientosDeComboBox() {
+		Movimiento[] listado = new Movimiento[10];
+		for (int i = 0; i < 10; i++) {
+			listado[i] = comboMov1.getItemAt(i);
+		}
+		return listado;
 	}
 	
 	public void creaPanelMovs(JPanel p) {
@@ -334,6 +344,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				Pokemon pokeAdd = new Pokemon((String)comboPoke.getSelectedItem(), pesoPoke, alturaPoke, "lol", Integer.parseInt(psPoke.getText()), 
 						Integer.parseInt(ataquePoke.getText()), Integer.parseInt(ataqueEspecialPoke.getText()), Integer.parseInt(defensaPoke.getText()), 
 						Integer.parseInt(defensaEspecialPoke.getText()), Integer.parseInt(velocidadPoke.getText()), 50, movimientos_poke, t1, t2);
+				pokeAdd.setId(idPoke);
 				
 				if (pokeballSeleccionada == 1) pb1.setPoke(pokeAdd);
 				if (pokeballSeleccionada == 2) pb2.setPoke(pokeAdd);
@@ -349,9 +360,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean bien = comprobarEquipoCorrecto();
-				
-				
+				if(!comprobarEquipoCorrecto()) return;
+								
 			}
 		});
 	}
@@ -395,6 +405,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov3.setSelectedIndex(-1);
 					comboMov4.setSelectedIndex(-1);
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb1.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb1.getPoke().getMovimientos_poke().get(1));
@@ -420,6 +431,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov3.setSelectedIndex(-1);
 					comboMov4.setSelectedIndex(-1);
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb2.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb2.getPoke().getMovimientos_poke().get(1));
@@ -446,6 +458,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb3.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb3.getPoke().getMovimientos_poke().get(1));
@@ -472,6 +485,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb4.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb4.getPoke().getMovimientos_poke().get(1));
@@ -498,6 +512,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb5.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb5.getPoke().getMovimientos_poke().get(1));
@@ -524,6 +539,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					comboMov4.setSelectedIndex(-1);
 
 				} else {
+					actualizaCombos(recuperaMovimientosDeComboBox());
 					comboPoke.setSelectedItem(pb6.getPoke().getNombre());
 					comboMov1.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(0));
 					comboMov2.setSelectedItem(pb6.getPoke().getMovimientos_poke().get(1));
@@ -537,7 +553,37 @@ public class VentanaCreadorEquipos extends JFrame {
 	}
 	
 	private boolean comprobarEquipoCorrecto() {
-		return false; //TODO
+		int errores = 0;
+		for (Pokeball pokeball : listaPokeball) {
+			errores = 0;
+			if(pokeball.isVacia()) break;
+			for (Pokeball pokeball2 : listaPokeball) {
+				if(pokeball.isVacia()) break;
+				if (pokeball.getPoke().getNombre()==pokeball2.getPoke().getNombre()) errores += 1;
+				if (errores==2) {
+					JOptionPane pokeRepe = new JOptionPane();
+					pokeRepe.showMessageDialog(null, "Error, el equipo no puede tener Pokémons repetidos.", "Error", JOptionPane.ERROR_MESSAGE);
+					return false;
+				};
+			}
+			errores = 0;
+			ArrayList<Movimiento> listaMovs = pokeball.getPoke().getMovimientos_poke();
+			
+			for (Movimiento movimiento : listaMovs) {
+				for (int contador = 0; contador < 4; contador++) {
+					if(movimiento.equals(listaMovs.get(contador))) errores += 1;
+					contador += 1;
+				}
+			}
+			
+			if (errores>=5) {
+				JOptionPane movRepe = new JOptionPane();
+				movRepe.showMessageDialog(null, "Error, el Pokémon " + pokeball.getPoke().getNombre() + " tiene algún movimiento repetido.", "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			};
+			
+		}
+			return true;
 	}
 
 }
