@@ -88,17 +88,7 @@ public class Pokemon {
 		if (stat == -6) return 0.25;
 		return 1.0;
 	}
-	/**
-	 * Método que pasa los datos de un pokemon a formato SQL para que se pueda almacenar en la base de datos.
-	 * @return
-	 */
-	public int getIDPoke() {
-		int datos = 1;
-		
-		//datos += 
-		return datos;
-	}
-	
+
 	public String getNombre() {
 		return nombre;
 	}
