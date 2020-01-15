@@ -190,7 +190,6 @@ public class BaseDatosPoke {
 	    while (rs.next()) { 
 	    	if (i == 0) {
 	    		as.add("Abomasnow");
-	    		System.out.println("Abomasnow");
 	    	}else {
 	    	as.add(rs.getString("name"));
 	    	}
