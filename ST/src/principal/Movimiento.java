@@ -115,6 +115,15 @@ public class Movimiento {
 		return this.nombre;
 	}
 	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Movimiento) {
+			if (this.nombre.equals(((Movimiento)obj).getNombre())) return true;
+		}
+		return false;
+	}
+	
 	public AlcanceMovimiento getAlcance() {
 		return alcance;
 	}
@@ -225,14 +234,6 @@ public class Movimiento {
 
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Movimiento) {
-			if (this.nombre == ((Movimiento)obj).getNombre()) return true;
-		}
-		return false;
 	}
 
 }

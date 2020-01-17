@@ -79,8 +79,11 @@ public class VentanaCreadorEquipos extends JFrame {
 	JLabel velocidadPoke = new JLabel();
 	int alturaPoke = 0;
 	int pesoPoke = 0;
+	JTextField nombreEquipo = new JTextField(15);
 	Tipo t1 = Tipo.NULL;
 	Tipo t2 = Tipo.NULL;
+	
+	Connection conn;
 
 	HashMap<String, Pokemon> pokesEnEquipo = new HashMap<String, Pokemon>();
 
@@ -296,7 +299,6 @@ public class VentanaCreadorEquipos extends JFrame {
 	}
 	
 	private void creaPanelSup() {
-		JTextField nombreEquipo = new JTextField(15);
 		nombreEquipo.setText("Mi equipo");
 		JPanel pNombre = new JPanel();
 		pNombre.add(nombreEquipo, BorderLayout.CENTER);
@@ -359,8 +361,27 @@ public class VentanaCreadorEquipos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//TODO lo dejo así para que no se creen cosas raras en la bd hasta que pueda acabarlo
 				if(!comprobarEquipoCorrecto()) return;
-								
+//				try { //NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR
+//					conn = DriverManager.getConnection(BaseDatosPoke.url);
+//					Statement st = conn.createStatement();
+//					String username = VentanaInicio.u.getNombre();
+//					int idUser = st.executeQuery("Select id from usuario where nombre="+username+";").getInt("id");
+//					String teamName = st.executeQuery("SELECT nombre FROM equipo WHERE idUsuario=" + idUser + " AND nombre=" +username+ ";").getString("nombre");
+//				
+//					if(teamName.equals(nombreEquipo.getText())) { //Si el nombre ya existe da un error;
+//						JOptionPane error = new JOptionPane();
+//						error.showMessageDialog(null, "Ya existe un equipo con ese nombre para el usuario " + username + ".", "Error", JOptionPane.ERROR_MESSAGE);
+//						return;
+//					}
+//										
+//					st.execute("INSERT INTO equipo (nombre, idUsuario) VALUES (" + nombreEquipo.getText() + ", " + idUser + ");");
+//				
+//				} catch (SQLException e2) {
+//					System.out.println(e2.getMessage());
+//				}
+				
 			}
 		});
 	}
@@ -551,6 +572,11 @@ public class VentanaCreadorEquipos extends JFrame {
 		});	
 	}
 	
+	/**
+	 * Comprueba que el equipo cumpla dos normas: que no haya dos pokémons repetidos y que un mismo pokémon no tenga un movimiento
+	 * dos veces o más. Es un poco desastre pero funciona.
+	 * @return true si cumple ambas, false en caso contrario, y notifica al usuario de cuál de las dos no está cumpliendo.
+	 */
 	private boolean comprobarEquipoCorrecto() {
 		int errores = 0;
 		for (Pokeball pokeball : listaPokeball) {
@@ -584,5 +610,6 @@ public class VentanaCreadorEquipos extends JFrame {
 		}
 			return true;
 	}
+
 
 }
