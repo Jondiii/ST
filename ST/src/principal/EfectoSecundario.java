@@ -36,13 +36,24 @@ public enum EfectoSecundario {
 			ps = -(vidaInflinjida * 1/3);
 			break;
 		case DESCANSAR:
-			ps = poke.getPs_max() - poke.getPs();
+			if(poke.getEstado() != EstadosAlterados.DORMIDO) {
+				ps = poke.getPs_max() - poke.getPs();
+				poke.setEstado(EstadosAlterados.DORMIDO);
+			}
 			break;
 		case DEBILITACION:
 			ps = -poke.getPs();
 			break;
+		default:
+			break;
 		}
-		
 		return ps;
 	}
+	
+	public boolean seProtege () {
+		boolean protegido = true;
+		
+		return protegido;
+	}
+	
 }
