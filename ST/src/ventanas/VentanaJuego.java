@@ -30,6 +30,7 @@ import javax.swing.border.Border;
 import main.EstadosJuego;
 import principal.Combate;
 import principal.EstadosAlterados;
+import principal.HistorialCombate;
 import principal.Movimiento;
 import principal.MuestraInfoPoke;
 import principal.PanelConFondo;
@@ -68,6 +69,8 @@ public class VentanaJuego extends JFrame{
 	private JProgressBar vida_2;
 	
 	private Combate c;
+	private JButton historial;
+	private HistorialCombate hc;
 	
 	public VentanaJuego(ArrayList<Pokemon> miPokemon, ArrayList<Pokemon> oponente) {
 		v = this;
@@ -98,6 +101,7 @@ public class VentanaJuego extends JFrame{
 		this.oponente = c.getOponentes();
 		
 		this.c = c;
+		hc = new HistorialCombate();
 		
 		setResizable(false);
 		
@@ -470,13 +474,31 @@ public class VentanaJuego extends JFrame{
 	}
 	
 	public void cambiaPanelInfo(String info) {
-		v.getPanelInfo().removeAll();
+		System.out.println(info);
+		hc.añadirPanel(info);
+		hc.revalidate();
+		v.getPanelInfo().setLayout(new BorderLayout());
+		JPanel central = new JPanel();
+		central.removeAll();
 		v.revalidate();	
 		v.repaint();//Hay que hacer el revalidate 2 veces, si no el mensaje anterior se queda.
-		v.getPanelInfo().add(new JLabel(info));
+		JLabel info_label = new JLabel(info);
+		central.add(info_label);
+		v.getPanelInfo().add(central, BorderLayout.CENTER);
+		JButton historial = new JButton("HISTORIAL");
+		v.getPanelInfo().add(historial, BorderLayout.EAST);
+		historial.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hc.setVisible(true);
+			}
+		});
 		v.revalidate();
 	}
 	
+	
+
 	public static ArrayList<Pokemon> getMiEquipo() {
 		return miEquipo;
 	}
@@ -498,6 +520,18 @@ public class VentanaJuego extends JFrame{
 	
 	public static int getEsperar() {
 		return esperar;
+	}
+
+	public JFrame getInfo_mov() {
+		return info_mov;
+	}
+
+	public JButton getHistorial() {
+		return historial;
+	}
+
+	public HistorialCombate getHc() {
+		return hc;
 	}
 
 	public static void setEsperar(int esperar) {
@@ -670,5 +704,16 @@ public class VentanaJuego extends JFrame{
 	public JProgressBar getVida_2() {
 		return vida_2;
 	}
-	
+
+	public void setInfo_mov(JFrame info_mov) {
+		this.info_mov = info_mov;
+	}
+
+	public void setHistorial(JButton historial) {
+		this.historial = historial;
+	}
+
+	public void setHc(HistorialCombate hc) {
+		this.hc = hc;
+	}
 }
