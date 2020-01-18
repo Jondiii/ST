@@ -15,15 +15,21 @@ import java.util.Random;
 public enum EfectoSecundario {
 	RETROCESO, INMUNIDAD, RECOIL, DEBILITACION, CURACION, DESCANSAR, NULL;
 	
+	private static int turnos_seguidos_proteccion1 = 0;
+	private static int turnos_seguidos_proteccion2 = 0;
+	
+	
 	public static boolean calcularProbAtacar(Pokemon poke, Movimiento mov) {
 		boolean atacar = true;
-		Random r = new Random();
+		if(mov.getEfecto() == EfectoSecundario.RETROCESO) {
+			Random r = new Random();
 			int aleatorio = r.nextInt(101);
 			if(aleatorio <= mov.getProb_efecto()) { atacar = false;}
+		}
 		return atacar;
 	}
 	
-	public double devuelvePS (Pokemon poke, Movimiento mov, double vidaInflinjida) {
+	public static double devuelvePS (Pokemon poke, Movimiento mov, double vidaInflinjida) {
 		double ps = 0.0;
 		switch (mov.getEfecto()) {
 		case CURACION:
@@ -50,9 +56,55 @@ public enum EfectoSecundario {
 		return ps;
 	}
 	
-	public boolean seProtege () {
-		boolean protegido = true;
-		
+	public static boolean seProtege (Movimiento mov, int equipo) {
+		boolean protegido = false;
+		if (mov.getEfecto() == EfectoSecundario.INMUNIDAD && equipo == 1) {
+			protegido = true;
+				if (turnos_seguidos_proteccion1 == 1) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 50) { protegido = false;}
+				}
+				if (turnos_seguidos_proteccion1 == 2) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 25) { protegido = false;}
+				}
+				if (turnos_seguidos_proteccion1 >= 3) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 12.5) { protegido = false;}
+				}
+				if(protegido == true) {turnos_seguidos_proteccion1 += 1;}
+				if(protegido == false) {turnos_seguidos_proteccion1 = 0;}
+		}
+		if (mov.getEfecto() != EfectoSecundario.INMUNIDAD && equipo == 1) {
+			turnos_seguidos_proteccion1 = 0;
+		}
+		if (mov.getEfecto() == EfectoSecundario.INMUNIDAD && equipo == 2) {
+			protegido = true;
+				if (turnos_seguidos_proteccion2 == 1) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 50) { protegido = false;}
+				}
+				if (turnos_seguidos_proteccion2 == 2) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 25) { protegido = false;}
+				}
+				if (turnos_seguidos_proteccion2 >= 3) {
+					Random r = new Random();
+					int aleatorio = r.nextInt(101);
+					if(aleatorio >= 12.5) { protegido = false;}
+				}
+				if(protegido == true) {turnos_seguidos_proteccion2 += 1;}
+				if(protegido == false) {turnos_seguidos_proteccion2 = 0;}
+		}
+		if (mov.getEfecto() != EfectoSecundario.INMUNIDAD && equipo == 2) {
+			turnos_seguidos_proteccion2 = 0;
+		}
+			
 		return protegido;
 	}
 	

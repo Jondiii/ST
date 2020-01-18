@@ -148,12 +148,17 @@ public class HiloJuego implements Runnable {
 		
 		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
 		
-		
+		boolean J1_inmune = false;
+		boolean J2_inmune = false;
 		if (seg_mov != null &&  seg_mov.getCat() == CategoriaMov.ESTADO) {
-			if (seg_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
+			if (EfectoSecundario.seProtege(seg_mov, 1) && primero.equals(c.getpActivo())) {
 				c.setJ1_inmune(true);
-			} else {
+				J1_inmune = true;
+				System.out.println("Estoy protegidísimo loco");
+			} if (EfectoSecundario.seProtege(seg_mov, 2) && primero.equals(c.getpEnemigo())) {
 				c.setJ2_inmune(true);
+				J2_inmune = true;
+				System.out.println("Estoy protegidísimo loco");
 			}
 		}
 //		
@@ -163,25 +168,31 @@ public class HiloJuego implements Runnable {
 //		}
 		
 		if (prim_mov != null) {
-			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpActivo())) {
+			if (EfectoSecundario.seProtege(prim_mov, 1) && primero.equals(c.getpActivo())) {
 				c.setJ1_inmune(true);
+				J1_inmune = true;
+				System.out.println("Estoy protegidísimo loco");
 			}
-			if (prim_mov.getEfecto() == EfectoSecundario.INMUNIDAD && primero.equals(c.getpEnemigo())) {
+			if (EfectoSecundario.seProtege(prim_mov, 2) && primero.equals(c.getpEnemigo())) {
 				c.setJ2_inmune(true);
+				J2_inmune = false;
+				System.out.println("Estoy protegidísimo loco");
 			}
-			actualizar_daño_individual(primero, segundo, prim_mov);
+			if (!J1_inmune) {
+				actualizar_daño_individual(primero, segundo, prim_mov);
+			}
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
 				//Si está debilitado no puede atacar
 			}else { 
-				if (seg_mov != null) 
+				if (seg_mov != null && !J1_inmune) 
 					actualizar_daño_individual(segundo, primero, seg_mov);
 			}
-			if (primero.getEstado() != EstadosAlterados.DEBILITADO) {
+			if (primero.getEstado() != EstadosAlterados.DEBILITADO ) {
 				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(primero);
 				if (primero == c.getpActivo())	actualizar_progress_bar_1a1(primero, v.getVida_1(), dañoEstado);
 				if (primero == c.getpEnemigo()) actualizar_progress_bar_1a1(primero, v.getVida_2(), dañoEstado);
 			}
-			if (segundo.getEstado() != EstadosAlterados.DEBILITADO) {
+			if (segundo.getEstado() != EstadosAlterados.DEBILITADO ) {
 				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(segundo);
 				if (segundo == c.getpActivo())	actualizar_progress_bar_1a1(segundo, v.getVida_1(), dañoEstado);
 				if (segundo == c.getpEnemigo()) actualizar_progress_bar_1a1(segundo, v.getVida_2(), dañoEstado);
