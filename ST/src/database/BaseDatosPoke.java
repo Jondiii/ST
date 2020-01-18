@@ -204,8 +204,12 @@ public class BaseDatosPoke {
 	    ResultSet rs = stmt.executeQuery("Select * from pokemons");
 	    int i = 0;
 	    while (rs.next()) {
-	    	if (i==0)
-	    		return rs.getString("name");
+	    	if (i==0) {
+	    		String nombre = rs.getString("name");
+	    		conn.close();
+	    		return nombre;
+
+	    	}
 	    }
 		return null;
 	}
@@ -242,6 +246,9 @@ public class BaseDatosPoke {
 //			Main.basesDatosCargarPoke();
 			//st.execute(añadeTablaPokesEquipo());
 			//st.execute("ALTER TABLE pokesEquipo ADD PRIMARY KEY (idEquipo, idPoke);");
+			st.execute("DELETE FROM equipo;");
+			st.execute("DELETE FROM pokesequipo;");
+			//st.execute("ALTER TABLE movimientos ADD UNIQUE (name);");
 			conn.close();
 			System.out.println("Cargada/actualizada la base de datos");
 		} catch (SQLException e) {

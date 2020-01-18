@@ -143,6 +143,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					if (comboPoke.getSelectedItem().equals("Abomasnow")) {
 						try {
 							arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
+						    
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -153,12 +154,12 @@ public class VentanaCreadorEquipos extends JFrame {
 					actualizaCombos(arrayMovs);
 			
 					try {
-						Connection conn;
+						
 						conn = DriverManager.getConnection(BaseDatosPoke.url);
 						Statement stmt = conn.createStatement();
 					    ResultSet rs = stmt.executeQuery("Select id, ps, ataque, defensa, ataqueEspecial, "
-					    		+ "defensaEspecial, velocidad, altura, peso, tipo1, tipo2 from pokemons where name ='"+comboPoke.getSelectedItem()+"'" );
-					    psPoke.setText(rs.getInt("ps")+"");
+					    		+ "defensaEspecial, velocidad, altura, peso, tipo1, tipo2 from pokemons where name ='"+comboPoke.getSelectedItem()+"';" );
+					    psPoke.setText(rs.getInt("ps")+""); //TODO Aquí da un error con Abomasnow.
 					    ataquePoke.setText(rs.getInt("ataque")+"");
 					    defensaPoke.setText(rs.getInt("defensa")+"");
 					    ataqueEspecialPoke.setText(rs.getInt("ataqueEspecial")+"");
@@ -345,6 +346,7 @@ public class VentanaCreadorEquipos extends JFrame {
 				Pokemon pokeAdd = new Pokemon((String)comboPoke.getSelectedItem(), pesoPoke, alturaPoke, "lol", Integer.parseInt(psPoke.getText()), 
 						Integer.parseInt(ataquePoke.getText()), Integer.parseInt(ataqueEspecialPoke.getText()), Integer.parseInt(defensaPoke.getText()), 
 						Integer.parseInt(defensaEspecialPoke.getText()), Integer.parseInt(velocidadPoke.getText()), 50, movimientos_poke, t1, t2);
+				
 				pokeAdd.setId(idPoke);
 				
 				if (pokeballSeleccionada == 1) pb1.setPoke(pokeAdd);
@@ -363,24 +365,99 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//TODO lo dejo así para que no se creen cosas raras en la bd hasta que pueda acabarlo
 				if(!comprobarEquipoCorrecto()) return;
-//				try { //NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR
-//					conn = DriverManager.getConnection(BaseDatosPoke.url);
-//					Statement st = conn.createStatement();
-//					String username = VentanaInicio.u.getNombre();
-//					int idUser = st.executeQuery("Select id from usuario where nombre="+username+";").getInt("id");
-//					String teamName = st.executeQuery("SELECT nombre FROM equipo WHERE idUsuario=" + idUser + " AND nombre=" +username+ ";").getString("nombre");
-//				
-//					if(teamName.equals(nombreEquipo.getText())) { //Si el nombre ya existe da un error;
-//						JOptionPane error = new JOptionPane();
-//						error.showMessageDialog(null, "Ya existe un equipo con ese nombre para el usuario " + username + ".", "Error", JOptionPane.ERROR_MESSAGE);
-//						return;
-//					}
-//										
-//					st.execute("INSERT INTO equipo (nombre, idUsuario) VALUES (" + nombreEquipo.getText() + ", " + idUser + ");");
-//				
-//				} catch (SQLException e2) {
-//					System.out.println(e2.getMessage());
-//				}
+				try { //NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR
+					conn = DriverManager.getConnection(BaseDatosPoke.url);
+					Statement st = conn.createStatement();
+					String username = VentanaInicio.u.getNombre();
+
+					ResultSet rs1 = st.executeQuery("SELECT id FROM usuario WHERE nombre='"+username+"';");
+					int idUser = rs1.getInt("id");
+					rs1.close();
+
+					ResultSet rs2 = st.executeQuery("SELECT nombre FROM equipo WHERE idUsuario=" + idUser + " AND nombre='" +nombreEquipo.getText().replace(" ", "_")+ "';");
+					
+					String teamName = "";
+					while (rs2.next()) {
+						teamName = rs2.getString("nombre");
+						break;
+					}
+					
+					rs2.close();
+
+					if(teamName.equals(nombreEquipo.getText().replace(" ", "_"))) { //Si el nombre ya existe da un error;
+						JOptionPane error = new JOptionPane();
+						error.showMessageDialog(null, "Ya existe un equipo con ese nombre para el usuario " + username + ".", "Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+						
+					st.execute("INSERT INTO equipo (nombre, idUsuario) VALUES ('" + nombreEquipo.getText().replace(" ", "_") + "', " + idUser + ");");
+
+					ResultSet rs3 = st.executeQuery("SELECT id FROM equipo WHERE nombre='"+nombreEquipo.getText().replace(" ", "_")+"' AND idUsuario="+idUser+";");
+					int idEquipo = 0;
+					while (rs3.next()) {
+						idEquipo = rs3.getInt("id");
+						break;
+					}
+					rs3.close();
+					
+					for (Pokeball p : listaPokeball) {	//Están metidos en whiles porque si no daba ResultSetException. Creo que es porque la 
+														//consulta puede devolver más de un resultado (ya que en el where no hay nada que haga referencia
+														//al id o a algún campo único) y no es posible asignar eso a una varianle int o string.
+						ResultSet rsm1 = st.executeQuery("SELECT id FROM movimientos WHERE name='"+p.getPoke().getMovimientos_poke().get(0).toString().replace(" ", "_")+"';");
+						int idMov1 = 0;
+						while(rsm1.next()) {
+							idMov1 = rsm1.getInt("id");
+							break;
+						}
+						rsm1.close();
+						
+						ResultSet rsm2 = st.executeQuery("SELECT id FROM movimientos WHERE name='"+p.getPoke().getMovimientos_poke().get(1).toString().replace(" ", "_")+"';");
+						int idMov2 = 0;
+						while (rsm2.next()) {
+							idMov2 = rsm2.getInt("id");
+							break;
+						}
+						rsm2.close();
+						
+						ResultSet rsm3 = st.executeQuery("SELECT id FROM movimientos WHERE name='"+p.getPoke().getMovimientos_poke().get(2).toString().replace(" ", "_")+"';");
+						int idMov3 = 0;
+						while(rsm3.next()) {
+							idMov3 = rsm3.getInt("id");
+							break;
+						}
+						rsm3.close();
+						
+						ResultSet rsm4 = st.executeQuery("SELECT id FROM movimientos WHERE name='"+p.getPoke().getMovimientos_poke().get(3).toString().replace(" ", "_")+"';");
+						int idMov4 = 0;
+						while(rsm4.next()) {
+							idMov4 = rsm4.getInt("id");
+							break;
+						}
+						rsm4.close();
+						
+						ResultSet rsp = st.executeQuery("SELECT id FROM pokemons WHERE name='"+p.getNombre()+"';");
+						int idPoke = 0;
+						while(rsp.next()) {
+							idPoke = rsp.getInt("id");
+							break;
+						}
+						rsp.close();
+						
+						st.execute("INSERT INTO pokesequipo VALUES (" + idEquipo +  ", " + idPoke + ", "
+						+ idMov1 + ", " + idMov2 + ", " + idMov3 + ", " + idMov4 + ");");
+						System.out.println("fin");
+					}
+					
+					conn.close();
+					
+					JOptionPane todoBien = new JOptionPane();
+					todoBien.showMessageDialog(null, "Equipo guardado correctamente.", "¡Bien!", JOptionPane.INFORMATION_MESSAGE);
+
+					
+				} catch (SQLException e2) {
+					System.out.println(e2.getMessage());
+					
+				}
 				
 			}
 		});
@@ -581,9 +658,19 @@ public class VentanaCreadorEquipos extends JFrame {
 		int errores = 0;
 		for (Pokeball pokeball : listaPokeball) {
 			errores = 0;
-			if(pokeball.isVacia()) break;
+			if(pokeball.isVacia()) {
+				JOptionPane pokeVacio = new JOptionPane();
+				pokeVacio.showMessageDialog(null, "Hacen falta 6 pokémons para poder crear el equipo.", "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			
 			for (Pokeball pokeball2 : listaPokeball) {
-				if(pokeball.isVacia()) break;
+				if(pokeball2.isVacia()) {
+					JOptionPane pokeVacio = new JOptionPane();
+					pokeVacio.showMessageDialog(null, "Hacen falta 6 pokémons para poder crear el equipo.", "Error", JOptionPane.ERROR_MESSAGE);
+					return false;
+				}
+				
 				if (pokeball.getPoke().getNombre()==pokeball2.getPoke().getNombre()) errores += 1;
 				if (errores==2) {
 					JOptionPane pokeRepe = new JOptionPane();

@@ -15,6 +15,7 @@ public class Pokeball extends JLabel {
 	public Pokeball(Icon img, Pokemon p){
 		super(img);
 		this.poke = p;
+		this.nombre = p.getNombre();
 	}
 	
 	public Pokeball(Icon img) {
@@ -48,6 +49,7 @@ public class Pokeball extends JLabel {
 	public void setPoke(Pokemon poke) {
 		this.poke = poke;
 		this.vacia = false;
+		this.nombre = poke.getNombre();
 	}
 	public boolean isPokemonOculto() {
 		return pokemonOculto;
