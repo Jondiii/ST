@@ -85,8 +85,6 @@ public class VentanaCreadorEquipos extends JFrame {
 	
 	Connection conn;
 
-	HashMap<String, Pokemon> pokesEnEquipo = new HashMap<String, Pokemon>();
-
 	public VentanaCreadorEquipos() {
 		vc = this;
 		setTitle("Creador de equipos");
