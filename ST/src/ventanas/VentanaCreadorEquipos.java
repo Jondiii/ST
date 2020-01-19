@@ -445,7 +445,6 @@ public class VentanaCreadorEquipos extends JFrame {
 						
 						st.execute("INSERT INTO pokesequipo VALUES (" + idEquipo +  ", " + idPoke + ", "
 						+ idMov1 + ", " + idMov2 + ", " + idMov3 + ", " + idMov4 + ");");
-						System.out.println("fin");
 					}
 					
 					conn.close();
