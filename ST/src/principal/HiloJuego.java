@@ -191,15 +191,13 @@ public class HiloJuego implements Runnable {
 					System.out.println("Estoy protegidísimo loco J2");
 				}		
 			}
-			if (!J2_inmune) {
-				System.out.println("Le hago daño");
-				actualizar_daño_individual(primero, segundo, prim_mov);
-			}
+			actualizar_daño_individual(primero, segundo, prim_mov, J2_inmune, "J2 está protegido");
+
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
 				//Si está debilitado no puede atacar
 			}else { 
-				if (seg_mov != null && !J1_inmune) {
-					actualizar_daño_individual(segundo, primero, seg_mov);
+				if (seg_mov != null) {
+					actualizar_daño_individual(segundo, primero, seg_mov, J1_inmune, "J1 está protegido");
 				}	
 			}
 			if (primero.getEstado() != EstadosAlterados.DEBILITADO ) {
@@ -339,14 +337,17 @@ public class HiloJuego implements Runnable {
 	}
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
-	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov) {
+	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov, boolean protegido, String nombre) {
+		if(protegido) {
+			System.out.println(nombre);
+			return;
+		}
 		if (EstadosAlterados.calcularProbAtacar(atacante)) {
 			actualizar_est(atacante, atacante.getEstado());
 			int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
 			v.getHc().añadirPanel(atacante.getNombre() + " ha quitado " + psPokeDam + " ps al Enemigo");
 			v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 			actualizarEstadoAlterno(defensor, mov);
-			
 			if (defensor == c.getpActivo())	actualizar_progress_bar_1a1(defensor, v.getVida_1(), psPokeDam);
 			if (defensor == c.getpEnemigo()) actualizar_progress_bar_1a1(defensor, v.getVida_2(), psPokeDam);
 
