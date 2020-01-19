@@ -153,19 +153,19 @@ public class HiloJuego implements Runnable {
 		
 		if (VentanaJuego.estado == EstadosJuego.CALCULANDO) {
 		
-		boolean J1_inmune = false;
-		boolean J2_inmune = false;
+		boolean primero_inmune = false;
+		boolean segundo_inmune = false;
 		if (seg_mov != null && seg_mov.getCat() == CategoriaMov.ESTADO) {
 			if (segundo.equals(c.getpActivo())) {
 				if (EfectoSecundario.seProtege(seg_mov, 1)) {
 					c.setJ1_inmune(true);
-					J1_inmune = true;
+					segundo_inmune = true;
 					System.out.println("Estoy protegidísimo loco J1");
 				}		
 			} if (segundo.equals(c.getpEnemigo())) {
 				if(EfectoSecundario.seProtege(seg_mov, 2)) {
 					c.setJ2_inmune(true);
-					J2_inmune = true;
+					segundo_inmune = true;
 					System.out.println("Estoy protegidísimo loco J2");
 				}		
 			}
@@ -180,24 +180,22 @@ public class HiloJuego implements Runnable {
 			if (primero.equals(c.getpActivo())) {
 				if(EfectoSecundario.seProtege(prim_mov, 1)) {
 					c.setJ1_inmune(true);
-					J1_inmune = true;
-					System.out.println("Estoy protegidísimo loco J1");
+					primero_inmune = true;
 				}			
 			}
 			if (primero.equals(c.getpEnemigo())) {
 				if(EfectoSecundario.seProtege(prim_mov, 2)) {
 					c.setJ2_inmune(true);
-					J2_inmune = true;
-					System.out.println("Estoy protegidísimo loco J2");
+					primero_inmune = true;
 				}		
 			}
-			actualizar_daño_individual(primero, segundo, prim_mov, J2_inmune, "J2 está protegido");
+			actualizar_daño_individual(primero, segundo, prim_mov, segundo_inmune);
 
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
 				//Si está debilitado no puede atacar
 			}else { 
 				if (seg_mov != null) {
-					actualizar_daño_individual(segundo, primero, seg_mov, J1_inmune, "J1 está protegido");
+					actualizar_daño_individual(segundo, primero, seg_mov, primero_inmune);
 				}	
 			}
 			if (primero.getEstado() != EstadosAlterados.DEBILITADO ) {
@@ -337,9 +335,8 @@ public class HiloJuego implements Runnable {
 	}
 	
 	//He hecho esto para que se actualice el daño de los pokes individualmente, pero algo falla. Lo arreglo/miro el lunes
-	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov, boolean protegido, String nombre) {
+	private void actualizar_daño_individual(Pokemon atacante, Pokemon defensor, Movimiento mov, boolean protegido) {
 		if(protegido) {
-			System.out.println(nombre);
 			return;
 		}
 		if (EstadosAlterados.calcularProbAtacar(atacante)) {
