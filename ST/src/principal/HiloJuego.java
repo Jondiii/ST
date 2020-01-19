@@ -180,17 +180,18 @@ public class HiloJuego implements Runnable {
 			}
 			if (EfectoSecundario.seProtege(prim_mov, 2) && primero.equals(c.getpEnemigo())) {
 				c.setJ2_inmune(true);
-				J2_inmune = false;
+				J2_inmune = true;
 				System.out.println("Estoy protegidísimo loco");
 			}
-			if (!J1_inmune) {
+			if (!J2_inmune) {
 				actualizar_daño_individual(primero, segundo, prim_mov);
 			}
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
 				//Si está debilitado no puede atacar
 			}else { 
-				if (seg_mov != null && !J1_inmune) 
+				if (seg_mov != null && !J1_inmune) {
 					actualizar_daño_individual(segundo, primero, seg_mov);
+				}	
 			}
 			if (primero.getEstado() != EstadosAlterados.DEBILITADO ) {
 				int dañoEstado = EstadosAlterados.calcularEstadoFinTurno(primero);
