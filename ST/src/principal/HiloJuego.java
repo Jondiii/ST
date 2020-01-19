@@ -25,6 +25,7 @@ public class HiloJuego implements Runnable {
 	private Pokemon segundo;
 	private Movimiento prim_mov;
 	private Movimiento seg_mov;
+	public static int turno = 0;
 	
 	public HiloJuego(Combate c, VentanaJuego v) {
 		this.c = c;
@@ -37,9 +38,12 @@ public class HiloJuego implements Runnable {
 			if (Main.cerrada) {
 				stop();
 			}
-			if (VentanaJuego.estado == EstadosJuego.CALCULANDO || VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) 
+			if (VentanaJuego.estado == EstadosJuego.CALCULANDO 
+					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_cambia()&&c.isJ2_accion_hecha())
+					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_cambia()&&c.isJ1_accion_hecha())
+					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_cambia()&&c.isJ1_cambia())) 
 				actualizar();
-			try { 
+			try {	
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -49,17 +53,19 @@ public class HiloJuego implements Runnable {
 	
 	private void actualizar() {
 		
+		turno ++;
+		v.getHc().añadirTurno("Turno  " + turno);
+		
 		if (c.isJ1_cambia()) {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
-			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+			
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_accion_hecha()) {
 				
-				VentanaJuego.estado = EstadosJuego.ESPERANDO;
-				c.setJ1_accion_hecha(false);
 				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
-			}
+				
+			
 			
 		}
 		
@@ -67,13 +73,12 @@ public class HiloJuego implements Runnable {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
-			if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO) {
+			
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_accion_hecha()) {
-
-				VentanaJuego.estado = EstadosJuego.ESPERANDO;
-				c.setJ2_accion_hecha(false);
+				
 				v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
-			}
+				
+			
 		}
 		
 		actualizar_progress_bar();
@@ -249,7 +254,7 @@ public class HiloJuego implements Runnable {
 		if (m.getProb_efecto() >= intAletorio) {
 			if (comprobarInmunidadEstado(m.getEstadoAlt(), oponente)) {return;}
 			oponente.setEstado(m.getEstadoAlt());
-			v.cambiaPanelInfo(oponente.getNombre() + " ha sido" + oponente.getEstado() );
+			v.cambiaPanelInfo(oponente.getNombre() + " ha sido " + oponente.getEstado());
 			actualizar_est(oponente, oponente.getEstado());
 			}
 		
@@ -317,6 +322,7 @@ public class HiloJuego implements Runnable {
 		if (EstadosAlterados.calcularProbAtacar(atacante)) {
 			actualizar_est(atacante, atacante.getEstado());
 			int psPokeDam =  (int)( Combate.calculaDaño( atacante, defensor, mov));
+			v.getHc().añadirPanel(atacante.getNombre() + " ha quitado " + psPokeDam + " ps al Enemigo");
 			v.cambiaPanelInfo(atacante.getNombre() + " ha usado " + mov.getNombre() + ".");
 			actualizarEstadoAlterno(defensor, mov);
 			
