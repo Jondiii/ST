@@ -39,9 +39,9 @@ public class HiloJuego implements Runnable {
 				stop();
 			}
 			if (VentanaJuego.estado == EstadosJuego.CALCULANDO 
-					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_cambia()&&c.isJ2_accion_hecha())
-					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_cambia()&&c.isJ1_accion_hecha())
-					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_cambia()&&c.isJ1_cambia())) 
+					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_cambia()&&!c.isJ2_accion_hecha())
+					|| (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_cambia()&&!c.isJ1_accion_hecha()))
+			
 				actualizar();
 			try {	
 				Thread.sleep(100);

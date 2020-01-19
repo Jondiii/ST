@@ -87,14 +87,18 @@ public class VentanaSelecion extends JFrame {
 		JButton luchar = new JButton("LUCHAR");
 		luchar.setMaximumSize(new Dimension(120, 40));
 		pEscoger.add(luchar);
+		
 		JButton clasif = new JButton("LADDER");
 		clasif.setMaximumSize(new Dimension(120, 40));
-		
 		pEscoger.add(clasif);
+		
 		JButton crear_eq = new JButton("CREAR EQUIPO");
 		crear_eq.setMaximumSize(new Dimension(120, 40));
 		pEscoger.add(crear_eq);
 		
+		JButton seleccionar_eq = new JButton("ELEGIR EQUIPO");
+		crear_eq.setMaximumSize(new Dimension(120, 40));
+		pEscoger.add(seleccionar_eq);
 		
 		add(pEscoger, BorderLayout.CENTER);
 		
@@ -110,6 +114,7 @@ public class VentanaSelecion extends JFrame {
 				}
 			}
 		});
+		
 		clasif.addActionListener(new ActionListener() {
 
 			@Override
@@ -124,6 +129,14 @@ public class VentanaSelecion extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaCreadorEquipos ventEqui = new VentanaCreadorEquipos();
+			}
+		});
+		
+		seleccionar_eq.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				VentanaSelectorEquipos v_sel_equi = new VentanaSelectorEquipos();
 			}
 		});
 	}
