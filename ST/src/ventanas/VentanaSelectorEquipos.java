@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,6 +31,7 @@ public class VentanaSelectorEquipos extends JFrame {
 	Usuario u = VentanaInicio.u;
 	ArrayList<String> nombresEquipos = new ArrayList<String>();
 	ArrayList<Integer> idsEquipos = new ArrayList<Integer>();
+	JPanel pCentro = new JPanel(new GridLayout(1,6));
 	
 	HashMap<String, Integer[][]> pokesEnEquipo = new HashMap<String, Integer[][]>();
 	
@@ -40,7 +43,7 @@ public class VentanaSelectorEquipos extends JFrame {
 		setSize(700, 500);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		creaPanelInf();
-		
+
 		leerEquipos();
 		JPanel pCombo = new JPanel();
 		JComboBox comboEquipos = new JComboBox<String>(nombresEquipos.toArray(new String[nombresEquipos.size()]));
@@ -52,8 +55,9 @@ public class VentanaSelectorEquipos extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				muestraEquipoSeleccionado((String)comboEquipos.getSelectedItem());
+				vs.add(pCentro, BorderLayout.CENTER);
 				bSeleccionar.setEnabled(true);
-				revalidate();
+				vs.revalidate();
 			}
 		});
 		
@@ -109,20 +113,23 @@ public class VentanaSelectorEquipos extends JFrame {
 	public void muestraEquipoSeleccionado(String nombre) {
 		Integer[][] equipo = pokesEnEquipo.get(nombre);
 		
-		JPanel pCentro = new JPanel(new GridLayout(1,6));
-		vs.add(pCentro, BorderLayout.CENTER);
-		
-		JPanel pInfo = new JPanel();
-		JPanel pPoke = new JPanel();
-		JPanel pNombre = new JPanel();
-		JPanel pImg = new JPanel();
-		JPanel pMovimientos = new JPanel(new GridLayout(2, 2));
-		pPoke.add(pNombre, BorderLayout.NORTH);
-		pPoke.add(pImg, BorderLayout.CENTER);
-		pInfo.add(pPoke, BorderLayout.WEST);
-		pInfo.add(pMovimientos, BorderLayout.EAST);
-		
+		pCentro.removeAll();
+		pCentro = new JPanel(new GridLayout(6,1));
+
 		for (Integer[] miembroEquipo : equipo) {
+			
+			JPanel pInfo = new JPanel();
+			JPanel pPoke = new JPanel();
+			JPanel pNombre = new JPanel();
+			JPanel pImg = new JPanel();
+			JPanel pMovimientos = new JPanel(new GridLayout(2, 2));
+			JLabel imgPoke = new JLabel();
+			pPoke.add(pNombre, BorderLayout.NORTH);
+			pPoke.add(pImg, BorderLayout.CENTER);
+			pInfo.add(pPoke, BorderLayout.WEST);
+			pInfo.add(pMovimientos, BorderLayout.EAST);
+			pCentro.add(pInfo);
+			
 			try {
 				Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
 				Statement stmt = conn.createStatement();
@@ -130,21 +137,37 @@ public class VentanaSelectorEquipos extends JFrame {
 				ResultSet rs = stmt.executeQuery("SELECT name, tipo FROM movimientos WHERE id IN ("+miembroEquipo[2]
 						+", "+miembroEquipo[3]+", "+miembroEquipo[4]+", "+miembroEquipo[5]+");");
 				
+				pMovimientos.removeAll();
+				while(rs.next()) pMovimientos.add(new JLabel(rs.getString("name").replace("_", " ")));
 				
+				rs.close();
 				
+				ResultSet rs2 = stmt.executeQuery("SELECT name FROM pokemons WHERE id="+miembroEquipo[1]+";");
+				
+				pNombre.removeAll();
+				pNombre.add(new JLabel(rs2.getString("name").replace("_", " ")));
+				
+				ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/" + rs2.getString("name") + "_frente.png"));
+				ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_DEFAULT));
+				imgPoke.setIcon(icono_2);
+
 				conn.close();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
+	
 		}
 		
 	}
 	
 	public void creaPanelInf() {
-		JPanel pInf = new JPanel();
+		JPanel pInf = new JPanel(new FlowLayout());
 		bSeleccionar = new JButton("Seleccionar equipo");
 		JButton bSalir = new JButton("Salir");
 		bSeleccionar.setEnabled(false);
+		
+		pInf.add(bSeleccionar);
+		pInf.add(bSalir);
 		
 		bSeleccionar.addActionListener(new ActionListener() {
 			
@@ -161,5 +184,7 @@ public class VentanaSelectorEquipos extends JFrame {
 				vs.dispose();
 			}
 		});
+		
+		vs.add(pInf, BorderLayout.SOUTH);
 	}
 }

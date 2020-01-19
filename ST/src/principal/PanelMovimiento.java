@@ -3,6 +3,7 @@ package principal;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Scrollbar;
 import java.awt.TextArea;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,9 +21,9 @@ public class PanelMovimiento extends JPanel{
 		this.mov = movimiento;
 	//COSAS A AÑADIR:
 	//Que el tamaño de la ventana se ajuste a la descripción o al revés.
-		
+		//add(new Scrollbar(Scrollbar.HORIZONTAL));
+
 		anadirDatos();
-		
 		setVisible(true);
 	}
 	
@@ -44,7 +45,7 @@ public class PanelMovimiento extends JPanel{
 		add(pDatos, BorderLayout.NORTH);
 		
 		JLabel descripcion = new JLabel(leeDescripcion(mov.getNombre()));
-
+		
 		add(descripcion, BorderLayout.SOUTH);
 		
 		if(mov.getTipo() == Tipo.SINIESTRO  || mov.getTipo() == Tipo.ROCA || mov.getTipo() == Tipo.FANTASMA || mov.getTipo() == Tipo.AGUA) {

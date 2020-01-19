@@ -449,7 +449,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					
 					JOptionPane todoBien = new JOptionPane();
 					todoBien.showMessageDialog(null, "Equipo guardado correctamente.", "¡Bien!", JOptionPane.INFORMATION_MESSAGE);
-
+					vc.dispose();
 					
 				} catch (SQLException e2) {
 					System.out.println(e2.getMessage());
