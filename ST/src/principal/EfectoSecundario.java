@@ -58,20 +58,18 @@ public enum EfectoSecundario {
 	
 	public static boolean seProtege (Movimiento mov, int equipo) {
 		boolean protegido = false;
+		Random r = new Random();
 		if (mov.getEfecto() == EfectoSecundario.INMUNIDAD && equipo == 1) {
 			protegido = true;
 				if (turnos_seguidos_proteccion1 == 1) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 50) { protegido = false;}
 				}
 				if (turnos_seguidos_proteccion1 == 2) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 25) { protegido = false;}
 				}
 				if (turnos_seguidos_proteccion1 >= 3) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 12.5) { protegido = false;}
 				}
@@ -84,17 +82,14 @@ public enum EfectoSecundario {
 		if (mov.getEfecto() == EfectoSecundario.INMUNIDAD && equipo == 2) {
 			protegido = true;
 				if (turnos_seguidos_proteccion2 == 1) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 50) { protegido = false;}
 				}
 				if (turnos_seguidos_proteccion2 == 2) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 25) { protegido = false;}
 				}
 				if (turnos_seguidos_proteccion2 >= 3) {
-					Random r = new Random();
 					int aleatorio = r.nextInt(101);
 					if(aleatorio >= 12.5) { protegido = false;}
 				}
@@ -104,7 +99,7 @@ public enum EfectoSecundario {
 		if (mov.getEfecto() != EfectoSecundario.INMUNIDAD && equipo == 2) {
 			turnos_seguidos_proteccion2 = 0;
 		}
-			
+
 		return protegido;
 	}
 	

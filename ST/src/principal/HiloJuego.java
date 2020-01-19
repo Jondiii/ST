@@ -155,15 +155,19 @@ public class HiloJuego implements Runnable {
 		
 		boolean J1_inmune = false;
 		boolean J2_inmune = false;
-		if (seg_mov != null &&  seg_mov.getCat() == CategoriaMov.ESTADO) {
-			if (EfectoSecundario.seProtege(seg_mov, 1) && primero.equals(c.getpActivo())) {
-				c.setJ1_inmune(true);
-				J1_inmune = true;
-				System.out.println("Estoy protegidísimo loco");
-			} if (EfectoSecundario.seProtege(seg_mov, 2) && primero.equals(c.getpEnemigo())) {
-				c.setJ2_inmune(true);
-				J2_inmune = true;
-				System.out.println("Estoy protegidísimo loco");
+		if (seg_mov != null && seg_mov.getCat() == CategoriaMov.ESTADO) {
+			if (segundo.equals(c.getpActivo())) {
+				if (EfectoSecundario.seProtege(seg_mov, 1)) {
+					c.setJ1_inmune(true);
+					J1_inmune = true;
+					System.out.println("Estoy protegidísimo loco J1");
+				}		
+			} if (segundo.equals(c.getpEnemigo())) {
+				if(EfectoSecundario.seProtege(seg_mov, 2)) {
+					c.setJ2_inmune(true);
+					J2_inmune = true;
+					System.out.println("Estoy protegidísimo loco J2");
+				}		
 			}
 		}
 //		
@@ -172,18 +176,23 @@ public class HiloJuego implements Runnable {
 //			//actualizar_progress_bar();
 //		}
 		
-		if (prim_mov != null) {
-			if (EfectoSecundario.seProtege(prim_mov, 1) && primero.equals(c.getpActivo())) {
-				c.setJ1_inmune(true);
-				J1_inmune = true;
-				System.out.println("Estoy protegidísimo loco");
+		if (prim_mov != null ) {
+			if (primero.equals(c.getpActivo())) {
+				if(EfectoSecundario.seProtege(prim_mov, 1)) {
+					c.setJ1_inmune(true);
+					J1_inmune = true;
+					System.out.println("Estoy protegidísimo loco J1");
+				}			
 			}
-			if (EfectoSecundario.seProtege(prim_mov, 2) && primero.equals(c.getpEnemigo())) {
-				c.setJ2_inmune(true);
-				J2_inmune = true;
-				System.out.println("Estoy protegidísimo loco");
+			if (primero.equals(c.getpEnemigo())) {
+				if(EfectoSecundario.seProtege(prim_mov, 2)) {
+					c.setJ2_inmune(true);
+					J2_inmune = true;
+					System.out.println("Estoy protegidísimo loco J2");
+				}		
 			}
 			if (!J2_inmune) {
+				System.out.println("Le hago daño");
 				actualizar_daño_individual(primero, segundo, prim_mov);
 			}
 			if (segundo.getEstado() == EstadosAlterados.DEBILITADO) {
