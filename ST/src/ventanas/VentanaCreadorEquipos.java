@@ -460,6 +460,14 @@ public class VentanaCreadorEquipos extends JFrame {
 				
 			}
 		});
+		
+		bSalir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				vc.dispose();
+			}
+		});
 	}
 	
 	private void creaPanelEquipo() {
@@ -486,7 +494,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		add(pPokeballs, BorderLayout.EAST);
 	}
 	
-	private void addPokeballListeners() { //FALTA: Guardar los datos en cada pokeball. Añadir listener al botón de salir. Quitar la imagen del poke al cambiar de pokemon
+	private void addPokeballListeners() { //TODO Quitar la imagen del poke y los paneles de movimiento al cambiar de pokémon 
 		pb1.addMouseListener(new MouseAdapter() {
 			
 			@Override
