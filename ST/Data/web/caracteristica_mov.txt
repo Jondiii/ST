@@ -1,145 +1,144 @@
-Hoja_afilada,Hoja afilada causa daño.
-Viento_hielo,Viento hielo causa daño y baja siempre un nivel la velocidad del objetivo.
-Canto_helado,Canto helado causa daño y es un movimiento de alta prioridad (+1).
-Arraigo,Arraigo hace que el usuario recupere un 6,25% de PS al final de cada turno, a costa de impedir ser sustituido por otro Pokémon, incluso por movimientos que normalmente obligan al cambio.
-Mazazo,Mazazo causa daño y a causa del daño de retroceso, el usuario pierde el 1/3 de los PS restados al oponente.
-Ventisca,Ventisca causa daño y tiene una probabilidad del 10% de congelar al objetivo. Si hace granizo acierta siempre. En combates dobles hace daño a todos los enemigos.
-Hiperrayo,Hiperrayo causa daño. El usuario tendrá que descansar en el siguiente turno.
-Protección,Protección es un movimiento de alta prioridad (+4) que permite al usuario evitar los movimientos dirigidos a él durante el turno en el que se utilice. Si se usa de manera consecutiva pierde la mitad de la precisión.
-Avalancha,Avalancha causa daño. Avalancha tiene una probabilidad del 30% de hacer retroceder al objetivo. En combates dobles daña a todos los enemigos.
-Terremoto,Terremoto causa daño. En combates dobles hace daño a todos menos al usuario.
-Sombra_vil,Sombra vil causa daño y es un movimiento de alta prioridad (+1).
-Cabeza_de_hierro,Cabeza de hierro causa daño y tiene una probabilidad del 30% de hacer retroceder al objetivo.
-Espada_santa,Espada santa causa daño y evita las subidas de características del rival.
-Escudo_real,Escudo real tiene un efecto parecido al de protección, con la diferencia de que si alguien ataca al usuario de escudo real con un movimiento de contacto, su ataque bajará dos niveles.
-Bola_sombra,Bola sombra causa daño y tiene la probabilidad de bajar la defensa especial del oponente.
-Golpe_aéreo,Golpe aéreo causa daño y nunca falla.
-Giga_impacto,Giga impacto causa daño. El usuario tendrá que descansar el siguiente turno.
-Foco_resplandor,Foco resplandor causa daño y tiene una probabilidad del 10% de bajar en un nivel la defensa especial del objetivo.
-Danza_espada,Danza espada aumenta en dos niveles el ataque del usuario.
-Tajo_umbrío,Tajo umbrío causa daño.
-Defensa_férrea,Defensa férrea aumenta en dos niveles la defensa del usuario.
-Doble_filo,Doble filo causa daño y a causa del daño de retroceso, el usuario pierde el 1/4 de los PS restados al oponente.
-Cuerpo_pesado,Cuerpo pesado causa daño y no tiene ningún efecto secundario. Su potencia depende del peso del usuario respecto al del enemigo.
-Puño_Trueno,Puño trueno causa daño y tiene una probabilidad del 10% de paralizar al objetivo.
-Tormenta_de_arena,Tormenta de arena es un movimiento de cambio de clima que tiene los siguientes efectos: Resta al final de cada turno el 12,5% de los PS máximos a todos los Pokémon en combate, excepto a los de tipo roca, tipo tierra y tipo acero.
-Enfado,Enfado causa daño , golpeando entre 2 o 3 turnos seguidos. Al acabar el usuario estará confuso.
-Liofilización,Liofilización causa daño y tiene una probabilidad del 10% de congelar al objetivo. Liofilización es muy eficaz contra Pokemon tipo Agua
-Onda_trueno,Onda trueno paraliza al oponente.
-Descanso,Descanso hace que el usuario se duerma y recupere la totalidad de los PS, curando en el proceso cualquier problema de estado.
-Tóxico,Tóxico provoca un grave envenenamiento que se agrava con el paso de los turnos.
-Trueno,Trueno causa daño y tiene una probabilidad del 10% de paralizar al objetivo. Si hace lluvia acierta siempre.
-Psíquico,Psíquico causa daño y tiene una probabilidad del 30% de bajar en un nivel el especial del objetivo.
-Roca_afilada,Roca afilada causa daño.
-Ojitos_tiernos,Ojitos tiernos disminuye el ataque del objetivo en un nivel y tiene prioridad +1.
-Azote,Azote causa más daño cuanta menos vida tenga el usuario.
-Vendetta,Vendetta causa daño. Si el usuario ha recibido un golpe ese turno la potencia se duplica.
-Machada,Machada causa daño y baja un nivel la velocidad del usuario.
-Garra_dragón,Garra dragón causa daño físico.
-Garra_umbría,Garra umbría causa daño.
-Puño_fuego,Puño fuego causa daño y tiene una probabilidad del 10% de quemar al objetivo.
-Envite_ígneo,Envite ígneo causa daño y tiene una probabilidad del 10% de quemar al objetivo. El usuario recibe un daño de retroceso igual a 1/3 del daño causado al oponente.
-Patada_salto_alta,Patada salto alta causa daño, pero si falla, el usuario se golpeará a sí mismo restándose la mitad de sus PS.
-Pájaro_osado,Pájaro osado causa daño y el usuario recibe un daño de retroceso igual a 1/3 del daño causado al oponente.
-Gancho_alto,Gancho alto causa daño. Puede golpear a Pokemon usando Vuelo.
-Puya_nociva,Puya nociva causa daño y tiene una probabilidad del 30% de envenenar al objetivo.
-Avivar,Avivar aumenta en un nivel el ataque y el ataque especial del usuario.
-Danza_lluvia,Danza lluvia es un movimiento de cambio de clima que consiste en provocar una intensa lluvia que dura 5 turnos.
-Hipnosis,Hipnosis duerme al objetivo.
-Rayo_confuso,Rayo confuso confunde al objetivo.
-Espacio_raro,Espacio raro es un movimiento dirigido contra el campo de combate que hace que los Pokémon más lentos sean los primeros en atacar en aquellos casos donde los movimientos usados tengan la misma prioridad.
-Paz_mental,Paz mental aumenta un nivel el ataque especial y la defensa especial del usuario.
-Llamarada,Llamarada causa daño y tiene una probabilidad del 30% de quemar al oponente.
-Pulso_umbrío,Pulso umbrío causa daño y tiene una probabilidad del 20% de hacer retroceder al objetivo.
-Dia_soleado,Día soleado es un movimiento de cambio de clima que consiste en despejar el cielo para que el sol brille durante 5 turnos.
-Fuego_fatuo,Fuego fatuo quema al objetivo.
-Vuelo,Este movimiento emplea dos turnos: en el primero, el Pokémon vuela muy alto, tanto que estará fuera del alcance de la mayoría de los movimientos. En el segundo turno ocurre la caída del vuelo, en la cual el Pokémon golpea al oponente.
-Ataque_ala,Ataque ala causa daño.
-Cuchillada,Cuchillada causa daño.
-Golpe_cabeza,Golpe cabeza causa daño y tiene una probabilidad del 30% de hacer retroceder al objetivo.
-Púas_tóxicas,Púas tóxicas es una trampa dirigida al campo del oponente.
-Hidrobomba,Hidrobomba causa daño.
-Rayo_hielo,Rayo hielo causa daño y tiene una probabilidad del 10% de congelar al objetivo.
-Surf,Surf causa daño. En batallas dobles hace daño a todos menos al usuario.
-Carámbano,Carámbano causa daño, golpeando al objetivo de 2 a 5 veces en un mismo turno.
-Rompecoraza,Rompecoraza baja la defensa y la defensa especial del usuario en un nivel pero a cambio sube el ataque, ataque especial y la velocidad dos niveles cada uno.
-Danza_dragón,Danza dragón aumenta el ataque y la velocidad del usuario en un nivel cada uno.
-Cometa_draco,Cometa draco causa daño pero baja en 2 niveles el ataque especial del usuario.
-Lanzallamas,Lanzallamas causa daño y tiene una probabilidad del 10% de quemar al objetivo.
-Desarme,Desarme causa daño al objetivo y, si este lleva un objeto equipado, quedará despojado de él de forma temporal durante el combate.
-Rayo,Rayo causa daño y tiene una probabilidad del 10% de paralizar al objetivo.
-Voltiocambio,Voltiocambio causa daño al Pokémon objetivo y, a continuación, fuerza el cambio del usuario por otro Pokémon del equipo, pudiéndose elegir qué Pokémon sale al combate en su lugar.
-Gigadrenado,Gigadrenado causa daño y el usuario recupera el 50% de los PS quitados por el movimiento al objetivo.
-Premonición,Premonición no hace nada en el turno en el que se usa, 2 turnos después golpeará al oponente.
-Mofa,Mofa hace que el objetivo sea incapaz de usar movimientos de estado.
-Brillo_mágico,Brillo mágico causa daño y ataca a todos los oponentes del campo.
-Reflejo,Invocas un escudo que protegerá a todo tu equipo de los ataques físicos durante los proximos 5 turnos, dividiendo la potencia de estos.
-Pantalla_luz,Invocas un escudo que protegerá a todo tu equipo de los ataques especiales durante los proximos 5 turnos, dividiendo la potencia de estos.
-Sol_matinal,Sol matinal cura 1/2 de los PS, si hace Sol curará 2/3 y con clima lluvioso 1/4.
-Roca_afilada,Roca afilada causa daño.
-Psicocarga,Psicocarga causa daño y tiene en cuenta la defensa del oponente a la hora de hacer daño.
-Puño_hielo,Puño hielo causa daño y tiene una probabilidad del 10% de congelar al objetivo.
-Mismo_destino,Mismo destino hace que, si el usuario se debilita por un ataque directo del oponente, este también se debilite.
-Sustituto,Invocas un muñeco que recibe todo el daño hasta que se debilite a cambio de 1/4 de tus PS. 
-Zumbido,Zumbido causa daño y tiene una probabilidad del 10% de reducir un nivel la defensa especial al oponente.
-Ida_y_vuelta,Ida y vuelta causa daño al Pokémon objetivo y, a continuación, fuerza el cambio del usuario por otro Pokémon del equipo, pudiéndose elegir qué Pokémon sale al combate en su lugar.
-Energibola,Energibola causa daño y tiene una probabilidad del 10% de bajar un nivel la defensa especial del objetivo.
-Granizo,Granizo es un movimiento de cambio de clima que consiste en invocar una gran granizada durante 5 turnos.
-Hierba_lazo,Hierba lazo causa daño. La potencia depende del peso del objetivo.
-Deseo,El usuario usa un turno para pedir un deseo. Al final del siguiente turno el deseo se cumple y cura 1/2 de los PS del Pokemon que esté en el campo.
-Onda_certera,Onda certera causa daño y tiene una probabilidad del 10% de bajar en un nivel la defensa especial del objetivo.
-Drenadoras,Drenadoras planta tres semillas en el oponente, las cuales le roban 1/8 de sus PS máximos al final de cada turno y te los cura a ti.
-Triturar,Triturar causa daño y tiene una probabilidad del 20% de bajar un nivel la defensa especial del objetivo.
-Danza_pétalo,Danza pétalo causa daño de 3 a 4 turnos seguidos. Al acabar el usuario se confundirá.
-Demolicion,Demolición causa daño y además elimina el efecto de reflejo, pantalla de luz y/o velo aurora del oponente.
-Rayo_solar,El Pokémon que utiliza este movimiento concentra la energía solar un turno, para liberar un rayo que causa daño en el siguiente turno.
-Acua_jet,Acua jet causa daño y es un movimiento de alta prioridad (+1).
-Bomba_lodo,Bomba lodo causa daño y tiene una probabilidad del 30% de envenenar al objetivo.
-Maquinacion,Maquinación sube en dos niveles el ataque especial del usuario.
-Recuperacion,Recuperación hace que el usuario recupere la mitad de sus PS totales.
-A_bocajarro,A bocajarro causa daño y no tiene ningún efecto secundario, pero baja un nivel la defensa y la defensa especial del usuario.
-Psico_corte,Psicocorte causa daño.
-Red_viscosa,Red viscosa es un movimiento dirigido al campo rival, que hace que los Pokémon oponentes, al entrar a combatir, vean disminuida su velocidad en un nivel.
-Colmillo_ígneo,Colmillo ígneo causa daño y tiene una probabilidad del 10% de quemar al rival y un 10% de hacerlo retroceder. Ambos efectos son independientes y pueden suceder simultáneamente.
-Hipnosis,Hipnosis duerme al objetivo.
-Come_sueños,Come sueños causa daño a un objetivo dormido y el usuario recupera el 50% de los PS quitados por el movimiento al objetivo.
-Escaldar,Escaldar causa daño y además tiene una probabilidad del 30% de quemar al objetivo.
-Colmillo_rayo,Colmillo rayo causa daño y tiene una probabilidad del 10% de paralizar al objetivo y un 10% de hacerlo retroceder.
-Trampa_venenosa,Trampa venenosa reduce en un nivel el ataque, el ataque especial y la velocidad de los oponentes adyacentes al usuario que estén envenenados.
-Llueve_hojas,Lluevehojas causa daño, pero baja en dos niveles el ataque especial del usuario.
-Tajo_aéreo,Tajo aéreo causa daño y tiene una probabilidad del 30% de hacer retroceder al oponente.
-Fuerza_lunar,Fuerza lunar causa daño y tiene una probabilidad del 30% de bajar el ataque especial del objetivo.
-Pulso_umbrio,Pulso umbrío causa daño y tiene una probabilidad del 20% de hacer retroceder al objetivo.
-Respiro,Respiro restaura la mitad de los PS máximos del usuario. Durante ese turno el usuario es vulnerables a ataques de tipo tierra.
-Acróbata,Acróbata causa daño.
-Tijera_X,Tijera X causa daño.
-Doble_patada,Doble patada causa daño, golpeando al objetivo 2 veces en un mismo turno.
-Velocidad_extrema,Velocidad extrema causa daño y es un movimiento de alta prioridad (+1).
-Ataque_óseo,Ataque óseo causa daño, golpeando al objetivo de 2 a 5 veces en un mismo turno.
-Viento_plata,Viento plata causa daño y tiene una probabilidad del 10% de subir el ataque, defensa, ataque especial, defensa especial y velocidad del usuario en un nivel cada uno.
-Rugido,Rugido forzará el cambio del Pokémon del rival por otro elegido al azar de su equipo y es un movimiento de baja prioridad (-6).
-Contoneo,Contoneo aumenta el ataque del objetivo en 2 niveles y lo confunde.
-Corpulencia,Corpulencia aumenta el ataque y la defensa del usuario en un nivel cada uno.
-Tumba_rocas,Tumba rocas causa daño y siempre baja un nivel la velocidad del objetivo.
-Supersonico,Supersónico es un movimiento de sonido que confunde al objetivo.
-Giro_bola,Giro bola causa daño y será más potente cuanto mayor sea la velocidad del objetivo y menor sea la velocidad del usuario.
-Explosión,Explosión causa daño y hace que el usuario se debilite.
-Cabezazo_zen,Cabezazo zen causa daño y tiene una probabilidad del 20% de hacer retroceder al objetivo.
-Puño_meteoro,Puño meteoro causa daño y además tiene una probabilidad del 20% de subir en un nivel el ataque del usuario.
-Agilidad,Agilidad aumenta en dos niveles la velocidad del usuario.
-Cola_dragon,Cola dragón causa daño y es un movimiento de baja prioridad (-6), además forzará el cambio del Pokémon oponente por otro al azar del equipo que pueda luchar.
-Sonámbulo,Sonámbulo utiliza al azar uno de los otros movimientos que conoce el Pokémon, y únicamente funciona cuando el Pokémon que lo usa está dormido.
-Triataque,Triataque causa daño, además tiene una probabilidad del 20% de quemar, paralizar o congelar al objetivo.
-Electrocañón,Electrocañón causa daño y, si golpea, siempre causa parálisis al objetivo.
-Puño_mareo,Puño mareo causa daño y tiene una probabilidad del 20% de confundir al objetivo.
-Onda_tóxica,Onda tóxica causa daño y tiene una probabilidad del 10% de envenenar al objetivo. En combates dobles afecta al resto de Pokémon en el campo de combate.
-Megacuerno,Megacuerno causa daño.
-Golpe_bajo,Golpe bajo causa daño y es un movimiento de alta prioridad (+1). El movimiento fallará si el oponente reliza un movimiento de estado o cambia de Pokemon.
-Beso_drenaje,Beso drenaje causa daño y el usuario recupera el 75% de los PS quitados por el movimiento al objetivo.
-Esfera_aural,Esfera aural causa daño y nunca falla.
-Humareda,Humareda causa daño y tiene una probabilidad del 30% de quemar al objetivo. En combates dobles golpea al resto de Pokemon en el campo.
-Estallido,Estallido causa daño y no tiene ningún efecto secundario. El daño causado depende de los PS restantes del usuario, cuantos menos PS tenga menor será el daño causado. En combates dobles golpea a todos los oponentes.
-Juego_sucio,Juego sucio causa daño en base a la característica de ataque del rival.
-Armadura_ácida,Armadura ácida aumenta en dos niveles la defensa del usuario.
-Somnífero,Somnífero duerme al enemigo.
-Ala_de_acero,Ala de acero causa daño y tiene una probabilidad del 10% de aumentar en un nivel la defensa del usuario.
+Hoja_afilada,Causa daño.
+Viento_hielo,Causa daño y baja la velocidad del objetivo.
+Canto_helado,Causa daño, prioridad +1.
+Arraigo,El usuario recupera un 6,25% de PS al final de cada turno.
+Mazazo,Causa daño y el usuario pierde el 1/3 de los PS restados al oponente.
+Ventisca,Causa daño y tiene una probabilidad del 10% de congelar al objetivo.
+Hiperrayo,Causa daño. El usuario tendrá que descansar en el siguiente turno.
+Protección,Prioridad +4, protege al usuario de cualquier ataque.
+Avalancha,Causa daño. Probabilidad del 30% de hacer retroceder al objetivo.
+Terremoto,Causa daño.
+Sombra_vil,Causa daño, prioridad +1.
+Cabeza_de_hierro,Causa daño, probabilidad del 30% de hacer retroceder al objetivo.
+Espada_santa,Causa daño.
+Escudo_real,Prioridad +4, protege al usuario de cualquier ataque.
+Bola_sombra,Causa daño, probabilidad de bajar la defensa especial del oponente.
+Golpe_aéreo,Causa daño y nunca falla.
+Giga_impacto,Causa daño. El usuario tendrá que descansar el siguiente turno.
+Foco_resplandor,Causa daño, probabilidad de bajar la defensa especial del objetivo.
+Danza_espada,Aumenta mucho el ataque del usuario.
+Tajo_umbrío,Causa daño.
+Defensa_férrea,Aumenta mucho la defensa del usuario.
+Doble_filo,Causa daño y el usuario pierde el 1/4 de los PS restados al oponente.
+Cuerpo_pesado,Causa daño.
+Puño_Trueno,Causa daño y tiene una probabilidad del 10% de paralizar al objetivo.
+Tormenta_de_arena,Cambia el clima a Tormenta de Arena
+Enfado,Causa daño durante 2 o 3 turnos. El usuario acaba confuso.
+Liofilización,Causa daño y puede llegar a Congelar.
+Onda_trueno,Paraliza al oponente.
+Descanso,El usuario se duerme, recupera todos los PS y problemas de estado.
+Tóxico,Evenena al objetivo.
+Trueno,Causa daño y puede paralizar al objetivo.
+Psíquico,Causa daño y puede bajar el ataque especial del objetivo.
+Roca_afilada,Causa daño.
+Ojitos_tiernos,Baja el ataque del objetivo y tiene prioridad +1.
+Azote,Causa daño.
+Vendetta,Causa daño.
+Machada,Causa daño y baja la velocidad del usuario.
+Garra_dragón,Causa daño.
+Garra_umbría,Causa daño.
+Puño_fuego,Causa daño y puede quemar al objetivo.
+Envite_ígneo,Causa daño, puede quemar al objetivo y el usuario pierde parte de sus PS.
+Patada_salto_alta,Causa daño.
+Pájaro_osado,Causa daño y el usuario recibe un daño de retroceso.
+Gancho_alto,Causa daño.
+Puya_nociva,Causa daño y puede envenenar al objetivo.
+Avivar,Avivar aumenta el ataque y el ataque especial del usuario.
+Danza_lluvia,Cambia el clima a Lluvia.
+Hipnosis,Duerme al objetivo.
+Rayo_confuso,Confunde al objetivo.
+Espacio_raro,Invierte el orden de ataque de todos los combatientes.
+Paz_mental,Aumenta el ataque especial y la defensa especial del usuario.
+Llamarada,Causa daño y puede quemar al oponente.
+Pulso_umbrío,Causa daño y puede causar retroceso.
+Dia_soleado,Cambia el clima a Soleado.
+Fuego_fatuo,Quema al objetivo.
+Vuelo,Causa daño.
+Ataque_ala,Causa daño.
+Cuchillada,Causa daño.
+Golpe_cabeza,Causa daño y puede hacer retroceder al objetivo.
+Púas_tóxicas,Pone púas que evenenan al oponente al cambiar de pokemon.
+Hidrobomba,Causa daño.
+Rayo_hielo,Causa daño y puede congelar al objetivo.
+Surf,Causa daño.
+Carámbano,Causa daño
+Rompecoraza,Baja las defensas y aumenta el resto de características del usuario.
+Danza_dragón,Aumenta la velocidad y el ataque del usuario.
+Cometa_draco,Causa daño pero baja el ataque especial del usuario.
+Lanzallamas,Causa daño y puede quemar al objetivo.
+Desarme,Causa daño.
+Rayo,Causa daño y puede paralizar al objetivo.
+Voltiocambio,Causa daño.
+Gigadrenado,Causa daño y el usuario recupera el 50% de los PS quitados al objetivo.
+Premonición,Causa daño.
+Mofa,Hace que el objetivo sea incapaz de usar movimientos de estado.
+Brillo_mágico,Causa daño.
+Reflejo,Reduce a la mitad el daño de todos los movimientos físicos durante 5 turnos.
+Pantalla_luz,Reduce a la mitad el daño de todos los movimientos especiales durante 5 turnos.
+Sol_matinal,Cura el 50% de los PS.
+Roca_afilada,Causa daño.
+Psicocarga,Causa daño.
+Puño_hielo,Causa daño y puede congelar al objetivo.
+Mismo_destino,Si el usuario se debilita se lleva al objetivo con él.
+Sustituto,Crea un muñeco que recibe todo el daño hasta que se debilite a cambio de 1/4 de tus PS. 
+Zumbido,Causa daño y puede reducir defensa especial al oponente.
+Ida_y_vuelta,Causa daño.
+Energibola,Causa daño y puede bajar la defensa especial del objetivo.
+Granizo,Cambia el clima a Granizo.
+Hierba_lazo,Causa daño.
+Deseo,El usuario se cura el 50% de sus PS.
+Onda_certera,Causa daño y puede bajar la defensa especial del objetivo.
+Drenadoras,Planta semillas que absorben PS del objeivo y cura al usuario, cada turno.
+Triturar,Causa daño y puede bajar la defensa especial del objetivo.
+Danza_pétalo,Causa daño durante 2 o 3 turnos, y al acabar el usuario se confundirá.
+Demolicion,Causa daño.
+Rayo_solar,Causa daño.
+Acua_jet,Causa daño, prioridad +1.
+Bomba_lodo,Causa daño y puede envenenar al objetivo.
+Maquinacion,Sube mucho el ataque especial del usuario.
+Recuperacion,El usuario recupera la mitad de sus PS totales.
+A_bocajarro,Causa daño pero baja la defensa y la defensa especial del usuario.
+Psico_corte,Causa daño.
+Red_viscosa,Pone una red que baja la velocidad de los enemigos que entren en combate.
+Colmillo_ígneo,Causa daño, puede quemar al rival y/o hacerlo retroceder.
+Come_sueños,Causa daño y el usuario recupera el 50% de los PS quitados al objetivo.
+Escaldar,Causa daño y puede quemar al objetivo.
+Colmillo_rayo,Causa daño, puede paralizar al objetivo y/o hacerlo retroceder.
+Trampa_venenosa,Reduce el ataque, el ataque especial y la velocidad del enemigo.
+Llueve_hojas,Causa daño pero baja el ataque especial del usuario.
+Tajo_aéreo,Causa daño y puede hacer retroceder al oponente.
+Fuerza_lunar,Causa daño y puede bajar el ataque especial del objetivo.
+Pulso_umbrio,Causa daño y puede hacer retroceder al objetivo.
+Respiro,Restaura la mitad de los PS máximos del usuario.
+Acróbata,Causa daño.
+Tijera_X,Causa daño.
+Doble_patada,Causa daño.
+Velocidad_extrema,Causa daño, prioridad +1.
+Ataque_óseo,Causa daño.
+Viento_plata,Causa daño y puede subir a la vez todos los stats del usuario.
+Rugido,Obliga al rival a cambiar de pokémon.
+Contoneo,Sube el ataque del objetivo y lo confunde.
+Corpulencia,Aumenta el ataque y la defensa del usuario.
+Tumba_rocas,Causa daño y baja la velocidad del objetivo.
+Supersonico,Confunde al objetivo.
+Giro_bola,Causa daño.
+Explosión,Causa daño, pero hace que el usuario se debilite.
+Cabezazo_zen,Causa daño y puede hacer retroceder al objetivo.
+Puño_meteoro,Causa daño y puede subir el ataque del usuario.
+Agilidad,Aumenta mucho la velocidad del usuario.
+Cola_dragon,Causa daño.
+Sonámbulo,Utiliza al azar otro movimiento del pokémon cuando este está dormido.
+Triataque,Causa daño y puede quemar, paralizar o congelar al objetivo.
+Electrocañón,Causa daño y parálisis al objetivo.
+Puño_mareo,Causa daño y puede confundir al objetivo.
+Onda_tóxica,Causa daño y puede envenenar al objetivo.
+Megacuerno,Causa daño.
+Golpe_bajo,Causa daño.
+Beso_drenaje,Causa daño y el usuario recupera parte de los PS quitados al objetivo.
+Esfera_aural,Causa daño y nunca falla.
+Humareda,Causa daño y puede quemar al objetivo.
+Estallido,Causa daño.
+Juego_sucio,Causa daño.
+Armadura_ácida,Aumenta mucho la defensa del usuario.
+Somnífero,Duerme al enemigo.
+Ala_de_acero,Causa daño y puede aumentar la defensa del usuario.
