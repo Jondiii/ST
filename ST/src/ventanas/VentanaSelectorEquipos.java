@@ -1,6 +1,7 @@
 package ventanas;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +24,7 @@ import javax.swing.JPanel;
 
 import database.BaseDatosPoke;
 import principal.Pokemon;
+import principal.Tipo;
 import principal.Usuario;
 
 public class VentanaSelectorEquipos extends JFrame {
@@ -31,7 +34,7 @@ public class VentanaSelectorEquipos extends JFrame {
 	Usuario u = VentanaInicio.u;
 	ArrayList<String> nombresEquipos = new ArrayList<String>();
 	ArrayList<Integer> idsEquipos = new ArrayList<Integer>();
-	JPanel pCentro = new JPanel(new GridLayout(1,6));
+	JPanel pCentro = new JPanel(new GridLayout(6,1));
 	
 	HashMap<String, Integer[][]> pokesEnEquipo = new HashMap<String, Integer[][]>();
 	
@@ -39,15 +42,16 @@ public class VentanaSelectorEquipos extends JFrame {
 		vs = this;
 		
 		setTitle("Selector de equipos");
-		setLocation(200, 100);
-		setSize(700, 500);
+		setLocation(200, 0);
+		setSize(500, 1000);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		creaPanelInf();
-
+		
 		leerEquipos();
 		JPanel pCombo = new JPanel();
 		JComboBox comboEquipos = new JComboBox<String>(nombresEquipos.toArray(new String[nombresEquipos.size()]));
 		pCombo.add(comboEquipos);
+		vs.add(pCentro, BorderLayout.CENTER);
 		add(pCombo, BorderLayout.NORTH);
 		
 		comboEquipos.addActionListener(new ActionListener() {
@@ -55,7 +59,6 @@ public class VentanaSelectorEquipos extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				muestraEquipoSeleccionado((String)comboEquipos.getSelectedItem());
-				vs.add(pCentro, BorderLayout.CENTER);
 				bSeleccionar.setEnabled(true);
 				vs.revalidate();
 			}
@@ -114,7 +117,6 @@ public class VentanaSelectorEquipos extends JFrame {
 		Integer[][] equipo = pokesEnEquipo.get(nombre);
 		
 		pCentro.removeAll();
-		pCentro = new JPanel(new GridLayout(6,1));
 
 		for (Integer[] miembroEquipo : equipo) {
 			
@@ -125,6 +127,7 @@ public class VentanaSelectorEquipos extends JFrame {
 			JPanel pMovimientos = new JPanel(new GridLayout(2, 2));
 			JLabel imgPoke = new JLabel();
 			pPoke.add(pNombre, BorderLayout.NORTH);
+			pImg.add(imgPoke);
 			pPoke.add(pImg, BorderLayout.CENTER);
 			pInfo.add(pPoke, BorderLayout.WEST);
 			pInfo.add(pMovimientos, BorderLayout.EAST);
@@ -138,7 +141,18 @@ public class VentanaSelectorEquipos extends JFrame {
 						+", "+miembroEquipo[3]+", "+miembroEquipo[4]+", "+miembroEquipo[5]+");");
 				
 				pMovimientos.removeAll();
-				while(rs.next()) pMovimientos.add(new JLabel(rs.getString("name").replace("_", " ")));
+				while(rs.next()) {
+					JLabel movimiento = new JLabel();
+					movimiento.setText(rs.getString("name").replace("_", " ")+"  ");
+					if (rs.getString("tipo").equals("Agua") || rs.getString("tipo").contentEquals("Dragon") || rs.getString("tipo").equals("Fantasma") || rs.getString("tipo").equals("Siniestro") || rs.getString("tipo").equals("Roca")) {
+						movimiento.setForeground(Color.white);
+					}
+					Tipo type = Tipo.valueOf(rs.getString("tipo").toUpperCase());
+					movimiento.setOpaque(true);
+					movimiento.setBorder(BorderFactory.createBevelBorder(0));
+					movimiento.setBackground(type.getColor());//TODO
+					pMovimientos.add(movimiento);
+				}
 				
 				rs.close();
 				

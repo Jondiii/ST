@@ -89,9 +89,9 @@ public class VentanaCreadorEquipos extends JFrame {
 		vc = this;
 		setTitle("Creador de equipos");
 		setLocation(200, 100);
-		setSize(700, 500);
+		setSize(900, 400);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		
+		setResizable(false);
 		//Se crean los componentes básicos de la ventana
 		creaPanelSup();
 		creaPanelEquipo();
