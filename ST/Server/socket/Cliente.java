@@ -20,6 +20,7 @@ public class Cliente {
 	            clientSocket = new Socket(ip, port);
 	            oos = new ObjectOutputStream(clientSocket.getOutputStream());
 	            new readThread().start();
+	            sendObject(VentanaSelecion.pokemons_para_combatir);
    
 	    }
 

@@ -18,7 +18,6 @@ import ventanas.VentanaJuego;
 public class Servidor {
 
     public static volatile ArrayList<RespHilos> conexones = new ArrayList<>();
-
     public static void main(String[] args) {
         new Hilo_acp().start();
     }
@@ -34,16 +33,43 @@ public class Servidor {
                     System.out.println("Esperando conexiones");
                     conexones.add(new RespHilos(ssockect.accept()));
                     System.out.println("Establecida la conexion");
-                    conexones.get(conexones.size() - 1).setName(""+(conexones.size() - 1));
-                    conexones.get(conexones.size() - 1).start();
+                    if (conexones.size()>= 2) {
+                    	mandarventanaJuego();
+                    }
                 }
                 ssockect.close();
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
         }
+    
+    private void mandarventanaJuego() {
+    	ArrayList<Pokemon> equipoPokemons_J1 = null;
+		ArrayList<Pokemon> equipoPokemons_J2 = null;
+		int i = 0;
+		for (RespHilos rep: conexones) {
+			if (i == 0)
+				equipoPokemons_J1 = rep.getEquipoList();
+			else
+				equipoPokemons_J2 = rep.getEquipoList();
+		}
+		
+		try {
+			
+			Combate c = new Combate(equipoPokemons_J1, equipoPokemons_J2);
+			VentanaJuego vj = new VentanaJuego(c);
+			conexones.get(0).getOut().writeObject(vj);
+			
+			Combate c_J2 = new Combate(equipoPokemons_J2, equipoPokemons_J1);
+			VentanaJuego vj_1 = new VentanaJuego(c_J2);
+			conexones.get(1).getOut().writeObject(vj_1);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
     }
-
     public static class RespHilos extends Thread {
         private static Socket sock;
         private ObjectOutputStream out;
@@ -63,9 +89,7 @@ public class Servidor {
                   try {
 					if( in.readObject() instanceof ArrayList ) {
 						equipoList = (ArrayList<Pokemon>) in.readObject();
-					    if (conexones.size() >= 2 ) {
-					    	mandarventanaJuego();
-					    }
+					    
 					}
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
@@ -84,23 +108,21 @@ public class Servidor {
             }
         }
 
-        private void mandarventanaJuego() {
-			ArrayList<Pokemon> equipoPokemons_J2 = null;
-			for (RespHilos rep: conexones) {
-				equipoPokemons_J2 = rep.equipoList;
-			}
-			Combate c = new Combate(equipoList, equipoPokemons_J2);
-			VentanaJuego vj = new VentanaJuego(c);
-			try {
-				out.writeObject(vj);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
 
 		public final void output(Socket sock, String message) throws IOException {
             this.out.writeUTF(this.getName() + ": " + message);
         }
+
+		public static Socket getSock() {
+			return sock;
+		}
+
+		public ObjectOutputStream getOut() {
+			return out;
+		}
+
+		public ArrayList<Pokemon> getEquipoList() {
+			return equipoList;
+		}
     }
 }
