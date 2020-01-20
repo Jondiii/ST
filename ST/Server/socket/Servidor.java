@@ -44,15 +44,9 @@ public class Servidor {
         }
     
     private void mandarventanaJuego() {
-    	ArrayList<Pokemon> equipoPokemons_J1 = null;
-		ArrayList<Pokemon> equipoPokemons_J2 = null;
-		int i = 0;
-		for (RespHilos rep: conexones) {
-			if (i == 0)
-				equipoPokemons_J1 = rep.getEquipoList();
-			else
-				equipoPokemons_J2 = rep.getEquipoList();
-		}
+    	ArrayList<Pokemon> equipoPokemons_J1 = conexones.get(0).getEquipoList();
+		ArrayList<Pokemon> equipoPokemons_J2 = conexones.get(1).getEquipoList();
+		
 		
 		try {
 			
@@ -88,7 +82,8 @@ public class Servidor {
                 while(loop) {
                   try {
 					if( in.readObject() instanceof ArrayList ) {
-						equipoList = (ArrayList<Pokemon>) in.readObject();
+						ArrayList<Pokemon> readObject = (ArrayList<Pokemon>) in.readObject();
+						equipoList = readObject;
 					    
 					}
 				} catch (ClassNotFoundException e) {

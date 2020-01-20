@@ -44,7 +44,7 @@ public class VentanaSelecion extends JFrame {
 	public static ArrayList<Pokemon> pokemons_para_combatir = new ArrayList<Pokemon>();
 	
 	public VentanaSelecion(Combate c) {
-		pokemons_para_combatir = c.getAliados();
+		pokemons_para_combatir = Main.miEquipo;
 		setSize(400, 500);
 		setLocation(600, 100);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
