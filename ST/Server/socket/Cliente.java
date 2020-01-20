@@ -19,8 +19,7 @@ public class Cliente {
 	            clientSocket = new Socket(ip, port);
 	            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
 	            new readThread().start();
-
-	        
+   
 	    }
 
 	    public static class readThread extends Thread {
