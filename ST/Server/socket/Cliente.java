@@ -14,14 +14,12 @@ public class Cliente {
 	    private static Socket clientSocket;
 	    private boolean conectado = true;
 	    private static ObjectOutputStream oos;
-	    public static EstadsCliente estado;
 		
 	    
-	    public void startConnection(String ip, int port, EstadsCliente estado) throws IOException, ClassNotFoundException {
+	    public void startConnection(String ip, int port) throws IOException, ClassNotFoundException {
 	            clientSocket = new Socket(ip, port);
 	            oos = new ObjectOutputStream(clientSocket.getOutputStream());
 	            new readThread().start();
-	            this.estado = estado;
    
 	    }
 

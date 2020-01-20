@@ -35,7 +35,6 @@ import main.Main;
 import principal.Combate;
 import principal.Pokemon;
 import socket.Cliente;
-import socket.EstadsCliente;
 
 
 public class VentanaSelecion extends JFrame {
@@ -113,7 +112,7 @@ public class VentanaSelecion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente c1 = new Cliente();
 		        try {
-					c1.startConnection("192.168.1.18", 5000, EstadsCliente.ESPERANDO); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
+					c1.startConnection("192.168.1.18", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
 					Cliente.sendObject(pokemons_para_combatir);
 		        } catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();

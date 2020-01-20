@@ -63,7 +63,7 @@ public class Servidor {
                   try {
 					if( in.readObject() instanceof ArrayList ) {
 						equipoList = (ArrayList<Pokemon>) in.readObject();
-					    if (conexones.size() >= 2 && Cliente.estado == EstadsCliente.ESPERANDO) {
+					    if (conexones.size() >= 2 ) {
 					    	mandarventanaJuego();
 					    }
 					}
@@ -85,7 +85,6 @@ public class Servidor {
         }
 
         private void mandarventanaJuego() {
-			Cliente.estado = EstadsCliente.EN_PARTIDA;
 			ArrayList<Pokemon> equipoPokemons_J2 = null;
 			for (RespHilos rep: conexones) {
 				equipoPokemons_J2 = rep.equipoList;
