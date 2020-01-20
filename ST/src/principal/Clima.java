@@ -16,4 +16,6 @@ package principal;
 
 public enum Clima {
 	SOLEADO, LLUVIOSO, TORMENTA_ARENA, GRANIZO;
-}
+	
+	}
+
