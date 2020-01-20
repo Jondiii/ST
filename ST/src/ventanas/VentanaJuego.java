@@ -50,15 +50,16 @@ public class VentanaJuego extends JFrame implements Serializable {
 	private static ArrayList<Pokemon> miEquipo = new ArrayList<>();
 	private static ArrayList<Pokemon> oponente = new ArrayList<>();
 	private static VentanaJuego vj;
-	public static JPanel movimientos_P1;
-	public static JPanel movimientos_P2;
-	public JPanel panelInfo;
+	public static JPanel movimientos_P1  = new JPanel();
+	public static JPanel movimientos_P2  = new JPanel();
+	public JPanel panelInfo  = new JPanel();
 	public JPanel panel_j1;
 	public JPanel panel_j2;
 	public JPanel panel_poke_J1;
 	public JPanel panel_poke_J2;
 	public JPanel panel_vacio_1;
 	public JPanel panel_vacio_2;
+	public JPanel panelInferior = new JPanel(new BorderLayout());
 	public JLabel poke_1;
 	public JLabel poke_2;
 	public JLabel estadoAlterado1 = new JLabel("");
@@ -219,6 +220,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 						}else {
 						cambiarEstados();
 						}
+						info_poke.dispose();
 					}
 					
 					@Override
@@ -269,6 +271,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 						}else {
 						cambiarEstados();
 						}
+						info_poke.dispose();
 					}
 					@Override
 					public void mouseEntered(MouseEvent e) {
@@ -302,8 +305,6 @@ public class VentanaJuego extends JFrame implements Serializable {
 	 * movimientos de cada correspondiente pokemon.
 	 */
 	private void crearPanelInferior() {
-		JPanel panelInferior = new JPanel(new BorderLayout());
-		panelInfo = new JPanel();
 		panelInfo.setPreferredSize(new Dimension(850, 25));
 		JPanel panel_movimientos = new JPanel();
 		panel_movimientos.setLayout(new GridLayout(0, 2, 8, 0));
@@ -467,6 +468,11 @@ public class VentanaJuego extends JFrame implements Serializable {
 		v.revalidate();
 	}
 	
+	public void cambiaMovimientos() {
+		if (panelInferior != null) panelInferior.removeAll();
+		v.crearPanelInferior();
+		//System.out.println(c.getpActivo().getMovimientos_poke().get(0).getNombre());
+	}
 	
 
 	public static ArrayList<Pokemon> getMiEquipo() {
@@ -475,6 +481,14 @@ public class VentanaJuego extends JFrame implements Serializable {
 	public static void setMiEquipo(ArrayList<Pokemon> miEquipo) {
 		VentanaJuego.miEquipo = miEquipo;
 	}
+	public JPanel getPanelInferior() {
+		return panelInferior;
+	}
+
+	public void setPanelInferior(JPanel panelInferior) {
+		this.panelInferior = panelInferior;
+	}
+
 	public static ArrayList<Pokemon> getOponente() {
 		return oponente;
 	}

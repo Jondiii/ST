@@ -29,6 +29,7 @@ import principal.Combate;
 import principal.EfectoSecundario;
 import principal.EquiposPorDefecto;
 import principal.EstadosAlterados;
+import principal.HiloJuego;
 import principal.Movimiento;
 import principal.Pokemon;
 import principal.Tipo;
@@ -229,13 +230,15 @@ public class VentanaSelectorEquipos extends JFrame {
 					System.out.println(e2.getMessage());
 				}
 			
+				for (Pokemon poke : equipoFinal) {
+					poke.setEstado(EstadosAlterados.NULL);
+				}
 			Combate c = new Combate(equipoFinal, EquiposPorDefecto.devuelveEquipo());
 			c.getVentana().setVisible(true);
-//			VentanaJuego vj = new VentanaJuego(c);
-//			vj.setVisible(true);
+			VentanaJuego vj = new VentanaJuego(c);
+			HiloJuego mh = new HiloJuego(c, c.getVentana());
+			mh.start();
 			vs.dispose();
-
-			
 			}
 		});
 		

@@ -18,7 +18,7 @@ public class EquiposPorDefecto {
 		listaEquipos.add(e3);
 		listaEquipos.add(e4);
 		
-		Movimiento brilloMagico = new Movimiento("Brillo mágico", Tipo.HADA, 80, 100, 10, CategoriaMov.ESPECIAL, 0,
+		Movimiento brilloMagico = new Movimiento("Brillo magico", Tipo.HADA, 80, 100, 10, CategoriaMov.ESPECIAL, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 0, 0, false, 0, 0, 0,	0, 0);
 
@@ -46,7 +46,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.PARALIZADO,
 		EfectoSecundario.NULL, 0, 0, 100, false, 0, 0, 0, 0, 0);
 		
-		Movimiento psiquico = new Movimiento("Psíquico", Tipo.PSIQUICO, 90, 100, 10, CategoriaMov.ESPECIAL, 0,
+		Movimiento psiquico = new Movimiento("Psiquico", Tipo.PSIQUICO, 90, 100, 10, CategoriaMov.ESPECIAL, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 10, 0, true, 0, 0, 0,	-1, 0);
 		
@@ -78,7 +78,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.PARALIZADO,
 		EfectoSecundario.NULL, 0, 0, 30, false, 0, 0, 0,	0, 0);
 		
-		Movimiento maquinacion = new Movimiento("Maquinación", Tipo.SINIESTRO, 0, 100, 10, CategoriaMov.ESTADO, 0,
+		Movimiento maquinacion = new Movimiento("Maquinacion", Tipo.SINIESTRO, 0, 100, 10, CategoriaMov.ESTADO, 0,
 		AlcanceMovimiento.USUARIO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 100, 0, false, 0, 0, 0, +2, 0);
 		
@@ -94,7 +94,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 0, 0, false, 0, 0, 0, 0, 0);
 		
-		Movimiento ventisca = new Movimiento("Ventisca", Tipo.VENENO, 120, 80, 10, CategoriaMov.ESPECIAL, 0,
+		Movimiento ventisca = new Movimiento("Ventisca", Tipo.HIELO, 120, 80, 10, CategoriaMov.ESPECIAL, 0,
 		AlcanceMovimiento.ENEMIGOS, EstadosAlterados.CONGELADO,
 		EfectoSecundario.NULL, 0, 0, 30, false, 0, 0, 0, 0, 0);
 		
@@ -106,7 +106,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 10, 0, true, 0, 0, 0, -1, 0);
 		
-		Movimiento pulsoUmbrio = new Movimiento("Pulso Umbrío", Tipo.SINIESTRO, 80, 100, 10, CategoriaMov.ESPECIAL, 0,
+		Movimiento pulsoUmbrio = new Movimiento("Pulso Umbrio", Tipo.SINIESTRO, 80, 100, 10, CategoriaMov.ESPECIAL, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 10, 0, true, 0, 0, -1, 0, 0);
 		
@@ -126,7 +126,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 10, 0, false, 0, 0, 0, -1, 0);
 		
-		Movimiento defensaFerrea = new Movimiento("Defensa Férrea", Tipo.ACERO, 0, 100, 10, CategoriaMov.ESTADO, 0,
+		Movimiento defensaFerrea = new Movimiento("Defensa Ferrea", Tipo.ACERO, 0, 100, 10, CategoriaMov.ESTADO, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 100, 0, false, 0, +2, 0, 0, 0);
 		
@@ -138,7 +138,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.RECOIL, 0, 0, 0, false, 0, 0, 0, 0, 0);
 		
-		Movimiento golpeAereo = new Movimiento("Golpe Aéreo", Tipo.VOLADOR, 80, 100, 20, CategoriaMov.FISICO, 0,
+		Movimiento golpeAereo = new Movimiento("Golpe Aereo", Tipo.VOLADOR, 80, 100, 20, CategoriaMov.FISICO, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 0, 0, false, 0, 0, 0, 0, 0);
 		
@@ -154,7 +154,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONFUSO,
 		EfectoSecundario.NULL, 0, 0, 100, false, 0, 0, 0, 0, 0);
 		
-		Movimiento explosion = new Movimiento("Explosión", Tipo.NORMAL, 170, 100, 10, CategoriaMov.ESPECIAL, 0,
+		Movimiento explosion = new Movimiento("Explosion", Tipo.NORMAL, 170, 100, 10, CategoriaMov.ESPECIAL, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.DEBILITACION, 100, 0, 0, false, 0, 0, 0, 0, 0);
 		
@@ -270,14 +270,13 @@ public class EquiposPorDefecto {
 		}
 	
 	public static ArrayList<Pokemon> devuelveEquipo(){
-		EquiposPorDefecto e = new EquiposPorDefecto();
 		Random ran = new Random();
 		int num = ran.nextInt(5);
 		
-		if (num<=1) return e.e1;
-		if (num==2) return e.e2;
-		if (num==3) return e.e3;
-		return e.e4;
+		if (num<=1) return e1;
+		if (num==2) return e2;
+		if (num==3) return e3;
+		return e4;
 	}
 
 	}

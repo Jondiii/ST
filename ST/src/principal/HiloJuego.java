@@ -60,8 +60,8 @@ public class HiloJuego implements Runnable {
 			ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 			ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_1().setIcon(icono_2);
+		
 			
-//				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_accion_hecha()) {
 				
 				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
 			
@@ -75,9 +75,10 @@ public class HiloJuego implements Runnable {
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_accion_hecha()) {
 				
 				v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");
-				
-			
+						
 		}
+		
+		v.cambiaMovimientos();
 		
 		actualizar_progress_bar();
 		//tenemos que pasarle el pokemon que este actualmente en el campo 

@@ -36,8 +36,9 @@ public class Main {
 	}
 	
 	public static void creaEquiposPorDefecto() {
-		miEquipo = EquiposPorDefecto.devuelveEquipo();
-		oponente = EquiposPorDefecto.devuelveEquipo();
+		EquiposPorDefecto e = new EquiposPorDefecto();
+		miEquipo = e.devuelveEquipo();
+		oponente = e.devuelveEquipo();
 		
 //		Movimiento movi = new Movimiento("Proteccion", Tipo.FUEGO, 0, 100, 100, CategoriaMov.ESTADO, 3, AlcanceMovimiento.ELEGIDO, null, 0, EfectoSecundario.INMUNIDAD);
 //		Movimiento movi2 = new Movimiento("Beso drenaje", Tipo.PLANTA, 10, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONGELADO, 20, null);
