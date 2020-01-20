@@ -272,6 +272,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 						cambiarEstados();
 						}
 						info_poke.dispose();
+
 					}
 					@Override
 					public void mouseEntered(MouseEvent e) {

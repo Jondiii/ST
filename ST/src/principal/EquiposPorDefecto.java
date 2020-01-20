@@ -134,7 +134,7 @@ public class EquiposPorDefecto {
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.NULL, 0, 0, 0, false, 0, 0, 0, 0, 0);
 		
-		Movimiento dobleFilo = new Movimiento("Doble Filo", Tipo.DRAGON, 100, 100, 10, CategoriaMov.FISICO, 0,
+		Movimiento dobleFilo = new Movimiento("Doble Filo", Tipo.NORMAL, 100, 100, 10, CategoriaMov.FISICO, 0,
 		AlcanceMovimiento.ELEGIDO, EstadosAlterados.NULL,
 		EfectoSecundario.RECOIL, 0, 0, 0, false, 0, 0, 0, 0, 0);
 		

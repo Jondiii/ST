@@ -248,8 +248,9 @@ public class BaseDatosPoke {
 //			Main.basesDatosCargarPoke();
 			//st.execute(añadeTablaPokesEquipo());
 			//st.execute("ALTER TABLE pokesEquipo ADD PRIMARY KEY (idEquipo, idPoke);");
-			st.execute("DELETE FROM equipo;");
-			st.execute("DELETE FROM pokesequipo;");
+			//st.execute("DELETE FROM equipo;");
+			//st.execute("DELETE FROM pokesequipo;");
+			//st.execute("UPDATE pokesequipo SET idPoke=5 WHERE mov1=27 AND idequipo=2;");
 			//st.execute("ALTER TABLE movimientos ADD UNIQUE (name);");
 			conn.close();
 			System.out.println("Cargada/actualizada la base de datos");

@@ -2,6 +2,10 @@ package principal;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,8 +15,10 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
 
+import database.BaseDatosPoke;
 import main.EstadosJuego;
 import main.Main;
+import ventanas.VentanaInicio;
 import ventanas.VentanaJuego;
 
 public class HiloJuego implements Runnable {
@@ -387,9 +393,30 @@ public class HiloJuego implements Runnable {
 		}
 		if (vivoA == false) {
 			v.cambiaPanelInfo("¡Todos los Pokémon del J1 han sido debilitados, la victoria es para el J2!");
+			try {
+				Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+				Statement stmt = conn.createStatement();
+				
+				String username = VentanaInicio.u.getNombre();
+				stmt.executeQuery("UPDATE usuario SET partidasGanadas=partidasGanadas+1 WHERE nombre='"+username+"';");
+				stmt.executeQuery("UPDATE usuario SET puntuacion=partidasGanadas-partidasPerdidas WHERE nombre='"+username+"';");
+		
+				conn.close();
+				} catch (SQLException e) {		}
 		}
 		if (vivoB == false) {
 			v.cambiaPanelInfo("¡Todos los Pokémon del J2 han sido debilitados, la victoria es para el J1!");
+			
+			try {
+				Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+				Statement stmt = conn.createStatement();
+				
+				String username = VentanaInicio.u.getNombre();
+				stmt.executeQuery("UPDATE usuario SET partidasGanadas=partidasPerdidas+1 WHERE nombre='"+username+"';");
+				stmt.executeQuery("UPDATE usuario SET puntuacion=partidasGanadas-partidasPerdidas WHERE nombre='"+username+"';");
+		
+				conn.close();
+				} catch (SQLException e) {		}
 		}
 		
 	}
