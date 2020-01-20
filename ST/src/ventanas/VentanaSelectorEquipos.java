@@ -207,7 +207,7 @@ public class VentanaSelectorEquipos extends JFrame {
 							listaMovs.add(new Movimiento(rMov.getString("name").replace("_", " "), Tipo.valueOf(rMov.getString("tipo").toUpperCase()), rMov.getInt("potencia"), rMov.getInt("precision"),
 													rMov.getInt("pp"), CategoriaMov.valueOf(rMov.getString("categoria").toUpperCase()),	rMov.getInt("prioridad"),
 													AlcanceMovimiento.valueOf(rMov.getString("alcance").toUpperCase()), EstadosAlterados.valueOf(rMov.getString("efecto").toUpperCase()),
-													EfectoSecundario.valueOf(rMov.getString("estadoSecundario")), rMov.getFloat("prEstado"), rMov.getFloat("prStats"), rMov.getFloat("prEfecto"),
+													EfectoSecundario.valueOf(rMov.getString("estadoSecundario").toUpperCase()), rMov.getFloat("prEstado"), rMov.getFloat("prStats"), rMov.getFloat("prEfecto"),
 													rMov.getBoolean("cambioStatsARival"), rMov.getInt("ataque"), rMov.getInt("defensa"), rMov.getInt("ataqueEspecial"),
 													rMov.getInt("defensaEspecial"), rMov.getInt("velocidad")));
 						}
