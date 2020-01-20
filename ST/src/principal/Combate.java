@@ -3,6 +3,7 @@ package principal;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import main.Main;
 import ventanas.VentanaJuego;
 
 /**

@@ -14,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -39,8 +40,10 @@ import principal.Pokeball;
 import principal.Pokemon;
 import principal.Tipo;
 
-public class VentanaJuego extends JFrame{
+public class VentanaJuego extends JFrame implements Serializable {
 	
+
+	private static final long serialVersionUID = 1L;
 	public static int esperar = 0;
 	public static EstadosJuego estado;
 	

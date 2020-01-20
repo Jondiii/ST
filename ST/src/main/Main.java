@@ -19,7 +19,7 @@ public class Main {
 	public static boolean cerrada = false;
 	
 	public static ArrayList<Pokemon>  miEquipo = new ArrayList<>();
-	static ArrayList<Pokemon> oponente = new ArrayList<>();
+	public static ArrayList<Pokemon> oponente = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		creaEquiposPorDefecto();

@@ -41,7 +41,7 @@ public class VentanaSelecion extends JFrame {
 	private Font font = new Font("Arial", Font.PLAIN, 16);
 	private Combate c;
 	public VentanaSelecion vs;
-	public static ArrayList<Pokemon> pokemons_para_combatir = new ArrayList<Pokemon>();
+	public static ArrayList<Pokemon> pokemons_para_combatir = null;
 	
 	public VentanaSelecion(Combate c) {
 		pokemons_para_combatir = Main.miEquipo;
