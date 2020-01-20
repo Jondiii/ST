@@ -11,6 +11,9 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import principal.Combate;
+import principal.Pokemon;
 public class Servidor {
 
     public static volatile ArrayList<RespHilos> conexones = new ArrayList<>();
@@ -42,8 +45,8 @@ public class Servidor {
 
     public static class RespHilos extends Thread {
         private static Socket sock;
-        private DataOutputStream out;
-
+        private ObjectOutputStream out;
+        private ArrayList<Pokemon> equipoList;
         public RespHilos(Socket newSock) {
             sock = newSock;
         }
@@ -51,16 +54,26 @@ public class Servidor {
         @Override
         public void run() {
             try {
-                DataInputStream in = new DataInputStream(sock.getInputStream());
-                out = new DataOutputStream(sock.getOutputStream());
+                ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
+                out = new ObjectOutputStream(sock.getOutputStream());
 
                 boolean loop = true;
                 while(loop) {
-                    String msg = in.readUTF();
-                    System.out.println(msg);
-                    for (RespHilos thread : conexones) {
-                        if (!thread.getName().contains("T")) thread.output(sock, msg);
-                    }
+                  try {
+					if( in.readObject() instanceof ArrayList ) {
+						equipoList = (ArrayList<Pokemon>) in.readObject();
+					    if (conexones.size() >= 2) {
+					    	ArrayList<Pokemon> equipo_2 = null;
+					    	for (RespHilos rep : conexones) {
+					    		equipo_2 = rep.equipoList;
+					    		break;
+					    	}
+					    	Combate c = new Combate(equipoList, equipo_2);
+					    }
+					}
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
                 }
 
                 in.close();

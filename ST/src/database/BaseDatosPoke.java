@@ -20,6 +20,7 @@ import principal.CategoriaMov;
 import principal.EfectoSecundario;
 import principal.EstadosAlterados;
 import principal.Movimiento;
+import principal.Pokemon;
 import principal.Tipo;
 
 /**
@@ -197,6 +198,7 @@ public class BaseDatosPoke {
 	    }
 		return as;
 	}
+	
 	
 	public static String getNombreAbomasnow() throws SQLException {
 		conn = DriverManager.getConnection(url);

@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
@@ -32,6 +33,7 @@ import javax.swing.JPanel;
 import database.BaseDatosPoke;
 import main.Main;
 import principal.Combate;
+import principal.Pokemon;
 import socket.Cliente;
 
 
@@ -39,8 +41,10 @@ public class VentanaSelecion extends JFrame {
 	private Font font = new Font("Arial", Font.PLAIN, 16);
 	private Combate c;
 	public VentanaSelecion vs;
+	public static ArrayList<Pokemon> pokemons_para_combatir = new ArrayList<Pokemon>();
 	
 	public VentanaSelecion(Combate c) {
+		pokemons_para_combatir = Main.miEquipo;
 		setSize(400, 500);
 		setLocation(600, 100);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -108,8 +112,9 @@ public class VentanaSelecion extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Cliente c1 = new Cliente();
 		        try {
-					c1.startConnection("192.168.43.198", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
-				} catch (ClassNotFoundException | IOException e) {
+					c1.startConnection("192.168.1.18", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
+					Cliente.sendObject(pokemons_para_combatir);
+		        } catch (ClassNotFoundException | IOException e) {
 					e.printStackTrace();
 				}
 			}

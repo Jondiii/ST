@@ -25,10 +25,10 @@ public class Cliente {
 	            	
 	            }
 	    }
+	    
 	    public static void sendObject (Object o) throws IOException {
 	    	oos.writeObject(o);
 	    }
-
 	    public void stopConnection() throws IOException {
 	            oos.close();
 	            ois.close();
