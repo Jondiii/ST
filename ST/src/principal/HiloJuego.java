@@ -64,7 +64,6 @@ public class HiloJuego implements Runnable {
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ1_accion_hecha()) {
 				
 				v.cambiaPanelInfo("Cambia a " + c.getpActivo().getNombre() + ".");
-				
 			
 			
 		}
@@ -73,7 +72,6 @@ public class HiloJuego implements Runnable {
 			ImageIcon iconoo_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpEnemigo().getNombre() +"_frente.png"));
 			ImageIcon iconoo_2 = new ImageIcon(iconoo_1.getImage().getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT));
 			v.getPoke_2().setIcon(iconoo_2);
-			
 //				if (VentanaJuego.estado == EstadosJuego.POKE_DEBILITADO && c.isJ2_accion_hecha()) {
 				
 				v.cambiaPanelInfo("Cambia a " + c.getpEnemigo().getNombre() + ".");

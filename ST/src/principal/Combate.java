@@ -46,10 +46,9 @@ public class Combate {
 	public Combate(ArrayList<Pokemon> miPokemons, ArrayList<Pokemon> oponente) {
 		aliados = miPokemons;
 		oponentes = oponente;
-		
 		pActivo = aliados.get(0);
 		pEnemigo = oponentes.get(0);
-		
+
 		ventana = new VentanaJuego(this);
 	}
 	

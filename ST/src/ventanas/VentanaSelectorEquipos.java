@@ -25,7 +25,9 @@ import javax.swing.JPanel;
 import database.BaseDatosPoke;
 import principal.AlcanceMovimiento;
 import principal.CategoriaMov;
+import principal.Combate;
 import principal.EfectoSecundario;
+import principal.EquiposPorDefecto;
 import principal.EstadosAlterados;
 import principal.Movimiento;
 import principal.Pokemon;
@@ -216,7 +218,7 @@ public class VentanaSelectorEquipos extends JFrame {
 						
 						ResultSet rPoke = stmt.executeQuery("SELECT * FROM pokemons WHERE id="+teamMember[1]+";");
 						
-						equipoFinal.add(new Pokemon(rPoke.getString("name"), rPoke.getInt("altura"), rPoke.getInt("peso"), " ", rPoke.getInt("ps"),
+						equipoFinal.add(new Pokemon(rPoke.getString("name").replace("_", " "), rPoke.getInt("altura"), rPoke.getInt("peso"), " ", rPoke.getInt("ps"),
 								rPoke.getInt("ataque"), rPoke.getInt("defensa"), rPoke.getInt("ataqueEspecial"), rPoke.getInt("defensaEspecial"),
 								rPoke.getInt("velocidad"), 50, listaMovs, Tipo.valueOf(rPoke.getString("tipo1").toUpperCase()),
 								Tipo.valueOf(rPoke.getString("tipo2").toUpperCase())));
@@ -226,7 +228,13 @@ public class VentanaSelectorEquipos extends JFrame {
 				} catch (SQLException e2) {
 					System.out.println(e2.getMessage());
 				}
-			vs.dispose();//TODO antes de esto hay que hacer que el equipo se guarde en algún lado fuera de esta ventana.
+			
+			Combate c = new Combate(equipoFinal, EquiposPorDefecto.devuelveEquipo());
+			c.getVentana().setVisible(true);
+//			VentanaJuego vj = new VentanaJuego(c);
+//			vj.setVisible(true);
+			vs.dispose();
+
 			
 			}
 		});

@@ -227,56 +227,57 @@ public class EquiposPorDefecto {
 		m_be.add(abocajarro); m_be.add(dobleFilo); m_be.add(golpeAereo); m_be.add(garraDragon);
 		m_mim.add(sombraVil); m_mim.add(abocajarro); m_mim.add(ataqueAla); m_mim.add(tijeraX);
 
-		e1.add(new Pokemon("Abomasnow", 1, 1, "Probando", 384, 283, 249, 283, 269, 219, 3, m, Tipo.PLANTA, Tipo.HIELO));
-		e1.add(new Pokemon("Dragonite", 1, 1, "Probando", 386, 367, 243, 299, 299, 259, 1, m, Tipo.DRAGON, Tipo.VOLADOR));
-		e1.add(new Pokemon("Aegislash", 1, 1, "yo", 324, 199, 399, 199, 399, 219, 1, m, Tipo.ACERO, Tipo.FANTASMA));
-		e1.add(new Pokemon("Charizard", 1, 1, "yo", 360, 267, 243, 317, 269, 299, 1, m, Tipo.VOLADOR, Tipo.FUEGO));
-		e1.add(new Pokemon("Vaporeon", 1, 1, "yo", 464, 229, 243, 319, 289, 229, 1, m, Tipo.AGUA));
-		e1.add(new Pokemon("Tyranitar", 1, 1, "yo", 404, 367, 243, 289, 299, 221, 1, m, Tipo.ROCA, Tipo.SINIESTRO));
+		e1.add(new Pokemon("Abomasnow", 1, 1, "Probando", 384, 283, 249, 283, 269, 219, 3, m_ab, Tipo.PLANTA, Tipo.HIELO));
+		e1.add(new Pokemon("Dragonite", 1, 1, "Probando", 386, 367, 243, 299, 299, 259, 1, m_dr, Tipo.DRAGON, Tipo.VOLADOR));
+		e1.add(new Pokemon("Aegislash", 1, 1, "yo", 324, 199, 399, 199, 399, 219, 1, m_ae, Tipo.ACERO, Tipo.FANTASMA));
+		e1.add(new Pokemon("Charizard", 1, 1, "yo", 360, 267, 243, 317, 269, 299, 1, m_ch, Tipo.VOLADOR, Tipo.FUEGO));
+		e1.add(new Pokemon("Vaporeon", 1, 1, "yo", 464, 229, 243, 319, 289, 229, 1, m_va, Tipo.AGUA));
+		e1.add(new Pokemon("Tyranitar", 1, 1, "yo", 404, 367, 243, 289, 299, 221, 1, m_ty, Tipo.ROCA, Tipo.SINIESTRO));
 		for (Pokemon p : e1) {
 		p.setEstado(EstadosAlterados.NULL);
 		}
 		
 
-			e2.add(new Pokemon("Serperior", 1, 1, "Probando", 354, 249, 243, 249, 289, 325, 3, m, Tipo.PLANTA));
-			e2.add(new Pokemon("Spiritomb", 1, 1, "Probando", 304, 283, 243, 283, 315, 169, 1, m, Tipo.FANTASMA, Tipo.SINIESTRO));
-			e2.add(new Pokemon("Togekiss", 1, 1, "yo", 374, 199, 339, 329, 329, 259, 1, m, Tipo.VOLADOR, Tipo.HADA));
-		e2.add(new Pokemon("Milotic", 1, 1, "yo", 394, 219, 243, 299, 349, 261, 1, m, Tipo.AGUA));
-		e2.add(new Pokemon("Magnezone", 1, 1, "yo", 344, 239, 243, 359, 279, 219, 1, m, Tipo.ELECTRICO, Tipo.ACERO));
-		e2.add(new Pokemon("Gengar", 1, 1, "yo", 324, 229, 243, 359, 249, 319, 1, m, Tipo.FANTASMA, Tipo.VENENO));
+			e2.add(new Pokemon("Serperior", 1, 1, "Probando", 354, 249, 243, 249, 289, 325, 3, m_se, Tipo.PLANTA));
+			e2.add(new Pokemon("Spiritomb", 1, 1, "Probando", 304, 283, 243, 283, 315, 169, 1, m_sp, Tipo.FANTASMA, Tipo.SINIESTRO));
+			e2.add(new Pokemon("Togekiss", 1, 1, "yo", 374, 199, 339, 329, 329, 259, 1, m_to, Tipo.VOLADOR, Tipo.HADA));
+		e2.add(new Pokemon("Milotic", 1, 1, "yo", 394, 219, 243, 299, 349, 261, 1, m_mil, Tipo.AGUA));
+		e2.add(new Pokemon("Magnezone", 1, 1, "yo", 344, 239, 243, 359, 279, 219, 1, m_ma, Tipo.ELECTRICO, Tipo.ACERO));
+		e2.add(new Pokemon("Gengar", 1, 1, "yo", 324, 229, 243, 359, 249, 319, 1, m_ge, Tipo.FANTASMA, Tipo.VENENO));
 		for (Pokemon p : e2) {
 		p.setEstado(EstadosAlterados.NULL);
 		}
 
-			e3.add(new Pokemon("Gardevoir", 1, 1, "Probando", 340, 229, 243, 349, 329, 259, 3, m, Tipo.HADA, Tipo.PSIQUICO));
-			e3.add(new Pokemon("Glaceon", 1, 1, "Probando", 334, 219, 243, 359, 289, 229, 1, m, Tipo.HIELO));
-			e3.add(new Pokemon("Aggron", 1, 1, "yo", 334, 319, 459, 219, 219, 199, 1, m, Tipo.ACERO, Tipo.ROCA));
-		e3.add(new Pokemon("Bewear", 1, 1, "yo", 444, 349, 243, 209, 219, 219, 1, m, Tipo.NORMAL, Tipo.LUCHA));
-		e3.add(new Pokemon("Mimikyu", 1, 1, "yo", 314, 279, 243, 199, 309, 291, 1, m, Tipo.HADA, Tipo.FANTASMA));
-		e3.add(new Pokemon("Salazzle", 1, 1, "yo", 340, 227, 243, 321, 219, 333, 1, m, Tipo.FUEGO, Tipo.VENENO));
+			e3.add(new Pokemon("Gardevoir", 1, 1, "Probando", 340, 229, 243, 349, 329, 259, 3, m_ga, Tipo.HADA, Tipo.PSIQUICO));
+			e3.add(new Pokemon("Glaceon", 1, 1, "Probando", 334, 219, 243, 359, 289, 229, 1, m_gl, Tipo.HIELO));
+			e3.add(new Pokemon("Aggron", 1, 1, "yo", 334, 319, 459, 219, 219, 199, 1, m_ag, Tipo.ACERO, Tipo.ROCA));
+		e3.add(new Pokemon("Bewear", 1, 1, "yo", 444, 349, 243, 209, 219, 219, 1, m_be, Tipo.NORMAL, Tipo.LUCHA));
+		e3.add(new Pokemon("Mimikyu", 1, 1, "yo", 314, 279, 243, 199, 309, 291, 1, m_mim, Tipo.HADA, Tipo.FANTASMA));
+		e3.add(new Pokemon("Salazzle", 1, 1, "yo", 340, 227, 243, 321, 219, 333, 1, m_sa, Tipo.FUEGO, Tipo.VENENO));
 		for (Pokemon p : e3) {
 		p.setEstado(EstadosAlterados.NULL);
 		}
 		
-		e4.add(new Pokemon("Reuniclus", 1, 1, "Probando", 424, 229, 243, 349, 269, 169, 3, m, Tipo.PSIQUICO));
-		e4.add(new Pokemon("Sceptile", 1, 1, "Probando", 344, 269, 243, 309, 269, 339, 1, m, Tipo.PLANTA));
-		e4.add(new Pokemon("Scolipede", 1, 1, "yo", 324, 299, 243, 209, 237, 323, 1, m, Tipo.VENENO, Tipo.BICHO));
-		e4.add(new Pokemon("Umbreon", 1, 1, "yo", 394, 229, 243, 219, 359, 229, 1, m, Tipo.SINIESTRO));
-		e4.add(new Pokemon("Lycanroc", 1, 1, "yo", 464, 229, 243, 319, 289, 229, 1, m, Tipo.ROCA));
-		e4.add(new Pokemon("Luxray", 1, 1, "yo", 354, 329, 243, 209, 229, 323, 1, m, Tipo.ELECTRICO));
+		e4.add(new Pokemon("Reuniclus", 1, 1, "Probando", 424, 229, 243, 349, 269, 169, 3, m_re, Tipo.PSIQUICO));
+		e4.add(new Pokemon("Sceptile", 1, 1, "Probando", 344, 269, 243, 309, 269, 339, 1, m_sce, Tipo.PLANTA));
+		e4.add(new Pokemon("Scolipede", 1, 1, "yo", 324, 299, 243, 209, 237, 323, 1, m_sco, Tipo.VENENO, Tipo.BICHO));
+		e4.add(new Pokemon("Umbreon", 1, 1, "yo", 394, 229, 243, 219, 359, 229, 1, m_um, Tipo.SINIESTRO));
+		e4.add(new Pokemon("Lycanroc", 1, 1, "yo", 464, 229, 243, 319, 289, 229, 1, m_ly, Tipo.ROCA));
+		e4.add(new Pokemon("Luxray", 1, 1, "yo", 354, 329, 243, 209, 229, 323, 1, m_lu, Tipo.ELECTRICO));
 		for (Pokemon p : e4) {
 		p.setEstado(EstadosAlterados.NULL);
 		}
 		}
 	
 	public static ArrayList<Pokemon> devuelveEquipo(){
+		EquiposPorDefecto e = new EquiposPorDefecto();
 		Random ran = new Random();
 		int num = ran.nextInt(5);
 		
-		if (num<=1) return e1;
-		if (num==2) return e2;
-		if (num==3) return e3;
-		return e4;
+		if (num<=1) return e.e1;
+		if (num==2) return e.e2;
+		if (num==3) return e.e3;
+		return e.e4;
 	}
 
 	}

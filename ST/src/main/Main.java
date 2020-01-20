@@ -23,6 +23,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		creaEquiposPorDefecto();
+
 		Combate c = new Combate(miEquipo, oponente); 
 		try {
 //			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -35,28 +36,29 @@ public class Main {
 	}
 	
 	public static void creaEquiposPorDefecto() {
-		// Leer fichero CSV e insertar datos en la BDD
+		miEquipo = EquiposPorDefecto.devuelveEquipo();
+		oponente = EquiposPorDefecto.devuelveEquipo();
 		
-		Movimiento movi = new Movimiento("Proteccion", Tipo.FUEGO, 0, 100, 100, CategoriaMov.ESTADO, 3, AlcanceMovimiento.ELEGIDO, null, 0, EfectoSecundario.INMUNIDAD);
-		Movimiento movi2 = new Movimiento("Beso drenaje", Tipo.PLANTA, 10, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONGELADO, 20, null);
-		Movimiento movi3 = new Movimiento("AGUA", Tipo.AGUA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, null, 0, null);
-		Movimiento movi4 = new Movimiento("Toxico", Tipo.VENENO, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.ENVENENADO, 50, null);		
-		
-		ArrayList<Movimiento> m = new ArrayList<>();
-		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
-		
-		miEquipo.add(new Pokemon("Lumineon", 1, 1, "Probando", 100, 2, 2, 2, 2, 2, 2, m, Tipo.LUCHA, Tipo.PSIQUICO));
-		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO, Tipo.PSIQUICO));
-		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.PSIQUICO));
-		for (Pokemon p : miEquipo) {
-			p.setEstado(EstadosAlterados.NULL);
-		}
-		oponente.add(new Pokemon("Abomasnow", 1, 1, "Probando", 100, 1, 1, 1, 1, 3, 3, m, Tipo.PLANTA));
-		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON, Tipo.VOLADOR));
-		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.FANTASMA));
-		for (Pokemon p : oponente) {
-			p.setEstado(EstadosAlterados.NULL);
-		}
+//		Movimiento movi = new Movimiento("Proteccion", Tipo.FUEGO, 0, 100, 100, CategoriaMov.ESTADO, 3, AlcanceMovimiento.ELEGIDO, null, 0, EfectoSecundario.INMUNIDAD);
+//		Movimiento movi2 = new Movimiento("Beso drenaje", Tipo.PLANTA, 10, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.CONGELADO, 20, null);
+//		Movimiento movi3 = new Movimiento("AGUA", Tipo.AGUA, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, null, 0, null);
+//		Movimiento movi4 = new Movimiento("Toxico", Tipo.VENENO, 100, 100, 100,CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.ELEGIDO, EstadosAlterados.ENVENENADO, 50, null);		
+//		
+//		ArrayList<Movimiento> m = new ArrayList<>();
+//		m.add(movi); m.add(movi2); m.add(movi3); m.add(movi4);
+//		
+//		miEquipo.add(new Pokemon("Lumineon", 1, 1, "Probando", 100, 2, 2, 2, 2, 2, 2, m, Tipo.LUCHA, Tipo.PSIQUICO));
+//		miEquipo.add(new Pokemon("Raichu-alola", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ELECTRICO, Tipo.PSIQUICO));
+//		miEquipo.add(new Pokemon("Metagross", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.PSIQUICO));
+//		for (Pokemon p : miEquipo) {
+//			p.setEstado(EstadosAlterados.NULL);
+//		}
+//		oponente.add(new Pokemon("Abomasnow", 1, 1, "Probando", 100, 1, 1, 1, 1, 3, 3, m, Tipo.PLANTA));
+//		oponente.add(new Pokemon("Dragonite", 1, 1, "Probando", 100, 1, 1, 1, 1, 1, 1, m, Tipo.DRAGON, Tipo.VOLADOR));
+//		oponente.add(new Pokemon("Aegislash", 1, 1, "yo", 100, 1, 1, 1, 1, 1, 1, m, Tipo.ACERO, Tipo.FANTASMA));
+//		for (Pokemon p : oponente) {
+//			p.setEstado(EstadosAlterados.NULL);
+//		}
 	}
 	
 	public static void basesDatosCargarPoke() {

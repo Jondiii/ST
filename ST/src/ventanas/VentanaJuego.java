@@ -81,9 +81,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 		setLocation(200, 100);
 		setSize(800, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
-		
-		
-		
+
 		this.miEquipo = miPokemon;
 		this.oponente = oponente;
 		
@@ -112,10 +110,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 		setLocation(200, 100);
 		setSize(850, 500);
 		setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
-		
-//		ImageIcon fondo = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
-//		this.setIconImage(fondo);
-//		
+
 		crearPanelFrontal();
 		crearPanelLateral();
 		crearPanelInferior();	
@@ -130,14 +125,6 @@ public class VentanaJuego extends JFrame implements Serializable {
 		panel_central.setImage("/img/campo_batalla_2.png");
 		panel_central.setLayout(new GridLayout(2,2));
 		
-		
-//		ImageIcon img_fondo = new ImageIcon(getClass().getResource("/img/campo_batalla_1.png"));
-//		ImageIcon img_fondo_1 = new ImageIcon(img_fondo.getImage().getScaledInstance(400, 600, java.awt.Image.SCALE_DEFAULT));
-//		JLabel img = new JLabel( img_fondo_1);
-//		img.setSize(500, 500);
-//		img.setLocation(0, 0);
-//		panel_central.add(img); 
-		
 		panel_vacio_1 = new JPanel();
 		panel_vacio_1.setOpaque(false);
 		panel_vacio_2 = new JPanel();
@@ -146,7 +133,6 @@ public class VentanaJuego extends JFrame implements Serializable {
 		panel_poke_J1.setOpaque(false);
 		panel_poke_J2 = new JPanel();
 		panel_poke_J2.setOpaque(false);
-		
 		
 		vida_1 = new JProgressBar();
 		vida_1.setValue(c.getpActivo().calcuPsPorcentaje());
@@ -162,7 +148,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 		vida_2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		panel_poke_J2.add(vida_2, BorderLayout.NORTH);
 		panel_poke_J2.add(estadoAlterado2, BorderLayout.NORTH);
-		
+
 		ImageIcon icono_1 = new ImageIcon(getClass().getResource("/img/"+ c.getpActivo().getNombre() +"_espaldas.png"));
 		ImageIcon icono_2 = new ImageIcon(icono_1.getImage().getScaledInstance(290, 290, java.awt.Image.SCALE_DEFAULT));
 		poke_1 = new JLabel();
@@ -180,8 +166,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 		panel_central.add(panel_poke_J2);
 		panel_central.add(panel_poke_J1);
 		panel_central.add(panel_vacio_2);
-		
-		
+
 		add(panel_central, BorderLayout.CENTER);
 		
 		
@@ -203,24 +188,15 @@ public class VentanaJuego extends JFrame implements Serializable {
 		panel_j2.setLayout(new BorderLayout());
 		
 		/**
-		 * AÃ±adair un listener al label para que se cambie de pokemon.
+		 * Añadir un listener al label para que se cambie de pokemon.
 		 */
 		JPanel panel_pokeballs_J1 = new JPanel();
-		panel_pokeballs_J1.setLayout(new GridLayout(6, 0));
+		panel_pokeballs_J1.setLayout(new GridLayout(6, 1));
 		
 		JPanel panel_pokeballs_J2 = new JPanel();
-		panel_pokeballs_J2.setLayout(new GridLayout(6, 0));
+		panel_pokeballs_J2.setLayout(new GridLayout(6, 1));
 
-		for (Pokemon p : miEquipo) { //PodrÃ­amos hacer que en vez de pokÃ©balls saliesen los mini sprites de los pokes, para saber a quiÃ©n se estÃ¡ cambiando.
-			
-//			if (c.getpActivo() == p) {
-//				Pokeball ball = new Pokeball(iconoPokeball, p);
-//				ball.mostrarPoke();
-//				panel_pokeballs_J1.add(ball, BorderLayout.SOUTH);
-//			}
-//			else {
-			//el primer pokemon sino no tenia el listener. he cambiado la forma del point
-			//es que a veces como que daaba error sino lo volvemos a poner
+		for (Pokemon p : miEquipo) { 
 				Pokeball ball = new Pokeball(iconoPokeball, p);
 				if (p == c.getpActivo()) {
 					ball.mostrarPoke();
@@ -231,8 +207,6 @@ public class VentanaJuego extends JFrame implements Serializable {
 					public void mouseClicked(MouseEvent e) {
 						if (ball.getPoke().getEstado() == EstadosAlterados.DEBILITADO || ball.getPoke() == c.getpActivo()) return;
 						if(c.isJ1_accion_hecha() || c.getpEnemigo().getEstado() == EstadosAlterados.DEBILITADO) return;
-//						Point pPulsado = new Point(e.getPoint());
-//						if (ball.getBounds().getCenterX() >= (pPulsado.getX())) {
 						Component comp = e.getComponent();
 						if (comp instanceof JLabel) {
 							c.setpActivo(ball.getPoke());
@@ -269,14 +243,7 @@ public class VentanaJuego extends JFrame implements Serializable {
 		}
 		panel_j1.add(panel_pokeballs_J1, BorderLayout.SOUTH);
 		
-		for (Pokemon p : oponente) { //PodrÃ­amos hacer que en vez de pokÃ©balls saliesen los mini sprites de los pokes, para saber a quiÃ©n se estÃ¡ cambiando.
-			
-//			if (c.getpEnemigo() == p) {
-//				Pokeball ball = new Pokeball(iconoPokeball, p);
-//				ball.mostrarPoke();
-//				panel_pokeballs_J2.add(ball, BorderLayout.SOUTH);
-//			}
-//			else {
+		for (Pokemon p : oponente) {
 			
 				Pokeball ball = new Pokeball(iconoPokeball, p);
 				if (c.getpEnemigo() == p) {
