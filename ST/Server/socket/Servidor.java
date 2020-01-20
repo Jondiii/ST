@@ -73,6 +73,7 @@ public class Servidor {
 					    	}
 					    	Combate c = new Combate(equipoList, equipo_2);
 					    	VentanaJuego vj = new VentanaJuego(c);
+					    	System.out.println("Empieza el juego");
 					    	out.writeObject(vj);
 					    }
 					}

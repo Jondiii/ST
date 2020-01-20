@@ -1,10 +1,15 @@
 package principal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Pokemon {
+public class Pokemon implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	//https://pokemondb.net/sprites
 	//https://play.pokemonshowdown.com/sprites/
 	private String nombre;
