@@ -77,6 +77,7 @@ public class VentanaCreadorEquipos extends JFrame {
 	JLabel ataqueEspecialPoke = new JLabel();
 	JLabel defensaEspecialPoke = new JLabel();
 	JLabel velocidadPoke = new JLabel();
+	JLabel imgPoke;
 	int alturaPoke = 0;
 	int pesoPoke = 0;
 	JTextField nombreEquipo = new JTextField(15);
@@ -113,7 +114,7 @@ public class VentanaCreadorEquipos extends JFrame {
 		JPanel pCentro = new JPanel();
 		JPanel pDer = new JPanel(new GridLayout(6,2));
 		JPanel pMovs = new JPanel(new GridLayout(4,1));
-		JLabel imgPoke = new JLabel();
+		imgPoke = new JLabel();
 		
 		pPrincipal.add(pIzq, BorderLayout.WEST);
 		pPrincipal.add(pCentro, BorderLayout.CENTER);
@@ -141,7 +142,18 @@ public class VentanaCreadorEquipos extends JFrame {
 					if (comboPoke.getSelectedItem().equals("Abomasnow")) {
 						try {
 							arrayMovs = cargaMovs(BaseDatosPoke.getNombreAbomasnow());
-						    
+						    psPoke.setText(384+""); //Con Abomasnow nos dan errores místicos, por lo que hemos tenido que solucionarlos así.
+						    ataquePoke.setText(283+"");
+						    defensaPoke.setText(249+"");
+						    ataqueEspecialPoke.setText(283+"");
+						    defensaEspecialPoke.setText(269+"");
+						    velocidadPoke.setText(219+"");
+						    alturaPoke = 2;
+						    pesoPoke = 126;
+						    t1 =Tipo.PLANTA;
+						    t2 =Tipo.HIELO;
+						    idPoke = 1;
+							
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -152,7 +164,6 @@ public class VentanaCreadorEquipos extends JFrame {
 					actualizaCombos(arrayMovs);
 			
 					try {
-						
 						conn = DriverManager.getConnection(BaseDatosPoke.url);
 						Statement stmt = conn.createStatement();
 					    ResultSet rs = stmt.executeQuery("Select id, ps, ataque, defensa, ataqueEspecial, "
@@ -258,7 +269,7 @@ public class VentanaCreadorEquipos extends JFrame {
 	}
 	
 	public void creaPanelMovs(JPanel p) {
-		Movimiento movVacio = new Movimiento("", Tipo.FANTASMA, 0, 0, 0, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.CAMPO, EstadosAlterados.NULL, 0, EfectoSecundario.DEBILITACION);
+		Movimiento movVacio = new Movimiento("", Tipo.NULL, 0, 0, 0, CategoriaMov.ESPECIAL, 0, AlcanceMovimiento.CAMPO, EstadosAlterados.NULL, 0, EfectoSecundario.DEBILITACION);
 		p.add(p1 = new PanelMovimiento(movVacio));
 		p.add(p2 = new PanelMovimiento(movVacio));
 		p.add(p3 = new PanelMovimiento(movVacio));
@@ -361,9 +372,9 @@ public class VentanaCreadorEquipos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO lo dejo así para que no se creen cosas raras en la bd hasta que pueda acabarlo
+				
 				if(!comprobarEquipoCorrecto()) return;
-				try { //NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR NO BORRAR
+				try {
 					conn = DriverManager.getConnection(BaseDatosPoke.url);
 					Statement st = conn.createStatement();
 					String username = VentanaInicio.u.getNombre();
@@ -451,10 +462,7 @@ public class VentanaCreadorEquipos extends JFrame {
 					todoBien.showMessageDialog(null, "Equipo guardado correctamente.", "¡Bien!", JOptionPane.INFORMATION_MESSAGE);
 					vc.dispose();
 					
-				} catch (SQLException e2) {
-					System.out.println(e2.getMessage());
-					
-				}
+				} catch (SQLException e2) {System.out.println(e2.getMessage());	}
 				
 			}
 		});
@@ -492,14 +500,15 @@ public class VentanaCreadorEquipos extends JFrame {
 		add(pPokeballs, BorderLayout.EAST);
 	}
 	
-	private void addPokeballListeners() { //TODO Quitar la imagen del poke y los paneles de movimiento al cambiar de pokémon 
+	private void addPokeballListeners() {
 		pb1.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 1) return;
 				pokeballSeleccionada = 1;
-
+				limpiaPaneles();
+							
 				if(pb1.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
@@ -525,7 +534,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 2) return;
 				pokeballSeleccionada = 2;
-				
+				limpiaPaneles();
+
 				if(pb2.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
@@ -551,7 +561,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 3) return;
 				pokeballSeleccionada = 3;
-				
+				limpiaPaneles();
+
 				if(pb3.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
@@ -578,7 +589,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 4) return;
 				pokeballSeleccionada = 4;
-				
+				limpiaPaneles();
+
 				if(pb4.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
@@ -605,7 +617,8 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 5) return;
 				pokeballSeleccionada = 5;
-				
+				limpiaPaneles();
+
 				if(pb5.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
 					comboMov1.setSelectedIndex(-1);
@@ -632,6 +645,7 @@ public class VentanaCreadorEquipos extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (pokeballSeleccionada == 6) return;
 				pokeballSeleccionada = 6;
+				limpiaPaneles();
 				
 				if(pb6.getPoke()==null) {
 					comboPoke.setSelectedIndex(-1);
@@ -652,6 +666,19 @@ public class VentanaCreadorEquipos extends JFrame {
 				}
 			}
 		});	
+	}
+	
+	private void limpiaPaneles() {
+		imgPoke.setIcon(null);
+		p1.removeAll();
+		p2.removeAll();
+		p3.removeAll();
+		p4.removeAll();
+		p1.setBackground(null);
+		p2.setBackground(null);
+		p3.setBackground(null);
+		p4.setBackground(null);
+		vc.revalidate();
 	}
 	
 	/**

@@ -142,3 +142,4 @@ Juego_sucio,Causa daño.
 Armadura_ácida,Aumenta mucho la defensa del usuario.
 Somnífero,Duerme al enemigo.
 Ala_de_acero,Causa daño y puede aumentar la defensa del usuario.
+Poder_pasado, Causa daño y puede aumentar todos los stats del usuario.

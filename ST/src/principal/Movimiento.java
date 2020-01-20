@@ -56,8 +56,7 @@ public class Movimiento {
 			cambiosEstadisticas[i] = 0;
 		}
 	}
-	
-	//TODO TODO Hay que añadir las probabilidades de los estados, de bajar stats...
+
 	public Movimiento(String nombre, Tipo tipo, int potencia, int precision, int pp, CategoriaMov cat,
 			int prio, AlcanceMovimiento alcance, EstadosAlterados estadoAlt, int probEstado, EfectoSecundario efecto, int probEfecto) {
 		this.nombre = nombre;
