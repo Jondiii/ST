@@ -150,7 +150,7 @@ public class VentanaSelectorEquipos extends JFrame {
 					Tipo type = Tipo.valueOf(rs.getString("tipo").toUpperCase());
 					movimiento.setOpaque(true);
 					movimiento.setBorder(BorderFactory.createBevelBorder(0));
-					movimiento.setBackground(type.getColor());//TODO
+					movimiento.setBackground(type.getColor());
 					pMovimientos.add(movimiento);
 				}
 				

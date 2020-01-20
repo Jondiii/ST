@@ -19,10 +19,6 @@ public class PanelMovimiento extends JPanel{
 	
 	public PanelMovimiento(Movimiento movimiento) {
 		this.mov = movimiento;
-	//COSAS A AÑADIR:
-	//Que el tamaño de la ventana se ajuste a la descripción o al revés.
-		//add(new Scrollbar(Scrollbar.HORIZONTAL));
-
 		anadirDatos();
 		setVisible(true);
 	}
@@ -48,7 +44,7 @@ public class PanelMovimiento extends JPanel{
 		
 		add(descripcion, BorderLayout.SOUTH);
 		
-		if(mov.getTipo() == Tipo.SINIESTRO  || mov.getTipo() == Tipo.ROCA || mov.getTipo() == Tipo.FANTASMA || mov.getTipo() == Tipo.AGUA) {
+		if(mov.getTipo() == Tipo.SINIESTRO  || mov.getTipo() == Tipo.ROCA || mov.getTipo() == Tipo.FANTASMA || mov.getTipo() == Tipo.AGUA || mov.getTipo() == Tipo.DRAGON) {
 			setForeground(Color.white); //Cambia la letra a blanco
 			descripcion.setForeground(Color.white);
 		}
