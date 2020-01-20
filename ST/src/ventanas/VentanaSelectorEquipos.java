@@ -23,6 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import database.BaseDatosPoke;
+import principal.AlcanceMovimiento;
+import principal.CategoriaMov;
+import principal.EfectoSecundario;
+import principal.EstadosAlterados;
+import principal.Movimiento;
 import principal.Pokemon;
 import principal.Tipo;
 import principal.Usuario;
@@ -35,8 +40,9 @@ public class VentanaSelectorEquipos extends JFrame {
 	ArrayList<String> nombresEquipos = new ArrayList<String>();
 	ArrayList<Integer> idsEquipos = new ArrayList<Integer>();
 	JPanel pCentro = new JPanel(new GridLayout(6,1));
-	
+	JComboBox comboEquipos;
 	HashMap<String, Integer[][]> pokesEnEquipo = new HashMap<String, Integer[][]>();
+	ArrayList<Pokemon> equipoFinal = new ArrayList<Pokemon>();
 	
 	public VentanaSelectorEquipos() {
 		vs = this;
@@ -49,7 +55,7 @@ public class VentanaSelectorEquipos extends JFrame {
 		
 		leerEquipos();
 		JPanel pCombo = new JPanel();
-		JComboBox comboEquipos = new JComboBox<String>(nombresEquipos.toArray(new String[nombresEquipos.size()]));
+		comboEquipos = new JComboBox<String>(nombresEquipos.toArray(new String[nombresEquipos.size()]));
 		pCombo.add(comboEquipos);
 		vs.add(pCentro, BorderLayout.CENTER);
 		add(pCombo, BorderLayout.NORTH);
@@ -187,7 +193,41 @@ public class VentanaSelectorEquipos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				Integer[][] equipo = pokesEnEquipo.get(comboEquipos.getSelectedItem());
+				try {
+					Connection conn = DriverManager.getConnection(BaseDatosPoke.url);
+					Statement stmt = conn.createStatement();
+					
+					for (Integer[] teamMember : equipo) {
+						ArrayList<Movimiento> listaMovs = new ArrayList<Movimiento>();
+						ResultSet rMov = stmt.executeQuery("SELECT * FROM movimientos WHERE id IN ("+teamMember[2]
+								+", "+teamMember[3]+", "+teamMember[4]+", "+teamMember[5]+");");
+						
+						while (rMov.next()) {
+							listaMovs.add(new Movimiento(rMov.getString("name").replace("_", " "), Tipo.valueOf(rMov.getString("tipo").toUpperCase()), rMov.getInt("potencia"), rMov.getInt("precision"),
+													rMov.getInt("pp"), CategoriaMov.valueOf(rMov.getString("categoria").toUpperCase()),	rMov.getInt("prioridad"),
+													AlcanceMovimiento.valueOf(rMov.getString("alcance").toUpperCase()), EstadosAlterados.valueOf(rMov.getString("efecto").toUpperCase()),
+													EfectoSecundario.valueOf(rMov.getString("estadoSecundario")), rMov.getFloat("prEstado"), rMov.getFloat("prStats"), rMov.getFloat("prEfecto"),
+													rMov.getBoolean("cambioStatsARival"), rMov.getInt("ataque"), rMov.getInt("defensa"), rMov.getInt("ataqueEspecial"),
+													rMov.getInt("defensaEspecial"), rMov.getInt("velocidad")));
+						}
+						
+						rMov.close();
+						
+						ResultSet rPoke = stmt.executeQuery("SELECT * FROM pokemons WHERE id="+teamMember[1]+";");
+						
+						equipoFinal.add(new Pokemon(rPoke.getString("name"), rPoke.getInt("altura"), rPoke.getInt("peso"), " ", rPoke.getInt("ps"),
+								rPoke.getInt("ataque"), rPoke.getInt("defensa"), rPoke.getInt("ataqueEspecial"), rPoke.getInt("defensaEspecial"),
+								rPoke.getInt("velocidad"), 50, listaMovs, Tipo.valueOf(rPoke.getString("tipo1").toUpperCase()),
+								Tipo.valueOf(rPoke.getString("tipo2").toUpperCase())));
+					}
+					
+					conn.close();
+				} catch (SQLException e2) {
+					System.out.println(e2.getMessage());
+				}
+			vs.dispose();//TODO antes de esto hay que hacer que el equipo se guarde en algún lado fuera de esta ventana.
+			
 			}
 		});
 		

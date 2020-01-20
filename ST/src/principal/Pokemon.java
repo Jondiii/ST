@@ -41,7 +41,7 @@ public class Pokemon {
 		this.nombre = nombre;
 		this.peso = peso;
 		this.altura = altura;
-		this.habilidad = habilidad;
+		this.habilidad = habilidad; //TODO esto se puede quitar
 		this.ps = ps;
 		setPs_max(ps);
 		this.ataque = ataque;
@@ -54,6 +54,8 @@ public class Pokemon {
 		this.movimientos_poke = movimientos_poke;
 		tipos = new ArrayList<>();
 		Collections.addAll(tipos, tipo);
+		
+		if(tipos.contains(Tipo.NULL)) tipos.remove(Tipo.NULL);
 		
 		for (int i = 0; i < cambiosEstadisticas.length; i++) {
 			cambiosEstadisticas[i] = 0;
