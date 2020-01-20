@@ -63,18 +63,8 @@ public class Servidor {
                   try {
 					if( in.readObject() instanceof ArrayList ) {
 						equipoList = (ArrayList<Pokemon>) in.readObject();
-					    if (conexones.size() >= 2) {
-					    	ArrayList<Pokemon> equipo_2 = null;
-					    	for (RespHilos rep : conexones) {
-					    		equipo_2 = rep.equipoList;
-					    		
-					    		break;
-					    		
-					    	}
-					    	Combate c = new Combate(equipoList, equipo_2);
-					    	VentanaJuego vj = new VentanaJuego(c);
-					    	System.out.println("Empieza el juego");
-					    	out.writeObject(vj);
+					    if (conexones.size() >= 2 && Cliente.estado == EstadsCliente.ESPERANDO) {
+					    	mandarventanaJuego();
 					    }
 					}
 				} catch (ClassNotFoundException e) {
@@ -94,7 +84,23 @@ public class Servidor {
             }
         }
 
-        public final void output(Socket sock, String message) throws IOException {
+        private void mandarventanaJuego() {
+			Cliente.estado = EstadsCliente.EN_PARTIDA;
+			ArrayList<Pokemon> equipoPokemons_J2 = null;
+			for (RespHilos rep: conexones) {
+				equipoPokemons_J2 = rep.equipoList;
+			}
+			Combate c = new Combate(equipoList, equipoPokemons_J2);
+			VentanaJuego vj = new VentanaJuego(c);
+			try {
+				out.writeObject(vj);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+
+		public final void output(Socket sock, String message) throws IOException {
             this.out.writeUTF(this.getName() + ": " + message);
         }
     }
