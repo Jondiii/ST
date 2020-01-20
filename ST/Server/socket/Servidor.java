@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import principal.Combate;
 import principal.Pokemon;
+import ventanas.VentanaJuego;
 public class Servidor {
 
     public static volatile ArrayList<RespHilos> conexones = new ArrayList<>();
@@ -66,9 +67,13 @@ public class Servidor {
 					    	ArrayList<Pokemon> equipo_2 = null;
 					    	for (RespHilos rep : conexones) {
 					    		equipo_2 = rep.equipoList;
+					    		
 					    		break;
+					    		
 					    	}
 					    	Combate c = new Combate(equipoList, equipo_2);
+					    	VentanaJuego vj = new VentanaJuego(c);
+					    	out.writeObject(vj);
 					    }
 					}
 				} catch (ClassNotFoundException e) {

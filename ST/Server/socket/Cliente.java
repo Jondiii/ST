@@ -11,29 +11,58 @@ import ventanas.VentanaSelecion;
 
 public class Cliente {
 
-	    private Socket clientSocket;
-	    private static ObjectOutputStream oos;
-	    private ObjectInputStream ois;
+	    private static Socket clientSocket;
 	    private boolean conectado = true;
+	    private static ObjectOutputStream oos;
 	    
 	    public void startConnection(String ip, int port) throws IOException, ClassNotFoundException {
 	            clientSocket = new Socket(ip, port);
-	            ois = new ObjectInputStream(clientSocket.getInputStream());
-	            oos= new ObjectOutputStream(clientSocket.getOutputStream());
-	            while (conectado) {
-	            	Object o = ois.readObject();
-	            	
-	            }
+	            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+	            new readThread().start();
+
+	        
+	    }
+
+	    public static class readThread extends Thread {
+	        @Override
+	        public void run() {
+	            boolean loop = true;
+	            while (loop) {
+	                    ObjectInputStream in = null;
+						try {
+							in = new ObjectInputStream(clientSocket.getInputStream());
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+	                    Object msg;
+						try {
+							msg = in.readObject();
+							if (msg instanceof VentanaJuego) {
+								((VentanaJuego) msg).setVisible(true);
+							}
+						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+	            
+	        }
+	    }
 	    }
 	    
-	    public static void sendObject (Object o) throws IOException {
-	    	oos.writeObject(o);
+	   
+	    public static void sendObject(Object o) {
+	    	try {
+				oos.writeObject(o);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	    }
+	    
 	    public void stopConnection() throws IOException {
-	            oos.close();
-	            ois.close();
 	            clientSocket.close();
 	        
 
 	    }
+	    
 	}
