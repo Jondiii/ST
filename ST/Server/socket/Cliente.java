@@ -14,11 +14,13 @@ public class Cliente {
 	    private static Socket clientSocket;
 	    private boolean conectado = true;
 	    private static ObjectOutputStream oos;
+	    private static ObjectInputStream in;
 		
 	    
 	    public void startConnection(String ip, int port) throws IOException, ClassNotFoundException {
 	            clientSocket = new Socket(ip, port);
 	            oos = new ObjectOutputStream(clientSocket.getOutputStream());
+	            in = new ObjectInputStream(clientSocket.getInputStream());
 	            new readThread().start();
 	            sendObject(VentanaSelecion.pokemons_para_combatir);
    
@@ -29,12 +31,6 @@ public class Cliente {
 	        public void run() {
 	            boolean loop = true;
 	            while (loop) {
-	                    ObjectInputStream in = null;
-						try {
-							in = new ObjectInputStream(clientSocket.getInputStream());
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
 	                    Object msg;
 						try {
 							msg = in.readObject();

@@ -46,8 +46,7 @@ public class Servidor {
     private void mandarventanaJuego() {
     	ArrayList<Pokemon> equipoPokemons_J1 = conexones.get(0).getEquipoList();
 		ArrayList<Pokemon> equipoPokemons_J2 = conexones.get(1).getEquipoList();
-		
-		
+	
 		try {
 			
 			Combate c = new Combate(equipoPokemons_J1, equipoPokemons_J2);
@@ -67,17 +66,22 @@ public class Servidor {
     public static class RespHilos extends Thread {
         private static Socket sock;
         private ObjectOutputStream out;
-        private ArrayList<Pokemon> equipoList;
+        private  ObjectInputStream in;
+        private ArrayList<Pokemon> equipoList = null;
         public RespHilos(Socket newSock) {
             sock = newSock;
+            try {
+            	in = new ObjectInputStream(sock.getInputStream());
+				out = new ObjectOutputStream(sock.getOutputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+            this.start();
         }
 
         @Override
         public void run() {
             try {
-                ObjectInputStream in = new ObjectInputStream(sock.getInputStream());
-                out = new ObjectOutputStream(sock.getOutputStream());
-
                 boolean loop = true;
                 while(loop) {
                   try {
@@ -101,11 +105,6 @@ public class Servidor {
             } catch (IOException ex) {
                 Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-
-		public final void output(Socket sock, String message) throws IOException {
-            this.out.writeUTF(this.getName() + ": " + message);
         }
 
 		public static Socket getSock() {
