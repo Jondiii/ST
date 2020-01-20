@@ -17,7 +17,7 @@ public class Cliente {
 	    
 	    public void startConnection(String ip, int port) throws IOException, ClassNotFoundException {
 	            clientSocket = new Socket(ip, port);
-	            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+	            oos = new ObjectOutputStream(clientSocket.getOutputStream());
 	            new readThread().start();
    
 	    }
