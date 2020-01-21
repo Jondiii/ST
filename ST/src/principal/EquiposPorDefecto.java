@@ -204,7 +204,7 @@ public class EquiposPorDefecto {
 		m.add(protec); m.add(besoDrenaje); m.add(escaldar); m.add(toxico);
 		m_ab.add(ventisca); m_ab.add(mazazo); m_ab.add(gigadrenado); m_ab.add(protec);
 		m_se.add(energibola); m_se.add(toxico); m_se.add(protec); m_se.add(gigadrenado);
-		m_sp.add(pulsoUmbrio); m_sp.add(bolaSombra); m_sp.add(maquinacion); m_sp.add(rayoConfuso);
+		m_sp.add(pulsoUmbrio); m_sp.add(bolaSombra); m_sp.add(maquinacion); m_sp.add(hipnosis);
 		m_dr.add(cometaDraco); m_dr.add(garraDragon); m_dr.add(golpeAereo); m_dr.add(danzaEspada);
 		m_ae.add(cabezaHierro); m_ae.add(sombraVil); m_ae.add(protec); m_ae.add(danzaEspada);
 		m_ch.add(llamarada); m_ch.add(golpeAereo); m_ch.add(puñoFuego); m_ch.add(garraDragon);
