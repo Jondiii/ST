@@ -84,41 +84,20 @@ public class VentanaSelecion extends JFrame {
 		JPanel pEscoger = new JPanel();
 		BoxLayout box = new BoxLayout(pEscoger, BoxLayout.Y_AXIS);
 		pEscoger.setLayout(box);
-//		JComboBox<Modalidades_Juego> escoger_modalidad = new JComboBox<Modalidades_Juego>();
-//		escoger_modalidad.setModel(new DefaultComboBoxModel<>(Modalidades_Juego.values()));
-//		escoger_modalidad.setMaximumSize( escoger_modalidad.getPreferredSize() );
-//		pEscoger.add(escoger_modalidad);
-		JButton luchar = new JButton("LUCHAR");
-		luchar.setMaximumSize(new Dimension(120, 40));
-		pEscoger.add(luchar);
+
+		JButton seleccionar_eq = new JButton("ELEGIR EQUIPO");
+		seleccionar_eq.setMaximumSize(new Dimension(140, 40));
+		pEscoger.add(seleccionar_eq);
 		
 		JButton clasif = new JButton("LADDER");
-		clasif.setMaximumSize(new Dimension(120, 40));
+		clasif.setMaximumSize(new Dimension(140, 40));
 		pEscoger.add(clasif);
 		
 		JButton crear_eq = new JButton("CREAR EQUIPO");
-		crear_eq.setMaximumSize(new Dimension(120, 40));
+		crear_eq.setMaximumSize(new Dimension(140, 40));
 		pEscoger.add(crear_eq);
 		
-		JButton seleccionar_eq = new JButton("ELEGIR EQUIPO");
-		crear_eq.setMaximumSize(new Dimension(120, 40));
-		pEscoger.add(seleccionar_eq);
-		
 		add(pEscoger, BorderLayout.CENTER);
-		
-		luchar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				Cliente c1 = new Cliente();
-		        try {
-					c1.startConnection("192.168.1.18", 5000); // si estoy en ethernet "192.168.1.18"// si estoy con wifi "192.168.1.105"
-					Cliente.sendObject(pokemons_para_combatir);
-		        } catch (ClassNotFoundException | IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
 		
 		clasif.addActionListener(new ActionListener() {
 
